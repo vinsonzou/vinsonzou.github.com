@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Openssl on ops</title>
+    <link>http://ops.m114.org:80/tags/openssl/</link>
+    <description>Recent content in Openssl on ops</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 25 Apr 2015 16:31:41 +0800</lastBuildDate>
+    <atom:link href="http://ops.m114.org:80/tags/openssl/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Monitor SSL certificate expiry</title>
+      <link>http://ops.m114.org/post/monitor-ssl-certificate-expiry/</link>
+      <pubDate>Sat, 25 Apr 2015 16:31:41 +0800</pubDate>
+      
+      <guid>http://ops.m114.org/post/monitor-ssl-certificate-expiry/</guid>
+      <description>&lt;p&gt;看到网上弄了个zabbix监控SSL证书过期时间的,给咱业务也加了个此监控。&lt;/p&gt;
+
+&lt;p&gt;改进如下：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;基于域名监控(一台服务器上有多个证书)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;当前使用的shell脚本如下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/bin/sh
+
+host=$1
+port=443
+end_date=`openssl s_client -servername $host -host $host -port $port -showcerts &amp;lt;/dev/null 2&amp;gt;/dev/null |
+  sed -n &#39;/BEGIN CERTIFICATE/,/END CERT/p&#39; |
+  openssl x509 -text 2&amp;gt;/dev/null |
+  sed -n &#39;s/ *Not After : *//p&#39;`
+# openssl 检验和验证SSL证书。
+# -servername $host 因一台主机存在多个证书，利用SNI特性检查
+# &amp;lt;/dev/null 定向标准输入，防止交互式程序Hang。从/dev/null 读时，直接读出0 。
+# sed -n 和p 一起使用，仅显示匹配到的部分。 //,// 区间匹配。
+# openssl x509 -text 解码证书信息，包含证书的有效期。
+
+if [ -n &amp;quot;$end_date&amp;quot; ]
+then
+    end_date_seconds=`date &#39;+%s&#39; --date &amp;quot;$end_date&amp;quot;`
+    now_seconds=`date &#39;+%s&#39;`
+    echo &amp;quot;($end_date_seconds-$now_seconds)/24/3600&amp;quot; | bc
+fi
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

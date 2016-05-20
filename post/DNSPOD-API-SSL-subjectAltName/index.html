@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> DNSPOD API SSL证书调整(subjectAltName)引起的报错 &middot; ops </title>
+
+  
+  <link rel="stylesheet" href="http://ops.m114.org//css/poole.css">
+  <link rel="stylesheet" href="http://ops.m114.org//css/hyde.css">
+  <link rel="stylesheet" href="http://ops.m114.org//css/tomorrow-night-eighties.css">
+
+  
+  <script src="http://ops.m114.org//js/jquery-1.9.1.min.js"></script>
+  <script src="http://ops.m114.org//js/pretty.print.js"></script>
+
+  
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="ops" />
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1><a href="/" style="text-decoration:none;">ops</a></h1>
+    </div>
+
+<ul class="catlist">
+  <li><a href="/post/"><span class="navlink"> Blog </span></a></li>
+  <li><a href="/tips/"><span class="navlink"> Tips </span></a></li>
+</ul>
+  </div>
+</div>
+
+
+<div id="page" class="content container">
+<div class="post">
+  <h1>DNSPOD API SSL证书调整(subjectAltName)引起的报错</h1>
+  <span class="post-date">Sun, May 10, 2015</span>
+      <p>报错信息如下：</p>
+
+<pre><code>Python 2.7 (r27:82500, Jan  7 2014, 23:14:35)
+[GCC 4.1.2 20080704 (Red Hat 4.1.2-50)] on linux2
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; import requests
+&gt;&gt;&gt; r = requests.get(&quot;https://dnsapi.cn&quot;)
+Traceback (most recent call last):
+    File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+    File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&quot;, line 55, in get
+        return request('get', url, **kwargs)
+    File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&quot;, line 44, in request
+        return session.request(method=method, url=url, **kwargs)
+    File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/sessions.py&quot;, line 361, in request
+        resp = self.send(prep, **send_kwargs)
+    File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/sessions.py&quot;, line 464, in send
+        r = adapter.send(request, **kwargs)
+    File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/adapters.py&quot;, line 363, in send
+        raise SSLError(e)
+requests.exceptions.SSLError: hostname 'dnsapi.cn' doesn't match u'www.dnspod.cn'
+</code></pre>
+
+<p>DNSPOD当前证书截图：
+<img src="http://m114-static.qiniudn.com/img/dnspod_cert.png" alt="dnspod" />
+</p>
+
+<p>证书信息查看</p>
+
+<pre><code>openssl s_client -connect dnsapi.cn:443 | tee dnsapi.cert
+openssl x509 -inform PEM -in dnsapi.cert -text
+</code></pre>
+
+<p>Python SSL验证</p>
+
+<pre><code>Python 2.7 (r27:82500, Jan  7 2014, 23:14:35)
+[GCC 4.1.2 20080704 (Red Hat 4.1.2-50)] on linux2
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt;  import _ssl
+&gt;&gt;&gt; _ssl._test_decode_cert('dnsapi.cert')
+{'notBefore': 'Mar 24 00:00:00 2015 GMT', 'serialNumber': '3E4F6D495C407163586D0B900A007555', 'notAfter': 'May 12 23:59:59 2015 GMT', 'version': 3, 'subject': ((('1.3.6.1.4.1.311.60.2.1.3', u'CN'),), (('1.3.6.1.4.1.311.60.2.1.2', u'ShanDong'),), (('1.3.6.1.4.1.311.60.2.1.1', u'YanTai'),), (('2.5.4.15', u'Private Organization'),), (('serialNumber', u'370635200013814'),), (('countryName', u'CN'),), (('stateOrProvinceName', u'\u5c71\u4e1c\u7701'),), (('localityName', u'\u70df\u53f0\u5e02'),), (('organizationName', u'DNSPod, Inc.'),), (('organizationalUnitName', u'IT'),), (('commonName', u'www.dnspod.cn'),)), 'issuer': ((('countryName', u'US'),), (('organizationName', u'GeoTrust Inc.'),), (('commonName', u'GeoTrust Extended Validation SSL CA - G2'),))}
+
+
+Python 2.7.6 (default, Sep  9 2014, 15:04:36)
+[GCC 4.2.1 Compatible Apple LLVM 6.0 (clang-600.0.39)] on darwin
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; import _ssl
+&gt;&gt;&gt; _ssl._test_decode_cert('dnsapi.cert')
+{'subjectAltName': (('DNS', 'www.dnsapi.cn'), ('DNS', 'monitor.dnspod.cn'), ('DNS', 'api.dnspod.com'), ('DNS', 'tickets.dnspod.com'), ('DNS', 'ec.dnspod.cn'), ('DNS', 'domains.dnspod.cn'), ('DNS', 'support.dnspod.cn'), ('DNS', 'm.dnspod.cn'), ('DNS', 'ssl.ptlogin2.dnspod.cn'), ('DNS', 'monitor.dnspod.com'), ('DNS', 'support.dnspod.com'), ('DNS', 'tickets.dnspod.cn'), ('DNS', 'statics.dnspod.cn'), ('DNS', 'stat.dnspod.cn'), ('DNS', 'www.dnspod.com'), ('DNS', 'dnspod.com'), ('DNS', 'static.dnspod.com'), ('DNS', 'libs.dnspod.cn'), ('DNS', 'blog.dnspod.cn'), ('DNS', 'dnsapi.cn'), ('DNS', 'www.dnspod.cn'), ('DNS', 'dnspod.cn')), 'notBefore': 'Mar 24 00:00:00 2015 GMT', 'serialNumber': '3E4F6D495C407163586D0B900A007555', 'notAfter': 'May 12 23:59:59 2015 GMT', 'version': 3, 'subject': ((('1.3.6.1.4.1.311.60.2.1.3', u'CN'),), (('1.3.6.1.4.1.311.60.2.1.2', u'ShanDong'),), (('1.3.6.1.4.1.311.60.2.1.1', u'YanTai'),), (('businessCategory', u'Private Organization'),), (('serialNumber', u'370635200013814'),), (('countryName', u'CN'),), (('stateOrProvinceName', u'\u5c71\u4e1c\u7701'),), (('localityName', u'\u70df\u53f0\u5e02'),), (('organizationName', u'DNSPod, Inc.'),), (('organizationalUnitName', u'IT'),), (('commonName', u'www.dnspod.cn'),)), 'issuer': ((('countryName', u'US'),), (('organizationName', u'GeoTrust Inc.'),), (('commonName', u'GeoTrust Extended Validation SSL CA - G2'),))}
+</code></pre>
+
+<p>解决方法：</p>
+
+<p><strong><code>升级Python至2.7.3以上版本,低版本不支持ssl的subjectAltName特性</code></strong></p>
+
+<p>来源参考:</p>
+
+<p><a href="https://github.com/shazow/urllib3/issues/523">https://github.com/shazow/urllib3/issues/523</a></p>
+
+</div>
+
+
+<div>
+    <ul id="tags">
+      
+        <li> <a href="http://ops.m114.org//tags/subjectaltname">subjectAltName</a> </li>
+      
+    </ul>
+</div>
+
+<div>
+    <section id="prev">
+        &nbsp;<a class="previous" href="http://ops.m114.org/post/kernel-igb-00000100-0-eth0-reset-adapter/">上一篇：kernel igb 00000500 0 eth0 reset adapter</a><br>
+    </section><section id="next">
+        &nbsp;<a class="next" href="http://ops.m114.org/tips/russia-permanent-winter-time/">下一篇：俄罗斯永久冬令时的坑</a>
+    </section>
+</div>
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost") 
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'vinsoncou';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the comments powered by <a href="http://disqus.com/?ref_noscript">Disqus.</a></noscript>
+
+</div>
+
+
+<script type="text/javascript">
+$('pre > code').parent().addClass("prettyprint");
+prettyPrint();
+</script>
+
+  </body>
+</html>
+

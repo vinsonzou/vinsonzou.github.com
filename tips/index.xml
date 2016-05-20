@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tips on ops</title>
+    <link>http://ops.m114.org:80/tips/</link>
+    <description>Recent content in Tips on ops</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 26 Apr 2015 16:59:30 +0800</lastBuildDate>
+    <atom:link href="http://ops.m114.org:80/tips/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>俄罗斯永久冬令时的坑</title>
+      <link>http://ops.m114.org/tips/russia-permanent-winter-time/</link>
+      <pubDate>Sun, 26 Apr 2015 16:59:30 +0800</pubDate>
+      
+      <guid>http://ops.m114.org/tips/russia-permanent-winter-time/</guid>
+      <description>
+
+&lt;h3 id=&#34;系统环境:33cac6d261ec400d5f39ec8c27c64700&#34;&gt;系统环境&lt;/h3&gt;
+
+&lt;p&gt;OS: CentOS 6.X&lt;/p&gt;
+
+&lt;p&gt;JDK: 6&lt;/p&gt;
+
+&lt;h3 id=&#34;背景:33cac6d261ec400d5f39ec8c27c64700&#34;&gt;背景&lt;/h3&gt;
+
+&lt;p&gt;因游戏在俄罗斯运营，采用了莫斯科时间，俄罗斯宣布2014年10月26日开始永久冬令时。&lt;/p&gt;
+
+&lt;h3 id=&#34;过程:33cac6d261ec400d5f39ec8c27c64700&#34;&gt;过程&lt;/h3&gt;
+
+&lt;p&gt;更新了系统时区文件，保证系统时间不会切换至夏令时，执行&lt;code&gt;yum update tzdata&lt;/code&gt;即可。&lt;/p&gt;
+
+&lt;p&gt;但在莫斯科时间的2015年3月29日凌晨2点，java游戏进程的日志时间跳到了凌晨3点(比系统时间快了1个小时)&lt;/p&gt;
+
+&lt;h3 id=&#34;解决方法:33cac6d261ec400d5f39ec8c27c64700&#34;&gt;解决方法&lt;/h3&gt;
+
+&lt;p&gt;更新JDK的时区文件即可&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ln -sf /usr/share/zoneinfo/Europe/Moscow /usr/local/jdk/jre/lib/zi/Europe/Moscow
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

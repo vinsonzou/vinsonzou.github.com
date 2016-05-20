@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> 利用TsunamiUDP加速跨机房迁移 &middot; ops </title>
+
+  
+  <link rel="stylesheet" href="http://ops.m114.org//css/poole.css">
+  <link rel="stylesheet" href="http://ops.m114.org//css/hyde.css">
+  <link rel="stylesheet" href="http://ops.m114.org//css/tomorrow-night-eighties.css">
+
+  
+  <script src="http://ops.m114.org//js/jquery-1.9.1.min.js"></script>
+  <script src="http://ops.m114.org//js/pretty.print.js"></script>
+
+  
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="ops" />
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1><a href="/" style="text-decoration:none;">ops</a></h1>
+    </div>
+
+<ul class="catlist">
+  <li><a href="/post/"><span class="navlink"> Blog </span></a></li>
+  <li><a href="/tips/"><span class="navlink"> Tips </span></a></li>
+</ul>
+  </div>
+</div>
+
+
+<div id="page" class="content container">
+<div class="post">
+  <h1>利用TsunamiUDP加速跨机房迁移</h1>
+  <span class="post-date">Sun, Apr 26, 2015</span>
+      
+
+<h2 id="部署:1390cc2c30e4b37523ebd768ec9abe1b">部署</h2>
+
+<pre><code>yum -y install automake autoconf
+
+git clone git://github.com/rriley/tsunami-udp.git
+cd tsunami-udp
+./recompile.sh
+cp server/tsunamid client/tsunami /usr/bin
+
+#或者从sf.net下载
+wget http://iweb.dl.sourceforge.net/project/tsunami-udp/tsunami-udp/tsunami-v1.1-cvsbuild42/tsunami-v1.1-cvsbuild42.tar.gz
+tar zxf tsunami-v1.1-cvsbuild42.tar.gz
+cd tsunami-udp-v11-b42
+./recompile.sh
+cp server/tsunamid client/tsunami /usr/bin
+</code></pre>
+
+<h2 id="使用:1390cc2c30e4b37523ebd768ec9abe1b">使用</h2>
+
+<pre><code>#1、防火墙调整
+#服务端：开启TCP 46224(默认端口)
+#客户端：开启UDP 46224(默认端口)
+
+#2、开启服务端
+#待迁移文件都放在/app/game_data目录下(也可指定单文件传输)
+
+tsunamid --hbtimeout 60 /app/game_data/*
+
+#PS：这里设定心跳包超时时间为60秒，默认为15秒，在使用中很容易中断导致传输失败
+
+#3、开启客户端
+# 拉取服务端(122.225.100.100)的game_db.lz4文件，并限速100M(建议限制下，不然机房带宽就满了哦)
+tsunami set rate 100M connect 122.225.100.100 get gcmob_db.lz4
+
+# 拉取目录下所有文件
+tsunami set rate 100M connect 122.225.100.100 get \*
+
+#文档：http://tsunami-udp.cvs.sourceforge.net/viewvc/tsunami-udp/docs/USAGE.txt
+
+PS：未避免泄密，IP是随机填的
+</code></pre>
+
+<h2 id="跨机房迁移示例:1390cc2c30e4b37523ebd768ec9abe1b">跨机房迁移示例</h2>
+
+<p>场景：
+将14G文件从杭州机房迁移至北京机房</p>
+
+<ul>
+<li><p>方法1：使用wget下载
+<img src="http://m114-static.qiniudn.com/img/wget.png" alt="wget下载" />
+</p></li>
+
+<li><p>方法2：使用TsunamiUDP工具
+<img src="http://m114-static.qiniudn.com/img/TsunamiUDP.jpg" alt="TsunamiUDP下载" />
+</p></li>
+</ul>
+
+<p>总结:</p>
+
+<p>TsunamiUDP相比wget优势太明显了，TsunamiUDP把带宽能跑满，而wget的速度不敢恭维。</p>
+
+<h2 id="参考:1390cc2c30e4b37523ebd768ec9abe1b">参考</h2>
+
+<p><a href="http://sysadminandnetworking.blogspot.com/2013/06/tsunami-udp-faster-than-rsync.html">http://sysadminandnetworking.blogspot.com/2013/06/tsunami-udp-faster-than-rsync.html</a>
+<a href="http://blog.csdn.net/awschina/article/details/38661889">http://blog.csdn.net/awschina/article/details/38661889</a></p>
+
+</div>
+
+
+<div>
+    <ul id="tags">
+      
+        <li> <a href="http://ops.m114.org//tags/tsunamiudp">TsunamiUDP</a> </li>
+      
+    </ul>
+</div>
+
+<div>
+    <section id="prev">
+        &nbsp;<a class="previous" href="http://ops.m114.org/tips/russia-permanent-winter-time/">上一篇：俄罗斯永久冬令时的坑</a><br>
+    </section><section id="next">
+        &nbsp;<a class="next" href="http://ops.m114.org/post/zabbix-alerts-use-telegram/">下一篇：Zabbix使用Telegram发送报警</a>
+    </section>
+</div>
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost") 
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'vinsoncou';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the comments powered by <a href="http://disqus.com/?ref_noscript">Disqus.</a></noscript>
+
+</div>
+
+
+<script type="text/javascript">
+$('pre > code').parent().addClass("prettyprint");
+prettyPrint();
+</script>
+
+  </body>
+</html>
+

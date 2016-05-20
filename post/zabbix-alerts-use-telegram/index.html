@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> Zabbix使用Telegram发送报警 &middot; ops </title>
+
+  
+  <link rel="stylesheet" href="http://ops.m114.org//css/poole.css">
+  <link rel="stylesheet" href="http://ops.m114.org//css/hyde.css">
+  <link rel="stylesheet" href="http://ops.m114.org//css/tomorrow-night-eighties.css">
+
+  
+  <script src="http://ops.m114.org//js/jquery-1.9.1.min.js"></script>
+  <script src="http://ops.m114.org//js/pretty.print.js"></script>
+
+  
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="ops" />
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1><a href="/" style="text-decoration:none;">ops</a></h1>
+    </div>
+
+<ul class="catlist">
+  <li><a href="/post/"><span class="navlink"> Blog </span></a></li>
+  <li><a href="/tips/"><span class="navlink"> Tips </span></a></li>
+</ul>
+  </div>
+</div>
+
+
+<div id="page" class="content container">
+<div class="post">
+  <h1>Zabbix使用Telegram发送报警</h1>
+  <span class="post-date">Sat, Apr 25, 2015</span>
+      
+
+<h3 id="环境:36b0c308d7ec12f7aa9f0b6f722a727f">环境</h3>
+
+<p>CentOS 6.X x86_64</p>
+
+<h3 id="编译telegram:36b0c308d7ec12f7aa9f0b6f722a727f">编译Telegram</h3>
+
+<pre><code>yum -y install lua-devel openssl-devel libconfig-devel readline-devel libevent-devel
+
+git clone --recursive https://github.com/vysheng/tg.git
+cd tg
+./configure
+make
+
+mkdir /usr/local/tg
+cp tg-server.pub /usr/local/tg
+cp bin/telegram-cli /usr/local/tg
+</code></pre>
+
+<p>zabbix报警脚本/usr/local/tg/telegram.sh:</p>
+
+<pre><code>#!/bin/sh
+
+cd `dirname $0`
+./telegram-cli -k tg-server.pub -WDCRE -P 8890 -d &amp;&gt;/dev/null &amp;
+</code></pre>
+
+<h3 id="zabbix报警配置:36b0c308d7ec12f7aa9f0b6f722a727f">Zabbix报警配置</h3>
+
+<p>将如下Zabbix Server配置注释并修改如下
+AlertScriptsPath=/usr/local/zabbix/alertscripts</p>
+
+<p><code>/usr/local/zabbix/alertscripts/tg.sh</code>内容如下:</p>
+
+<pre><code>#!/bin/sh
+
+export to=$1;
+export subject=$2;
+export body=$3;
+
+echo -e &quot;msg $to ${subject}_#_${body}&quot; | nc localhost 8890
+#注意事项: body只能有一行内容，超过一行的内容是不会发送的。
+</code></pre>
+
+<p>Zabbix添加Media types
+<img src="http://m114-static.qiniudn.com/img/media_Telegram.png" alt="media_Telegram" />
+</p>
+
+<p>PS：Telegram已于2015年7月10日被天朝和谐。。。</p>
+
+</div>
+
+
+<div>
+    <ul id="tags">
+      
+        <li> <a href="http://ops.m114.org//tags/zabbix">Zabbix</a> </li>
+      
+        <li> <a href="http://ops.m114.org//tags/telegram">Telegram</a> </li>
+      
+    </ul>
+</div>
+
+<div>
+    <section id="prev">
+        &nbsp;<a class="previous" href="http://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/">上一篇：利用TsunamiUDP加速跨机房迁移</a><br>
+    </section><section id="next">
+        &nbsp;<a class="next" href="http://ops.m114.org/post/monitor-ssl-certificate-expiry/">下一篇：Monitor SSL certificate expiry</a>
+    </section>
+</div>
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost") 
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'vinsoncou';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the comments powered by <a href="http://disqus.com/?ref_noscript">Disqus.</a></noscript>
+
+</div>
+
+
+<script type="text/javascript">
+$('pre > code').parent().addClass("prettyprint");
+prettyPrint();
+</script>
+
+  </body>
+</html>
+

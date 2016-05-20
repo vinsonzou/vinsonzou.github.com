@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ops</title>
+    <link>http://ops.m114.org:80/tags/</link>
+    <description>Recent content on ops</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 03 Jun 2015 23:04:55 +0800</lastBuildDate>
+    <atom:link href="http://ops.m114.org:80/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>kernel igb 00000500 0 eth0 reset adapter</title>
+      <link>http://ops.m114.org/post/kernel-igb-00000100-0-eth0-reset-adapter/</link>
+      <pubDate>Wed, 03 Jun 2015 23:04:55 +0800</pubDate>
+      
+      <guid>http://ops.m114.org/post/kernel-igb-00000100-0-eth0-reset-adapter/</guid>
+      <description>&lt;p&gt;系统环境&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;CentOS 6.4&lt;/li&gt;
+&lt;li&gt;igb driver version 4.0.1-k&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;报错信息如下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Jun  3 13:20:05 localhost kernel: igb 0000:05:00.1: eth1: Reset adapter
+Jun  3 13:20:06 localhost kernel: igb 0000:05:00.0: eth0: Reset adapter
+Jun  3 13:20:11 localhost kernel: igb: eth1 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX
+Jun  3 13:20:12 localhost kernel: igb: eth0 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX
+Jun  3 13:55:26 localhost kernel: igb 0000:05:00.1: eth1: Reset adapter
+Jun  3 13:55:27 localhost kernel: igb 0000:05:00.0: eth0: Reset adapter
+Jun  3 13:55:30 localhost kernel: igb: eth1 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX
+Jun  3 13:55:30 localhost kernel: igb: eth0 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;解决办法,参考&lt;a href=&#34;https://bugs.centos.org/view.php?id=7034&#34;&gt;CentOS Bug Tracker&lt;/a&gt;，升级igb driver至5.1.2以上，我这里直接升级至最新版本。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;wget http://sourceforge.net/projects/e1000/files/igb%20stable/5.2.18/igb-5.2.18.tar.gz/download -O igb-5.2.18.tar.gz
+tar zxf igb-5.2.18.tar.gz
+cd igb-5.2.18/src/igb-5.1.2/src
+yum install kernel-devel
+make install
+rmmod igb; modprobe igb
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

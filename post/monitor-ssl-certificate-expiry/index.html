@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title> Monitor SSL certificate expiry &middot; ops </title>
+
+  
+  <link rel="stylesheet" href="http://ops.m114.org//css/poole.css">
+  <link rel="stylesheet" href="http://ops.m114.org//css/hyde.css">
+  <link rel="stylesheet" href="http://ops.m114.org//css/tomorrow-night-eighties.css">
+
+  
+  <script src="http://ops.m114.org//js/jquery-1.9.1.min.js"></script>
+  <script src="http://ops.m114.org//js/pretty.print.js"></script>
+
+  
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="ops" />
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <h1><a href="/" style="text-decoration:none;">ops</a></h1>
+    </div>
+
+<ul class="catlist">
+  <li><a href="/post/"><span class="navlink"> Blog </span></a></li>
+  <li><a href="/tips/"><span class="navlink"> Tips </span></a></li>
+</ul>
+  </div>
+</div>
+
+
+<div id="page" class="content container">
+<div class="post">
+  <h1>Monitor SSL certificate expiry</h1>
+  <span class="post-date">Sat, Apr 25, 2015</span>
+      <p>看到网上弄了个zabbix监控SSL证书过期时间的,给咱业务也加了个此监控。</p>
+
+<p>改进如下：</p>
+
+<blockquote>
+<ul>
+<li>基于域名监控(一台服务器上有多个证书)</li>
+</ul>
+</blockquote>
+
+<p>当前使用的shell脚本如下</p>
+
+<pre><code>#!/bin/sh
+
+host=$1
+port=443
+end_date=`openssl s_client -servername $host -host $host -port $port -showcerts &lt;/dev/null 2&gt;/dev/null |
+  sed -n '/BEGIN CERTIFICATE/,/END CERT/p' |
+  openssl x509 -text 2&gt;/dev/null |
+  sed -n 's/ *Not After : *//p'`
+# openssl 检验和验证SSL证书。
+# -servername $host 因一台主机存在多个证书，利用SNI特性检查
+# &lt;/dev/null 定向标准输入，防止交互式程序Hang。从/dev/null 读时，直接读出0 。
+# sed -n 和p 一起使用，仅显示匹配到的部分。 //,// 区间匹配。
+# openssl x509 -text 解码证书信息，包含证书的有效期。
+
+if [ -n &quot;$end_date&quot; ]
+then
+    end_date_seconds=`date '+%s' --date &quot;$end_date&quot;`
+    now_seconds=`date '+%s'`
+    echo &quot;($end_date_seconds-$now_seconds)/24/3600&quot; | bc
+fi
+</code></pre>
+
+</div>
+
+
+<div>
+    <ul id="tags">
+      
+        <li> <a href="http://ops.m114.org//tags/zabbix">zabbix</a> </li>
+      
+        <li> <a href="http://ops.m114.org//tags/openssl">openssl</a> </li>
+      
+    </ul>
+</div>
+
+<div>
+    <section id="prev">
+        &nbsp;<a class="previous" href="http://ops.m114.org/post/zabbix-alerts-use-telegram/">上一篇：Zabbix使用Telegram发送报警</a><br>
+    </section><section id="next">
+        &nbsp;<a class="next" href="http://ops.m114.org/post/how-to-use-hugo/">下一篇：使用Hugo搭建免费个人Blog</a>
+    </section>
+</div>
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost") 
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'vinsoncou';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the comments powered by <a href="http://disqus.com/?ref_noscript">Disqus.</a></noscript>
+
+</div>
+
+
+<script type="text/javascript">
+$('pre > code').parent().addClass("prettyprint");
+prettyPrint();
+</script>
+
+  </body>
+</html>
+

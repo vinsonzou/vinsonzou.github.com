@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://ops.m114.org/</loc>
+    <lastmod>2015-06-03T23:04:55+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://ops.m114.org/post/kernel-igb-00000100-0-eth0-reset-adapter/</loc>
+    <lastmod>2015-06-03T23:04:55+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://ops.m114.org/post/DNSPOD-API-SSL-subjectAltName/</loc>
+    <lastmod>2015-05-10T23:44:43+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://ops.m114.org/tips/russia-permanent-winter-time/</loc>
+    <lastmod>2015-04-26T16:59:30+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/</loc>
+    <lastmod>2015-04-26T16:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://ops.m114.org/post/zabbix-alerts-use-telegram/</loc>
+    <lastmod>2015-04-25T17:16:29+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://ops.m114.org/post/monitor-ssl-certificate-expiry/</loc>
+    <lastmod>2015-04-25T16:31:41+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://ops.m114.org/post/how-to-use-hugo/</loc>
+    <lastmod>2014-11-11T17:15:00+08:00</lastmod>
+  </url>
+  
+</urlset>
