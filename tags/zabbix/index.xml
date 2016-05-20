@@ -2,12 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Zabbix on ops</title>
-    <link>http://ops.m114.org:80/tags/zabbix/</link>
+    <link>http://ops.m114.org/tags/zabbix/</link>
     <description>Recent content in Zabbix on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
+    <copyright>&amp;copy; 2014-2016. All rights reserved.</copyright>
     <lastBuildDate>Sat, 25 Apr 2015 17:16:29 +0800</lastBuildDate>
-    <atom:link href="http://ops.m114.org:80/tags/zabbix/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://ops.m114.org/tags/zabbix/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Zabbix使用Telegram发送报警</title>
@@ -61,8 +62,7 @@ echo -e &amp;quot;msg $to ${subject}_#_${body}&amp;quot; | nc localhost 8890
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;Zabbix添加Media types
-&lt;img src=&#34;http://m114-static.qiniudn.com/img/media_Telegram.png&#34; alt=&#34;media_Telegram&#34; /&gt;
-&lt;/p&gt;
+&lt;img src=&#34;http://m114-static.qiniudn.com/img/media_Telegram.png&#34; alt=&#34;media_Telegram&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;PS：Telegram已于2015年7月10日被天朝和谐。。。&lt;/p&gt;
 </description>

@@ -1,50 +1,207 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<html lang="en">
+
 <head>
-  <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.15" />
+
+  <title>Zabbix使用Telegram发送报警 &middot; ops</title>
 
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
 
-  <title> Zabbix使用Telegram发送报警 &middot; ops </title>
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="http://ops.m114.org/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="http://ops.m114.org/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="http://ops.m114.org/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="http://ops.m114.org//css/poole.css">
-  <link rel="stylesheet" href="http://ops.m114.org//css/hyde.css">
-  <link rel="stylesheet" href="http://ops.m114.org//css/tomorrow-night-eighties.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
   
-  <script src="http://ops.m114.org//js/jquery-1.9.1.min.js"></script>
-  <script src="http://ops.m114.org//js/pretty.print.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
 
   
-  <link rel="shortcut icon" href="/favicon.png">
+  
 
   
-  <link href="" rel="alternate" type="application/rss+xml" title="ops" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="http://ops.m114.org/img/favicon.ico" type="image/x-icon" />
+
 </head>
+
+
 <body>
+<div id="layout">
 
-<div class="sidebar">
-  <div class="container sidebar-sticky">
-    <div class="sidebar-about">
-      <h1><a href="/" style="text-decoration:none;">ops</a></h1>
-    </div>
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
 
-<ul class="catlist">
-  <li><a href="/post/"><span class="navlink"> Blog </span></a></li>
-  <li><a href="/tips/"><span class="navlink"> Tips </span></a></li>
-</ul>
+  
+  <a class="pure-menu-heading brand" href="http://ops.m114.org/">Ops</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="http://ops.m114.org/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="http://ops.m114.org/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="http://ops.m114.org/tips/"><i class='fa fa-list fa-fw'></i>Tips</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="http://ops.m114.org/tags/"><i class='fa fa-tags fa-fw'></i>Tags</a>
+      
+        </li>
+      
+    </ul>
   </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/vinsonzou" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+  </ul>
 </div>
 
 
-<div id="page" class="content container">
-<div class="post">
+  <div>
+  <div class="small-print">
+    <small>&copy; 2014-2016. All rights reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
   <h1>Zabbix使用Telegram发送报警</h1>
-  <span class="post-date">Sat, Apr 25, 2015</span>
-      
+  <h2></h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2015/04/25, 17:16</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="http://ops.m114.org/tags/zabbix">Zabbix</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="http://ops.m114.org/tags/telegram">Telegram</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  
 
 <h3 id="环境:36b0c308d7ec12f7aa9f0b6f722a727f">环境</h3>
 
@@ -90,40 +247,52 @@ echo -e &quot;msg $to ${subject}_#_${body}&quot; | nc localhost 8890
 </code></pre>
 
 <p>Zabbix添加Media types
-<img src="http://m114-static.qiniudn.com/img/media_Telegram.png" alt="media_Telegram" />
-</p>
+<img src="http://m114-static.qiniudn.com/img/media_Telegram.png" alt="media_Telegram" /></p>
 
 <p>PS：Telegram已于2015年7月10日被天朝和谐。。。</p>
 
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="http://ops.m114.org/post/monitor-ssl-certificate-expiry/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="http://ops.m114.org/post/monitor-ssl-certificate-expiry/">Monitor SSL certificate expiry</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="next">
+      <a href="http://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/">利用TsunamiUDP加速跨机房迁移</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="http://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/"><i class="fa fa-chevron-right"></i></a>
+    
+  </div>
 </div>
 
 
-<div>
-    <ul id="tags">
-      
-        <li> <a href="http://ops.m114.org//tags/zabbix">Zabbix</a> </li>
-      
-        <li> <a href="http://ops.m114.org//tags/telegram">Telegram</a> </li>
-      
-    </ul>
-</div>
 
-<div>
-    <section id="prev">
-        &nbsp;<a class="previous" href="http://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/">上一篇：利用TsunamiUDP加速跨机房迁移</a><br>
-    </section><section id="next">
-        &nbsp;<a class="next" href="http://ops.m114.org/post/monitor-ssl-certificate-expiry/">下一篇：Monitor SSL certificate expiry</a>
-    </section>
-</div>
-
-
+  
 <div id="disqus_thread"></div>
 <script type="text/javascript">
 
 (function() {
     
     
-    if (window.location.hostname == "localhost") 
+    if (window.location.hostname == "localhost")
         return;
 
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -132,16 +301,19 @@ echo -e &quot;msg $to ${subject}_#_${body}&quot; | nc localhost 8890
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 })();
 </script>
-<noscript>Please enable JavaScript to view the comments powered by <a href="http://disqus.com/?ref_noscript">Disqus.</a></noscript>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
 
 </div>
 
+</div>
+</div>
+<script src="http://ops.m114.org/js/ui.js"></script>
 
-<script type="text/javascript">
-$('pre > code').parent().addClass("prettyprint");
-prettyPrint();
-</script>
 
-  </body>
+
+
+<script data-no-instant>document.write('<script src="/livereload.js?mindelay=10"></' + 'script>')</script></body>
 </html>
 

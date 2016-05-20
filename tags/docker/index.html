@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.15" />
 
-  <title>俄罗斯永久冬令时的坑 &middot; ops</title>
+  <title>Docker &middot; ops</title>
 
   
   
@@ -36,6 +36,8 @@
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
 
   
+  
+  <link rel="alternate" type="application/rss+xml" title="ops" href="http://ops.m114.org/tags/docker/index.xml" />
   
 
   
@@ -96,6 +98,10 @@
   <div class="pure-menu social">
   <ul class="pure-menu-list">
 
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="http://ops.m114.org/tags/docker/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+    </li>
     
 
     
@@ -169,35 +175,54 @@
 
 
 <div class="header">
-  <h1>俄罗斯永久冬令时的坑</h1>
-  <h2></h2>
+  <h1>Docker</h1>
 </div>
+
 <div class="content">
   
+    <article>
+  <header>
+    <h2><a href="http://ops.m114.org/post/docker-for-mac-beta/">Docker for Mac Beta尝鲜</a></h2>
 
-<h3 id="系统环境:33cac6d261ec400d5f39ec8c27c64700">系统环境</h3>
+    <div class="post-meta">
 
-<p>OS: CentOS 6.X</p>
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2016/05/20, 00:05</time>
+  </div>
 
-<p>JDK: 6</p>
+  
 
-<h3 id="背景:33cac6d261ec400d5f39ec8c27c64700">背景</h3>
+  
 
-<p>因游戏在俄罗斯运营，采用了莫斯科时间，俄罗斯宣布2014年10月26日开始永久冬令时。</p>
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="http://ops.m114.org/tags/docker">Docker</a>
+    
+  </div>
+  
+  
 
-<h3 id="过程:33cac6d261ec400d5f39ec8c27c64700">过程</h3>
+</div>
 
-<p>更新了系统时区文件，保证系统时间不会切换至夏令时，执行<code>yum update tzdata</code>即可。</p>
+  </header>
 
-<p>但在莫斯科时间的2015年3月29日凌晨2点，java游戏进程的日志时间跳到了凌晨3点(比系统时间快了1个小时)</p>
+  <p>
+  Docker for Mac Docker for Mac 是一个原生的苹果应用程序，被安装到 /Application 目录。安装时会创建 /usr/local/bin 目录下的 docker、docker-compose、docker-machine 符号链接，这些符号链接指向 ~/Library/Group Containers/group.com.docker/bin 目录下的各类文件，而 ~/Library/Group Containers/group.com.docker/bin 的文件实际上也是符号链接，他们指向 /Applications/Docker.app/Contents/Resources/bin 目录下的实际二进制文件。 Docker for Mac 使用通过 Hypervisor.framework 提供的轻量级的 xhyve 虚拟化技术 Docker for Mac 不使用 docker-machine 管理虚拟机 Docker for Mac 不通过 TCP 端口通信，反而使用 /var/tmp/docker.sock 套接字文件通信（实际上是将 /var/tmp 目录挂载到了虚拟机中，虚拟机在其中生成套接字文件） 由于使用了 xhyve 虚拟机，所以可以模拟不同架构的处理器，这样开发者就直接能在 Mac 上使用 Docker 使用诸多平台的镜像文件，比如 arm 等。 为了能主机虚拟机共享文件，Docker 使用 osxfs 作为全新的文件共享方案，在很多方面都有全新的特性，比如在文件权限、命名空间、文件所有者、文件系统事件、挂载点、符号链接、文件类型、扩展属性等方面都有了全新的内容，并且，所有产生的日志都能通过 syslog 查询，非常方便。不过现在依旧存在许多问题，比如没有设置 docker daemon 各项参数的接口。 如何为Docker Engine设置代理 screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty 敲一下回车，登录，用户名root，没有密码，直接回车。编辑/etc/init.d/docker文件，如下添加代理： start-stop-daemon --start
+  </p>
 
-<h3 id="解决方法:33cac6d261ec400d5f39ec8c27c64700">解决方法</h3>
+  
+  <footer>
+    <a href="http://ops.m114.org/post/docker-for-mac-beta/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
 
-<p>更新JDK的时区文件即可</p>
-
-<pre><code>ln -sf /usr/share/zoneinfo/Europe/Moscow /usr/local/jdk/jre/lib/zi/Europe/Moscow
-</code></pre>
-
+  
 </div>
 
 </div>
@@ -209,4 +234,3 @@
 
 <script data-no-instant>document.write('<script src="/livereload.js?mindelay=10"></' + 'script>')</script></body>
 </html>
-

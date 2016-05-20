@@ -1,71 +1,232 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<html lang="en">
+
 <head>
-  <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.15" />
+
+  <title>Java &middot; ops</title>
 
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
 
-  <title> Java &middot; ops </title>
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="http://ops.m114.org/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="http://ops.m114.org/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="http://ops.m114.org/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="http://ops.m114.org//css/poole.css">
-  <link rel="stylesheet" href="http://ops.m114.org//css/hyde.css">
-  <link rel="stylesheet" href="http://ops.m114.org//css/tomorrow-night-eighties.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
   
-  <script src="http://ops.m114.org//js/jquery-1.9.1.min.js"></script>
-  <script src="http://ops.m114.org//js/pretty.print.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
 
   
-  <link rel="shortcut icon" href="/favicon.png">
+  
+  <link rel="alternate" type="application/rss+xml" title="ops" href="http://ops.m114.org/tags/java/index.xml" />
+  
 
   
-  <link href="http://ops.m114.org:80/tags/java/index.xml" rel="alternate" type="application/rss+xml" title="ops" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="http://ops.m114.org/img/favicon.ico" type="image/x-icon" />
+
 </head>
+
+
 <body>
+<div id="layout">
 
-<div class="sidebar">
-  <div class="container sidebar-sticky">
-    <div class="sidebar-about">
-      <h1><a href="/" style="text-decoration:none;">ops</a></h1>
-    </div>
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
 
-<ul class="catlist">
-  <li><a href="/post/"><span class="navlink"> Blog </span></a></li>
-  <li><a href="/tips/"><span class="navlink"> Tips </span></a></li>
-</ul>
+  
+  <a class="pure-menu-heading brand" href="http://ops.m114.org/">Ops</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="http://ops.m114.org/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="http://ops.m114.org/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="http://ops.m114.org/tips/"><i class='fa fa-list fa-fw'></i>Tips</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="http://ops.m114.org/tags/"><i class='fa fa-tags fa-fw'></i>Tags</a>
+      
+        </li>
+      
+    </ul>
   </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="http://ops.m114.org/tags/java/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/vinsonzou" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+  </ul>
 </div>
 
 
-<div id="page" class="content container">
-<div style="font-style:italic; color: #ccc;" align="right">records of learning.</div>
-<section id="main">
   <div>
-        
-        <h2>2015</h3>
-            <ul id="list">
-                
-                    <li>
-<div class="fr">04-26</div>
-<a href="http://ops.m114.org/tips/russia-permanent-winter-time/">俄罗斯永久冬令时的坑 </a>
-</li>
-                
-            </ul>
-        
+  <div class="small-print">
+    <small>&copy; 2014-2016. All rights reserved.</small>
   </div>
-</section>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
 </div>
 
 
-<script type="text/javascript">
-$('pre > code').parent().addClass("prettyprint");
-prettyPrint();
-</script>
+  <div id="main">
 
-  </body>
+
+<div class="header">
+  <h1>Java</h1>
+</div>
+
+<div class="content">
+  
+    <article>
+  <header>
+    <h2><a href="http://ops.m114.org/tips/russia-permanent-winter-time/">俄罗斯永久冬令时的坑</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2015/04/26, 16:59</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="http://ops.m114.org/tags/java">java</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  系统环境 OS: CentOS 6.X JDK: 6 背景 因游戏在俄罗斯运营，采用了莫斯科时间，俄罗斯宣布2014年10月26日开始永久冬令时。 过程 更新了系统时区文件，保证系统时间不会切换至夏令时，执行yum update tzdata即可。 但在莫斯科时间的2015年3月29日凌晨2点，java游戏进程的日志时间跳到了凌晨3点(比系统时间快了1个小时) 解决方法 更新JDK的时区文件即可 ln -sf /usr/share/zoneinfo/Europe/Moscow /usr/local/jdk/jre/lib/zi/Europe/Moscow
+  </p>
+
+  
+</article>
+
+  
+</div>
+
+</div>
+</div>
+<script src="http://ops.m114.org/js/ui.js"></script>
+
+
+
+
+<script data-no-instant>document.write('<script src="/livereload.js?mindelay=10"></' + 'script>')</script></body>
 </html>
-
-

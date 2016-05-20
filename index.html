@@ -1,69 +1,424 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<html lang="en">
+
 <head>
-  <link href="http://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.15" />
+
+  <title>ops</title>
 
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
 
-  <title> ops &middot; ops </title>
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="http://ops.m114.org/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="http://ops.m114.org/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="http://ops.m114.org/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="http://ops.m114.org//css/poole.css">
-  <link rel="stylesheet" href="http://ops.m114.org//css/hyde.css">
-  <link rel="stylesheet" href="http://ops.m114.org//css/tomorrow-night-eighties.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
   
-  <script src="http://ops.m114.org//js/jquery-1.9.1.min.js"></script>
-  <script src="http://ops.m114.org//js/pretty.print.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
 
   
-  <link rel="shortcut icon" href="/favicon.png">
+  
+  <link rel="alternate" type="application/rss+xml" title="ops" href="http://ops.m114.org/index.xml" />
+  
 
   
-  <link href="http://ops.m114.org:80/index.xml" rel="alternate" type="application/rss+xml" title="ops" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="http://ops.m114.org/img/favicon.ico" type="image/x-icon" />
+
 </head>
+
+
 <body>
+<div id="layout">
 
-<div class="sidebar">
-  <div class="container sidebar-sticky">
-    <div class="sidebar-about">
-      <h1><a href="/" style="text-decoration:none;">ops</a></h1>
-    </div>
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
 
-<ul class="catlist">
-  <li><a href="/post/"><span class="navlink"> Blog </span></a></li>
-  <li><a href="/tips/"><span class="navlink"> Tips </span></a></li>
-</ul>
+  
+  <a class="pure-menu-heading brand" href="http://ops.m114.org/">Ops</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="http://ops.m114.org/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="http://ops.m114.org/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="http://ops.m114.org/tips/"><i class='fa fa-list fa-fw'></i>Tips</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="http://ops.m114.org/tags/"><i class='fa fa-tags fa-fw'></i>Tags</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="http://ops.m114.org/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/vinsonzou" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2014-2016. All rights reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
   </div>
 </div>
 
-
-<div id="page" class="content container">
-
-    <div>
-        <p>一枚混迹于魔都IT圈的攻城狮，本博客记录日常运维中遇到的问题及解决方法。主要关注：部署、监控、Docker</p>
-    </div>
-    <hr>
-    <div>
-        <div>
-            Github：<a target="_blank" href="https://github.com/vinsonzou">@vinsonzou</a><br>
-            Email：<a target="_blank" href="mailto:vinsoncou@gmail.com">vinsoncou@gmail.com</a><br>
-        </div>
-    </div>
-
-    <br style="clear:both;">
-    <hr>
-
 </div>
 
 
-<script type="text/javascript">
-$('pre > code').parent().addClass("prettyprint");
-prettyPrint();
-</script>
+  <div id="main">
 
-  </body>
+
+<div class="header">
+  <h1>ops</h1>
+  <h2>records of learning.</h2>
+</div>
+
+<div class="content">
+  
+    <article>
+  <header>
+    <h2><a href="http://ops.m114.org/post/docker-for-mac-beta/">Docker for Mac Beta尝鲜</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2016/05/20, 00:05</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="http://ops.m114.org/tags/docker">Docker</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  Docker for Mac Docker for Mac 是一个原生的苹果应用程序，被安装到 /Application 目录。安装时会创建 /usr/local/bin 目录下的 docker、docker-compose、docker-machine 符号链接，这些符号链接指向 ~/Library/Group Containers/group.com.docker/bin 目录下的各类文件，而 ~/Library/Group Containers/group.com.docker/bin 的文件实际上也是符号链接，他们指向 /Applications/Docker.app/Contents/Resources/bin 目录下的实际二进制文件。 Docker for Mac 使用通过 Hypervisor.framework 提供的轻量级的 xhyve 虚拟化技术 Docker for Mac 不使用 docker-machine 管理虚拟机 Docker for Mac 不通过 TCP 端口通信，反而使用 /var/tmp/docker.sock 套接字文件通信（实际上是将 /var/tmp 目录挂载到了虚拟机中，虚拟机在其中生成套接字文件） 由于使用了 xhyve 虚拟机，所以可以模拟不同架构的处理器，这样开发者就直接能在 Mac 上使用 Docker 使用诸多平台的镜像文件，比如 arm 等。 为了能主机虚拟机共享文件，Docker 使用 osxfs 作为全新的文件共享方案，在很多方面都有全新的特性，比如在文件权限、命名空间、文件所有者、文件系统事件、挂载点、符号链接、文件类型、扩展属性等方面都有了全新的内容，并且，所有产生的日志都能通过 syslog 查询，非常方便。不过现在依旧存在许多问题，比如没有设置 docker daemon 各项参数的接口。 如何为Docker Engine设置代理 screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty 敲一下回车，登录，用户名root，没有密码，直接回车。编辑/etc/init.d/docker文件，如下添加代理： start-stop-daemon --start
+  </p>
+
+  
+  <footer>
+    <a href="http://ops.m114.org/post/docker-for-mac-beta/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
+    <h2><a href="http://ops.m114.org/post/kernel-igb-00000100-0-eth0-reset-adapter/">kernel igb 00000500 0 eth0 reset adapter</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2015/06/03, 23:04</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="http://ops.m114.org/tags/igb">igb</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  系统环境 CentOS 6.4 igb driver version 4.0.1-k 报错信息如下 Jun 3 13:20:05 localhost kernel: igb 0000:05:00.1: eth1: Reset adapter Jun 3 13:20:06 localhost kernel: igb 0000:05:00.0: eth0: Reset adapter Jun 3 13:20:11 localhost kernel: igb: eth1 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX Jun 3 13:20:12 localhost kernel: igb: eth0 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX Jun 3 13:55:26 localhost kernel: igb
+  </p>
+
+  
+  <footer>
+    <a href="http://ops.m114.org/post/kernel-igb-00000100-0-eth0-reset-adapter/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
+    <h2><a href="http://ops.m114.org/post/DNSPOD-API-SSL-subjectAltName/">DNSPOD API SSL证书调整(subjectAltName)引起的报错</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2015/05/10, 23:44</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="http://ops.m114.org/tags/subjectaltname">subjectAltName</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  报错信息如下： Python 2.7 (r27:82500, Jan 7 2014, 23:14:35) [GCC 4.1.2 20080704 (Red Hat 4.1.2-50)] on linux2 Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information. &gt;&gt;&gt; import requests &gt;&gt;&gt; r = requests.get(&quot;https://dnsapi.cn&quot;) Traceback (most recent call last): File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt; File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&quot;, line 55, in get return request('get', url, **kwargs) File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&quot;, line 44, in request return session.request(method=method, url=url, **kwargs) File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/sessions.py&quot;, line 361, in request resp = self.send(prep, **send_kwargs) File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/sessions.py&quot;, line 464, in send r = adapter.send(request, **kwargs) File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/adapters.py&quot;, line 363, in send raise SSLError(e) requests.exceptions.SSLError: hostname 'dnsapi.cn' doesn't match u'www.dnspod.cn' DNSPOD当前证书截图： 证书信息查看 openssl s_client -connect dnsapi.cn:443 | tee dnsapi.cert openssl x509 -inform PEM -in dnsapi.cert -text Python SSL验证 Python 2.7 (r27:82500, Jan 7 2014, 23:14:35) [GCC 4.1.2 20080704 (Red Hat 4.1.2-50)] on linux2 Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+  </p>
+
+  
+  <footer>
+    <a href="http://ops.m114.org/post/DNSPOD-API-SSL-subjectAltName/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
+    <h2><a href="http://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/">利用TsunamiUDP加速跨机房迁移</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2015/04/26, 16:00</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="http://ops.m114.org/tags/tsunamiudp">TsunamiUDP</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  部署 yum -y install automake autoconf git clone git://github.com/rriley/tsunami-udp.git cd tsunami-udp ./recompile.sh cp server/tsunamid client/tsunami /usr/bin #或者从sf.net下载 wget http://iweb.dl.sourceforge.net/project/tsunami-udp/tsunami-udp/tsunami-v1.1-cvsbuild42/tsunami-v1.1-cvsbuild42.tar.gz tar zxf tsunami-v1.1-cvsbuild42.tar.gz cd tsunami-udp-v11-b42 ./recompile.sh cp server/tsunamid client/tsunami /usr/bin 使用 #1、防火墙调整 #服务端：开启TCP 46224(默认端口) #客户端：开启UDP 46224(默认端口) #2、开启服务端 #待迁移文件都放在/app/game_data目录下(也可指定单文件传输) tsunamid --hbtimeout 60 /app/game_data/* #PS：这里设定心跳包超时时间为60秒，默认为15秒，在使用中很容易中断导致传输失败 #3、开启客户端 # 拉取服务端(122.225.100.100)的game_db.lz4文件，并限速100M(建议限制下，不然机房带宽就满了哦) tsunami set rate 100M connect 122.225.100.100 get gcmob_db.lz4 # 拉取目录下所有文件 tsunami set rate 100M connect 122.225.100.100 get \* #文档：http://tsunami-udp.cvs.sourceforge.net/viewvc/tsunami-udp/docs/USAGE.txt PS：未避免泄密，IP是随机填的 跨机房迁移示例 场景： 将14G文件从杭州机房迁移至北京机房 方法1：使用wget下载 方法2：使用TsunamiUDP工具
+  </p>
+
+  
+  <footer>
+    <a href="http://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
+    <h2><a href="http://ops.m114.org/post/zabbix-alerts-use-telegram/">Zabbix使用Telegram发送报警</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2015/04/25, 17:16</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="http://ops.m114.org/tags/zabbix">Zabbix</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="http://ops.m114.org/tags/telegram">Telegram</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  环境 CentOS 6.X x86_64 编译Telegram yum -y install lua-devel openssl-devel libconfig-devel readline-devel libevent-devel git clone --recursive https://github.com/vysheng/tg.git cd tg ./configure make mkdir /usr/local/tg cp tg-server.pub /usr/local/tg cp bin/telegram-cli /usr/local/tg zabbix报警脚本/usr/local/tg/telegram.sh: #!/bin/sh cd `dirname $0` ./telegram-cli -k tg-server.pub -WDCRE -P 8890 -d &amp;&gt;/dev/null &amp; Zabbix报警配置 将如下Zabbix Server配置注释并修改如下 AlertScriptsPath=/usr/local/zabbix/alertscripts /usr/local/zabbix/alertscripts/tg.sh内容如下: #!/bin/sh export to=$1; export subject=$2; export body=$3; echo -e &quot;msg $to ${subject}_#_${body}&quot; | nc localhost 8890 #注意事项: body只能有一行内容，超过一行的内容是不会发送的。 Zabbix添加Media types PS：Telegram已于2015年7月10日被天朝和谐。。。
+  </p>
+
+  
+</article>
+
+  
+
+  
+
+
+<nav class="pagination" role="pagination">
+  
+  <i class="fa fa-chevron-left"></i>
+  
+  <span>&nbsp;1 / 2&nbsp;</span>
+  
+  <a href="http://ops.m114.org/page/2/"><i class="fa fa-chevron-right"></i></a>
+  
+</nav>
+
+
+
+</div>
+
+</div>
+</div>
+<script src="http://ops.m114.org/js/ui.js"></script>
+
+
+
+
+<script data-no-instant>document.write('<script src="/livereload.js?mindelay=10"></' + 'script>')</script></body>
 </html>
 
