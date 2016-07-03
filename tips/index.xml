@@ -7,8 +7,30 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2016. All rights reserved.</copyright>
-    <lastBuildDate>Thu, 16 Jun 2016 12:33:10 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 03 Jul 2016 13:39:01 +0800</lastBuildDate>
     <atom:link href="http://ops.m114.org/tips/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>运维工具汇总之 性能调优，性能监控，性能测试</title>
+      <link>http://ops.m114.org/tips/op-tools/</link>
+      <pubDate>Sun, 03 Jul 2016 13:39:01 +0800</pubDate>
+      
+      <guid>http://ops.m114.org/tips/op-tools/</guid>
+      <description>
+
+&lt;h2 id=&#34;性能调优:08c7a29a459d063a2a5daa672607b034&#34;&gt;性能调优&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://m114-static.qiniudn.com/img/linux_tuning_tools.png?imageView2/2/w/800/q/75&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;性能监控:08c7a29a459d063a2a5daa672607b034&#34;&gt;性能监控&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://m114-static.qiniudn.com/img/linux_observability_tools.png?imageView2/2/w/800/q/75&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;性能测试:08c7a29a459d063a2a5daa672607b034&#34;&gt;性能测试&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://m114-static.qiniudn.com/img/linux_benchmarking_tools.png?imageView2/2/w/800/q/75&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Git常用命令备忘</title>
