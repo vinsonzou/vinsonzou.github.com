@@ -3,8 +3,13 @@
   
   <url>
     <loc>http://ops.m114.org/</loc>
-    <lastmod>2016-07-03T13:39:01+08:00</lastmod>
+    <lastmod>2016-07-12T23:29:35+08:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/</loc>
+    <lastmod>2016-07-12T23:29:35+08:00</lastmod>
   </url>
   
   <url>

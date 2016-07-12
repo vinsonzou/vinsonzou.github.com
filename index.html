@@ -183,6 +183,52 @@
   
     <article>
   <header>
+    <h2><a href="http://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/">R420服务器idrac连接用户数超限制</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2016/07/12, 23:29</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="http://ops.m114.org/tags/idrac">idrac</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  Dell R420服务器中，比较经常出现idrac无法连接，或者连接用户数超限(RAC0218错误)的问题，升级iDrac卡firmware至1.57.57即可解决。 该版本的bug fix中提到过一点： Fix for issues that cause iDRAC7 sluggish responsiveness after a prolonged period of time (approx. 45-100 days, depending on the usage). In some cases, if the iDRAC is not reset, the iDRAC may become unresponsive and requires a server AC Power on reset. This issue was introduced in firmware release 1.50.50 and fixed in 1.56.55. RAC0218: The maximum number of user sessions is reached. tftp server准备
+  </p>
+
+  
+  <footer>
+    <a href="http://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="http://ops.m114.org/post/docker-for-mac-beta/">Docker for Mac Beta尝鲜</a></h2>
 
     <div class="post-meta">
@@ -349,47 +395,6 @@
   <footer>
     <a href="http://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
   </footer>
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="http://ops.m114.org/post/zabbix-alerts-use-telegram/">Zabbix使用Telegram发送报警</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2015/04/25, 17:16</time>
-  </div>
-
-  
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="http://ops.m114.org/tags/zabbix">Zabbix</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="http://ops.m114.org/tags/telegram">Telegram</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  环境 CentOS 6.X x86_64 编译Telegram yum -y install lua-devel openssl-devel libconfig-devel readline-devel libevent-devel git clone --recursive https://github.com/vysheng/tg.git cd tg ./configure make mkdir /usr/local/tg cp tg-server.pub /usr/local/tg cp bin/telegram-cli /usr/local/tg zabbix报警脚本/usr/local/tg/telegram.sh: #!/bin/sh cd `dirname $0` ./telegram-cli -k tg-server.pub -WDCRE -P 8890 -d &amp;&gt;/dev/null &amp; Zabbix报警配置 将如下Zabbix Server配置注释并修改如下 AlertScriptsPath=/usr/local/zabbix/alertscripts /usr/local/zabbix/alertscripts/tg.sh内容如下: #!/bin/sh export to=$1; export subject=$2; export body=$3; echo -e &quot;msg $to ${subject}_#_${body}&quot; | nc localhost 8890 #注意事项: body只能有一行内容，超过一行的内容是不会发送的。 Zabbix添加Media types PS：Telegram已于2015年7月10日被天朝和谐。。。
-  </p>
-
   
 </article>
 
