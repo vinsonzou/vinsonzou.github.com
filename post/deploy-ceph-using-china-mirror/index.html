@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.15" />
 
-  <title>R420服务器idrac连接用户数超限制 &middot; ops</title>
+  <title>使用国内源部署Ceph &middot; ops</title>
 
   
   
@@ -169,7 +169,7 @@
 
 
 <div class="header">
-  <h1>R420服务器idrac连接用户数超限制</h1>
+  <h1>使用国内源部署Ceph</h1>
   <h2></h2>
 </div>
 <div class="content">
@@ -178,7 +178,7 @@
 
   <div>
     <i class="fa fa-calendar fa-fw"></i>
-    <time>2016/07/12, 23:29</time>
+    <time>2016/07/28, 13:17</time>
   </div>
 
   
@@ -194,7 +194,7 @@
   <div>
     <i class="fa fa-tags fa-fw"></i>
     
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/idrac">idrac</a>
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/ceph">ceph</a>
     
   </div>
   
@@ -202,73 +202,66 @@
 
 </div>
 
-  <p>Dell R420服务器中，比较经常出现idrac无法连接，或者连接用户数超限(<code>RAC0218错误</code>)的问题，升级iDrac卡firmware至1.57.57即可解决。</p>
+  
 
-<p>该版本的bug fix中提到过一点：</p>
+<p>由于网络方面的原因，Ceph的部署经常受到干扰，通常为了加速部署，基本上大家都是将Ceph的源同步到本地进行安装。根据Ceph中国社区的统计，当前已经有国内的网站定期将Ceph安装源同步，极大的方便了我们的测试。本文就是介绍如何使用国内源，加速ceph-deploy部署Ceph集群。</p>
+
+<h1 id="关于国内源:e5044e4dfabfd789a52b3d18dd8a16b3">关于国内源</h1>
+
+<p>根据Ceph中国社区的统计，国内已经有四家网站开始同步Ceph源，分别是：</p>
 
 <ul>
-<li>Fix for issues that cause iDRAC7 sluggish responsiveness after a prolonged period of time (approx. 45-100 days, depending on the usage). In some cases, if the iDRAC is not reset, the iDRAC may become unresponsive and requires a server AC Power on reset. This issue was introduced in firmware release 1.50.50 and fixed in 1.56.55.</li>
+<li>网易镜像源<a href="http://mirrors.163.com/ceph">http://mirrors.163.com/ceph</a></li>
+<li>阿里镜像源<a href="http://mirrors.aliyun.com/ceph">http://mirrors.aliyun.com/ceph</a></li>
+<li>中科大镜像源<a href="http://mirrors.ustc.edu.cn/ceph">http://mirrors.ustc.edu.cn/ceph</a></li>
+<li>宝德镜像源<a href="http://mirrors.plcloud.com/ceph">http://mirrors.plcloud.com/ceph</a></li>
 </ul>
 
-<p><em>RAC0218: The maximum number of user sessions is reached.</em>
-<img src="http://m114-static.qiniudn.com/img/Dell_iDRAC_7_Enterprise_RAC0218_-_The_maximum_number_of_user_sessions_is_reached.jpg" alt="" /></p>
+<h1 id="安装ceph-jewel版:e5044e4dfabfd789a52b3d18dd8a16b3">安装Ceph(Jewel版)</h1>
 
-<p><strong>2种临时解决方法(idrac重新初始化)</strong></p>
+<p>由于Jewel版本中已经不提供el6的镜像源，所以只能使用CentOS 7以上版本进行安装。我们并不需要在repos里增加相应的源，只需要设置环境变量，即可让ceph-deploy使用国内源，具体过程如下：</p>
 
-<ul>
-<li>长按前面板i键20秒，idrac会重启初始化  （建议使用这种方法，无需重启服务器）</li>
-<li>关机后拔掉电源线，长按电源开关按键15秒，再插上电源线开机</li>
-</ul>
-
-<p><strong>tftp server准备</strong></p>
-
-<ul>
-<li><a href="http://www.dell.com/support/home/us/en/04/Drivers/DriversDetails?driverId=XH6FX">1.57.57</a></li>
-<li><a href="http://www.dell.com/support/home/us/en/04/Drivers/DriversDetails?driverId=3F4WV">1.66.65</a></li>
-<li><a href="http://www.dell.com/support/home/us/en/19/Drivers/DriversDetails?driverId=JHF76">当前最新版2.30.30.30</a>
-
-<ul>
-<li>支持HTML5 virtual console and virtual media</li>
-</ul></li>
-</ul>
-
-<pre><code>#升级以1.57.57为例，也可选择更高版本使用
-wget http://downloads.dell.com/FOLDER02171695M/1/ESM_Firmware_XH6FX_LN_1.57.57_A00.BIN
-sh ESM_Firmware_XH6FX_LN_1.57.57_A00.BIN --extract ./idrac7-1.57.57
-cp ./idrac7-1.57.57/payload/firmimg.d7 /var/lib/tftpboot/dell/idrac7-1.57.57
+<pre><code>export CEPH_DEPLOY_REPO_URL=http://mirrors.aliyun.com/ceph/rpm-jewel/el7
+export CEPH_DEPLOY_GPG_URL=http://mirrors.aliyun.com/ceph/keys/release.asc
 </code></pre>
 
-<p><strong>firmware升级方法</strong></p>
+<p>之后的过程就没任何区别了</p>
 
-<ul>
-<li><a href="http://en.community.dell.com/techcenter/b/techcenter/archive/2013/04/17/idrac7-now-supports-updating-server-components-using-racadm-and-web-gui">通过iDrac7 Web GUI升级</a></li>
-<li>通过ssh登录升级</li>
-</ul>
+<pre><code># Create monitor node
+ceph-deploy new node1 node2 node3
 
-<pre><code>#ssh登录后进行firmware更新
-ssh root@iDrac_IP
-racadm fwupdate -g -u -a $tftp_server_ip -d /dell/idrac7-1.57.57
+# Software Installation
+ceph-deploy install deploy node1 node2 node3
+
+# Gather keys
+ceph-deploy mon create-initial
+
+# Ceph deploy osd create disk
+ceph-deploy osd create node1:sdb:/dev/sdc
+ceph-deploy osd create node2:sdb:/dev/sdc
+ceph-deploy osd create node3:sdb:/dev/sdc
+
+# Make 3 copies by default
+echo &quot;osd pool default size = 3&quot; | tee -a $HOME/ceph.conf
+
+# Copy admin keys and configuration files
+ceph-deploy --overwrite-conf admin deploy node1 node2 node3
 </code></pre>
 
-<ul>
-<li>通过racadm命令行升级</li>
-</ul>
-
-<pre><code>racadm -r iDrac_IP -u root -p calvin fwupdate -g -u -a $tftp_server_ip -d /dell/idrac7-1.57.57
-</code></pre>
+<p>这样就可以很快速的使用国内源创建出Ceph集群，希望能对大家日常的使用提供便捷。</p>
 
 
   
 <div class="prev-next-post pure-g">
   <div class="pure-u-1-24" style="text-align: left;">
     
-    <a href="https://ops.m114.org/post/docker-for-mac-beta/"><i class="fa fa-chevron-left"></i></a>
+    <a href="https://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/"><i class="fa fa-chevron-left"></i></a>
     
   </div>
   <div class="pure-u-10-24">
     
     <nav class="prev">
-      <a href="https://ops.m114.org/post/docker-for-mac-beta/">Docker for Mac Beta尝鲜</a>
+      <a href="https://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/">R420服务器idrac连接用户数超限制</a>
     </nav>
     
   </div>
@@ -277,14 +270,8 @@ racadm fwupdate -g -u -a $tftp_server_ip -d /dell/idrac7-1.57.57
   </div>
   <div class="pure-u-10-24">
     
-    <nav class="next">
-      <a href="https://ops.m114.org/post/deploy-ceph-using-china-mirror/">使用国内源部署Ceph</a>
-    </nav>
-    
   </div>
   <div class="pure-u-1-24" style="text-align: right;">
-    
-    <a href="https://ops.m114.org/post/deploy-ceph-using-china-mirror/"><i class="fa fa-chevron-right"></i></a>
     
   </div>
 </div>

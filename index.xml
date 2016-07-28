@@ -7,8 +7,64 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2016. All rights reserved.</copyright>
-    <lastBuildDate>Tue, 12 Jul 2016 23:29:35 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 28 Jul 2016 13:17:52 +0800</lastBuildDate>
     <atom:link href="https://ops.m114.org/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>使用国内源部署Ceph</title>
+      <link>https://ops.m114.org/post/deploy-ceph-using-china-mirror/</link>
+      <pubDate>Thu, 28 Jul 2016 13:17:52 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/deploy-ceph-using-china-mirror/</guid>
+      <description>
+
+&lt;p&gt;由于网络方面的原因，Ceph的部署经常受到干扰，通常为了加速部署，基本上大家都是将Ceph的源同步到本地进行安装。根据Ceph中国社区的统计，当前已经有国内的网站定期将Ceph安装源同步，极大的方便了我们的测试。本文就是介绍如何使用国内源，加速ceph-deploy部署Ceph集群。&lt;/p&gt;
+
+&lt;h1 id=&#34;关于国内源:e5044e4dfabfd789a52b3d18dd8a16b3&#34;&gt;关于国内源&lt;/h1&gt;
+
+&lt;p&gt;根据Ceph中国社区的统计，国内已经有四家网站开始同步Ceph源，分别是：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;网易镜像源&lt;a href=&#34;http://mirrors.163.com/ceph&#34;&gt;http://mirrors.163.com/ceph&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;阿里镜像源&lt;a href=&#34;http://mirrors.aliyun.com/ceph&#34;&gt;http://mirrors.aliyun.com/ceph&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;中科大镜像源&lt;a href=&#34;http://mirrors.ustc.edu.cn/ceph&#34;&gt;http://mirrors.ustc.edu.cn/ceph&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;宝德镜像源&lt;a href=&#34;http://mirrors.plcloud.com/ceph&#34;&gt;http://mirrors.plcloud.com/ceph&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;安装ceph-jewel版:e5044e4dfabfd789a52b3d18dd8a16b3&#34;&gt;安装Ceph(Jewel版)&lt;/h1&gt;
+
+&lt;p&gt;由于Jewel版本中已经不提供el6的镜像源，所以只能使用CentOS 7以上版本进行安装。我们并不需要在repos里增加相应的源，只需要设置环境变量，即可让ceph-deploy使用国内源，具体过程如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;export CEPH_DEPLOY_REPO_URL=http://mirrors.aliyun.com/ceph/rpm-jewel/el7
+export CEPH_DEPLOY_GPG_URL=http://mirrors.aliyun.com/ceph/keys/release.asc
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;之后的过程就没任何区别了&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# Create monitor node
+ceph-deploy new node1 node2 node3
+
+# Software Installation
+ceph-deploy install deploy node1 node2 node3
+
+# Gather keys
+ceph-deploy mon create-initial
+
+# Ceph deploy osd create disk
+ceph-deploy osd create node1:sdb:/dev/sdc
+ceph-deploy osd create node2:sdb:/dev/sdc
+ceph-deploy osd create node3:sdb:/dev/sdc
+
+# Make 3 copies by default
+echo &amp;quot;osd pool default size = 3&amp;quot; | tee -a $HOME/ceph.conf
+
+# Copy admin keys and configuration files
+ceph-deploy --overwrite-conf admin deploy node1 node2 node3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这样就可以很快速的使用国内源创建出Ceph集群，希望能对大家日常的使用提供便捷。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>R420服务器idrac连接用户数超限制</title>

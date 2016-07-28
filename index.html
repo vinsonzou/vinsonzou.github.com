@@ -183,6 +183,52 @@
   
     <article>
   <header>
+    <h2><a href="https://ops.m114.org/post/deploy-ceph-using-china-mirror/">使用国内源部署Ceph</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2016/07/28, 13:17</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/ceph">ceph</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  由于网络方面的原因，Ceph的部署经常受到干扰，通常为了加速部署，基本上大家都是将Ceph的源同步到本地进行安装。根据Ceph中国社区的统计，当前已经有国内的网站定期将Ceph安装源同步，极大的方便了我们的测试。本文就是介绍如何使用国内源，加速ceph-deploy部署Ceph集群。 关于国内源 根据Ceph中国社区的统计，国内已经有四家网站开始同步Ceph源，分别是： 网易镜像源http://mirrors.163.com/ceph 阿里镜像源http://mirrors.aliyun.com/ceph 中科大镜像源http://mirrors.ustc.edu.cn/ceph 宝德镜像源http://mirrors.plcloud.com/ceph 安装Ceph(Jewel版) 由于Jewel版本中已经不提供el6的镜像源，所以只能使用CentOS 7以上版本进行安装。我们并不需要在repos里增加相应的源，只需要设置环境变量，即可让ceph-deploy使用国内源，具体过程如下： export CEPH_DEPLOY_REPO_URL=http://mirrors.aliyun.com/ceph/rpm-jewel/el7 export CEPH_DEPLOY_GPG_URL=http://mirrors.aliyun.com/ceph/keys/release.asc 之后的过程就没任何区别了 # Create monitor node ceph-deploy new node1 node2 node3 # Software Installation ceph-deploy install deploy node1 node2 node3 # Gather keys ceph-deploy mon create-initial # Ceph deploy osd create disk ceph-deploy osd create node1:sdb:/dev/sdc ceph-deploy osd create node2:sdb:/dev/sdc ceph-deploy osd create node3:sdb:/dev/sdc # Make 3 copies by default echo &quot;osd pool default size = 3&quot;
+  </p>
+
+  
+  <footer>
+    <a href="https://ops.m114.org/post/deploy-ceph-using-china-mirror/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="https://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/">R420服务器idrac连接用户数超限制</a></h2>
 
     <div class="post-meta">
@@ -351,49 +397,6 @@
   
   <footer>
     <a href="https://ops.m114.org/post/DNSPOD-API-SSL-subjectAltName/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/">利用TsunamiUDP加速跨机房迁移</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2015/04/26, 16:00</time>
-  </div>
-
-  
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/tsunamiudp">TsunamiUDP</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  部署 yum -y install automake autoconf git clone git://github.com/rriley/tsunami-udp.git cd tsunami-udp ./recompile.sh cp server/tsunamid client/tsunami /usr/bin #或者从sf.net下载 wget http://iweb.dl.sourceforge.net/project/tsunami-udp/tsunami-udp/tsunami-v1.1-cvsbuild42/tsunami-v1.1-cvsbuild42.tar.gz tar zxf tsunami-v1.1-cvsbuild42.tar.gz cd tsunami-udp-v11-b42 ./recompile.sh cp server/tsunamid client/tsunami /usr/bin 使用 #1、防火墙调整 #服务端：开启TCP 46224(默认端口) #客户端：开启UDP 46224(默认端口) #2、开启服务端 #待迁移文件都放在/app/game_data目录下(也可指定单文件传输) tsunamid --hbtimeout 60 /app/game_data/* #PS：这里设定心跳包超时时间为60秒，默认为15秒，在使用中很容易中断导致传输失败 #3、开启客户端 # 拉取服务端(122.225.100.100)的game_db.lz4文件，并限速100M(建议限制下，不然机房带宽就满了哦) tsunami set rate 100M connect 122.225.100.100 get gcmob_db.lz4 # 拉取目录下所有文件 tsunami set rate 100M connect 122.225.100.100 get \* #文档：http://tsunami-udp.cvs.sourceforge.net/viewvc/tsunami-udp/docs/USAGE.txt PS：未避免泄密，IP是随机填的 跨机房迁移示例 场景： 将14G文件从杭州机房迁移至北京机房 方法1：使用wget下载 方法2：使用TsunamiUDP工具
-  </p>
-
-  
-  <footer>
-    <a href="https://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
   </footer>
   
 </article>

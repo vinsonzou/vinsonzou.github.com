@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.15" />
 
-  <title>Posts &middot; ops</title>
+  <title>Ceph &middot; ops</title>
 
   
   
@@ -37,7 +37,7 @@
 
   
   
-  <link rel="alternate" type="application/rss+xml" title="ops" href="https://ops.m114.org/post/index.xml" />
+  <link rel="alternate" type="application/rss+xml" title="ops" href="https://ops.m114.org/tags/ceph/index.xml" />
   
 
   
@@ -100,7 +100,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://ops.m114.org/post/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      <a class="pure-menu-link" href="https://ops.m114.org/tags/ceph/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
     </li>
     
 
@@ -175,51 +175,56 @@
 
 
 <div class="header">
-  <h1>Posts</h1>
+  <h1>Ceph</h1>
 </div>
+
 <div class="content">
   
-  <h2>2016</h2>
-  <ul>
-  
-    <li><time>2016/07/28, 13:17</time> - <a href="https://ops.m114.org/post/deploy-ceph-using-china-mirror/">使用国内源部署Ceph</a></li>
+    <article>
+  <header>
+    <h2><a href="https://ops.m114.org/post/deploy-ceph-using-china-mirror/">使用国内源部署Ceph</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2016/07/28, 13:17</time>
+  </div>
 
   
-    <li><time>2016/07/12, 23:29</time> - <a href="https://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/">R420服务器idrac连接用户数超限制</a></li>
 
   
-    <li><time>2016/05/20, 00:05</time> - <a href="https://ops.m114.org/post/docker-for-mac-beta/">Docker for Mac Beta尝鲜</a></li>
+  
+  
+  
 
   
-  </ul>
   
-  <h2>2015</h2>
-  <ul>
   
-    <li><time>2015/06/03, 23:04</time> - <a href="https://ops.m114.org/post/kernel-igb-00000100-0-eth0-reset-adapter/">kernel igb 00000500 0 eth0 reset adapter</a></li>
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/ceph">ceph</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  由于网络方面的原因，Ceph的部署经常受到干扰，通常为了加速部署，基本上大家都是将Ceph的源同步到本地进行安装。根据Ceph中国社区的统计，当前已经有国内的网站定期将Ceph安装源同步，极大的方便了我们的测试。本文就是介绍如何使用国内源，加速ceph-deploy部署Ceph集群。 关于国内源 根据Ceph中国社区的统计，国内已经有四家网站开始同步Ceph源，分别是： 网易镜像源http://mirrors.163.com/ceph 阿里镜像源http://mirrors.aliyun.com/ceph 中科大镜像源http://mirrors.ustc.edu.cn/ceph 宝德镜像源http://mirrors.plcloud.com/ceph 安装Ceph(Jewel版) 由于Jewel版本中已经不提供el6的镜像源，所以只能使用CentOS 7以上版本进行安装。我们并不需要在repos里增加相应的源，只需要设置环境变量，即可让ceph-deploy使用国内源，具体过程如下： export CEPH_DEPLOY_REPO_URL=http://mirrors.aliyun.com/ceph/rpm-jewel/el7 export CEPH_DEPLOY_GPG_URL=http://mirrors.aliyun.com/ceph/keys/release.asc 之后的过程就没任何区别了 # Create monitor node ceph-deploy new node1 node2 node3 # Software Installation ceph-deploy install deploy node1 node2 node3 # Gather keys ceph-deploy mon create-initial # Ceph deploy osd create disk ceph-deploy osd create node1:sdb:/dev/sdc ceph-deploy osd create node2:sdb:/dev/sdc ceph-deploy osd create node3:sdb:/dev/sdc # Make 3 copies by default echo &quot;osd pool default size = 3&quot;
+  </p>
 
   
-    <li><time>2015/05/10, 23:44</time> - <a href="https://ops.m114.org/post/DNSPOD-API-SSL-subjectAltName/">DNSPOD API SSL证书调整(subjectAltName)引起的报错</a></li>
+  <footer>
+    <a href="https://ops.m114.org/post/deploy-ceph-using-china-mirror/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
 
-  
-    <li><time>2015/04/26, 16:00</time> - <a href="https://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/">利用TsunamiUDP加速跨机房迁移</a></li>
-
-  
-    <li><time>2015/04/25, 17:16</time> - <a href="https://ops.m114.org/post/zabbix-alerts-use-telegram/">Zabbix使用Telegram发送报警</a></li>
-
-  
-    <li><time>2015/04/25, 16:31</time> - <a href="https://ops.m114.org/post/monitor-ssl-certificate-expiry/">Monitor SSL certificate expiry</a></li>
-
-  
-  </ul>
-  
-  <h2>2014</h2>
-  <ul>
-  
-    <li><time>2014/11/11, 17:15</time> - <a href="https://ops.m114.org/post/how-to-use-hugo/">使用Hugo搭建免费个人Blog</a></li>
-
-  
-  </ul>
   
 </div>
 
@@ -232,4 +237,3 @@
 
 <script data-no-instant>document.write('<script src="/livereload.js?mindelay=10"></' + 'script>')</script></body>
 </html>
-
