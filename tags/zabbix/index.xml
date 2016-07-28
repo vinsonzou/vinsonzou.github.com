@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Zabbix on ops</title>
-    <link>http://ops.m114.org/tags/zabbix/</link>
+    <link>https://ops.m114.org/tags/zabbix/</link>
     <description>Recent content in Zabbix on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2016. All rights reserved.</copyright>
     <lastBuildDate>Sat, 25 Apr 2015 17:16:29 +0800</lastBuildDate>
-    <atom:link href="http://ops.m114.org/tags/zabbix/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://ops.m114.org/tags/zabbix/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Zabbix使用Telegram发送报警</title>
-      <link>http://ops.m114.org/post/zabbix-alerts-use-telegram/</link>
+      <link>https://ops.m114.org/post/zabbix-alerts-use-telegram/</link>
       <pubDate>Sat, 25 Apr 2015 17:16:29 +0800</pubDate>
       
-      <guid>http://ops.m114.org/post/zabbix-alerts-use-telegram/</guid>
+      <guid>https://ops.m114.org/post/zabbix-alerts-use-telegram/</guid>
       <description>
 
 &lt;h3 id=&#34;环境:36b0c308d7ec12f7aa9f0b6f722a727f&#34;&gt;环境&lt;/h3&gt;
@@ -70,10 +70,10 @@ echo -e &amp;quot;msg $to ${subject}_#_${body}&amp;quot; | nc localhost 8890
     
     <item>
       <title>Monitor SSL certificate expiry</title>
-      <link>http://ops.m114.org/post/monitor-ssl-certificate-expiry/</link>
+      <link>https://ops.m114.org/post/monitor-ssl-certificate-expiry/</link>
       <pubDate>Sat, 25 Apr 2015 16:31:41 +0800</pubDate>
       
-      <guid>http://ops.m114.org/post/monitor-ssl-certificate-expiry/</guid>
+      <guid>https://ops.m114.org/post/monitor-ssl-certificate-expiry/</guid>
       <description>&lt;p&gt;看到网上弄了个zabbix监控SSL证书过期时间的,给咱业务也加了个此监控。&lt;/p&gt;
 
 &lt;p&gt;改进如下：&lt;/p&gt;

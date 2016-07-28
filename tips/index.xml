@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tips on ops</title>
-    <link>http://ops.m114.org/tips/</link>
+    <link>https://ops.m114.org/tips/</link>
     <description>Recent content in Tips on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2016. All rights reserved.</copyright>
     <lastBuildDate>Sun, 03 Jul 2016 13:39:01 +0800</lastBuildDate>
-    <atom:link href="http://ops.m114.org/tips/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://ops.m114.org/tips/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>运维工具汇总之 性能调优，性能监控，性能测试</title>
-      <link>http://ops.m114.org/tips/linux-performance-tools/</link>
+      <link>https://ops.m114.org/tips/linux-performance-tools/</link>
       <pubDate>Sun, 03 Jul 2016 13:39:01 +0800</pubDate>
       
-      <guid>http://ops.m114.org/tips/linux-performance-tools/</guid>
+      <guid>https://ops.m114.org/tips/linux-performance-tools/</guid>
       <description>
 
 &lt;h2 id=&#34;性能调优:69e253b7a146de7fa83c753e52ee2860&#34;&gt;性能调优&lt;/h2&gt;
@@ -34,10 +34,10 @@
     
     <item>
       <title>Git常用命令备忘</title>
-      <link>http://ops.m114.org/tips/git-common-command/</link>
+      <link>https://ops.m114.org/tips/git-common-command/</link>
       <pubDate>Thu, 16 Jun 2016 12:33:10 +0800</pubDate>
       
-      <guid>http://ops.m114.org/tips/git-common-command/</guid>
+      <guid>https://ops.m114.org/tips/git-common-command/</guid>
       <description>
 
 &lt;h1 id=&#34;配置:5a8bf9b63fca471d5d97b4fc513a9dbe&#34;&gt;配置&lt;/h1&gt;
@@ -158,10 +158,10 @@ pick ce32af7 添加commit2的说明
     
     <item>
       <title>俄罗斯永久冬令时的坑</title>
-      <link>http://ops.m114.org/tips/russia-permanent-winter-time/</link>
+      <link>https://ops.m114.org/tips/russia-permanent-winter-time/</link>
       <pubDate>Sun, 26 Apr 2015 16:59:30 +0800</pubDate>
       
-      <guid>http://ops.m114.org/tips/russia-permanent-winter-time/</guid>
+      <guid>https://ops.m114.org/tips/russia-permanent-winter-time/</guid>
       <description>
 
 &lt;h3 id=&#34;系统环境:33cac6d261ec400d5f39ec8c27c64700&#34;&gt;系统环境&lt;/h3&gt;

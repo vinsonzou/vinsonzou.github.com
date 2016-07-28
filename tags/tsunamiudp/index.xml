@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tsunamiudp on ops</title>
-    <link>http://ops.m114.org/tags/tsunamiudp/</link>
+    <link>https://ops.m114.org/tags/tsunamiudp/</link>
     <description>Recent content in Tsunamiudp on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2016. All rights reserved.</copyright>
     <lastBuildDate>Sun, 26 Apr 2015 16:00:00 +0800</lastBuildDate>
-    <atom:link href="http://ops.m114.org/tags/tsunamiudp/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://ops.m114.org/tags/tsunamiudp/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>利用TsunamiUDP加速跨机房迁移</title>
-      <link>http://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/</link>
+      <link>https://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/</link>
       <pubDate>Sun, 26 Apr 2015 16:00:00 +0800</pubDate>
       
-      <guid>http://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/</guid>
+      <guid>https://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/</guid>
       <description>
 
 &lt;h2 id=&#34;部署:1390cc2c30e4b37523ebd768ec9abe1b&#34;&gt;部署&lt;/h2&gt;

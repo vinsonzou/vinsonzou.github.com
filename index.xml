@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ops</title>
-    <link>http://ops.m114.org/</link>
+    <link>https://ops.m114.org/</link>
     <description>Recent content on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2016. All rights reserved.</copyright>
     <lastBuildDate>Tue, 12 Jul 2016 23:29:35 +0800</lastBuildDate>
-    <atom:link href="http://ops.m114.org/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://ops.m114.org/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>R420服务器idrac连接用户数超限制</title>
-      <link>http://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/</link>
+      <link>https://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/</link>
       <pubDate>Tue, 12 Jul 2016 23:29:35 +0800</pubDate>
       
-      <guid>http://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/</guid>
+      <guid>https://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/</guid>
       <description>&lt;p&gt;Dell R420服务器中，比较经常出现idrac无法连接，或者连接用户数超限(&lt;code&gt;RAC0218错误&lt;/code&gt;)的问题，升级iDrac卡firmware至1.57.57即可解决。&lt;/p&gt;
 
 &lt;p&gt;该版本的bug fix中提到过一点：&lt;/p&gt;
@@ -75,10 +75,10 @@ racadm fwupdate -g -u -a $tftp_server_ip -d /dell/idrac7-1.57.57
     
     <item>
       <title>运维工具汇总之 性能调优，性能监控，性能测试</title>
-      <link>http://ops.m114.org/tips/linux-performance-tools/</link>
+      <link>https://ops.m114.org/tips/linux-performance-tools/</link>
       <pubDate>Sun, 03 Jul 2016 13:39:01 +0800</pubDate>
       
-      <guid>http://ops.m114.org/tips/linux-performance-tools/</guid>
+      <guid>https://ops.m114.org/tips/linux-performance-tools/</guid>
       <description>
 
 &lt;h2 id=&#34;性能调优:69e253b7a146de7fa83c753e52ee2860&#34;&gt;性能调优&lt;/h2&gt;
@@ -97,10 +97,10 @@ racadm fwupdate -g -u -a $tftp_server_ip -d /dell/idrac7-1.57.57
     
     <item>
       <title>Git常用命令备忘</title>
-      <link>http://ops.m114.org/tips/git-common-command/</link>
+      <link>https://ops.m114.org/tips/git-common-command/</link>
       <pubDate>Thu, 16 Jun 2016 12:33:10 +0800</pubDate>
       
-      <guid>http://ops.m114.org/tips/git-common-command/</guid>
+      <guid>https://ops.m114.org/tips/git-common-command/</guid>
       <description>
 
 &lt;h1 id=&#34;配置:5a8bf9b63fca471d5d97b4fc513a9dbe&#34;&gt;配置&lt;/h1&gt;
@@ -221,10 +221,10 @@ pick ce32af7 添加commit2的说明
     
     <item>
       <title>Docker for Mac Beta尝鲜</title>
-      <link>http://ops.m114.org/post/docker-for-mac-beta/</link>
+      <link>https://ops.m114.org/post/docker-for-mac-beta/</link>
       <pubDate>Fri, 20 May 2016 00:05:35 +0800</pubDate>
       
-      <guid>http://ops.m114.org/post/docker-for-mac-beta/</guid>
+      <guid>https://ops.m114.org/post/docker-for-mac-beta/</guid>
       <description>
 
 &lt;h2 id=&#34;docker-for-mac:e8c7f230e5a8c61bc983560e70f06878&#34;&gt;Docker for Mac&lt;/h2&gt;
@@ -288,10 +288,10 @@ pick ce32af7 添加commit2的说明
     
     <item>
       <title>kernel igb 00000500 0 eth0 reset adapter</title>
-      <link>http://ops.m114.org/post/kernel-igb-00000100-0-eth0-reset-adapter/</link>
+      <link>https://ops.m114.org/post/kernel-igb-00000100-0-eth0-reset-adapter/</link>
       <pubDate>Wed, 03 Jun 2015 23:04:55 +0800</pubDate>
       
-      <guid>http://ops.m114.org/post/kernel-igb-00000100-0-eth0-reset-adapter/</guid>
+      <guid>https://ops.m114.org/post/kernel-igb-00000100-0-eth0-reset-adapter/</guid>
       <description>&lt;p&gt;系统环境&lt;/p&gt;
 
 &lt;ul&gt;
@@ -325,10 +325,10 @@ rmmod igb; modprobe igb
     
     <item>
       <title>DNSPOD API SSL证书调整(subjectAltName)引起的报错</title>
-      <link>http://ops.m114.org/post/DNSPOD-API-SSL-subjectAltName/</link>
+      <link>https://ops.m114.org/post/DNSPOD-API-SSL-subjectAltName/</link>
       <pubDate>Sun, 10 May 2015 23:44:43 +0800</pubDate>
       
-      <guid>http://ops.m114.org/post/DNSPOD-API-SSL-subjectAltName/</guid>
+      <guid>https://ops.m114.org/post/DNSPOD-API-SSL-subjectAltName/</guid>
       <description>&lt;p&gt;报错信息如下：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;Python 2.7 (r27:82500, Jan  7 2014, 23:14:35)
@@ -390,10 +390,10 @@ Type &amp;quot;help&amp;quot;, &amp;quot;copyright&amp;quot;, &amp;quot;credits&
     
     <item>
       <title>俄罗斯永久冬令时的坑</title>
-      <link>http://ops.m114.org/tips/russia-permanent-winter-time/</link>
+      <link>https://ops.m114.org/tips/russia-permanent-winter-time/</link>
       <pubDate>Sun, 26 Apr 2015 16:59:30 +0800</pubDate>
       
-      <guid>http://ops.m114.org/tips/russia-permanent-winter-time/</guid>
+      <guid>https://ops.m114.org/tips/russia-permanent-winter-time/</guid>
       <description>
 
 &lt;h3 id=&#34;系统环境:33cac6d261ec400d5f39ec8c27c64700&#34;&gt;系统环境&lt;/h3&gt;
@@ -423,10 +423,10 @@ Type &amp;quot;help&amp;quot;, &amp;quot;copyright&amp;quot;, &amp;quot;credits&
     
     <item>
       <title>利用TsunamiUDP加速跨机房迁移</title>
-      <link>http://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/</link>
+      <link>https://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/</link>
       <pubDate>Sun, 26 Apr 2015 16:00:00 +0800</pubDate>
       
-      <guid>http://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/</guid>
+      <guid>https://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/</guid>
       <description>
 
 &lt;h2 id=&#34;部署:1390cc2c30e4b37523ebd768ec9abe1b&#34;&gt;部署&lt;/h2&gt;
@@ -497,10 +497,10 @@ PS：未避免泄密，IP是随机填的
     
     <item>
       <title>Zabbix使用Telegram发送报警</title>
-      <link>http://ops.m114.org/post/zabbix-alerts-use-telegram/</link>
+      <link>https://ops.m114.org/post/zabbix-alerts-use-telegram/</link>
       <pubDate>Sat, 25 Apr 2015 17:16:29 +0800</pubDate>
       
-      <guid>http://ops.m114.org/post/zabbix-alerts-use-telegram/</guid>
+      <guid>https://ops.m114.org/post/zabbix-alerts-use-telegram/</guid>
       <description>
 
 &lt;h3 id=&#34;环境:36b0c308d7ec12f7aa9f0b6f722a727f&#34;&gt;环境&lt;/h3&gt;
@@ -555,10 +555,10 @@ echo -e &amp;quot;msg $to ${subject}_#_${body}&amp;quot; | nc localhost 8890
     
     <item>
       <title>Monitor SSL certificate expiry</title>
-      <link>http://ops.m114.org/post/monitor-ssl-certificate-expiry/</link>
+      <link>https://ops.m114.org/post/monitor-ssl-certificate-expiry/</link>
       <pubDate>Sat, 25 Apr 2015 16:31:41 +0800</pubDate>
       
-      <guid>http://ops.m114.org/post/monitor-ssl-certificate-expiry/</guid>
+      <guid>https://ops.m114.org/post/monitor-ssl-certificate-expiry/</guid>
       <description>&lt;p&gt;看到网上弄了个zabbix监控SSL证书过期时间的,给咱业务也加了个此监控。&lt;/p&gt;
 
 &lt;p&gt;改进如下：&lt;/p&gt;
@@ -597,10 +597,10 @@ fi
     
     <item>
       <title>使用Hugo搭建免费个人Blog</title>
-      <link>http://ops.m114.org/post/how-to-use-hugo/</link>
+      <link>https://ops.m114.org/post/how-to-use-hugo/</link>
       <pubDate>Tue, 11 Nov 2014 17:15:00 +0800</pubDate>
       
-      <guid>http://ops.m114.org/post/how-to-use-hugo/</guid>
+      <guid>https://ops.m114.org/post/how-to-use-hugo/</guid>
       <description>
 
 &lt;h1 id=&#34;hugo是什么:fb5094e696928981151e6c76593c6932&#34;&gt;Hugo是什么&lt;/h1&gt;
