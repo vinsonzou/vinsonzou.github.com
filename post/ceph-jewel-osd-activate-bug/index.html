@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.15" />
+
+  <title>ceph集群jewel版本部署osd激活权限报错 &middot; ops</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://ops.m114.org/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://ops.m114.org/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="https://ops.m114.org/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  
+  <link href="//fonts.lug.ustc.edu.cn/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://ops.m114.org/img/favicon.ico" type="image/x-icon" />
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="https://ops.m114.org/">Ops</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/tips/"><i class='fa fa-list fa-fw'></i>Tips</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/tags/"><i class='fa fa-tags fa-fw'></i>Tags</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/vinsonzou" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2014-2016. All rights reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>ceph集群jewel版本部署osd激活权限报错</h1>
+  <h2></h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2016/07/29, 00:29</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/ceph">ceph</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <p>ceph集群jewel版本部署过程中执行osd激活操作如下</p>
+
+<pre><code>ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2
+</code></pre>
+
+<p>报错内容如下</p>
+
+<pre><code>[2016-07-29 00:05:19,106][ceph_deploy.conf][DEBUG ] found configuration file at: /root/.cephdeploy.conf
+[2016-07-29 00:05:19,107][ceph_deploy.cli][INFO  ] Invoked (1.5.34): /bin/ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2
+[2016-07-29 00:05:19,107][ceph_deploy.cli][INFO  ] ceph-deploy options:
+[2016-07-29 00:05:19,108][ceph_deploy.cli][INFO  ]  username                      : None
+[2016-07-29 00:05:19,108][ceph_deploy.cli][INFO  ]  verbose                       : False
+[2016-07-29 00:05:19,108][ceph_deploy.cli][INFO  ]  overwrite_conf                : False
+[2016-07-29 00:05:19,108][ceph_deploy.cli][INFO  ]  subcommand                    : activate
+[2016-07-29 00:05:19,108][ceph_deploy.cli][INFO  ]  quiet                         : False
+[2016-07-29 00:05:19,108][ceph_deploy.cli][INFO  ]  cd_conf                       : &lt;ceph_deploy.conf.cephdeploy.Conf instance at 0x26dcb90&gt;
+[2016-07-29 00:05:19,109][ceph_deploy.cli][INFO  ]  cluster                       : ceph
+[2016-07-29 00:05:19,109][ceph_deploy.cli][INFO  ]  func                          : &lt;function osd at 0x26d0320&gt;
+[2016-07-29 00:05:19,109][ceph_deploy.cli][INFO  ]  ceph_conf                     : None
+[2016-07-29 00:05:19,109][ceph_deploy.cli][INFO  ]  default_release               : False
+[2016-07-29 00:05:19,109][ceph_deploy.cli][INFO  ]  disk                          : [('ceph13', '/dev/sdb1', '/dev/sda2')]
+[2016-07-29 00:05:19,110][ceph_deploy.osd][DEBUG ] Activating cluster ceph disks ceph13:/dev/sdb1:/dev/sda2
+[2016-07-29 00:05:19,217][ceph13][DEBUG ] connected to host: ceph13
+[2016-07-29 00:05:19,218][ceph13][DEBUG ] detect platform information from remote host
+[2016-07-29 00:05:19,258][ceph13][DEBUG ] detect machine type
+[2016-07-29 00:05:19,264][ceph13][DEBUG ] find the location of an executable
+[2016-07-29 00:05:19,266][ceph_deploy.osd][INFO  ] Distro info: CentOS Linux 7.2.1511 Core
+[2016-07-29 00:05:19,266][ceph_deploy.osd][DEBUG ] activating host ceph13 disk /dev/sdb1
+[2016-07-29 00:05:19,266][ceph_deploy.osd][DEBUG ] will use init type: systemd
+[2016-07-29 00:05:19,266][ceph13][DEBUG ] find the location of an executable
+[2016-07-29 00:05:19,270][ceph13][INFO  ] Running command: /usr/sbin/ceph-disk -v activate --mark-init systemd --mount /dev/sdb1
+[2016-07-29 00:05:19,598][ceph13][WARNING] main_activate: path = /dev/sdb1
+[2016-07-29 00:05:19,598][ceph13][WARNING] get_dm_uuid: get_dm_uuid /dev/sdb1 uuid path is /sys/dev/block/8:17/dm/uuid
+[2016-07-29 00:05:19,598][ceph13][WARNING] command: Running command: /sbin/blkid -o udev -p /dev/sdb1
+[2016-07-29 00:05:19,630][ceph13][WARNING] command: Running command: /sbin/blkid -p -s TYPE -o value -- /dev/sdb1
+[2016-07-29 00:05:19,638][ceph13][WARNING] command: Running command: /usr/bin/ceph-conf --cluster=ceph --name=osd. --lookup osd_mount_options_xfs
+[2016-07-29 00:05:19,803][ceph13][WARNING] command: Running command: /usr/bin/ceph-conf --cluster=ceph --name=osd. --lookup osd_fs_mount_options_xfs
+[2016-07-29 00:05:19,967][ceph13][WARNING] mount: Mounting /dev/sdb1 on /var/lib/ceph/tmp/mnt.K5WBsO with options noatime,inode64
+[2016-07-29 00:05:19,967][ceph13][WARNING] command_check_call: Running command: /usr/bin/mount -t xfs -o noatime,inode64 -- /dev/sdb1 /var/lib/ceph/tmp/mnt.K5WBsO
+[2016-07-29 00:05:19,983][ceph13][WARNING] command: Running command: /sbin/restorecon /var/lib/ceph/tmp/mnt.K5WBsO
+[2016-07-29 00:05:19,991][ceph13][WARNING] activate: Cluster uuid is f2694afb-b5fc-4225-982a-342c4a1ca389
+[2016-07-29 00:05:19,991][ceph13][WARNING] command: Running command: /usr/bin/ceph-osd --cluster=ceph --show-config-value=fsid
+[2016-07-29 00:05:20,156][ceph13][WARNING] activate: Cluster name is ceph
+[2016-07-29 00:05:20,156][ceph13][WARNING] activate: OSD uuid is 684effdc-67ae-4f54-a9b8-a113f4a8f0cc
+[2016-07-29 00:05:20,156][ceph13][WARNING] activate: OSD id is 0
+[2016-07-29 00:05:20,156][ceph13][WARNING] activate: Initializing OSD...
+[2016-07-29 00:05:20,157][ceph13][WARNING] command_check_call: Running command: /usr/bin/ceph --cluster ceph --name client.bootstrap-osd --keyring /var/lib/ceph/bootstrap-osd/ceph.keyring mon getmap -o /var/lib/ceph/tmp/mnt.K5WBsO/activate.monmap
+[2016-07-29 00:05:20,572][ceph13][WARNING] got monmap epoch 1
+[2016-07-29 00:05:20,572][ceph13][WARNING] command: Running command: /usr/bin/timeout 300 ceph-osd --cluster ceph --mkfs --mkkey -i 0 --monmap /var/lib/ceph/tmp/mnt.K5WBsO/activate.monmap --osd-data /var/lib/ceph/tmp/mnt.K5WBsO --osd-journal /var/lib/ceph/tmp/mnt.K5WBsO/journal --osd-uuid 684effdc-67ae-4f54-a9b8-a113f4a8f0cc --keyring /var/lib/ceph/tmp/mnt.K5WBsO/keyring --setuser ceph --setgroup ceph
+[2016-07-29 00:05:20,686][ceph13][WARNING] mount_activate: Failed to activate
+[2016-07-29 00:05:20,686][ceph13][WARNING] unmount: Unmounting /var/lib/ceph/tmp/mnt.K5WBsO
+[2016-07-29 00:05:20,687][ceph13][WARNING] command_check_call: Running command: /bin/umount -- /var/lib/ceph/tmp/mnt.K5WBsO
+[2016-07-29 00:05:21,052][ceph13][WARNING] Traceback (most recent call last):
+[2016-07-29 00:05:21,052][ceph13][WARNING]   File &quot;/usr/sbin/ceph-disk&quot;, line 9, in &lt;module&gt;
+[2016-07-29 00:05:21,052][ceph13][WARNING]     load_entry_point('ceph-disk==1.0.0', 'console_scripts', 'ceph-disk')()
+[2016-07-29 00:05:21,052][ceph13][WARNING]   File &quot;/usr/lib/python2.7/site-packages/ceph_disk/main.py&quot;, line 4994, in run
+[2016-07-29 00:05:21,053][ceph13][WARNING]     main(sys.argv[1:])
+[2016-07-29 00:05:21,053][ceph13][WARNING]   File &quot;/usr/lib/python2.7/site-packages/ceph_disk/main.py&quot;, line 4945, in main
+[2016-07-29 00:05:21,053][ceph13][WARNING]     args.func(args)
+[2016-07-29 00:05:21,053][ceph13][WARNING]   File &quot;/usr/lib/python2.7/site-packages/ceph_disk/main.py&quot;, line 3299, in main_activate
+[2016-07-29 00:05:21,053][ceph13][WARNING]     reactivate=args.reactivate,
+[2016-07-29 00:05:21,054][ceph13][WARNING]   File &quot;/usr/lib/python2.7/site-packages/ceph_disk/main.py&quot;, line 3056, in mount_activate
+[2016-07-29 00:05:21,054][ceph13][WARNING]     (osd_id, cluster) = activate(path, activate_key_template, init)
+[2016-07-29 00:05:21,054][ceph13][WARNING]   File &quot;/usr/lib/python2.7/site-packages/ceph_disk/main.py&quot;, line 3232, in activate
+[2016-07-29 00:05:21,054][ceph13][WARNING]     keyring=keyring,
+[2016-07-29 00:05:21,054][ceph13][WARNING]   File &quot;/usr/lib/python2.7/site-packages/ceph_disk/main.py&quot;, line 2725, in mkfs
+[2016-07-29 00:05:21,055][ceph13][WARNING]     '--setgroup', get_ceph_group(),
+[2016-07-29 00:05:21,055][ceph13][WARNING]   File &quot;/usr/lib/python2.7/site-packages/ceph_disk/main.py&quot;, line 2672, in ceph_osd_mkfs
+[2016-07-29 00:05:21,055][ceph13][WARNING]     raise Error('%s failed : %s' % (str(arguments), error))
+[2016-07-29 00:05:21,055][ceph13][WARNING] ceph_disk.main.Error: Error: ['ceph-osd', '--cluster', 'ceph', '--mkfs', '--mkkey', '-i', '0', '--monmap', '/var/lib/ceph/tmp/mnt.K5WBsO/activate.monmap', '--osd-data', '/var/lib/ceph/tmp/mnt.K5WBsO', '--osd-journal', '/var/lib/ceph/tmp/mnt.K5WBsO/journal', '--osd-uuid', '684effdc-67ae-4f54-a9b8-a113f4a8f0cc', '--keyring', '/var/lib/ceph/tmp/mnt.K5WBsO/keyring', '--setuser', 'ceph', '--setgroup', 'ceph'] failed : 2016-07-29 00:05:20.672440 7f46517dd800 -1 filestore(/var/lib/ceph/tmp/mnt.K5WBsO) mkjournal error creating journal on /var/lib/ceph/tmp/mnt.K5WBsO/journal: (13) Permission denied
+[2016-07-29 00:05:21,056][ceph13][WARNING] 2016-07-29 00:05:20.672462 7f46517dd800 -1 OSD::mkfs: ObjectStore::mkfs failed with error -13
+[2016-07-29 00:05:21,056][ceph13][WARNING] 2016-07-29 00:05:20.672526 7f46517dd800 -1  ** ERROR: error creating empty object store in /var/lib/ceph/tmp/mnt.K5WBsO: (13) Permission denied
+[2016-07-29 00:05:21,056][ceph13][WARNING]
+[2016-07-29 00:05:21,057][ceph13][ERROR ] RuntimeError: command returned non-zero exit status: 1
+[2016-07-29 00:05:21,057][ceph_deploy][ERROR ] RuntimeError: Failed to execute command: /usr/sbin/ceph-disk -v activate --mark-init systemd --mount /dev/sdb1
+</code></pre>
+
+<p><strong>解决办法:</strong></p>
+
+<p>将ceph集群需要使用的所有磁盘权限，所属用户、用户组改给ceph</p>
+
+<pre><code>chown ceph:ceph /dev/sdb1
+</code></pre>
+
+<p><strong>问题延伸:</strong></p>
+
+<p>此问题本次修复后，系统重启磁盘权限会被修改回，导致osd服务无法正常启动，这个权限问题很坑，每次系统启动自动修改磁盘权限。</p>
+
+<p>查找ceph资料，发现这其实是一个bug，社区暂未解决。</p>
+
+<p><a href="http://tracker.ceph.com/issues/13833">http://tracker.ceph.com/issues/13833</a></p>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://ops.m114.org/post/deploy-ceph-using-china-mirror/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://ops.m114.org/post/deploy-ceph-using-china-mirror/">使用国内源部署Ceph</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+
+  
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'vinsoncou';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js?https';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+</div>
+
+</div>
+</div>
+<script src="https://ops.m114.org/js/ui.js"></script>
+
+
+
+
+<script data-no-instant>document.write('<script src="/livereload.js?mindelay=10"></' + 'script>')</script></body>
+</html>
+
