@@ -7,8 +7,33 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2016. All rights reserved.</copyright>
-    <lastBuildDate>Fri, 29 Jul 2016 00:29:29 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 03 Aug 2016 10:52:24 +0800</lastBuildDate>
     <atom:link href="https://ops.m114.org/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>MySQL Unable to lock ibdata1 error 11 fix</title>
+      <link>https://ops.m114.org/post/MySQL-Unable-to-lock-ibdata1-error-11-fix/</link>
+      <pubDate>Wed, 03 Aug 2016 10:52:24 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/MySQL-Unable-to-lock-ibdata1-error-11-fix/</guid>
+      <description>
+
+&lt;p&gt;A bad shutdown can cause such erros on MySQL.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Error in opening ./ibdata1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;for-solution:e0674e9b0001e1ca7bcc0ae01cfe7dd5&#34;&gt;For solution&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;mv ibdata1 ibdata1.bak
+cp -a ibdata1.bak ibdata1
+service mysqld restart
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>ceph集群jewel版本部署osd激活权限报错</title>

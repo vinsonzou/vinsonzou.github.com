@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.15" />
 
-  <title>Tags &middot; ops</title>
+  <title>MySQL Unable to lock ibdata1 error 11 fix &middot; ops</title>
 
   
   
@@ -36,8 +36,6 @@
   <link href="//fonts.lug.ustc.edu.cn/css?family=Raleway" rel="stylesheet" type="text/css">
 
   
-  
-  <link rel="alternate" type="application/rss+xml" title="ops" href="https://ops.m114.org/tags/index.xml" />
   
 
   
@@ -98,10 +96,6 @@
   <div class="pure-menu social">
   <ul class="pure-menu-list">
 
-    
-    <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://ops.m114.org/tags/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
-    </li>
     
 
     
@@ -175,83 +169,105 @@
 
 
 <div class="header">
-  <h1>Tags</h1>
+  <h1>MySQL Unable to lock ibdata1 error 11 fix</h1>
+  <h2></h2>
 </div>
 <div class="content">
-  <ul>
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2016/08/03, 10:52</time>
+  </div>
+
+  
+
   
   
-    <li>
-      <a href="ceph">ceph</a>
-      <span>&#40;2&#41;</span>
-    </li>
   
-    <li>
-      <a href="zabbix">zabbix</a>
-      <span>&#40;2&#41;</span>
-    </li>
   
-    <li>
-      <a href="docker">docker</a>
-      <span>&#40;1&#41;</span>
-    </li>
+
   
-    <li>
-      <a href="hugo">hugo</a>
-      <span>&#40;1&#41;</span>
-    </li>
   
-    <li>
-      <a href="git">git</a>
-      <span>&#40;1&#41;</span>
-    </li>
   
-    <li>
-      <a href="java">java</a>
-      <span>&#40;1&#41;</span>
-    </li>
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/mysql">MySQL</a>
+    
+  </div>
   
-    <li>
-      <a href="telegram">telegram</a>
-      <span>&#40;1&#41;</span>
-    </li>
   
-    <li>
-      <a href="mysql">mysql</a>
-      <span>&#40;1&#41;</span>
-    </li>
+
+</div>
+
   
-    <li>
-      <a href="idrac">idrac</a>
-      <span>&#40;1&#41;</span>
-    </li>
+
+<p>A bad shutdown can cause such erros on MySQL.</p>
+
+<pre><code>InnoDB: Unable to lock ./ibdata1, error: 11
+InnoDB: Check that you do not already have another mysqld process
+InnoDB: using the same InnoDB data or log files.
+InnoDB: Error in opening ./ibdata1
+</code></pre>
+
+<h2 id="for-solution:e0674e9b0001e1ca7bcc0ae01cfe7dd5">For solution</h2>
+
+<pre><code>mv ibdata1 ibdata1.bak
+cp -a ibdata1.bak ibdata1
+service mysqld restart
+</code></pre>
+
+
   
-    <li>
-      <a href="igb">igb</a>
-      <span>&#40;1&#41;</span>
-    </li>
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://ops.m114.org/post/ceph-jewel-osd-activate-bug/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://ops.m114.org/post/ceph-jewel-osd-activate-bug/">ceph集群jewel版本部署osd激活权限报错</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+
   
-    <li>
-      <a href="golang">golang</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="subjectaltname">subjectaltname</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="tsunamiudp">tsunamiudp</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="openssl">openssl</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-  </ul>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'vinsoncou';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
 </div>
 
 </div>
@@ -263,3 +279,4 @@
 
 <script data-no-instant>document.write('<script src="/livereload.js?mindelay=10"></' + 'script>')</script></body>
 </html>
+
