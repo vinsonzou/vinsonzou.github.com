@@ -3,8 +3,12 @@
   
   <url>
     <loc>https://ops.m114.org/</loc>
-    <lastmod>2016-08-03T10:52:24+08:00</lastmod>
-    <priority>0</priority>
+    <lastmod>2016-08-06T13:54:53+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ops.m114.org/post/CentOS7-systemd-vs-CentOS6-daemon/</loc>
+    <lastmod>2016-08-06T13:54:53+08:00</lastmod>
   </url>
   
   <url>

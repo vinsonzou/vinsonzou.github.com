@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.15" />
+  <meta name="generator" content="Hugo 0.16" />
 
   <title>使用国内源部署Ceph &middot; ops</title>
 
@@ -81,6 +81,12 @@
       
         <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://ops.m114.org/tips/"><i class='fa fa-list fa-fw'></i>Tips</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/topics/"><i class='fa fa-folder fa-fw'></i>Topics</a>
       
         </li>
       
@@ -206,7 +212,7 @@
 
 <p>由于网络方面的原因，Ceph的部署经常受到干扰，通常为了加速部署，基本上大家都是将Ceph的源同步到本地进行安装。根据Ceph中国社区的统计，当前已经有国内的网站定期将Ceph安装源同步，极大的方便了我们的测试。本文就是介绍如何使用国内源，加速ceph-deploy部署Ceph集群。</p>
 
-<h1 id="关于国内源:e5044e4dfabfd789a52b3d18dd8a16b3">关于国内源</h1>
+<h1 id="关于国内源">关于国内源</h1>
 
 <p>根据Ceph中国社区的统计，国内已经有四家网站开始同步Ceph源，分别是：</p>
 
@@ -217,7 +223,7 @@
 <li>宝德镜像源<a href="http://mirrors.plcloud.com/ceph">http://mirrors.plcloud.com/ceph</a></li>
 </ul>
 
-<h1 id="安装ceph-jewel版:e5044e4dfabfd789a52b3d18dd8a16b3">安装Ceph(Jewel版)</h1>
+<h1 id="安装ceph-jewel版">安装Ceph(Jewel版)</h1>
 
 <p>由于Jewel版本中已经不提供el6的镜像源，所以只能使用CentOS 7以上版本进行安装。我们并不需要在repos里增加相应的源，只需要设置环境变量，即可让ceph-deploy使用国内源，具体过程如下：</p>
 

@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.16" />
+
+  <title>Centos 7.x systemd对比Centos 6.x daemon &middot; ops</title>
+
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://ops.m114.org/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://ops.m114.org/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="https://ops.m114.org/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  
+  <link href="//fonts.lug.ustc.edu.cn/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.5.0/styles/androidstudio.min.css">
+  <script src="//cdn.bootcss.com/highlight.js/9.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://ops.m114.org/img/favicon.ico" type="image/x-icon" />
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="https://ops.m114.org/">Ops</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/tips/"><i class='fa fa-list fa-fw'></i>Tips</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/topics/"><i class='fa fa-folder fa-fw'></i>Topics</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/tags/"><i class='fa fa-tags fa-fw'></i>Tags</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/vinsonzou" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2014-2016. All rights reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Centos 7.x systemd对比Centos 6.x daemon</h1>
+  <h2></h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2016/08/06, 13:54</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/centos7">CentOS7</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/systemd">systemd</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  
+
+<p>从CentOS 7.x开始，CentOS开始使用systemd服务来代替daemon，原来管理系统启动和管理系统服务的相关命令全部由systemctl命令来代替。</p>
+
+<h1 id="1-原来的-service-命令与-systemctl-命令对比">1、原来的 service 命令与 systemctl 命令对比</h1>
+
+<table>
+<thead>
+<tr>
+<th align="center">daemon命令</th>
+<th align="center">systemctl命令</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">service [服务] start</td>
+<td align="center">systemctl start [unit type]</td>
+<td align="center">启动服务</td>
+</tr>
+
+<tr>
+<td align="center">service [服务] stop</td>
+<td align="center">systemctl stop [unit type]</td>
+<td align="center">停止服务</td>
+</tr>
+
+<tr>
+<td align="center">service [服务] restart</td>
+<td align="center">systemctl restart [unit type]</td>
+<td align="center">重启服务</td>
+</tr>
+</tbody>
+</table>
+
+<p>此外还有二个systemctl参数没有与service命令参数对应</p>
+
+<pre><code>status: 参数来查看服务运行情况
+reload: 重新加载服务，加载更新后的配置文件（并不是所有服务都支持这个参数，比如network.service）
+</code></pre>
+
+<p>应用举例:</p>
+
+<pre><code>#启动网络服务
+systemctl start network.service
+#停止网络服务
+systemctl stop network.service
+#重启网络服务
+systemctl restart network.service
+#查看网络服务状态
+systemctl status network.serivce
+</code></pre>
+
+<h1 id="2-原来的chkconfig-命令与-systemctl-命令对比">2、原来的chkconfig 命令与 systemctl 命令对比</h1>
+
+<h2 id="2-1-设置开机启动-不启动">2.1、设置开机启动/不启动</h2>
+
+<table>
+<thead>
+<tr>
+<th align="center">daemon命令</th>
+<th align="center">systemctl命令</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">chkconfig [服务] on</td>
+<td align="center">systemctl enable [unit type]</td>
+<td align="center">设置服务开机启动</td>
+</tr>
+
+<tr>
+<td align="center">chkconfig [服务] off</td>
+<td align="center">systemctl disable [unit type]</td>
+<td align="center">设备服务禁止开机启动</td>
+</tr>
+</tbody>
+</table>
+
+<p>应用举例：</p>
+
+<pre><code>#停止cup电源管理服务
+systemctl stop cups.service
+#禁止cups服务开机启动
+systemctl disable cups.service
+#查看cups服务状态
+systemctl status cups.service
+#重新设置cups服务开机启动
+systemctl enable cups.service
+</code></pre>
+
+<h2 id="2-2-查看系统上所有的服务">2.2、查看系统上所有的服务</h2>
+
+<p>命令格式：</p>
+
+<pre><code>systemctl [command] [--type=TYPE] [--all]
+</code></pre>
+
+<p>参数详解：</p>
+
+<p>command</p>
+
+<pre><code>list-units: 依据unit列出所有启动的unit。加上 --all 才会列出没启动的unit;
+list-unit-files: 依据 /usr/lib/systemd/system/ 内的启动文件，列出启动文件列表
+</code></pre>
+
+<p><code>--type=TYPE</code></p>
+
+<pre><code>为unit type, 主要有service, socket, target, timer
+</code></pre>
+
+<p>应用举例：</p>
+
+<pre><code>systemctl                  #列出所有的系统服务
+systemctl list-units       #列出所有启动unit
+systemctl list-unit-files  #列出所有启动文件
+systemctl list-units --type=service --all  #列出所有service类型的unit
+systemctl list-units --type=socket --all   #列出所有socket类型的unit
+systemctl list-units --type=timer --all    #列出所有timer类型的unit
+systemctl list-units --type=target --all   #列出所有target
+</code></pre>
+
+<h1 id="3-systemctl特殊的用法">3、systemctl特殊的用法</h1>
+
+<pre><code>#查看网络服务是否启动
+systemctl is-active network.service
+#检查网络服务是否设置为开机启动
+systemctl is-enable network.service
+#停止cups服务
+systemctl stop cups.service
+#注销cups服务
+systemctl mask cups.service
+#查看cups服务状态
+systemctl status cups.service
+#取消注销cups服务
+systemctl unmask cups.service
+</code></pre>
+
+<h1 id="4-init-命令与systemctl命令对比">4、init 命令与systemctl命令对比</h1>
+
+<table>
+<thead>
+<tr>
+<th align="center">init命令</th>
+<th align="center">systemctl 命令</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">init 0</td>
+<td align="center">systemctl poweroff</td>
+<td align="center">系统关机</td>
+</tr>
+
+<tr>
+<td align="center">init 6</td>
+<td align="center">systemctl reboot</td>
+<td align="center">重新启动</td>
+</tr>
+</tbody>
+</table>
+
+<p>与开关机相关的其他命令：</p>
+
+<table>
+<thead>
+<tr>
+<th align="center">systemctl命令</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">systemctl suspend</td>
+<td align="center">进入睡眠模式</td>
+</tr>
+
+<tr>
+<td align="center">systemctl hibernate</td>
+<td align="center">进入休眠模式</td>
+</tr>
+
+<tr>
+<td align="center">systemctl rescue</td>
+<td align="center">强制进入救援模式</td>
+</tr>
+
+<tr>
+<td align="center">systemctl emergency</td>
+<td align="center">强制进入紧急救援模式</td>
+</tr>
+</tbody>
+</table>
+
+<h1 id="5-设置系统运行级别">5、设置系统运行级别</h1>
+
+<h2 id="5-1-运行级别对应表">5.1、运行级别对应表</h2>
+
+<table>
+<thead>
+<tr>
+<th align="center">init级别</th>
+<th align="center">systemctl target</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="center">0</td>
+<td align="center">shutdown.target</td>
+</tr>
+
+<tr>
+<td align="center">1</td>
+<td align="center">emergency.target</td>
+</tr>
+
+<tr>
+<td align="center">2</td>
+<td align="center">rescure.target</td>
+</tr>
+
+<tr>
+<td align="center">3</td>
+<td align="center">multi-user.target</td>
+</tr>
+
+<tr>
+<td align="center">4</td>
+<td align="center">无</td>
+</tr>
+
+<tr>
+<td align="center">5</td>
+<td align="center">graphical.target</td>
+</tr>
+
+<tr>
+<td align="center">6</td>
+<td align="center">无</td>
+</tr>
+</tbody>
+</table>
+
+<p>此外还有一个getty.target用来设置tty的数量。</p>
+
+<h2 id="5-2-设置运行级别">5.2、设置运行级别</h2>
+
+<pre><code>systemctl get-default  #获得当前的运行级别
+systemctl set-default multi-user.target  #设置默认的运行级别为mulit-user
+systemctl isolate multi-user.target      #在不重启的情况下，切换到运行级别mulit-user下
+systemctl isolate graphical.target       #在不重启的情况下，切换到图形界面下
+</code></pre>
+
+<h1 id="6-关闭网络服务">6、关闭网络服务</h1>
+
+<p>在使用systemctl关闭网络服务时有一些特殊，需要同时关闭unit.servce和unit.socket</p>
+
+<p>使用systemctl查看开启的sshd服务</p>
+
+<pre><code>[root@localhost system]# systemctl list-units --all | grep sshd
+sshd-keygen.service loaded inactive dead        OpenSSH Server Key Generation
+sshd.service        loaded active   running     OpenSSH server daemon
+sshd.socket         loaded inactive dead        OpenSSH Server Socket
+</code></pre>
+
+<p>可以看到系统同时开启了sshd.service和sshd.socket , 如果只闭关了sshd.service那么sshd.socket还在监听网络，在网络上有要求连接sshd时就会启动sshd.service。因此如果要完全关闭sshd服务，需要同时停用sshd.service和sshd.socket。</p>
+
+<pre><code>systemctl stop sshd.service
+systemctl stop sshd.socket
+systemctl disable sshd.service sshd.socket
+</code></pre>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://ops.m114.org/post/MySQL-Unable-to-lock-ibdata1-error-11-fix/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://ops.m114.org/post/MySQL-Unable-to-lock-ibdata1-error-11-fix/">MySQL Unable to lock ibdata1 error 11 fix</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+
+  
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'vinsoncou';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+</div>
+
+</div>
+</div>
+<script src="https://ops.m114.org/js/ui.js"></script>
+
+
+
+
+<script data-no-instant>document.write('<script src="/livereload.js?mindelay=10"></' + 'script>')</script></body>
+</html>
+

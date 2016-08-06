@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.15" />
+  <meta name="generator" content="Hugo 0.16" />
 
   <title>利用TsunamiUDP加速跨机房迁移 &middot; ops</title>
 
@@ -81,6 +81,12 @@
       
         <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://ops.m114.org/tips/"><i class='fa fa-list fa-fw'></i>Tips</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/topics/"><i class='fa fa-folder fa-fw'></i>Topics</a>
       
         </li>
       
@@ -201,7 +207,7 @@
 
   
 
-<h2 id="部署:1390cc2c30e4b37523ebd768ec9abe1b">部署</h2>
+<h2 id="部署">部署</h2>
 
 <pre><code>yum -y install automake autoconf
 
@@ -218,7 +224,7 @@ cd tsunami-udp-v11-b42
 cp server/tsunamid client/tsunami /usr/bin
 </code></pre>
 
-<h2 id="使用:1390cc2c30e4b37523ebd768ec9abe1b">使用</h2>
+<h2 id="使用">使用</h2>
 
 <pre><code>#1、防火墙调整
 #服务端：开启TCP 46224(默认端口)
@@ -243,7 +249,7 @@ tsunami set rate 100M connect 122.225.100.100 get \*
 PS：未避免泄密，IP是随机填的
 </code></pre>
 
-<h2 id="跨机房迁移示例:1390cc2c30e4b37523ebd768ec9abe1b">跨机房迁移示例</h2>
+<h2 id="跨机房迁移示例">跨机房迁移示例</h2>
 
 <p>场景：
 将14G文件从杭州机房迁移至北京机房</p>
@@ -260,7 +266,7 @@ PS：未避免泄密，IP是随机填的
 
 <p>TsunamiUDP相比wget优势太明显了，TsunamiUDP把带宽能跑满，而wget的速度不敢恭维。</p>
 
-<h2 id="参考:1390cc2c30e4b37523ebd768ec9abe1b">参考</h2>
+<h2 id="参考">参考</h2>
 
 <p><a href="http://sysadminandnetworking.blogspot.com/2013/06/tsunami-udp-faster-than-rsync.html">http://sysadminandnetworking.blogspot.com/2013/06/tsunami-udp-faster-than-rsync.html</a>
 <a href="http://blog.csdn.net/awschina/article/details/38661889">http://blog.csdn.net/awschina/article/details/38661889</a></p>

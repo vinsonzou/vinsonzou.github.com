@@ -18,7 +18,7 @@
       <guid>https://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/</guid>
       <description>
 
-&lt;h2 id=&#34;部署:1390cc2c30e4b37523ebd768ec9abe1b&#34;&gt;部署&lt;/h2&gt;
+&lt;h2 id=&#34;部署&#34;&gt;部署&lt;/h2&gt;
 
 &lt;pre&gt;&lt;code&gt;yum -y install automake autoconf
 
@@ -35,7 +35,7 @@ cd tsunami-udp-v11-b42
 cp server/tsunamid client/tsunami /usr/bin
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&#34;使用:1390cc2c30e4b37523ebd768ec9abe1b&#34;&gt;使用&lt;/h2&gt;
+&lt;h2 id=&#34;使用&#34;&gt;使用&lt;/h2&gt;
 
 &lt;pre&gt;&lt;code&gt;#1、防火墙调整
 #服务端：开启TCP 46224(默认端口)
@@ -60,7 +60,7 @@ tsunami set rate 100M connect 122.225.100.100 get \*
 PS：未避免泄密，IP是随机填的
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&#34;跨机房迁移示例:1390cc2c30e4b37523ebd768ec9abe1b&#34;&gt;跨机房迁移示例&lt;/h2&gt;
+&lt;h2 id=&#34;跨机房迁移示例&#34;&gt;跨机房迁移示例&lt;/h2&gt;
 
 &lt;p&gt;场景：
 将14G文件从杭州机房迁移至北京机房&lt;/p&gt;
@@ -77,7 +77,7 @@ PS：未避免泄密，IP是随机填的
 
 &lt;p&gt;TsunamiUDP相比wget优势太明显了，TsunamiUDP把带宽能跑满，而wget的速度不敢恭维。&lt;/p&gt;
 
-&lt;h2 id=&#34;参考:1390cc2c30e4b37523ebd768ec9abe1b&#34;&gt;参考&lt;/h2&gt;
+&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://sysadminandnetworking.blogspot.com/2013/06/tsunami-udp-faster-than-rsync.html&#34;&gt;http://sysadminandnetworking.blogspot.com/2013/06/tsunami-udp-faster-than-rsync.html&lt;/a&gt;
 &lt;a href=&#34;http://blog.csdn.net/awschina/article/details/38661889&#34;&gt;http://blog.csdn.net/awschina/article/details/38661889&lt;/a&gt;&lt;/p&gt;

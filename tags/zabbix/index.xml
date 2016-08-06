@@ -18,11 +18,11 @@
       <guid>https://ops.m114.org/post/zabbix-alerts-use-telegram/</guid>
       <description>
 
-&lt;h3 id=&#34;环境:36b0c308d7ec12f7aa9f0b6f722a727f&#34;&gt;环境&lt;/h3&gt;
+&lt;h3 id=&#34;环境&#34;&gt;环境&lt;/h3&gt;
 
 &lt;p&gt;CentOS 6.X x86_64&lt;/p&gt;
 
-&lt;h3 id=&#34;编译telegram:36b0c308d7ec12f7aa9f0b6f722a727f&#34;&gt;编译Telegram&lt;/h3&gt;
+&lt;h3 id=&#34;编译telegram&#34;&gt;编译Telegram&lt;/h3&gt;
 
 &lt;pre&gt;&lt;code&gt;yum -y install lua-devel openssl-devel libconfig-devel readline-devel libevent-devel
 
@@ -44,7 +44,7 @@ cd `dirname $0`
 ./telegram-cli -k tg-server.pub -WDCRE -P 8890 -d &amp;amp;&amp;gt;/dev/null &amp;amp;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h3 id=&#34;zabbix报警配置:36b0c308d7ec12f7aa9f0b6f722a727f&#34;&gt;Zabbix报警配置&lt;/h3&gt;
+&lt;h3 id=&#34;zabbix报警配置&#34;&gt;Zabbix报警配置&lt;/h3&gt;
 
 &lt;p&gt;将如下Zabbix Server配置注释并修改如下
 AlertScriptsPath=/usr/local/zabbix/alertscripts&lt;/p&gt;

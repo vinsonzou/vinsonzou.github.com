@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.15" />
+  <meta name="generator" content="Hugo 0.16" />
 
   <title>ops</title>
 
@@ -83,6 +83,12 @@
       
         <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://ops.m114.org/tips/"><i class='fa fa-list fa-fw'></i>Tips</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/topics/"><i class='fa fa-folder fa-fw'></i>Topics</a>
       
         </li>
       
@@ -180,6 +186,51 @@
 </div>
 
 <div class="content">
+  
+    <article>
+  <header>
+    <h2><a href="https://ops.m114.org/post/monitor-ssl-certificate-expiry/">Monitor SSL certificate expiry</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2015/04/25, 16:31</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/zabbix">zabbix</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/openssl">openssl</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  看到网上弄了个zabbix监控SSL证书过期时间的,给咱业务也加了个此监控。 改进如下： 基于域名监控(一台服务器上有多个证书) 当前使用的shell脚本如下 #!/bin/sh host=$1 port=443 end_date=`openssl s_client -servername $host -host $host -port $port -showcerts &lt;/dev/null 2&gt;/dev/null | sed -n '/BEGIN CERTIFICATE/,/END CERT/p' | openssl x509 -text 2&gt;/dev/null | sed -n 's/ *Not After : *//p'` # openssl 检验和验证SSL证书。 # -servername $host 因一台主机存在多个证书，利用SNI特性检查 # &lt;/dev/null 定向标准输入，防止交互式程序Hang。从/dev/null 读时，直接读出0 。 # sed -n 和p 一起使用，仅显示匹配到的部分。 //,// 区间匹配。 # openssl x509 -text 解码证书信息，包含证书的有效期。 if [ -n &quot;$end_date&quot; ] then end_date_seconds=`date '+%s' --date
+  </p>
+
+  
+  <footer>
+    <a href="https://ops.m114.org/post/monitor-ssl-certificate-expiry/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
   
     <article>
   <header>

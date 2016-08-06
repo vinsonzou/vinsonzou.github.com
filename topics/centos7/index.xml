@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Centos7 on ops</title>
+    <link>https://ops.m114.org/topics/centos7/</link>
+    <description>Recent content in Centos7 on ops</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>&amp;copy; 2014-2016. All rights reserved.</copyright>
+    <lastBuildDate>Sat, 06 Aug 2016 13:54:53 +0800</lastBuildDate>
+    <atom:link href="https://ops.m114.org/topics/centos7/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Centos 7.x systemd对比Centos 6.x daemon</title>
+      <link>https://ops.m114.org/post/CentOS7-systemd-vs-CentOS6-daemon/</link>
+      <pubDate>Sat, 06 Aug 2016 13:54:53 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/CentOS7-systemd-vs-CentOS6-daemon/</guid>
+      <description>
+
+&lt;p&gt;从CentOS 7.x开始，CentOS开始使用systemd服务来代替daemon，原来管理系统启动和管理系统服务的相关命令全部由systemctl命令来代替。&lt;/p&gt;
+
+&lt;h1 id=&#34;1-原来的-service-命令与-systemctl-命令对比&#34;&gt;1、原来的 service 命令与 systemctl 命令对比&lt;/h1&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;center&#34;&gt;daemon命令&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;systemctl命令&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;service [服务] start&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;systemctl start [unit type]&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;启动服务&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;service [服务] stop&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;systemctl stop [unit type]&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;停止服务&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;service [服务] restart&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;systemctl restart [unit type]&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;重启服务&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;此外还有二个systemctl参数没有与service命令参数对应&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;status: 参数来查看服务运行情况
+reload: 重新加载服务，加载更新后的配置文件（并不是所有服务都支持这个参数，比如network.service）
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;应用举例:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#启动网络服务
+systemctl start network.service
+#停止网络服务
+systemctl stop network.service
+#重启网络服务
+systemctl restart network.service
+#查看网络服务状态
+systemctl status network.serivce
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;2-原来的chkconfig-命令与-systemctl-命令对比&#34;&gt;2、原来的chkconfig 命令与 systemctl 命令对比&lt;/h1&gt;
+
+&lt;h2 id=&#34;2-1-设置开机启动-不启动&#34;&gt;2.1、设置开机启动/不启动&lt;/h2&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;center&#34;&gt;daemon命令&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;systemctl命令&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;chkconfig [服务] on&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;systemctl enable [unit type]&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;设置服务开机启动&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;chkconfig [服务] off&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;systemctl disable [unit type]&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;设备服务禁止开机启动&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;应用举例：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#停止cup电源管理服务
+systemctl stop cups.service
+#禁止cups服务开机启动
+systemctl disable cups.service
+#查看cups服务状态
+systemctl status cups.service
+#重新设置cups服务开机启动
+systemctl enable cups.service
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;2-2-查看系统上所有的服务&#34;&gt;2.2、查看系统上所有的服务&lt;/h2&gt;
+
+&lt;p&gt;命令格式：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;systemctl [command] [--type=TYPE] [--all]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;参数详解：&lt;/p&gt;
+
+&lt;p&gt;command&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;list-units: 依据unit列出所有启动的unit。加上 --all 才会列出没启动的unit;
+list-unit-files: 依据 /usr/lib/systemd/system/ 内的启动文件，列出启动文件列表
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;--type=TYPE&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;为unit type, 主要有service, socket, target, timer
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;应用举例：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;systemctl                  #列出所有的系统服务
+systemctl list-units       #列出所有启动unit
+systemctl list-unit-files  #列出所有启动文件
+systemctl list-units --type=service --all  #列出所有service类型的unit
+systemctl list-units --type=socket --all   #列出所有socket类型的unit
+systemctl list-units --type=timer --all    #列出所有timer类型的unit
+systemctl list-units --type=target --all   #列出所有target
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;3-systemctl特殊的用法&#34;&gt;3、systemctl特殊的用法&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;#查看网络服务是否启动
+systemctl is-active network.service
+#检查网络服务是否设置为开机启动
+systemctl is-enable network.service
+#停止cups服务
+systemctl stop cups.service
+#注销cups服务
+systemctl mask cups.service
+#查看cups服务状态
+systemctl status cups.service
+#取消注销cups服务
+systemctl unmask cups.service
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;4-init-命令与systemctl命令对比&#34;&gt;4、init 命令与systemctl命令对比&lt;/h1&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;center&#34;&gt;init命令&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;systemctl 命令&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;init 0&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;systemctl poweroff&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;系统关机&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;init 6&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;systemctl reboot&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;重新启动&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;与开关机相关的其他命令：&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;center&#34;&gt;systemctl命令&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;说明&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;systemctl suspend&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;进入睡眠模式&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;systemctl hibernate&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;进入休眠模式&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;systemctl rescue&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;强制进入救援模式&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;systemctl emergency&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;强制进入紧急救援模式&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&#34;5-设置系统运行级别&#34;&gt;5、设置系统运行级别&lt;/h1&gt;
+
+&lt;h2 id=&#34;5-1-运行级别对应表&#34;&gt;5.1、运行级别对应表&lt;/h2&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;center&#34;&gt;init级别&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;systemctl target&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;0&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;shutdown.target&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;1&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;emergency.target&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;2&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;rescure.target&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;3&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;multi-user.target&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;4&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;无&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;5&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;graphical.target&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;6&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;无&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;此外还有一个getty.target用来设置tty的数量。&lt;/p&gt;
+
+&lt;h2 id=&#34;5-2-设置运行级别&#34;&gt;5.2、设置运行级别&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;systemctl get-default  #获得当前的运行级别
+systemctl set-default multi-user.target  #设置默认的运行级别为mulit-user
+systemctl isolate multi-user.target      #在不重启的情况下，切换到运行级别mulit-user下
+systemctl isolate graphical.target       #在不重启的情况下，切换到图形界面下
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;6-关闭网络服务&#34;&gt;6、关闭网络服务&lt;/h1&gt;
+
+&lt;p&gt;在使用systemctl关闭网络服务时有一些特殊，需要同时关闭unit.servce和unit.socket&lt;/p&gt;
+
+&lt;p&gt;使用systemctl查看开启的sshd服务&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[root@localhost system]# systemctl list-units --all | grep sshd
+sshd-keygen.service loaded inactive dead        OpenSSH Server Key Generation
+sshd.service        loaded active   running     OpenSSH server daemon
+sshd.socket         loaded inactive dead        OpenSSH Server Socket
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看到系统同时开启了sshd.service和sshd.socket , 如果只闭关了sshd.service那么sshd.socket还在监听网络，在网络上有要求连接sshd时就会启动sshd.service。因此如果要完全关闭sshd服务，需要同时停用sshd.service和sshd.socket。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;systemctl stop sshd.service
+systemctl stop sshd.socket
+systemctl disable sshd.service sshd.socket
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
