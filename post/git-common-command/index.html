@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.16" />
 
-  <title>Zabbix使用Telegram发送报警 &middot; ops</title>
+  <title>Git常用命令备忘 &middot; ops</title>
 
   
   
@@ -169,7 +169,7 @@
 
 
 <div class="header">
-  <h1>Zabbix使用Telegram发送报警</h1>
+  <h1>Git常用命令备忘</h1>
   <h2></h2>
 </div>
 <div class="content">
@@ -178,7 +178,7 @@
 
   <div>
     <i class="fa fa-calendar fa-fw"></i>
-    <time>2015/04/25, 17:16</time>
+    <time>2016/06/16, 12:33</time>
   </div>
 
   
@@ -189,7 +189,7 @@
   <div>
     <i class="fa fa-folder fa-fw"></i>
     
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/zabbix">Zabbix</a>
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/tips">Tips</a>
     
   </div>
   
@@ -201,9 +201,7 @@
   <div>
     <i class="fa fa-tags fa-fw"></i>
     
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/zabbix">Zabbix</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/telegram">Telegram</a>
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/git">git</a>
     
   </div>
   
@@ -213,66 +211,132 @@
 
   
 
-<h3 id="环境">环境</h3>
+<h1 id="配置">配置</h1>
 
-<p>CentOS 6.X x86_64</p>
+<p>Git的设置文件为<code>.gitconfig</code>，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。</p>
 
-<h3 id="编译telegram">编译Telegram</h3>
+<pre><code># 显示当前的Git配置
+$ git config --list
 
-<pre><code>yum -y install lua-devel openssl-devel libconfig-devel readline-devel libevent-devel
+# 文本编辑器
+$ git config --global core.editor vim
 
-git clone --recursive https://github.com/vysheng/tg.git
-cd tg
-./configure
-make
+# 编辑Git配置文件
+$ git config -e [--global]
 
-mkdir /usr/local/tg
-cp tg-server.pub /usr/local/tg
-cp bin/telegram-cli /usr/local/tg
+# 设置提交代码时的用户信息
+$ git config [--global] user.name &quot;[name]&quot;
+$ git config [--global] user.email &quot;[email address]&quot;
 </code></pre>
 
-<p>zabbix报警脚本/usr/local/tg/telegram.sh:</p>
+<h1 id="faq">FAQ</h1>
 
-<pre><code>#!/bin/sh
+<h3 id="1-如果在你fork之后-原始的repo更新了-怎么将原始的更新内容与你当前的合并">1. 如果在你Fork之后，原始的repo更新了，怎么将原始的更新内容与你当前的合并？</h3>
 
-cd `dirname $0`
-./telegram-cli -k tg-server.pub -WDCRE -P 8890 -d &amp;&gt;/dev/null &amp;
+<pre><code>1. 增加原分支为远程分支，命名为upstream
+   git remote add upstream https://github.com/vinsonzou/docker-images.git
+2. fetch该远程仓库下的所有分支到remote-tracking分支
+   git fetch upstream
+3. 确保你当前在master分支
+   git checkout master
+4. Fork同步
+   两种方式，任选其一即可
+   a) 如果你已经对当前自己的副本做过更改，并且想要保留，则将更新合并到主分支
+      git merge upstream/master
+   b) 如果想要保留所有原仓库的历史更新则使用rebase复写当前分支(`本地所有修改丢失`)
+      git rebase upstream/master
+5. 然后推送
+   git push
 </code></pre>
 
-<h3 id="zabbix报警配置">Zabbix报警配置</h3>
+<h3 id="2-git-删除错误提交的commit">2. git 删除错误提交的commit</h3>
 
-<p>将如下Zabbix Server配置注释并修改如下
-AlertScriptsPath=/usr/local/zabbix/alertscripts</p>
+<p>起因: 不小新把记录了公司服务器IP,账号,密码的文件提交到了git</p>
 
-<p><code>/usr/local/zabbix/alertscripts/tg.sh</code>内容如下:</p>
+<pre><code>#方法
+git reset --hard &lt;commit_id&gt;
+git push origin HEAD --force
 
-<pre><code>#!/bin/sh
+#说明
+根据--soft --mixed --hard，会对working tree和index和HEAD进行重置:
+git reset --mixed：此为默认方式，不带任何参数的git reset，即时这种方式，它回退到某个版本，只保留源码，回退commit和index信息
+git reset --soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可
+git reset --hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容
 
-export to=$1;
-export subject=$2;
-export body=$3;
-
-echo -e &quot;msg $to ${subject}_#_${body}&quot; | nc localhost 8890
-#注意事项: body只能有一行内容，超过一行的内容是不会发送的。
+HEAD 最近一个提交
+HEAD^ 上一次
+&lt;commit_id&gt;  每次commit的SHA1值. 可以用git log 看到,也可以在页面上commit标签页里找到.
 </code></pre>
 
-<p>Zabbix添加Media types
-<img src="http://m114-static.qiniudn.com/img/media_Telegram.png" alt="media_Telegram" /></p>
+<h3 id="3-git-空目录无法提交解决方法">3. git 空目录无法提交解决方法</h3>
 
-<p>PS：Telegram已于2015年7月10日被天朝和谐。。。</p>
+<p>空目录下touch .gitkeep</p>
+
+<h3 id="4-git-恢复单个文件的历史版本">4. git 恢复单个文件的历史版本</h3>
+
+<pre><code>#查看该文件的历史版本信息
+git log tmp.txt
+
+#记录下需要恢复的commit版本号：如 c2fcb51d554021c0603cbfc8c3b5fc3427d5d9a4
+
+#恢复该文件
+git reset c2fcb51d554021c0603cbfc8c3b5fc3427d5d9a4 tmp.txt
+
+#提交
+git commit -m &quot;revert old file&quot;
+</code></pre>
+
+<h3 id="5-根据commit生成patch">5. 根据COMMIT生成PATCH</h3>
+
+<pre><code># 生成patch文件(生成的patch有统计信息和git的版本信息)
+git format-patch -1 commit版本号
+
+# 应用patch文件
+git apply xxx.patch
+</code></pre>
+
+<h3 id="6-使用-rebase-i-合并提交">6. 使用 rebase -i 合并提交</h3>
+
+<p><strong>合并最近两个commit</strong></p>
+
+<pre><code>git rebase -i HEAD~~
+</code></pre>
+
+<p>默认的文字编辑器会自动开启，将看的HEAD 到 HEAD~~ 的提交</p>
+
+<pre><code>pick 7118c53 添加commit1的说明
+pick ce32af7 添加commit2的说明
+
+#
+# Commands:
+#  p, pick = use commit
+#  r, reword = use commit, but edit the commit message
+#  e, edit = use commit, but stop for amending
+#  s, squash = use commit, but meld into previous commit
+#  f, fixup = like &quot;squash&quot;, but discard this commit's log message
+#  x, exec = run command (the rest of the line) using shell
+#
+# If you remove a line here THAT COMMIT WILL BE LOST.
+# However, if you remove everything, the rebase will be aborted.
+#
+</code></pre>
+
+<p>将第二行的 &ldquo;pick&rdquo; 改为 &ldquo;squash&rdquo;, 保存后退出。由于合并后要提交，所以编辑器会提醒您编辑这个最新的提交信息，请编辑信息后保存并退出。</p>
+
+<p>这样，两个提交就合并成一个提交了。请用 log 命令确认历史记录。</p>
 
 
   
 <div class="prev-next-post pure-g">
   <div class="pure-u-1-24" style="text-align: left;">
     
-    <a href="https://ops.m114.org/post/monitor-ssl-certificate-expiry/"><i class="fa fa-chevron-left"></i></a>
+    <a href="https://ops.m114.org/post/docker-for-mac-beta/"><i class="fa fa-chevron-left"></i></a>
     
   </div>
   <div class="pure-u-10-24">
     
     <nav class="prev">
-      <a href="https://ops.m114.org/post/monitor-ssl-certificate-expiry/">Monitor SSL certificate expiry</a>
+      <a href="https://ops.m114.org/post/docker-for-mac-beta/">Docker for Mac Beta尝鲜</a>
     </nav>
     
   </div>
@@ -282,13 +346,13 @@ echo -e &quot;msg $to ${subject}_#_${body}&quot; | nc localhost 8890
   <div class="pure-u-10-24">
     
     <nav class="next">
-      <a href="https://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/">利用TsunamiUDP加速跨机房迁移</a>
+      <a href="https://ops.m114.org/post/linux-performance-tools/">运维工具汇总之 性能调优，性能监控，性能测试</a>
     </nav>
     
   </div>
   <div class="pure-u-1-24" style="text-align: right;">
     
-    <a href="https://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/"><i class="fa fa-chevron-right"></i></a>
+    <a href="https://ops.m114.org/post/linux-performance-tools/"><i class="fa fa-chevron-right"></i></a>
     
   </div>
 </div>

@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Git on ops</title>
-    <link>https://ops.m114.org/tags/git/</link>
-    <description>Recent content in Git on ops</description>
+    <title>Tips on ops</title>
+    <link>https://ops.m114.org/topics/tips/</link>
+    <description>Recent content in Tips on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2016. All rights reserved.</copyright>
-    <lastBuildDate>Thu, 16 Jun 2016 12:33:10 +0800</lastBuildDate>
-    <atom:link href="https://ops.m114.org/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 03 Jul 2016 13:39:01 +0800</lastBuildDate>
+    <atom:link href="https://ops.m114.org/topics/tips/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>运维工具汇总之 性能调优，性能监控，性能测试</title>
+      <link>https://ops.m114.org/post/linux-performance-tools/</link>
+      <pubDate>Sun, 03 Jul 2016 13:39:01 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/linux-performance-tools/</guid>
+      <description>
+
+&lt;h2 id=&#34;性能调优&#34;&gt;性能调优&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://m114-static.qiniudn.com/img/linux_tuning_tools.png?imageView2/2/w/800/q/75&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;性能监控&#34;&gt;性能监控&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://m114-static.qiniudn.com/img/linux_observability_tools.png?imageView2/2/w/800/q/75&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;性能测试&#34;&gt;性能测试&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://m114-static.qiniudn.com/img/linux_benchmarking_tools.png?imageView2/2/w/800/q/75&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Git常用命令备忘</title>
@@ -131,6 +153,39 @@ pick ce32af7 添加commit2的说明
 &lt;p&gt;将第二行的 &amp;ldquo;pick&amp;rdquo; 改为 &amp;ldquo;squash&amp;rdquo;, 保存后退出。由于合并后要提交，所以编辑器会提醒您编辑这个最新的提交信息，请编辑信息后保存并退出。&lt;/p&gt;
 
 &lt;p&gt;这样，两个提交就合并成一个提交了。请用 log 命令确认历史记录。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>俄罗斯永久冬令时的坑</title>
+      <link>https://ops.m114.org/post/russia-permanent-winter-time/</link>
+      <pubDate>Sun, 26 Apr 2015 16:59:30 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/russia-permanent-winter-time/</guid>
+      <description>
+
+&lt;h3 id=&#34;系统环境&#34;&gt;系统环境&lt;/h3&gt;
+
+&lt;p&gt;OS: CentOS 6.X&lt;/p&gt;
+
+&lt;p&gt;JDK: 6&lt;/p&gt;
+
+&lt;h3 id=&#34;背景&#34;&gt;背景&lt;/h3&gt;
+
+&lt;p&gt;因游戏在俄罗斯运营，采用了莫斯科时间，俄罗斯宣布2014年10月26日开始永久冬令时。&lt;/p&gt;
+
+&lt;h3 id=&#34;过程&#34;&gt;过程&lt;/h3&gt;
+
+&lt;p&gt;更新了系统时区文件，保证系统时间不会切换至夏令时，执行&lt;code&gt;yum update tzdata&lt;/code&gt;即可。&lt;/p&gt;
+
+&lt;p&gt;但在莫斯科时间的2015年3月29日凌晨2点，java游戏进程的日志时间跳到了凌晨3点(比系统时间快了1个小时)&lt;/p&gt;
+
+&lt;h3 id=&#34;解决方法&#34;&gt;解决方法&lt;/h3&gt;
+
+&lt;p&gt;更新JDK的时区文件即可&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ln -sf /usr/share/zoneinfo/Europe/Moscow /usr/local/jdk/jre/lib/zi/Europe/Moscow
+&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     

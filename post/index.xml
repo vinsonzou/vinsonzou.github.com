@@ -547,6 +547,152 @@ racadm fwupdate -g -u -a $tftp_server_ip -d /dell/idrac7-1.57.57
     </item>
     
     <item>
+      <title>运维工具汇总之 性能调优，性能监控，性能测试</title>
+      <link>https://ops.m114.org/post/linux-performance-tools/</link>
+      <pubDate>Sun, 03 Jul 2016 13:39:01 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/linux-performance-tools/</guid>
+      <description>
+
+&lt;h2 id=&#34;性能调优&#34;&gt;性能调优&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://m114-static.qiniudn.com/img/linux_tuning_tools.png?imageView2/2/w/800/q/75&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;性能监控&#34;&gt;性能监控&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://m114-static.qiniudn.com/img/linux_observability_tools.png?imageView2/2/w/800/q/75&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;性能测试&#34;&gt;性能测试&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://m114-static.qiniudn.com/img/linux_benchmarking_tools.png?imageView2/2/w/800/q/75&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Git常用命令备忘</title>
+      <link>https://ops.m114.org/post/git-common-command/</link>
+      <pubDate>Thu, 16 Jun 2016 12:33:10 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/git-common-command/</guid>
+      <description>
+
+&lt;h1 id=&#34;配置&#34;&gt;配置&lt;/h1&gt;
+
+&lt;p&gt;Git的设置文件为&lt;code&gt;.gitconfig&lt;/code&gt;，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# 显示当前的Git配置
+$ git config --list
+
+# 文本编辑器
+$ git config --global core.editor vim
+
+# 编辑Git配置文件
+$ git config -e [--global]
+
+# 设置提交代码时的用户信息
+$ git config [--global] user.name &amp;quot;[name]&amp;quot;
+$ git config [--global] user.email &amp;quot;[email address]&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;faq&#34;&gt;FAQ&lt;/h1&gt;
+
+&lt;h3 id=&#34;1-如果在你fork之后-原始的repo更新了-怎么将原始的更新内容与你当前的合并&#34;&gt;1. 如果在你Fork之后，原始的repo更新了，怎么将原始的更新内容与你当前的合并？&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;1. 增加原分支为远程分支，命名为upstream
+   git remote add upstream https://github.com/vinsonzou/docker-images.git
+2. fetch该远程仓库下的所有分支到remote-tracking分支
+   git fetch upstream
+3. 确保你当前在master分支
+   git checkout master
+4. Fork同步
+   两种方式，任选其一即可
+   a) 如果你已经对当前自己的副本做过更改，并且想要保留，则将更新合并到主分支
+      git merge upstream/master
+   b) 如果想要保留所有原仓库的历史更新则使用rebase复写当前分支(`本地所有修改丢失`)
+      git rebase upstream/master
+5. 然后推送
+   git push
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;2-git-删除错误提交的commit&#34;&gt;2. git 删除错误提交的commit&lt;/h3&gt;
+
+&lt;p&gt;起因: 不小新把记录了公司服务器IP,账号,密码的文件提交到了git&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#方法
+git reset --hard &amp;lt;commit_id&amp;gt;
+git push origin HEAD --force
+
+#说明
+根据--soft --mixed --hard，会对working tree和index和HEAD进行重置:
+git reset --mixed：此为默认方式，不带任何参数的git reset，即时这种方式，它回退到某个版本，只保留源码，回退commit和index信息
+git reset --soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可
+git reset --hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容
+
+HEAD 最近一个提交
+HEAD^ 上一次
+&amp;lt;commit_id&amp;gt;  每次commit的SHA1值. 可以用git log 看到,也可以在页面上commit标签页里找到.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;3-git-空目录无法提交解决方法&#34;&gt;3. git 空目录无法提交解决方法&lt;/h3&gt;
+
+&lt;p&gt;空目录下touch .gitkeep&lt;/p&gt;
+
+&lt;h3 id=&#34;4-git-恢复单个文件的历史版本&#34;&gt;4. git 恢复单个文件的历史版本&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;#查看该文件的历史版本信息
+git log tmp.txt
+
+#记录下需要恢复的commit版本号：如 c2fcb51d554021c0603cbfc8c3b5fc3427d5d9a4
+
+#恢复该文件
+git reset c2fcb51d554021c0603cbfc8c3b5fc3427d5d9a4 tmp.txt
+
+#提交
+git commit -m &amp;quot;revert old file&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;5-根据commit生成patch&#34;&gt;5. 根据COMMIT生成PATCH&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;# 生成patch文件(生成的patch有统计信息和git的版本信息)
+git format-patch -1 commit版本号
+
+# 应用patch文件
+git apply xxx.patch
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;6-使用-rebase-i-合并提交&#34;&gt;6. 使用 rebase -i 合并提交&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;合并最近两个commit&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git rebase -i HEAD~~
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;默认的文字编辑器会自动开启，将看的HEAD 到 HEAD~~ 的提交&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pick 7118c53 添加commit1的说明
+pick ce32af7 添加commit2的说明
+
+#
+# Commands:
+#  p, pick = use commit
+#  r, reword = use commit, but edit the commit message
+#  e, edit = use commit, but stop for amending
+#  s, squash = use commit, but meld into previous commit
+#  f, fixup = like &amp;quot;squash&amp;quot;, but discard this commit&#39;s log message
+#  x, exec = run command (the rest of the line) using shell
+#
+# If you remove a line here THAT COMMIT WILL BE LOST.
+# However, if you remove everything, the rebase will be aborted.
+#
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;将第二行的 &amp;ldquo;pick&amp;rdquo; 改为 &amp;ldquo;squash&amp;rdquo;, 保存后退出。由于合并后要提交，所以编辑器会提醒您编辑这个最新的提交信息，请编辑信息后保存并退出。&lt;/p&gt;
+
+&lt;p&gt;这样，两个提交就合并成一个提交了。请用 log 命令确认历史记录。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Docker for Mac Beta尝鲜</title>
       <link>https://ops.m114.org/post/docker-for-mac-beta/</link>
       <pubDate>Fri, 20 May 2016 00:05:35 +0800</pubDate>
@@ -712,6 +858,39 @@ Type &amp;quot;help&amp;quot;, &amp;quot;copyright&amp;quot;, &amp;quot;credits&
 &lt;p&gt;来源参考:&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://github.com/shazow/urllib3/issues/523&#34;&gt;https://github.com/shazow/urllib3/issues/523&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>俄罗斯永久冬令时的坑</title>
+      <link>https://ops.m114.org/post/russia-permanent-winter-time/</link>
+      <pubDate>Sun, 26 Apr 2015 16:59:30 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/russia-permanent-winter-time/</guid>
+      <description>
+
+&lt;h3 id=&#34;系统环境&#34;&gt;系统环境&lt;/h3&gt;
+
+&lt;p&gt;OS: CentOS 6.X&lt;/p&gt;
+
+&lt;p&gt;JDK: 6&lt;/p&gt;
+
+&lt;h3 id=&#34;背景&#34;&gt;背景&lt;/h3&gt;
+
+&lt;p&gt;因游戏在俄罗斯运营，采用了莫斯科时间，俄罗斯宣布2014年10月26日开始永久冬令时。&lt;/p&gt;
+
+&lt;h3 id=&#34;过程&#34;&gt;过程&lt;/h3&gt;
+
+&lt;p&gt;更新了系统时区文件，保证系统时间不会切换至夏令时，执行&lt;code&gt;yum update tzdata&lt;/code&gt;即可。&lt;/p&gt;
+
+&lt;p&gt;但在莫斯科时间的2015年3月29日凌晨2点，java游戏进程的日志时间跳到了凌晨3点(比系统时间快了1个小时)&lt;/p&gt;
+
+&lt;h3 id=&#34;解决方法&#34;&gt;解决方法&lt;/h3&gt;
+
+&lt;p&gt;更新JDK的时区文件即可&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ln -sf /usr/share/zoneinfo/Europe/Moscow /usr/local/jdk/jre/lib/zi/Europe/Moscow
+&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     

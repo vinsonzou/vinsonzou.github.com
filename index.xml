@@ -548,10 +548,10 @@ racadm fwupdate -g -u -a $tftp_server_ip -d /dell/idrac7-1.57.57
     
     <item>
       <title>运维工具汇总之 性能调优，性能监控，性能测试</title>
-      <link>https://ops.m114.org/tips/linux-performance-tools/</link>
+      <link>https://ops.m114.org/post/linux-performance-tools/</link>
       <pubDate>Sun, 03 Jul 2016 13:39:01 +0800</pubDate>
       
-      <guid>https://ops.m114.org/tips/linux-performance-tools/</guid>
+      <guid>https://ops.m114.org/post/linux-performance-tools/</guid>
       <description>
 
 &lt;h2 id=&#34;性能调优&#34;&gt;性能调优&lt;/h2&gt;
@@ -570,10 +570,10 @@ racadm fwupdate -g -u -a $tftp_server_ip -d /dell/idrac7-1.57.57
     
     <item>
       <title>Git常用命令备忘</title>
-      <link>https://ops.m114.org/tips/git-common-command/</link>
+      <link>https://ops.m114.org/post/git-common-command/</link>
       <pubDate>Thu, 16 Jun 2016 12:33:10 +0800</pubDate>
       
-      <guid>https://ops.m114.org/tips/git-common-command/</guid>
+      <guid>https://ops.m114.org/post/git-common-command/</guid>
       <description>
 
 &lt;h1 id=&#34;配置&#34;&gt;配置&lt;/h1&gt;
@@ -863,10 +863,10 @@ Type &amp;quot;help&amp;quot;, &amp;quot;copyright&amp;quot;, &amp;quot;credits&
     
     <item>
       <title>俄罗斯永久冬令时的坑</title>
-      <link>https://ops.m114.org/tips/russia-permanent-winter-time/</link>
+      <link>https://ops.m114.org/post/russia-permanent-winter-time/</link>
       <pubDate>Sun, 26 Apr 2015 16:59:30 +0800</pubDate>
       
-      <guid>https://ops.m114.org/tips/russia-permanent-winter-time/</guid>
+      <guid>https://ops.m114.org/post/russia-permanent-winter-time/</guid>
       <description>
 
 &lt;h3 id=&#34;系统环境&#34;&gt;系统环境&lt;/h3&gt;
