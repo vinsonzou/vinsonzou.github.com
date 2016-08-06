@@ -183,6 +183,52 @@
   
     <article>
   <header>
+    <h2><a href="https://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/">R420服务器idrac连接用户数超限制</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2016/07/12, 23:29</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/idrac">idrac</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  Dell R420服务器中，比较经常出现idrac无法连接，或者连接用户数超限(RAC0218错误)的问题，升级iDrac卡firmware至1.57.57即可解决。 该版本的bug fix中提到过一点： Fix for issues that cause iDRAC7 sluggish responsiveness after a prolonged period of time (approx. 45-100 days, depending on the usage). In some cases, if the iDRAC is not reset, the iDRAC may become unresponsive and requires a server AC Power on reset. This issue was introduced in firmware release 1.50.50 and fixed in 1.56.55. RAC0218: The maximum number of user sessions is reached. 2种临时解决方法(idrac重新初始化) 长按前面板i键20秒，idrac会重启初始化
+  </p>
+
+  
+  <footer>
+    <a href="https://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="https://ops.m114.org/post/linux-performance-tools/">运维工具汇总之 性能调优，性能监控，性能测试</a></h2>
 
     <div class="post-meta">
@@ -372,49 +418,6 @@
 </article>
 
   
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/DNSPOD-API-SSL-subjectAltName/">DNSPOD API SSL证书调整(subjectAltName)引起的报错</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2015/05/10, 23:44</time>
-  </div>
-
-  
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/subjectaltname">subjectAltName</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  报错信息如下： Python 2.7 (r27:82500, Jan 7 2014, 23:14:35) [GCC 4.1.2 20080704 (Red Hat 4.1.2-50)] on linux2 Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information. &gt;&gt;&gt; import requests &gt;&gt;&gt; r = requests.get(&quot;https://dnsapi.cn&quot;) Traceback (most recent call last): File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt; File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&quot;, line 55, in get return request('get', url, **kwargs) File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&quot;, line 44, in request return session.request(method=method, url=url, **kwargs) File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/sessions.py&quot;, line 361, in request resp = self.send(prep, **send_kwargs) File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/sessions.py&quot;, line 464, in send r = adapter.send(request, **kwargs) File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/adapters.py&quot;, line 363, in send raise SSLError(e) requests.exceptions.SSLError: hostname 'dnsapi.cn' doesn't match u'www.dnspod.cn' DNSPOD当前证书截图： 证书信息查看 openssl s_client -connect dnsapi.cn:443 | tee dnsapi.cert openssl x509 -inform PEM -in dnsapi.cert -text Python SSL验证 Python 2.7 (r27:82500, Jan 7 2014, 23:14:35) [GCC 4.1.2 20080704 (Red Hat 4.1.2-50)] on linux2 Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
-  </p>
-
-  
-  <footer>
-    <a href="https://ops.m114.org/post/DNSPOD-API-SSL-subjectAltName/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
-
-  
 
   
 
@@ -423,7 +426,7 @@
   
   <a href="https://ops.m114.org/"><i class="fa fa-chevron-left"></i></a>
   
-  <span>&nbsp;2 / 3&nbsp;</span>
+  <span>&nbsp;2 / 4&nbsp;</span>
   
   <a href="https://ops.m114.org/page/3/"><i class="fa fa-chevron-right"></i></a>
   
