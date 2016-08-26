@@ -183,6 +183,102 @@
   
     <article>
   <header>
+    <h2><a href="https://ops.m114.org/post/zabbix-alerts-use-telegram/">Zabbix使用Telegram发送报警</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2015/04/25, 17:16</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/zabbix">Zabbix</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/zabbix">Zabbix</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/telegram">Telegram</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  环境 CentOS 6.X x86_64 编译Telegram yum -y install lua-devel openssl-devel libconfig-devel readline-devel libevent-devel git clone --recursive https://github.com/vysheng/tg.git cd tg ./configure make mkdir /usr/local/tg cp tg-server.pub /usr/local/tg cp bin/telegram-cli /usr/local/tg zabbix报警脚本/usr/local/tg/telegram.sh: #!/bin/sh cd `dirname $0` ./telegram-cli -k tg-server.pub -WDCRE -P 8890 -d &amp;&gt;/dev/null &amp; Zabbix报警配置 将如下Zabbix Server配置注释并修改如下 AlertScriptsPath=/usr/local/zabbix/alertscripts /usr/local/zabbix/alertscripts/tg.sh内容如下: #!/bin/sh export to=$1; export subject=$2; export body=$3; echo -e &quot;msg $to ${subject}_#_${body}&quot; | nc localhost 8890 #注意事项: body只能有一行内容，超过一行的内容是不会发送的。 Zabbix添加Media types PS：Telegram已于2015年7月10日被天朝和谐。。。
+  </p>
+
+  
+</article>
+
+  
+    <article>
+  <header>
+    <h2><a href="https://ops.m114.org/post/monitor-ssl-certificate-expiry/">Monitor SSL certificate expiry</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2015/04/25, 16:31</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/zabbix">zabbix</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/openssl">openssl</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  看到网上弄了个zabbix监控SSL证书过期时间的,给咱业务也加了个此监控。 改进如下： 基于域名监控(一台服务器上有多个证书) 当前使用的shell脚本如下 #!/bin/sh host=$1 port=443 end_date=`openssl s_client -servername $host -host $host -port $port -showcerts &lt;/dev/null 2&gt;/dev/null | sed -n '/BEGIN CERTIFICATE/,/END CERT/p' | openssl x509 -text 2&gt;/dev/null | sed -n 's/ *Not After : *//p'` # openssl 检验和验证SSL证书。 # -servername $host 因一台主机存在多个证书，利用SNI特性检查 # &lt;/dev/null 定向标准输入，防止交互式程序Hang。从/dev/null 读时，直接读出0 。 # sed -n 和p 一起使用，仅显示匹配到的部分。 //,// 区间匹配。 # openssl x509 -text 解码证书信息，包含证书的有效期。 if [ -n &quot;$end_date&quot; ] then end_date_seconds=`date '+%s' --date
+  </p>
+
+  
+  <footer>
+    <a href="https://ops.m114.org/post/monitor-ssl-certificate-expiry/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="https://ops.m114.org/post/how-to-use-hugo/">使用Hugo搭建免费个人Blog</a></h2>
 
     <div class="post-meta">

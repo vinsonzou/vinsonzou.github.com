@@ -3,7 +3,17 @@
   
   <url>
     <loc>https://ops.m114.org/</loc>
-    <lastmod>2016-08-06T23:51:26+08:00</lastmod>
+    <lastmod>2016-08-26T14:38:12+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ops.m114.org/post/ceph-key-concepts-backup/</loc>
+    <lastmod>2016-08-26T14:38:12+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ops.m114.org/post/ceph-pgs-inconsistent/</loc>
+    <lastmod>2016-08-17T23:44:59+08:00</lastmod>
   </url>
   
   <url>
