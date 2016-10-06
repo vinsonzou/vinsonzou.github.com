@@ -888,7 +888,7 @@ pick ce32af7 添加commit2的说明
 
 &lt;p&gt;将myconfig.json修改为:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;{&amp;quot;storage-driver&amp;quot;:&amp;quot;aufs&amp;quot;,&amp;quot;debug&amp;quot;:true,&amp;quot;registry-mirrors&amp;quot;:[&amp;quot;http://hub-mirror.c.163.com/&amp;quot;]}
+&lt;pre&gt;&lt;code&gt;{&amp;quot;storage-driver&amp;quot;:&amp;quot;aufs&amp;quot;,&amp;quot;debug&amp;quot;:true,&amp;quot;registry-mirrors&amp;quot;:[&amp;quot;https://docker.mirrors.ustc.edu.cn&amp;quot;]}
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;导入:&lt;/p&gt;
