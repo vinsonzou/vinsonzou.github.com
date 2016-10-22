@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.16" />
+  <meta name="generator" content="Hugo 0.17" />
 
   <title>ops</title>
 
@@ -71,6 +71,12 @@
       
         <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://ops.m114.org/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/about/"><i class='fa fa-user fa-fw'></i>About</a>
       
         </li>
       
@@ -223,7 +229,9 @@
   </header>
 
   <p>
-  Docker for Mac Docker for Mac 是一个原生的苹果应用程序，被安装到 /Application 目录。安装时会创建 /usr/local/bin 目录下的 docker、docker-compose、docker-machine 符号链接，这些符号链接指向 ~/Library/Group Containers/group.com.docker/bin 目录下的各类文件，而 ~/Library/Group Containers/group.com.docker/bin 的文件实际上也是符号链接，他们指向 /Applications/Docker.app/Contents/Resources/bin 目录下的实际二进制文件。 Docker for Mac 使用通过 Hypervisor.framework 提供的轻量级的 xhyve 虚拟化技术 Docker for Mac 不使用 docker-machine 管理虚拟机 Docker for Mac 不通过 TCP 端口通信，反而使用 /var/tmp/docker.sock 套接字文件通信（实际上是将 /var/tmp 目录挂载到了虚拟机中，虚拟机在其中生成套接字文件） 由于使用了 xhyve 虚拟机，所以可以模拟不同架构的处理器，这样开发者就直接能在 Mac 上使用 Docker 使用诸多平台的镜像文件，比如 arm 等。 为了能主机虚拟机共享文件，Docker 使用 osxfs 作为全新的文件共享方案，在很多方面都有全新的特性，比如在文件权限、命名空间、文件所有者、文件系统事件、挂载点、符号链接、文件类型、扩展属性等方面都有了全新的内容，并且，所有产生的日志都能通过 syslog 查询，非常方便。不过现在依旧存在许多问题，比如没有设置 docker daemon 各项参数的接口。 如何为Docker Engine设置代理 screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty 敲一下回车，登录，用户名root，没有密码，直接回车。编辑/etc/init.d/docker文件，如下添加代理： start-stop-daemon --start
+  Docker for Mac Docker for Mac 是一个原生的苹果应用程序，被安装到 /Application 目录。安装时会创建 /usr/local/bin 目录下的 docker、docker-compose、docker-machine 符号链接，这些符号链接指向 ~/Library/Group Containers/group.com.docker/bin 目录下的各类文件，而 ~/Library/Group Containers/group.com.docker/bin 的文件实际上也是符号链接，他们指向 /Applications/Docker.app/Contents/Resources/bin 目录下的实际二进制文件。
+ Docker for Mac 使用通过 Hypervisor.framework 提供的轻量级的 xhyve 虚拟化技术 Docker for Mac 不使用 docker-machine 管理虚拟机 Docker for Mac 不通过 TCP 端口通信，反而使用 /var/tmp/docker.sock 套接字文件通信（实际上是将 /var/tmp 目录挂载到了虚拟机中，虚拟机在其中生成套接字文件） 由于使用了 xhyve 虚拟机，所以可以模拟不同架构的处理器，这样开发者就直接能在 Mac 上使用 Docker 使用诸多平台的镜像文件，比如 arm 等。  为了能主机虚拟机共享文件，Docker 使用 osxfs 作为全新的文件共享方案，在很多方面都有全新的特性，比如在文件权限、命名空间、文件所有者、文件系统事件、挂载点、符号链接、文件类型、扩展属性等方面都有了全新的内容，并且，所有产生的日志都能通过 syslog 查询，非常方便。不过现在依旧存在许多问题，比如没有设置 docker daemon 各项参数的接口。
+如何为Docker Engine设置代理 screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty  敲一下回车，登录，用户名root，没有密码，直接回车。编辑/etc/init.
   </p>
 
   
@@ -266,7 +274,9 @@
   </header>
 
   <p>
-  系统环境 CentOS 6.4 igb driver version 4.0.1-k 报错信息如下 Jun 3 13:20:05 localhost kernel: igb 0000:05:00.1: eth1: Reset adapter Jun 3 13:20:06 localhost kernel: igb 0000:05:00.0: eth0: Reset adapter Jun 3 13:20:11 localhost kernel: igb: eth1 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX Jun 3 13:20:12 localhost kernel: igb: eth0 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX Jun 3 13:55:26 localhost kernel: igb
+  系统环境
+ CentOS 6.4 igb driver version 4.0.1-k  报错信息如下
+Jun 3 13:20:05 localhost kernel: igb 0000:05:00.1: eth1: Reset adapter Jun 3 13:20:06 localhost kernel: igb 0000:05:00.0: eth0: Reset adapter Jun 3 13:20:11 localhost kernel: igb: eth1 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX Jun 3 13:20:12 localhost kernel: igb: eth0 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX Jun 3 13:55:26 localhost kernel: igb 0000:05:00.
   </p>
 
   
@@ -309,7 +319,8 @@
   </header>
 
   <p>
-  报错信息如下： Python 2.7 (r27:82500, Jan 7 2014, 23:14:35) [GCC 4.1.2 20080704 (Red Hat 4.1.2-50)] on linux2 Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information. &gt;&gt;&gt; import requests &gt;&gt;&gt; r = requests.get(&quot;https://dnsapi.cn&quot;) Traceback (most recent call last): File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt; File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&quot;, line 55, in get return request('get', url, **kwargs) File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&quot;, line 44, in request return session.request(method=method, url=url, **kwargs) File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/sessions.py&quot;, line 361, in request resp = self.send(prep, **send_kwargs) File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/sessions.py&quot;, line 464, in send r = adapter.send(request, **kwargs) File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/adapters.py&quot;, line 363, in send raise SSLError(e) requests.exceptions.SSLError: hostname 'dnsapi.cn' doesn't match u'www.dnspod.cn' DNSPOD当前证书截图： 证书信息查看 openssl s_client -connect dnsapi.cn:443 | tee dnsapi.cert openssl x509 -inform PEM -in dnsapi.cert -text Python SSL验证 Python 2.7 (r27:82500, Jan 7 2014, 23:14:35) [GCC 4.1.2 20080704 (Red Hat 4.1.2-50)] on linux2 Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+  报错信息如下：
+Python 2.7 (r27:82500, Jan 7 2014, 23:14:35) [GCC 4.1.2 20080704 (Red Hat 4.1.2-50)] on linux2 Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information. &gt;&gt;&gt; import requests &gt;&gt;&gt; r = requests.get(&quot;https://dnsapi.cn&quot;) Traceback (most recent call last): File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt; File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&quot;, line 55, in get return request('get', url, **kwargs) File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&quot;, line 44, in request return session.request(method=method, url=url, **kwargs) File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/sessions.py&quot;, line 361, in request resp = self.
   </p>
 
   
@@ -362,7 +373,13 @@
   </header>
 
   <p>
-  系统环境 OS: CentOS 6.X JDK: 6 背景 因游戏在俄罗斯运营，采用了莫斯科时间，俄罗斯宣布2014年10月26日开始永久冬令时。 过程 更新了系统时区文件，保证系统时间不会切换至夏令时，执行yum update tzdata即可。 但在莫斯科时间的2015年3月29日凌晨2点，java游戏进程的日志时间跳到了凌晨3点(比系统时间快了1个小时) 解决方法 更新JDK的时区文件即可 ln -sf /usr/share/zoneinfo/Europe/Moscow /usr/local/jdk/jre/lib/zi/Europe/Moscow
+   系统环境 OS: CentOS 6.X
+JDK: 6
+背景 因游戏在俄罗斯运营，采用了莫斯科时间，俄罗斯宣布2014年10月26日开始永久冬令时。
+过程 更新了系统时区文件，保证系统时间不会切换至夏令时，执行yum update tzdata即可。
+但在莫斯科时间的2015年3月29日凌晨2点，java游戏进程的日志时间跳到了凌晨3点(比系统时间快了1个小时)
+解决方法 更新JDK的时区文件即可
+ln -sf /usr/share/zoneinfo/Europe/Moscow /usr/local/jdk/jre/lib/zi/Europe/Moscow  
   </p>
 
   
@@ -401,7 +418,7 @@
   </header>
 
   <p>
-  部署 yum -y install automake autoconf git clone git://github.com/rriley/tsunami-udp.git cd tsunami-udp ./recompile.sh cp server/tsunamid client/tsunami /usr/bin #或者从sf.net下载 wget http://iweb.dl.sourceforge.net/project/tsunami-udp/tsunami-udp/tsunami-v1.1-cvsbuild42/tsunami-v1.1-cvsbuild42.tar.gz tar zxf tsunami-v1.1-cvsbuild42.tar.gz cd tsunami-udp-v11-b42 ./recompile.sh cp server/tsunamid client/tsunami /usr/bin 使用 #1、防火墙调整 #服务端：开启TCP 46224(默认端口) #客户端：开启UDP 46224(默认端口) #2、开启服务端 #待迁移文件都放在/app/game_data目录下(也可指定单文件传输) tsunamid --hbtimeout 60 /app/game_data/* #PS：这里设定心跳包超时时间为60秒，默认为15秒，在使用中很容易中断导致传输失败 #3、开启客户端 # 拉取服务端(122.225.100.100)的game_db.lz4文件，并限速100M(建议限制下，不然机房带宽就满了哦) tsunami set rate 100M connect 122.225.100.100 get gcmob_db.lz4 # 拉取目录下所有文件 tsunami set rate 100M connect 122.225.100.100 get \* #文档：http://tsunami-udp.cvs.sourceforge.net/viewvc/tsunami-udp/docs/USAGE.txt PS：未避免泄密，IP是随机填的 跨机房迁移示例 场景： 将14G文件从杭州机房迁移至北京机房 方法1：使用wget下载 方法2：使用TsunamiUDP工具
+  部署 yum -y install automake autoconf git clone git://github.com/rriley/tsunami-udp.git cd tsunami-udp ./recompile.sh cp server/tsunamid client/tsunami /usr/bin #或者从sf.net下载 wget http://iweb.dl.sourceforge.net/project/tsunami-udp/tsunami-udp/tsunami-v1.1-cvsbuild42/tsunami-v1.1-cvsbuild42.tar.gz tar zxf tsunami-v1.1-cvsbuild42.tar.gz cd tsunami-udp-v11-b42 ./recompile.sh cp server/tsunamid client/tsunami /usr/bin  使用 #1、防火墙调整 #服务端：开启TCP 46224(默认端口) #客户端：开启UDP 46224(默认端口) #2、开启服务端 #待迁移文件都放在/app/game_data目录下(也可指定单文件传输) tsunamid --hbtimeout 60 /app/game_data/* #PS：这里设定心跳包超时时间为60秒，默认为15秒，在使用中很容易中断导致传输失败 #3、开启客户端 # 拉取服务端(122.225.100.100)的game_db.lz4文件，并限速100M(建议限制下，不然机房带宽就满了哦) tsunami set rate 100M connect 122.225.100.100 get gcmob_db.lz4 # 拉取目录下所有文件 tsunami set rate 100M connect 122.225.100.100 get \* #文档：http://tsunami-udp.cvs.sourceforge.net/viewvc/tsunami-udp/docs/USAGE.txt PS：未避免泄密，IP是随机填的  跨机房迁移示例 场景： 将14G文件从杭州机房迁移至北京机房
   </p>
 
   
@@ -437,6 +454,6 @@
 
 
 
-<script data-no-instant>document.write('<script src="/livereload.js?mindelay=10"></' + 'script>')</script></body>
+<script data-no-instant>document.write('<script src="/livereload.js?port=1313&mindelay=10"></' + 'script>')</script></body>
 </html>
 

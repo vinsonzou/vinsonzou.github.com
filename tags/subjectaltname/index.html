@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.16" />
+  <meta name="generator" content="Hugo 0.17" />
 
   <title>Subjectaltname &middot; ops</title>
 
@@ -71,6 +71,12 @@
       
         <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://ops.m114.org/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/about/"><i class='fa fa-user fa-fw'></i>About</a>
       
         </li>
       
@@ -212,7 +218,8 @@
   </header>
 
   <p>
-  报错信息如下： Python 2.7 (r27:82500, Jan 7 2014, 23:14:35) [GCC 4.1.2 20080704 (Red Hat 4.1.2-50)] on linux2 Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information. &gt;&gt;&gt; import requests &gt;&gt;&gt; r = requests.get(&quot;https://dnsapi.cn&quot;) Traceback (most recent call last): File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt; File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&quot;, line 55, in get return request('get', url, **kwargs) File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&quot;, line 44, in request return session.request(method=method, url=url, **kwargs) File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/sessions.py&quot;, line 361, in request resp = self.send(prep, **send_kwargs) File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/sessions.py&quot;, line 464, in send r = adapter.send(request, **kwargs) File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/adapters.py&quot;, line 363, in send raise SSLError(e) requests.exceptions.SSLError: hostname 'dnsapi.cn' doesn't match u'www.dnspod.cn' DNSPOD当前证书截图： 证书信息查看 openssl s_client -connect dnsapi.cn:443 | tee dnsapi.cert openssl x509 -inform PEM -in dnsapi.cert -text Python SSL验证 Python 2.7 (r27:82500, Jan 7 2014, 23:14:35) [GCC 4.1.2 20080704 (Red Hat 4.1.2-50)] on linux2 Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+  报错信息如下：
+Python 2.7 (r27:82500, Jan 7 2014, 23:14:35) [GCC 4.1.2 20080704 (Red Hat 4.1.2-50)] on linux2 Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information. &gt;&gt;&gt; import requests &gt;&gt;&gt; r = requests.get(&quot;https://dnsapi.cn&quot;) Traceback (most recent call last): File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt; File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&quot;, line 55, in get return request('get', url, **kwargs) File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&quot;, line 44, in request return session.request(method=method, url=url, **kwargs) File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/sessions.py&quot;, line 361, in request resp = self.
   </p>
 
   
@@ -232,5 +239,5 @@
 
 
 
-<script data-no-instant>document.write('<script src="/livereload.js?mindelay=10"></' + 'script>')</script></body>
+<script data-no-instant>document.write('<script src="/livereload.js?port=1313&mindelay=10"></' + 'script>')</script></body>
 </html>

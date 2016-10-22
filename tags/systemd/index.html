@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.16" />
+  <meta name="generator" content="Hugo 0.17" />
 
   <title>Systemd &middot; ops</title>
 
@@ -71,6 +71,12 @@
       
         <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://ops.m114.org/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/about/"><i class='fa fa-user fa-fw'></i>About</a>
       
         </li>
       
@@ -222,7 +228,10 @@
   </header>
 
   <p>
-  从CentOS 7.x开始，CentOS开始使用systemd服务来代替daemon，原来管理系统启动和管理系统服务的相关命令全部由systemctl命令来代替。 1、原来的 service 命令与 systemctl 命令对比 daemon命令 systemctl命令 说明 service [服务] start systemctl start [unit type] 启动服务 service [服务] stop systemctl stop [unit type] 停止服务 service [服务] restart systemctl restart [unit type] 重启服务 此外还有二个systemctl参数没有与service命令参数对应 status: 参数来查看服务运行情况 reload: 重新加载服务，加载更新后的配置文件（并不是所有服务都支持这个参数，比如network.service） 应用举例: #启动网络服务 systemctl start network.service #停止网络服务 systemctl stop network.service #重启网络服务 systemctl restart network.service #查看网络服务状态 systemctl status network.serivce 2、原来的chkconfig 命令与 systemctl 命令对比 2.1、设置开机启动/不启动 daemon命令 systemctl命令 说明 chkconfig [服务] on systemctl enable [unit
+  从CentOS 7.x开始，CentOS开始使用systemd服务来代替daemon，原来管理系统启动和管理系统服务的相关命令全部由systemctl命令来代替。
+1、原来的 service 命令与 systemctl 命令对比    daemon命令 systemctl命令 说明     service [服务] start systemctl start [unit type] 启动服务   service [服务] stop systemctl stop [unit type] 停止服务   service [服务] restart systemctl restart [unit type] 重启服务    此外还有二个systemctl参数没有与service命令参数对应
+status: 参数来查看服务运行情况 reload: 重新加载服务，加载更新后的配置文件（并不是所有服务都支持这个参数，比如network.service）  应用举例:
+#启动网络服务 systemctl start network.service #停止网络服务 systemctl stop network.service #重启网络服务 systemctl restart network.service #查看网络服务状态 systemctl status network.
   </p>
 
   
@@ -242,5 +251,5 @@
 
 
 
-<script data-no-instant>document.write('<script src="/livereload.js?mindelay=10"></' + 'script>')</script></body>
+<script data-no-instant>document.write('<script src="/livereload.js?port=1313&mindelay=10"></' + 'script>')</script></body>
 </html>

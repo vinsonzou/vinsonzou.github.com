@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.16" />
+  <meta name="generator" content="Hugo 0.17" />
 
   <title>Git &middot; ops</title>
 
@@ -71,6 +71,12 @@
       
         <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://ops.m114.org/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/about/"><i class='fa fa-user fa-fw'></i>About</a>
       
         </li>
       
@@ -222,7 +228,8 @@
   </header>
 
   <p>
-  配置 Git的设置文件为.gitconfig，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。 # 显示当前的Git配置 $ git config --list # 文本编辑器 $ git config --global core.editor vim # 编辑Git配置文件 $ git config -e [--global] # 设置提交代码时的用户信息 $ git config [--global] user.name &quot;[name]&quot; $ git config [--global] user.email &quot;[email address]&quot; FAQ 1. 如果在你Fork之后，原始的repo更新了，怎么将原始的更新内容与你当前的合并？ 1. 增加原分支为远程分支，命名为upstream git remote add upstream https://github.com/vinsonzou/docker-images.git 2. fetch该远程仓库下的所有分支到remote-tracking分支 git fetch upstream 3. 确保你当前在master分支 git checkout master 4. Fork同步 两种方式，任选其一即可 a) 如果你已经对当前自己的副本做过更改，并且想要保留，则将更新合并到主分支 git merge upstream/master b) 如果想要保留所有原仓库的历史更新则使用rebase复写当前分支(`本地所有修改丢失`) git rebase upstream/master 5.
+  配置 Git的设置文件为.gitconfig，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。
+# 显示当前的Git配置 $ git config --list # 文本编辑器 $ git config --global core.editor vim # 编辑Git配置文件 $ git config -e [--global] # 设置提交代码时的用户信息 $ git config [--global] user.name &quot;[name]&quot; $ git config [--global] user.email &quot;[email address]&quot;  FAQ 1. 如果在你Fork之后，原始的repo更新了，怎么将原始的更新内容与你当前的合并？ 1. 增加原分支为远程分支，命名为upstream git remote add upstream https://github.com/vinsonzou/docker-images.git 2. fetch该远程仓库下的所有分支到remote-tracking分支 git fetch upstream 3. 确保你当前在master分支 git checkout master 4. Fork同步 两种方式，任选其一即可 a) 如果你已经对当前自己的副本做过更改，并且想要保留，则将更新合并到主分支 git merge upstream/master b) 如果想要保留所有原仓库的历史更新则使用rebase复写当前分支(`本地所有修改丢失`) git rebase upstream/master 5.
   </p>
 
   
@@ -242,5 +249,5 @@
 
 
 
-<script data-no-instant>document.write('<script src="/livereload.js?mindelay=10"></' + 'script>')</script></body>
+<script data-no-instant>document.write('<script src="/livereload.js?port=1313&mindelay=10"></' + 'script>')</script></body>
 </html>

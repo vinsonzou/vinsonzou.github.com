@@ -2,13 +2,73 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ops</title>
-    <link>https://ops.m114.org/</link>
+    <link>https://ops.m114.org/index.xml</link>
     <description>Recent content on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2016. All rights reserved.</copyright>
-    <lastBuildDate>Fri, 26 Aug 2016 14:38:12 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 22 Oct 2016 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://ops.m114.org/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>About</title>
+      <link>https://ops.m114.org/about/</link>
+      <pubDate>Sat, 22 Oct 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://ops.m114.org/about/</guid>
+      <description>
+
+&lt;h2 id=&#34;收藏站点&#34;&gt;收藏站点&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://moonbingbing.gitbooks.io/openresty-best-practices/content/index.html&#34;&gt;OpenResty最佳实践&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://imququ.com&#34;&gt;Jerry Qu HTTPS最佳实践&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;python常用模块&#34;&gt;Python常用模块&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/kennethreitz/requests&#34;&gt;requests&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/kennethreitz/records&#34;&gt;records&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/kennethreitz/tablib&#34;&gt;tablib&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://pypi.python.org/pypi/yapf&#34;&gt;yapf&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://pypi.python.org/pypi/keyring&#34;&gt;keyring&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;python-web开发&#34;&gt;Python Web开发&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/pallets/flask&#34;&gt;Flask&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/sdispater/flask-orator&#34;&gt;Flask-Orator&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;ngx-lua常用模块&#34;&gt;ngx_lua常用模块&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/openresty/lua-resty-core&#34;&gt;lua-resty-core&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/openresty/lua-resty-string&#34;&gt;lua-resty-string&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/openresty/lua-resty-mysql&#34;&gt;lua-resty-mysql&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/openresty/lua-resty-redis&#34;&gt;lua-resty-redis&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/cloudflare/lua-resty-logger-socket&#34;&gt;lua-resty-logger-socket&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/pintsized/lua-resty-http&#34;&gt;lua-resty-http&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/openresty/lua-resty-upload&#34;&gt;lua-resty-upload&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/openresty/srcache-nginx-module&#34;&gt;srcache-nginx-module&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/openresty/echo-nginx-module&#34;&gt;echo-nginx-module&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/openresty/headers-more-nginx-module&#34;&gt;headers-more-nginx-module&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/openresty/set-misc-nginx-module&#34;&gt;set-misc-nginx-module&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/openresty/lua-resty-limit-traffic&#34;&gt;lua-resty-limit-traffic&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/openresty/lua-resty-dns&#34;&gt;lua-resty-dns&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/openresty/lua-resty-lock&#34;&gt;lua-resty-lock&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/juce/lua-resty-shell&#34;&gt;lua-resty-shell&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;ngx-lua-web开发&#34;&gt;ngx_lua Web开发&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/sumory/lor&#34;&gt;Lor&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Ceph核心概念备忘录</title>
@@ -1032,80 +1092,6 @@ Type &amp;quot;help&amp;quot;, &amp;quot;copyright&amp;quot;, &amp;quot;credits&
 
 &lt;pre&gt;&lt;code&gt;ln -sf /usr/share/zoneinfo/Europe/Moscow /usr/local/jdk/jre/lib/zi/Europe/Moscow
 &lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>利用TsunamiUDP加速跨机房迁移</title>
-      <link>https://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/</link>
-      <pubDate>Sun, 26 Apr 2015 16:00:00 +0800</pubDate>
-      
-      <guid>https://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/</guid>
-      <description>
-
-&lt;h2 id=&#34;部署&#34;&gt;部署&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;yum -y install automake autoconf
-
-git clone git://github.com/rriley/tsunami-udp.git
-cd tsunami-udp
-./recompile.sh
-cp server/tsunamid client/tsunami /usr/bin
-
-#或者从sf.net下载
-wget http://iweb.dl.sourceforge.net/project/tsunami-udp/tsunami-udp/tsunami-v1.1-cvsbuild42/tsunami-v1.1-cvsbuild42.tar.gz
-tar zxf tsunami-v1.1-cvsbuild42.tar.gz
-cd tsunami-udp-v11-b42
-./recompile.sh
-cp server/tsunamid client/tsunami /usr/bin
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;使用&#34;&gt;使用&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;#1、防火墙调整
-#服务端：开启TCP 46224(默认端口)
-#客户端：开启UDP 46224(默认端口)
-
-#2、开启服务端
-#待迁移文件都放在/app/game_data目录下(也可指定单文件传输)
-
-tsunamid --hbtimeout 60 /app/game_data/*
-
-#PS：这里设定心跳包超时时间为60秒，默认为15秒，在使用中很容易中断导致传输失败
-
-#3、开启客户端
-# 拉取服务端(122.225.100.100)的game_db.lz4文件，并限速100M(建议限制下，不然机房带宽就满了哦)
-tsunami set rate 100M connect 122.225.100.100 get gcmob_db.lz4
-
-# 拉取目录下所有文件
-tsunami set rate 100M connect 122.225.100.100 get \*
-
-#文档：http://tsunami-udp.cvs.sourceforge.net/viewvc/tsunami-udp/docs/USAGE.txt
-
-PS：未避免泄密，IP是随机填的
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;跨机房迁移示例&#34;&gt;跨机房迁移示例&lt;/h2&gt;
-
-&lt;p&gt;场景：
-将14G文件从杭州机房迁移至北京机房&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;方法1：使用wget下载
-&lt;img src=&#34;http://m114-static.qiniudn.com/img/wget.png&#34; alt=&#34;wget下载&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;方法2：使用TsunamiUDP工具
-&lt;img src=&#34;http://m114-static.qiniudn.com/img/TsunamiUDP.jpg&#34; alt=&#34;TsunamiUDP下载&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;总结:&lt;/p&gt;
-
-&lt;p&gt;TsunamiUDP相比wget优势太明显了，TsunamiUDP把带宽能跑满，而wget的速度不敢恭维。&lt;/p&gt;
-
-&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://sysadminandnetworking.blogspot.com/2013/06/tsunami-udp-faster-than-rsync.html&#34;&gt;http://sysadminandnetworking.blogspot.com/2013/06/tsunami-udp-faster-than-rsync.html&lt;/a&gt;
-&lt;a href=&#34;http://blog.csdn.net/awschina/article/details/38661889&#34;&gt;http://blog.csdn.net/awschina/article/details/38661889&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     

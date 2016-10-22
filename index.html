@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.16" />
+  <meta name="generator" content="Hugo 0.17" />
 
   <title>ops</title>
 
@@ -71,6 +71,12 @@
       
         <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://ops.m114.org/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/about/"><i class='fa fa-user fa-fw'></i>About</a>
       
         </li>
       
@@ -216,7 +222,17 @@
   </header>
 
   <p>
-  scrub ceph-osd会定义启动scrub线程，扫描部分对象（哪些对象？），和其他副本比较，发现是否一致。如果发现不一致，ceph会抛出这个异常给用户解决。以PG为粒度，触发scrub。用户手动修复，使用： ceph pg repair &lt;pg_id&gt; # 全量复制master节点数据到副本节点。 scrub分为light scrubbing和Deep scrubbing，前者是频率多直接检查hash值，后者是频率少直接读取内容计算checksum比较。 backfill 当加入或者减少一个新的osd时，所有remapped之后的PG都要迁移到该osd上，此时就叫做backfill。 recovery 当一个osd或者多个osd崩溃之后，再次上线，该osd的状态已经严重滞后了（此时crushmap中还保持该osd）,这个时候就会进行recovery过程。如果是多个osd recovery, 那么这个时候会占用非常多的服务器资源。 peering 故障恢复时，对比各个副本的PGlog, 根据PGlog差异构造missing列表，恢复阶段根据missing列表来恢复。peering以PG为单位进行，peering过程中，改PG的IO会被挂起，进入recovery阶段，则可以接受IO，但hit到missing列表项的，也会挂起，直到恢复完成后。因为PGlog的记录是有限的，当peering时发现，PGlog差异太大，则会触发backfill。 active + clean PG的status，active的意思是说该PG可以接受读写请求，clean的意思是说PG的副本数达到了要求。 degrade PG的副本数没有达到要求，但是满足最小副本数要求。 incomplete PG的副本数连最小副本数都没有达到。 inconsistent scrub或者deep scrub的时候发现PG内容不一致。 down 关键数据丢失。进入这个状态的一种方法，比如一个PG有两个副本，先down掉其中的一个osd，再down掉第二个osd，最后把第一个osd起起来，这样这个PG就处于down状态。 PGlog和日志文件系统 PGlog相当于undo log, journal相当于redo log。一个是在某个操作执行完成之后，做log记录，如果操作成功，则可以undo；另一个是在某个操作执行之前，做log记录，如果操作失败，下次可以redo。
+  scrub ceph-osd会定义启动scrub线程，扫描部分对象（哪些对象？），和其他副本比较，发现是否一致。如果发现不一致，ceph会抛出这个异常给用户解决。以PG为粒度，触发scrub。用户手动修复，使用：
+ceph pg repair &lt;pg_id&gt; # 全量复制master节点数据到副本节点。  scrub分为light scrubbing和Deep scrubbing，前者是频率多直接检查hash值，后者是频率少直接读取内容计算checksum比较。
+backfill 当加入或者减少一个新的osd时，所有remapped之后的PG都要迁移到该osd上，此时就叫做backfill。
+recovery 当一个osd或者多个osd崩溃之后，再次上线，该osd的状态已经严重滞后了（此时crushmap中还保持该osd）,这个时候就会进行recovery过程。如果是多个osd recovery, 那么这个时候会占用非常多的服务器资源。
+peering 故障恢复时，对比各个副本的PGlog, 根据PGlog差异构造missing列表，恢复阶段根据missing列表来恢复。peering以PG为单位进行，peering过程中，改PG的IO会被挂起，进入recovery阶段，则可以接受IO，但hit到missing列表项的，也会挂起，直到恢复完成后。因为PGlog的记录是有限的，当peering时发现，PGlog差异太大，则会触发backfill。
+active + clean PG的status，active的意思是说该PG可以接受读写请求，clean的意思是说PG的副本数达到了要求。
+degrade PG的副本数没有达到要求，但是满足最小副本数要求。
+incomplete PG的副本数连最小副本数都没有达到。
+inconsistent scrub或者deep scrub的时候发现PG内容不一致。
+down 关键数据丢失。进入这个状态的一种方法，比如一个PG有两个副本，先down掉其中的一个osd，再down掉第二个osd，最后把第一个osd起起来，这样这个PG就处于down状态。
+PGlog和日志文件系统 PGlog相当于undo log, journal相当于redo log。一个是在某个操作执行完成之后，做log记录，如果操作成功，则可以undo；另一个是在某个操作执行之前，做log记录，如果操作失败，下次可以redo。
   </p>
 
   
@@ -258,7 +274,10 @@
   </header>
 
   <p>
-  OSD扩容后出现如下错误 HEALTH_ERR 2 pgs inconsistent; 320 scrub errors [root@ceph01 ~]# ceph health detail HEALTH_ERR 2 pgs inconsistent; 320 scrub errors pg 10.9 is active+clean+inconsistent, acting [6,0,9] pg 10.10 is active+clean+scrubbing+deep+inconsistent, acting [2,6,4] 320 scrub errors 修复处于不一致状态的pgs [root@ceph01 ~]# ceph pg repair 10.9 instructing pg 10.9 on osd.6 to repair [root@ceph01 ~]# ceph pg repair 10.10 instructing pg 10.10 on osd.2 to repair 经过一段时间的修复后，ceph恢复正常。
+  OSD扩容后出现如下错误
+HEALTH_ERR 2 pgs inconsistent; 320 scrub errors
+[root@ceph01 ~]# ceph health detail HEALTH_ERR 2 pgs inconsistent; 320 scrub errors pg 10.9 is active+clean+inconsistent, acting [6,0,9] pg 10.10 is active+clean+scrubbing+deep+inconsistent, acting [2,6,4] 320 scrub errors  修复处于不一致状态的pgs
+[root@ceph01 ~]# ceph pg repair 10.9 instructing pg 10.9 on osd.6 to repair [root@ceph01 ~]# ceph pg repair 10.10 instructing pg 10.10 on osd.2 to repair  经过一段时间的修复后，ceph恢复正常。
   </p>
 
   
@@ -300,9 +319,19 @@
   </header>
 
   <p>
-  按照官网的步骤走的话，在 标记osd为out 和 从crushmap删除osd 这两步都会触发数据再平衡，如下方式只触发了一次迁移，建议使用。 调整osd的crush weight ceph osd crush reweight osd.0 0.1 说明：这个地方如果想慢慢的调整就分几次将crush 的weight 减低到0 ，这个过程实际上是让数据不分布在这个节点上，让数据慢慢的分布到其他节点上，直到最终为没有分布在这个osd，并且迁移完成这个地方不光调整了osd 的crush weight ，实际上同时调整了host 的 weight ，这样会调整集群的整体的crush 分布，在osd 的crush 为0 后， 再对这个osd的任何删除相关操作都不会影响到集群数据的分布。 停止osd进程 systemctl stop ceph-osd@0 这个是通知集群这个osd进程不在了，不提供服务了，因为本身没权重，就不会影响到整体的分布，也就没有迁移 将节点状态标记为out ceph osd out osd.0 这个是通知集群这个osd不再映射数据了，不提供服务了，因为本身没权重，就不会影响到整体的分布，也就没有迁移 从crush中移除节点 ceph osd crush remove osd.0 这个是从crush中删除，因为已经是0了 所以没影响主机的权重，也就没有迁移了 删除节点 ceph osd rm osd.0 这个是从集群里面删除这个节点的记录 删除节点认证（不删除编号会占住) ceph auth del osd.0 这个是从认证当中删除这个节点的信息
+  按照官网的步骤走的话，在 标记osd为out 和 从crushmap删除osd 这两步都会触发数据再平衡，如下方式只触发了一次迁移，建议使用。
+ 调整osd的crush weight ceph osd crush reweight osd.0 0.1  说明：这个地方如果想慢慢的调整就分几次将crush 的weight 减低到0 ，这个过程实际上是让数据不分布在这个节点上，让数据慢慢的分布到其他节点上，直到最终为没有分布在这个osd，并且迁移完成这个地方不光调整了osd 的crush weight ，实际上同时调整了host 的 weight ，这样会调整集群的整体的crush 分布，在osd 的crush 为0 后， 再对这个osd的任何删除相关操作都不会影响到集群数据的分布。
+ 停止osd进程 systemctl stop ceph-osd@0  这个是通知集群这个osd进程不在了，不提供服务了，因为本身没权重，就不会影响到整体的分布，也就没有迁移
+ 将节点状态标记为out ceph osd out osd.0  这个是通知集群这个osd不再映射数据了，不提供服务了，因为本身没权重，就不会影响到整体的分布，也就没有迁移
+ 从crush中移除节点 ceph osd crush remove osd.0  这个是从crush中删除，因为已经是0了 所以没影响主机的权重，也就没有迁移了
+ 删除节点 ceph osd rm osd.0  这个是从集群里面删除这个节点的记录
+ 删除节点认证（不删除编号会占住) ceph auth del osd.0  这个是从认证当中删除这个节点的信息
   </p>
 
+  
+  <footer>
+    <a href="https://ops.m114.org/post/right-steps-delete-ceph-osd/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
   
 </article>
 
@@ -349,7 +378,10 @@
   </header>
 
   <p>
-  从CentOS 7.x开始，CentOS开始使用systemd服务来代替daemon，原来管理系统启动和管理系统服务的相关命令全部由systemctl命令来代替。 1、原来的 service 命令与 systemctl 命令对比 daemon命令 systemctl命令 说明 service [服务] start systemctl start [unit type] 启动服务 service [服务] stop systemctl stop [unit type] 停止服务 service [服务] restart systemctl restart [unit type] 重启服务 此外还有二个systemctl参数没有与service命令参数对应 status: 参数来查看服务运行情况 reload: 重新加载服务，加载更新后的配置文件（并不是所有服务都支持这个参数，比如network.service） 应用举例: #启动网络服务 systemctl start network.service #停止网络服务 systemctl stop network.service #重启网络服务 systemctl restart network.service #查看网络服务状态 systemctl status network.serivce 2、原来的chkconfig 命令与 systemctl 命令对比 2.1、设置开机启动/不启动 daemon命令 systemctl命令 说明 chkconfig [服务] on systemctl enable [unit
+  从CentOS 7.x开始，CentOS开始使用systemd服务来代替daemon，原来管理系统启动和管理系统服务的相关命令全部由systemctl命令来代替。
+1、原来的 service 命令与 systemctl 命令对比    daemon命令 systemctl命令 说明     service [服务] start systemctl start [unit type] 启动服务   service [服务] stop systemctl stop [unit type] 停止服务   service [服务] restart systemctl restart [unit type] 重启服务    此外还有二个systemctl参数没有与service命令参数对应
+status: 参数来查看服务运行情况 reload: 重新加载服务，加载更新后的配置文件（并不是所有服务都支持这个参数，比如network.service）  应用举例:
+#启动网络服务 systemctl start network.service #停止网络服务 systemctl stop network.service #重启网络服务 systemctl restart network.service #查看网络服务状态 systemctl status network.
   </p>
 
   
@@ -402,7 +434,8 @@
   </header>
 
   <p>
-  A bad shutdown can cause such erros on MySQL. InnoDB: Unable to lock ./ibdata1, error: 11 InnoDB: Check that you do not already have another mysqld process InnoDB: using the same InnoDB data or log files. InnoDB: Error in opening ./ibdata1 For solution mv ibdata1 ibdata1.bak cp -a ibdata1.bak ibdata1 service mysqld restart
+   A bad shutdown can cause such erros on MySQL.
+InnoDB: Unable to lock ./ibdata1, error: 11 InnoDB: Check that you do not already have another mysqld process InnoDB: using the same InnoDB data or log files. InnoDB: Error in opening ./ibdata1  For solution mv ibdata1 ibdata1.bak cp -a ibdata1.bak ibdata1 service mysqld restart  
   </p>
 
   
@@ -434,6 +467,6 @@
 
 
 
-<script data-no-instant>document.write('<script src="/livereload.js?mindelay=10"></' + 'script>')</script></body>
+<script data-no-instant>document.write('<script src="/livereload.js?port=1313&mindelay=10"></' + 'script>')</script></body>
 </html>
 
