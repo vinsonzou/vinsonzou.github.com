@@ -60,6 +60,7 @@
 &lt;li&gt;&lt;a href=&#34;https://github.com/openresty/lua-resty-dns&#34;&gt;lua-resty-dns&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/openresty/lua-resty-lock&#34;&gt;lua-resty-lock&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/juce/lua-resty-shell&#34;&gt;lua-resty-shell&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/bungle/lua-resty-template&#34;&gt;lua-resty-template&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;ngx-lua-web开发&#34;&gt;ngx_lua Web开发&lt;/h2&gt;
