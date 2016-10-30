@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ops</title>
+    <link>https://ops.m114.org/topics/openresty/index.xml</link>
+    <description>Recent content on ops</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>&amp;copy; 2014-2016. All rights reserved.</copyright>
+    <atom:link href="https://ops.m114.org/topics/openresty/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>在 OpenResty 中使用正则表达式</title>
+      <link>https://ops.m114.org/post/use-regular-expressions-in-OpenResty/</link>
+      <pubDate>Sun, 30 Oct 2016 10:48:19 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/use-regular-expressions-in-OpenResty/</guid>
+      <description>&lt;p&gt;在 OpenResty 中使用正则表达式，社区中推荐的做法是使用ngx.re api。比如匹配一个字符串是否为 http(s) 的链接，可以这么写：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;local function is_http_url(s)
+    return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;amp;#%]+$]])
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;压测一下:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;local t = os.clock()
+for _ = 1, max do
+    is_http_url(&amp;quot;http://blog.stackoverflow.com/2016/10/Stack-Overflow-92-Podcast-The-Guerilla-Guide-to-Interviewing/?cb=1&amp;quot;)
+end
+print(&amp;quot;Time cost: &amp;quot;, os.clock() - t, &amp;quot; s&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;结果：Time cost: 2.663408 s&lt;/p&gt;
+
+&lt;p&gt;另一种做法是使用 lua 的正则语法：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;local function is_http_url(s)
+    return s:find(&amp;quot;^https?://[%w-_%.%?:/%+=&amp;amp;#%%]+$&amp;quot;)
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;结果：Time cost: 0.652221 s&lt;/p&gt;
+
+&lt;p&gt;呃，怎么前者耗时是后者的四倍？lua 内置的小小状态机实现，居然打败了大名鼎鼎的 PCRE 库！说好的社区推荐呢！&lt;/p&gt;
+
+&lt;p&gt;仔细一瞧，前者的确漏了点东西。ngx.re默认不会缓存正则表达式编译后的结果。一般在其它编程平台上，我们都会先把字符串编译成正则表达式，再用到正则函数中。比如在
+Python 里使用 re.compile。所以赶紧补上：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;amp;#%]+$]], &amp;quot;o&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;好，这次性能有了明显提升：Time cost: 0.646518 s&lt;/p&gt;
+
+&lt;p&gt;不错不错，虽然还是跟 lua 的实现不分上下，考虑到 lua 本身的正则支持非常弱（比如连 (foo|bar)
+这种形式都不行），而且语法离经叛道，改用 ngx.re 还是挺有必要的。毕竟 PCRE 可是 Perl Compatibility Regex
+Expression库，我最喜欢它支持的(?name:pattern)形式的命名捕获功能。&lt;/p&gt;
+
+&lt;p&gt;其实 ngx.re 实现尚未用尽全力呢。开启了 JIT 之后，PCRE 库的性能会更上一层楼：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;amp;#%]+$]], &amp;quot;jo&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;结果：Time cost: 0.421824 s&lt;/p&gt;
+
+&lt;p&gt;此时，lua 正则已经被甩到后面去了。&lt;/p&gt;
+
+&lt;p&gt;还能更快吗？&lt;/p&gt;
+
+&lt;p&gt;当然，OpenResty 军火库里还有另外一个武器：&lt;a href=&#34;https://github.com/openresty/lua-resty-core&#34;&gt;lua-resty-core&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;require &#39;resty.core.regex&#39;
+
+local function is_http_url(s)
+    return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;amp;#%]+$]], &amp;quot;jo&amp;quot;)
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;结果：Time cost: 0.175346 s&lt;/p&gt;
+
+&lt;p&gt;Boom！最终用时是 lua 正则的四分之一。lua 正则已经望尘莫及了。有趣的是，这个结果正好是第一次比较的结果倒过来。
+实话说，这个结果在我的意料之外。resty.core.regex 版本的 ngx.re api，跟默认版本的区别在于对入参和出参的处理是在 lua
+代码里完成的，另外调用 C 函数部分采用的是 ffi 而非传统的 C binding。但为什么会这么快？luajit 是否对 ffi 有 jit 优化？&lt;/p&gt;
+
+&lt;p&gt;需要注明一下，resty.core.regex并非银弹。在我们自己的应用上，我尝试引入resty.core.regex，发现对性能无可见的提升。当然，我们的应用的功能不是匹配
+url，正则处理亦非瓶颈。不过 resty.core.regex 对自己的项目是否有效，还需要诸君自己测试一番。&lt;/p&gt;
+
+&lt;p&gt;总结&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;如果在 OpenResty 项目中需要使用正则表达式，请使用 ngx.re api，并开启 jo 选项。&lt;/li&gt;
+&lt;li&gt;resty.core.regex 值得一试。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;原文：&lt;a href=&#34;https://segmentfault.com/a/1190000007298100&#34;&gt;https://segmentfault.com/a/1190000007298100&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

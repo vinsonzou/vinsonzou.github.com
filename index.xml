@@ -7,8 +7,139 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2016. All rights reserved.</copyright>
-    <lastBuildDate>Sat, 22 Oct 2016 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 30 Oct 2016 10:48:19 +0800</lastBuildDate>
     <atom:link href="https://ops.m114.org/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>在 OpenResty 中使用正则表达式</title>
+      <link>https://ops.m114.org/post/use-regular-expressions-in-OpenResty/</link>
+      <pubDate>Sun, 30 Oct 2016 10:48:19 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/use-regular-expressions-in-OpenResty/</guid>
+      <description>&lt;p&gt;在 OpenResty 中使用正则表达式，社区中推荐的做法是使用ngx.re api。比如匹配一个字符串是否为 http(s) 的链接，可以这么写：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;local function is_http_url(s)
+    return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;amp;#%]+$]])
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;压测一下:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;local t = os.clock()
+for _ = 1, max do
+    is_http_url(&amp;quot;http://blog.stackoverflow.com/2016/10/Stack-Overflow-92-Podcast-The-Guerilla-Guide-to-Interviewing/?cb=1&amp;quot;)
+end
+print(&amp;quot;Time cost: &amp;quot;, os.clock() - t, &amp;quot; s&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;结果：Time cost: 2.663408 s&lt;/p&gt;
+
+&lt;p&gt;另一种做法是使用 lua 的正则语法：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;local function is_http_url(s)
+    return s:find(&amp;quot;^https?://[%w-_%.%?:/%+=&amp;amp;#%%]+$&amp;quot;)
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;结果：Time cost: 0.652221 s&lt;/p&gt;
+
+&lt;p&gt;呃，怎么前者耗时是后者的四倍？lua 内置的小小状态机实现，居然打败了大名鼎鼎的 PCRE 库！说好的社区推荐呢！&lt;/p&gt;
+
+&lt;p&gt;仔细一瞧，前者的确漏了点东西。ngx.re默认不会缓存正则表达式编译后的结果。一般在其它编程平台上，我们都会先把字符串编译成正则表达式，再用到正则函数中。比如在
+Python 里使用 re.compile。所以赶紧补上：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;amp;#%]+$]], &amp;quot;o&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;好，这次性能有了明显提升：Time cost: 0.646518 s&lt;/p&gt;
+
+&lt;p&gt;不错不错，虽然还是跟 lua 的实现不分上下，考虑到 lua 本身的正则支持非常弱（比如连 (foo|bar)
+这种形式都不行），而且语法离经叛道，改用 ngx.re 还是挺有必要的。毕竟 PCRE 可是 Perl Compatibility Regex
+Expression库，我最喜欢它支持的(?name:pattern)形式的命名捕获功能。&lt;/p&gt;
+
+&lt;p&gt;其实 ngx.re 实现尚未用尽全力呢。开启了 JIT 之后，PCRE 库的性能会更上一层楼：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;amp;#%]+$]], &amp;quot;jo&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;结果：Time cost: 0.421824 s&lt;/p&gt;
+
+&lt;p&gt;此时，lua 正则已经被甩到后面去了。&lt;/p&gt;
+
+&lt;p&gt;还能更快吗？&lt;/p&gt;
+
+&lt;p&gt;当然，OpenResty 军火库里还有另外一个武器：&lt;a href=&#34;https://github.com/openresty/lua-resty-core&#34;&gt;lua-resty-core&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;require &#39;resty.core.regex&#39;
+
+local function is_http_url(s)
+    return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;amp;#%]+$]], &amp;quot;jo&amp;quot;)
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;结果：Time cost: 0.175346 s&lt;/p&gt;
+
+&lt;p&gt;Boom！最终用时是 lua 正则的四分之一。lua 正则已经望尘莫及了。有趣的是，这个结果正好是第一次比较的结果倒过来。
+实话说，这个结果在我的意料之外。resty.core.regex 版本的 ngx.re api，跟默认版本的区别在于对入参和出参的处理是在 lua
+代码里完成的，另外调用 C 函数部分采用的是 ffi 而非传统的 C binding。但为什么会这么快？luajit 是否对 ffi 有 jit 优化？&lt;/p&gt;
+
+&lt;p&gt;需要注明一下，resty.core.regex并非银弹。在我们自己的应用上，我尝试引入resty.core.regex，发现对性能无可见的提升。当然，我们的应用的功能不是匹配
+url，正则处理亦非瓶颈。不过 resty.core.regex 对自己的项目是否有效，还需要诸君自己测试一番。&lt;/p&gt;
+
+&lt;p&gt;总结&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;如果在 OpenResty 项目中需要使用正则表达式，请使用 ngx.re api，并开启 jo 选项。&lt;/li&gt;
+&lt;li&gt;resty.core.regex 值得一试。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;原文：&lt;a href=&#34;https://segmentfault.com/a/1190000007298100&#34;&gt;https://segmentfault.com/a/1190000007298100&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>[python]统计列表中重复项的出现次数</title>
+      <link>https://ops.m114.org/post/python-count-duplicate-values-of-list/</link>
+      <pubDate>Sun, 30 Oct 2016 10:27:24 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/python-count-duplicate-values-of-list/</guid>
+      <description>&lt;p&gt;列表项由数字、字符串组成，统计重复项&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; from collections import defaultdict
+&amp;gt;&amp;gt;&amp;gt; d = defaultdict(int)
+&amp;gt;&amp;gt;&amp;gt; for x in [1, 2, 3, 1, 2, 3, 1]:
+...     d[x] += 1
+...
+&amp;gt;&amp;gt;&amp;gt; dict(d)
+{1: 3, 2: 2, 3: 2}
+&amp;gt;&amp;gt;&amp;gt;
+&amp;gt;&amp;gt;&amp;gt; c = defaultdict(int)
+&amp;gt;&amp;gt;&amp;gt; for y in [&#39;a&#39;, &#39;b&#39;, &#39;a&#39;, &#39;c&#39;, &#39;c&#39;]:
+...     c[y] += 1
+...
+&amp;gt;&amp;gt;&amp;gt; dict(c)
+{&#39;a&#39;: 2, &#39;c&#39;: 2, &#39;b&#39;: 1}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;列表项由字典组成，统计某一键值的重复数&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; e = defaultdict(int)
+&amp;gt;&amp;gt;&amp;gt; for x in [{&#39;a&#39;: 1, &#39;b&#39;: 1}, {&#39;a&#39;: 2, &#39;b&#39;:1}, {&#39;a&#39;: 1, &#39;c&#39;: 3}]:
+...     e[x[&#39;a&#39;]] += 1
+...
+&amp;gt;&amp;gt;&amp;gt; dict(e)   # &#39;a&#39;: 1 出现2次，&#39;a&#39;: 2 出现1次
+{1: 2, 2: 1}
+&amp;gt;&amp;gt;&amp;gt; e.items()
+[(1, 2), (2, 1)]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;参考&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/questions/14374568/counting-duplicate-words-in-python-the-fastest-way&#34;&gt;dictionary - counting duplicate words in python the fastest way - Stack Overflow&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>About</title>
@@ -994,104 +1125,6 @@ cd igb-5.2.18/src/igb-5.1.2/src
 yum install kernel-devel
 make install
 rmmod igb; modprobe igb
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>DNSPOD API SSL证书调整(subjectAltName)引起的报错</title>
-      <link>https://ops.m114.org/post/DNSPOD-API-SSL-subjectAltName/</link>
-      <pubDate>Sun, 10 May 2015 23:44:43 +0800</pubDate>
-      
-      <guid>https://ops.m114.org/post/DNSPOD-API-SSL-subjectAltName/</guid>
-      <description>&lt;p&gt;报错信息如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Python 2.7 (r27:82500, Jan  7 2014, 23:14:35)
-[GCC 4.1.2 20080704 (Red Hat 4.1.2-50)] on linux2
-Type &amp;quot;help&amp;quot;, &amp;quot;copyright&amp;quot;, &amp;quot;credits&amp;quot; or &amp;quot;license&amp;quot; for more information.
-&amp;gt;&amp;gt;&amp;gt; import requests
-&amp;gt;&amp;gt;&amp;gt; r = requests.get(&amp;quot;https://dnsapi.cn&amp;quot;)
-Traceback (most recent call last):
-    File &amp;quot;&amp;lt;stdin&amp;gt;&amp;quot;, line 1, in &amp;lt;module&amp;gt;
-    File &amp;quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&amp;quot;, line 55, in get
-        return request(&#39;get&#39;, url, **kwargs)
-    File &amp;quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&amp;quot;, line 44, in request
-        return session.request(method=method, url=url, **kwargs)
-    File &amp;quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/sessions.py&amp;quot;, line 361, in request
-        resp = self.send(prep, **send_kwargs)
-    File &amp;quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/sessions.py&amp;quot;, line 464, in send
-        r = adapter.send(request, **kwargs)
-    File &amp;quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/adapters.py&amp;quot;, line 363, in send
-        raise SSLError(e)
-requests.exceptions.SSLError: hostname &#39;dnsapi.cn&#39; doesn&#39;t match u&#39;www.dnspod.cn&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;DNSPOD当前证书截图：
-&lt;img src=&#34;http://m114-static.qiniudn.com/img/dnspod_cert.png&#34; alt=&#34;dnspod&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;证书信息查看&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;openssl s_client -connect dnsapi.cn:443 | tee dnsapi.cert
-openssl x509 -inform PEM -in dnsapi.cert -text
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Python SSL验证&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Python 2.7 (r27:82500, Jan  7 2014, 23:14:35)
-[GCC 4.1.2 20080704 (Red Hat 4.1.2-50)] on linux2
-Type &amp;quot;help&amp;quot;, &amp;quot;copyright&amp;quot;, &amp;quot;credits&amp;quot; or &amp;quot;license&amp;quot; for more information.
-&amp;gt;&amp;gt;&amp;gt;  import _ssl
-&amp;gt;&amp;gt;&amp;gt; _ssl._test_decode_cert(&#39;dnsapi.cert&#39;)
-{&#39;notBefore&#39;: &#39;Mar 24 00:00:00 2015 GMT&#39;, &#39;serialNumber&#39;: &#39;3E4F6D495C407163586D0B900A007555&#39;, &#39;notAfter&#39;: &#39;May 12 23:59:59 2015 GMT&#39;, &#39;version&#39;: 3, &#39;subject&#39;: (((&#39;1.3.6.1.4.1.311.60.2.1.3&#39;, u&#39;CN&#39;),), ((&#39;1.3.6.1.4.1.311.60.2.1.2&#39;, u&#39;ShanDong&#39;),), ((&#39;1.3.6.1.4.1.311.60.2.1.1&#39;, u&#39;YanTai&#39;),), ((&#39;2.5.4.15&#39;, u&#39;Private Organization&#39;),), ((&#39;serialNumber&#39;, u&#39;370635200013814&#39;),), ((&#39;countryName&#39;, u&#39;CN&#39;),), ((&#39;stateOrProvinceName&#39;, u&#39;\u5c71\u4e1c\u7701&#39;),), ((&#39;localityName&#39;, u&#39;\u70df\u53f0\u5e02&#39;),), ((&#39;organizationName&#39;, u&#39;DNSPod, Inc.&#39;),), ((&#39;organizationalUnitName&#39;, u&#39;IT&#39;),), ((&#39;commonName&#39;, u&#39;www.dnspod.cn&#39;),)), &#39;issuer&#39;: (((&#39;countryName&#39;, u&#39;US&#39;),), ((&#39;organizationName&#39;, u&#39;GeoTrust Inc.&#39;),), ((&#39;commonName&#39;, u&#39;GeoTrust Extended Validation SSL CA - G2&#39;),))}
-
-
-Python 2.7.6 (default, Sep  9 2014, 15:04:36)
-[GCC 4.2.1 Compatible Apple LLVM 6.0 (clang-600.0.39)] on darwin
-Type &amp;quot;help&amp;quot;, &amp;quot;copyright&amp;quot;, &amp;quot;credits&amp;quot; or &amp;quot;license&amp;quot; for more information.
-&amp;gt;&amp;gt;&amp;gt; import _ssl
-&amp;gt;&amp;gt;&amp;gt; _ssl._test_decode_cert(&#39;dnsapi.cert&#39;)
-{&#39;subjectAltName&#39;: ((&#39;DNS&#39;, &#39;www.dnsapi.cn&#39;), (&#39;DNS&#39;, &#39;monitor.dnspod.cn&#39;), (&#39;DNS&#39;, &#39;api.dnspod.com&#39;), (&#39;DNS&#39;, &#39;tickets.dnspod.com&#39;), (&#39;DNS&#39;, &#39;ec.dnspod.cn&#39;), (&#39;DNS&#39;, &#39;domains.dnspod.cn&#39;), (&#39;DNS&#39;, &#39;support.dnspod.cn&#39;), (&#39;DNS&#39;, &#39;m.dnspod.cn&#39;), (&#39;DNS&#39;, &#39;ssl.ptlogin2.dnspod.cn&#39;), (&#39;DNS&#39;, &#39;monitor.dnspod.com&#39;), (&#39;DNS&#39;, &#39;support.dnspod.com&#39;), (&#39;DNS&#39;, &#39;tickets.dnspod.cn&#39;), (&#39;DNS&#39;, &#39;statics.dnspod.cn&#39;), (&#39;DNS&#39;, &#39;stat.dnspod.cn&#39;), (&#39;DNS&#39;, &#39;www.dnspod.com&#39;), (&#39;DNS&#39;, &#39;dnspod.com&#39;), (&#39;DNS&#39;, &#39;static.dnspod.com&#39;), (&#39;DNS&#39;, &#39;libs.dnspod.cn&#39;), (&#39;DNS&#39;, &#39;blog.dnspod.cn&#39;), (&#39;DNS&#39;, &#39;dnsapi.cn&#39;), (&#39;DNS&#39;, &#39;www.dnspod.cn&#39;), (&#39;DNS&#39;, &#39;dnspod.cn&#39;)), &#39;notBefore&#39;: &#39;Mar 24 00:00:00 2015 GMT&#39;, &#39;serialNumber&#39;: &#39;3E4F6D495C407163586D0B900A007555&#39;, &#39;notAfter&#39;: &#39;May 12 23:59:59 2015 GMT&#39;, &#39;version&#39;: 3, &#39;subject&#39;: (((&#39;1.3.6.1.4.1.311.60.2.1.3&#39;, u&#39;CN&#39;),), ((&#39;1.3.6.1.4.1.311.60.2.1.2&#39;, u&#39;ShanDong&#39;),), ((&#39;1.3.6.1.4.1.311.60.2.1.1&#39;, u&#39;YanTai&#39;),), ((&#39;businessCategory&#39;, u&#39;Private Organization&#39;),), ((&#39;serialNumber&#39;, u&#39;370635200013814&#39;),), ((&#39;countryName&#39;, u&#39;CN&#39;),), ((&#39;stateOrProvinceName&#39;, u&#39;\u5c71\u4e1c\u7701&#39;),), ((&#39;localityName&#39;, u&#39;\u70df\u53f0\u5e02&#39;),), ((&#39;organizationName&#39;, u&#39;DNSPod, Inc.&#39;),), ((&#39;organizationalUnitName&#39;, u&#39;IT&#39;),), ((&#39;commonName&#39;, u&#39;www.dnspod.cn&#39;),)), &#39;issuer&#39;: (((&#39;countryName&#39;, u&#39;US&#39;),), ((&#39;organizationName&#39;, u&#39;GeoTrust Inc.&#39;),), ((&#39;commonName&#39;, u&#39;GeoTrust Extended Validation SSL CA - G2&#39;),))}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;解决方法：&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;code&gt;升级Python至2.7.3以上版本,低版本不支持ssl的subjectAltName特性&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;来源参考:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://github.com/shazow/urllib3/issues/523&#34;&gt;https://github.com/shazow/urllib3/issues/523&lt;/a&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>俄罗斯永久冬令时的坑</title>
-      <link>https://ops.m114.org/post/russia-permanent-winter-time/</link>
-      <pubDate>Sun, 26 Apr 2015 16:59:30 +0800</pubDate>
-      
-      <guid>https://ops.m114.org/post/russia-permanent-winter-time/</guid>
-      <description>
-
-&lt;h3 id=&#34;系统环境&#34;&gt;系统环境&lt;/h3&gt;
-
-&lt;p&gt;OS: CentOS 6.X&lt;/p&gt;
-
-&lt;p&gt;JDK: 6&lt;/p&gt;
-
-&lt;h3 id=&#34;背景&#34;&gt;背景&lt;/h3&gt;
-
-&lt;p&gt;因游戏在俄罗斯运营，采用了莫斯科时间，俄罗斯宣布2014年10月26日开始永久冬令时。&lt;/p&gt;
-
-&lt;h3 id=&#34;过程&#34;&gt;过程&lt;/h3&gt;
-
-&lt;p&gt;更新了系统时区文件，保证系统时间不会切换至夏令时，执行&lt;code&gt;yum update tzdata&lt;/code&gt;即可。&lt;/p&gt;
-
-&lt;p&gt;但在莫斯科时间的2015年3月29日凌晨2点，java游戏进程的日志时间跳到了凌晨3点(比系统时间快了1个小时)&lt;/p&gt;
-
-&lt;h3 id=&#34;解决方法&#34;&gt;解决方法&lt;/h3&gt;
-
-&lt;p&gt;更新JDK的时区文件即可&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;ln -sf /usr/share/zoneinfo/Europe/Moscow /usr/local/jdk/jre/lib/zi/Europe/Moscow
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>

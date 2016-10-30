@@ -189,6 +189,102 @@
   
     <article>
   <header>
+    <h2><a href="https://ops.m114.org/post/linux-performance-tools/">运维工具汇总之 性能调优，性能监控，性能测试</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2016/07/03, 13:39</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/tips">Tips</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+   性能调优 性能监控 性能测试 
+  </p>
+
+  
+</article>
+
+  
+    <article>
+  <header>
+    <h2><a href="https://ops.m114.org/post/git-common-command/">Git常用命令备忘</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2016/06/16, 12:33</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/tips">Tips</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/git">git</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  配置 Git的设置文件为.gitconfig，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。
+# 显示当前的Git配置 $ git config --list # 文本编辑器 $ git config --global core.editor vim # 编辑Git配置文件 $ git config -e [--global] # 设置提交代码时的用户信息 $ git config [--global] user.name &quot;[name]&quot; $ git config [--global] user.email &quot;[email address]&quot;  FAQ 1. 如果在你Fork之后，原始的repo更新了，怎么将原始的更新内容与你当前的合并？ 1. 增加原分支为远程分支，命名为upstream git remote add upstream https://github.com/vinsonzou/docker-images.git 2. fetch该远程仓库下的所有分支到remote-tracking分支 git fetch upstream 3. 确保你当前在master分支 git checkout master 4. Fork同步 两种方式，任选其一即可 a) 如果你已经对当前自己的副本做过更改，并且想要保留，则将更新合并到主分支 git merge upstream/master b) 如果想要保留所有原仓库的历史更新则使用rebase复写当前分支(`本地所有修改丢失`) git rebase upstream/master 5.
+  </p>
+
+  
+  <footer>
+    <a href="https://ops.m114.org/post/git-common-command/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="https://ops.m114.org/post/docker-for-mac-beta/">Docker for Mac Beta尝鲜</a></h2>
 
     <div class="post-meta">
@@ -326,104 +422,6 @@ Python 2.7 (r27:82500, Jan 7 2014, 23:14:35) [GCC 4.1.2 20080704 (Red Hat 4.1.2-
   
   <footer>
     <a href="https://ops.m114.org/post/DNSPOD-API-SSL-subjectAltName/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/russia-permanent-winter-time/">俄罗斯永久冬令时的坑</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2015/04/26, 16:59</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/tips">Tips</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/java">java</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-   系统环境 OS: CentOS 6.X
-JDK: 6
-背景 因游戏在俄罗斯运营，采用了莫斯科时间，俄罗斯宣布2014年10月26日开始永久冬令时。
-过程 更新了系统时区文件，保证系统时间不会切换至夏令时，执行yum update tzdata即可。
-但在莫斯科时间的2015年3月29日凌晨2点，java游戏进程的日志时间跳到了凌晨3点(比系统时间快了1个小时)
-解决方法 更新JDK的时区文件即可
-ln -sf /usr/share/zoneinfo/Europe/Moscow /usr/local/jdk/jre/lib/zi/Europe/Moscow  
-  </p>
-
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/">利用TsunamiUDP加速跨机房迁移</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2015/04/26, 16:00</time>
-  </div>
-
-  
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/tsunamiudp">TsunamiUDP</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  部署 yum -y install automake autoconf git clone git://github.com/rriley/tsunami-udp.git cd tsunami-udp ./recompile.sh cp server/tsunamid client/tsunami /usr/bin #或者从sf.net下载 wget http://iweb.dl.sourceforge.net/project/tsunami-udp/tsunami-udp/tsunami-v1.1-cvsbuild42/tsunami-v1.1-cvsbuild42.tar.gz tar zxf tsunami-v1.1-cvsbuild42.tar.gz cd tsunami-udp-v11-b42 ./recompile.sh cp server/tsunamid client/tsunami /usr/bin  使用 #1、防火墙调整 #服务端：开启TCP 46224(默认端口) #客户端：开启UDP 46224(默认端口) #2、开启服务端 #待迁移文件都放在/app/game_data目录下(也可指定单文件传输) tsunamid --hbtimeout 60 /app/game_data/* #PS：这里设定心跳包超时时间为60秒，默认为15秒，在使用中很容易中断导致传输失败 #3、开启客户端 # 拉取服务端(122.225.100.100)的game_db.lz4文件，并限速100M(建议限制下，不然机房带宽就满了哦) tsunami set rate 100M connect 122.225.100.100 get gcmob_db.lz4 # 拉取目录下所有文件 tsunami set rate 100M connect 122.225.100.100 get \* #文档：http://tsunami-udp.cvs.sourceforge.net/viewvc/tsunami-udp/docs/USAGE.txt PS：未避免泄密，IP是随机填的  跨机房迁移示例 场景： 将14G文件从杭州机房迁移至北京机房
-  </p>
-
-  
-  <footer>
-    <a href="https://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
   </footer>
   
 </article>
