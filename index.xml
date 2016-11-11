@@ -1022,6 +1022,37 @@ pick ce32af7 添加commit2的说明
 &lt;p&gt;将第二行的 &amp;ldquo;pick&amp;rdquo; 改为 &amp;ldquo;squash&amp;rdquo;, 保存后退出。由于合并后要提交，所以编辑器会提醒您编辑这个最新的提交信息，请编辑信息后保存并退出。&lt;/p&gt;
 
 &lt;p&gt;这样，两个提交就合并成一个提交了。请用 log 命令确认历史记录。&lt;/p&gt;
+
+&lt;h3 id=&#34;7-tag使用&#34;&gt;7. tag使用&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;创建tag&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git tag -a v0.1 -m &#39;version 0.1&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;查看tag&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git tag
+git show v0.1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;tag 远程推送&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git push origin --tags
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;获取远程版本部署&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;git fetch origin tag v0.1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;删除tag&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#本地删除
+git tag -d v0.1
+#远程删除(git &amp;gt;= v1.7.0)
+git push origin --delete tag v0.1
+&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
