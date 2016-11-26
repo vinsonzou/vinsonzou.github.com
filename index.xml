@@ -1053,6 +1053,11 @@ git tag -d v0.1
 #远程删除(git &amp;gt;= v1.7.0)
 git push origin --delete tag v0.1
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;8-查看具体commit的某个文件的修改内容&#34;&gt;8. 查看具体commit的某个文件的修改内容&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;git show commit哈希值 文件名
+&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
