@@ -7,8 +7,31 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2017. All rights reserved.</copyright>
-    <lastBuildDate>Sun, 30 Oct 2016 10:48:19 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 07 Jan 2017 19:57:32 +0800</lastBuildDate>
     <atom:link href="https://ops.m114.org/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>不重启解决Too Many Connections</title>
+      <link>https://ops.m114.org/post/solve-too-many-connections/</link>
+      <pubDate>Sat, 07 Jan 2017 19:57:32 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/solve-too-many-connections/</guid>
+      <description>&lt;p&gt;当发生Too many connections时，即使是DBA也无法登录到数据库，一般的做法是修改配置文件的max_connections参数，然后重启数据库，这样业务就有几秒钟的中断，对于线上不能中断的数据库就只能采用另外一种极客的方法了，用gdb直接修改mysqld内存中max_connections的值，具体做法如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;gdb -p $(cat /data/mysql/mysql-server.pid) -ex &amp;quot;set max_connections=3000&amp;quot; -batch
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;改进方法如下&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;通常有两个参数控制控制最大连接数：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;max_connections：该实例允许最大的连接数
+max_user_connections：该实例允许每个用户的最大连接数
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;每个人要根据自己业务量，设置合适的值，不要盲目设置过大，但也不可设置过小，因为MySQL在连接数上升的情况下性能下降非常厉害，如果需要大量连接，这时可以引入thread_pool，所以我们需要保持一个原则：系统创建的用户（给应用使用用户）数 * max_user_connections &amp;lt; max_connections。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>在 OpenResty 中使用正则表达式</title>
@@ -1101,71 +1124,6 @@ yum install kernel-devel
 make install
 rmmod igb; modprobe igb
 &lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>DNSPOD API SSL证书调整(subjectAltName)引起的报错</title>
-      <link>https://ops.m114.org/post/DNSPOD-API-SSL-subjectAltName/</link>
-      <pubDate>Sun, 10 May 2015 23:44:43 +0800</pubDate>
-      
-      <guid>https://ops.m114.org/post/DNSPOD-API-SSL-subjectAltName/</guid>
-      <description>&lt;p&gt;报错信息如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Python 2.7 (r27:82500, Jan  7 2014, 23:14:35)
-[GCC 4.1.2 20080704 (Red Hat 4.1.2-50)] on linux2
-Type &amp;quot;help&amp;quot;, &amp;quot;copyright&amp;quot;, &amp;quot;credits&amp;quot; or &amp;quot;license&amp;quot; for more information.
-&amp;gt;&amp;gt;&amp;gt; import requests
-&amp;gt;&amp;gt;&amp;gt; r = requests.get(&amp;quot;https://dnsapi.cn&amp;quot;)
-Traceback (most recent call last):
-    File &amp;quot;&amp;lt;stdin&amp;gt;&amp;quot;, line 1, in &amp;lt;module&amp;gt;
-    File &amp;quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&amp;quot;, line 55, in get
-        return request(&#39;get&#39;, url, **kwargs)
-    File &amp;quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&amp;quot;, line 44, in request
-        return session.request(method=method, url=url, **kwargs)
-    File &amp;quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/sessions.py&amp;quot;, line 361, in request
-        resp = self.send(prep, **send_kwargs)
-    File &amp;quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/sessions.py&amp;quot;, line 464, in send
-        r = adapter.send(request, **kwargs)
-    File &amp;quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/adapters.py&amp;quot;, line 363, in send
-        raise SSLError(e)
-requests.exceptions.SSLError: hostname &#39;dnsapi.cn&#39; doesn&#39;t match u&#39;www.dnspod.cn&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;DNSPOD当前证书截图：
-&lt;img src=&#34;http://m114-static.qiniudn.com/img/dnspod_cert.png&#34; alt=&#34;dnspod&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;证书信息查看&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;openssl s_client -connect dnsapi.cn:443 | tee dnsapi.cert
-openssl x509 -inform PEM -in dnsapi.cert -text
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Python SSL验证&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Python 2.7 (r27:82500, Jan  7 2014, 23:14:35)
-[GCC 4.1.2 20080704 (Red Hat 4.1.2-50)] on linux2
-Type &amp;quot;help&amp;quot;, &amp;quot;copyright&amp;quot;, &amp;quot;credits&amp;quot; or &amp;quot;license&amp;quot; for more information.
-&amp;gt;&amp;gt;&amp;gt;  import _ssl
-&amp;gt;&amp;gt;&amp;gt; _ssl._test_decode_cert(&#39;dnsapi.cert&#39;)
-{&#39;notBefore&#39;: &#39;Mar 24 00:00:00 2015 GMT&#39;, &#39;serialNumber&#39;: &#39;3E4F6D495C407163586D0B900A007555&#39;, &#39;notAfter&#39;: &#39;May 12 23:59:59 2015 GMT&#39;, &#39;version&#39;: 3, &#39;subject&#39;: (((&#39;1.3.6.1.4.1.311.60.2.1.3&#39;, u&#39;CN&#39;),), ((&#39;1.3.6.1.4.1.311.60.2.1.2&#39;, u&#39;ShanDong&#39;),), ((&#39;1.3.6.1.4.1.311.60.2.1.1&#39;, u&#39;YanTai&#39;),), ((&#39;2.5.4.15&#39;, u&#39;Private Organization&#39;),), ((&#39;serialNumber&#39;, u&#39;370635200013814&#39;),), ((&#39;countryName&#39;, u&#39;CN&#39;),), ((&#39;stateOrProvinceName&#39;, u&#39;\u5c71\u4e1c\u7701&#39;),), ((&#39;localityName&#39;, u&#39;\u70df\u53f0\u5e02&#39;),), ((&#39;organizationName&#39;, u&#39;DNSPod, Inc.&#39;),), ((&#39;organizationalUnitName&#39;, u&#39;IT&#39;),), ((&#39;commonName&#39;, u&#39;www.dnspod.cn&#39;),)), &#39;issuer&#39;: (((&#39;countryName&#39;, u&#39;US&#39;),), ((&#39;organizationName&#39;, u&#39;GeoTrust Inc.&#39;),), ((&#39;commonName&#39;, u&#39;GeoTrust Extended Validation SSL CA - G2&#39;),))}
-
-
-Python 2.7.6 (default, Sep  9 2014, 15:04:36)
-[GCC 4.2.1 Compatible Apple LLVM 6.0 (clang-600.0.39)] on darwin
-Type &amp;quot;help&amp;quot;, &amp;quot;copyright&amp;quot;, &amp;quot;credits&amp;quot; or &amp;quot;license&amp;quot; for more information.
-&amp;gt;&amp;gt;&amp;gt; import _ssl
-&amp;gt;&amp;gt;&amp;gt; _ssl._test_decode_cert(&#39;dnsapi.cert&#39;)
-{&#39;subjectAltName&#39;: ((&#39;DNS&#39;, &#39;www.dnsapi.cn&#39;), (&#39;DNS&#39;, &#39;monitor.dnspod.cn&#39;), (&#39;DNS&#39;, &#39;api.dnspod.com&#39;), (&#39;DNS&#39;, &#39;tickets.dnspod.com&#39;), (&#39;DNS&#39;, &#39;ec.dnspod.cn&#39;), (&#39;DNS&#39;, &#39;domains.dnspod.cn&#39;), (&#39;DNS&#39;, &#39;support.dnspod.cn&#39;), (&#39;DNS&#39;, &#39;m.dnspod.cn&#39;), (&#39;DNS&#39;, &#39;ssl.ptlogin2.dnspod.cn&#39;), (&#39;DNS&#39;, &#39;monitor.dnspod.com&#39;), (&#39;DNS&#39;, &#39;support.dnspod.com&#39;), (&#39;DNS&#39;, &#39;tickets.dnspod.cn&#39;), (&#39;DNS&#39;, &#39;statics.dnspod.cn&#39;), (&#39;DNS&#39;, &#39;stat.dnspod.cn&#39;), (&#39;DNS&#39;, &#39;www.dnspod.com&#39;), (&#39;DNS&#39;, &#39;dnspod.com&#39;), (&#39;DNS&#39;, &#39;static.dnspod.com&#39;), (&#39;DNS&#39;, &#39;libs.dnspod.cn&#39;), (&#39;DNS&#39;, &#39;blog.dnspod.cn&#39;), (&#39;DNS&#39;, &#39;dnsapi.cn&#39;), (&#39;DNS&#39;, &#39;www.dnspod.cn&#39;), (&#39;DNS&#39;, &#39;dnspod.cn&#39;)), &#39;notBefore&#39;: &#39;Mar 24 00:00:00 2015 GMT&#39;, &#39;serialNumber&#39;: &#39;3E4F6D495C407163586D0B900A007555&#39;, &#39;notAfter&#39;: &#39;May 12 23:59:59 2015 GMT&#39;, &#39;version&#39;: 3, &#39;subject&#39;: (((&#39;1.3.6.1.4.1.311.60.2.1.3&#39;, u&#39;CN&#39;),), ((&#39;1.3.6.1.4.1.311.60.2.1.2&#39;, u&#39;ShanDong&#39;),), ((&#39;1.3.6.1.4.1.311.60.2.1.1&#39;, u&#39;YanTai&#39;),), ((&#39;businessCategory&#39;, u&#39;Private Organization&#39;),), ((&#39;serialNumber&#39;, u&#39;370635200013814&#39;),), ((&#39;countryName&#39;, u&#39;CN&#39;),), ((&#39;stateOrProvinceName&#39;, u&#39;\u5c71\u4e1c\u7701&#39;),), ((&#39;localityName&#39;, u&#39;\u70df\u53f0\u5e02&#39;),), ((&#39;organizationName&#39;, u&#39;DNSPod, Inc.&#39;),), ((&#39;organizationalUnitName&#39;, u&#39;IT&#39;),), ((&#39;commonName&#39;, u&#39;www.dnspod.cn&#39;),)), &#39;issuer&#39;: (((&#39;countryName&#39;, u&#39;US&#39;),), ((&#39;organizationName&#39;, u&#39;GeoTrust Inc.&#39;),), ((&#39;commonName&#39;, u&#39;GeoTrust Extended Validation SSL CA - G2&#39;),))}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;解决方法：&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;code&gt;升级Python至2.7.3以上版本,低版本不支持ssl的subjectAltName特性&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;来源参考:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://github.com/shazow/urllib3/issues/523&#34;&gt;https://github.com/shazow/urllib3/issues/523&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     

@@ -7,8 +7,31 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2017. All rights reserved.</copyright>
-    <lastBuildDate>Sun, 30 Oct 2016 10:48:19 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 07 Jan 2017 19:57:32 +0800</lastBuildDate>
     <atom:link href="https://ops.m114.org/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>不重启解决Too Many Connections</title>
+      <link>https://ops.m114.org/post/solve-too-many-connections/</link>
+      <pubDate>Sat, 07 Jan 2017 19:57:32 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/solve-too-many-connections/</guid>
+      <description>&lt;p&gt;当发生Too many connections时，即使是DBA也无法登录到数据库，一般的做法是修改配置文件的max_connections参数，然后重启数据库，这样业务就有几秒钟的中断，对于线上不能中断的数据库就只能采用另外一种极客的方法了，用gdb直接修改mysqld内存中max_connections的值，具体做法如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;gdb -p $(cat /data/mysql/mysql-server.pid) -ex &amp;quot;set max_connections=3000&amp;quot; -batch
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;改进方法如下&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;通常有两个参数控制控制最大连接数：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;max_connections：该实例允许最大的连接数
+max_user_connections：该实例允许每个用户的最大连接数
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;每个人要根据自己业务量，设置合适的值，不要盲目设置过大，但也不可设置过小，因为MySQL在连接数上升的情况下性能下降非常厉害，如果需要大量连接，这时可以引入thread_pool，所以我们需要保持一个原则：系统创建的用户（给应用使用用户）数 * max_user_connections &amp;lt; max_connections。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>在 OpenResty 中使用正则表达式</title>
@@ -1127,43 +1150,6 @@ git push origin --delete tag v0.1
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;重新启动Docker服务即可生效！&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>kernel igb 00000500 0 eth0 reset adapter</title>
-      <link>https://ops.m114.org/post/kernel-igb-00000100-0-eth0-reset-adapter/</link>
-      <pubDate>Wed, 03 Jun 2015 23:04:55 +0800</pubDate>
-      
-      <guid>https://ops.m114.org/post/kernel-igb-00000100-0-eth0-reset-adapter/</guid>
-      <description>&lt;p&gt;系统环境&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;CentOS 6.4&lt;/li&gt;
-&lt;li&gt;igb driver version 4.0.1-k&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;报错信息如下&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Jun  3 13:20:05 localhost kernel: igb 0000:05:00.1: eth1: Reset adapter
-Jun  3 13:20:06 localhost kernel: igb 0000:05:00.0: eth0: Reset adapter
-Jun  3 13:20:11 localhost kernel: igb: eth1 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX
-Jun  3 13:20:12 localhost kernel: igb: eth0 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX
-Jun  3 13:55:26 localhost kernel: igb 0000:05:00.1: eth1: Reset adapter
-Jun  3 13:55:27 localhost kernel: igb 0000:05:00.0: eth0: Reset adapter
-Jun  3 13:55:30 localhost kernel: igb: eth1 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX
-Jun  3 13:55:30 localhost kernel: igb: eth0 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;解决办法,参考&lt;a href=&#34;https://bugs.centos.org/view.php?id=7034&#34;&gt;CentOS Bug Tracker&lt;/a&gt;，升级igb driver至5.1.2以上，我这里直接升级至最新版本。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;wget http://sourceforge.net/projects/e1000/files/igb%20stable/5.2.18/igb-5.2.18.tar.gz/download -O igb-5.2.18.tar.gz
-tar zxf igb-5.2.18.tar.gz
-cd igb-5.2.18/src/igb-5.1.2/src
-yum install kernel-devel
-make install
-rmmod igb; modprobe igb
-&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
