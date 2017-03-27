@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tomcat on ops</title>
+    <link>https://ops.m114.org/tags/tomcat/index.xml</link>
+    <description>Recent content in Tomcat on ops</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>&amp;copy; 2014-2017. All rights reserved.</copyright>
+    <atom:link href="https://ops.m114.org/tags/tomcat/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Tomcat 7.0.76 Invalid character found in the request target</title>
+      <link>https://ops.m114.org/post/fix-tomcat-upgrade-error/</link>
+      <pubDate>Mon, 27 Mar 2017 13:08:25 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/fix-tomcat-upgrade-error/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;故障现象&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;升级tomcat至7.0.76后，GET请求的参数中含有中文时tomcat返回400错误，tomcat错误日志如下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;java.lang.IllegalArgumentException: Invalid character found in the request target. The valid characters are defined in RFC 7230 and RFC 3986
+	at org.apache.coyote.http11.InternalNioInputBuffer.parseRequestLine(InternalNioInputBuffer.java:317)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1000)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:637)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1756)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.run(NioEndpoint.java:1715)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:662)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;原因&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;查询&lt;a href=&#34;http://tomcat.apache.org/tomcat-7.0-doc/changelog.html#Tomcat_7.0.73_(violetagg)&#34;&gt;Changelog&lt;/a&gt;得知，tomcat 7.0.73版本添加了&lt;strong&gt;Add additional checks for valid characters to the HTTP request line parsing so invalid request lines are rejected sooner&lt;/strong&gt;导致。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;解决方法&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;请求前自行转义&lt;/li&gt;
+&lt;li&gt;更换tomcat为较低版本(不过tomcat的这次更改是依据RFC7230 and RFC 3986,在往后的版本,不会移除该特性)&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

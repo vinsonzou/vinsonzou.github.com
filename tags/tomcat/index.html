@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.18.1" />
 
-  <title>Mysql &middot; ops</title>
+  <title>Tomcat &middot; ops</title>
 
   
   
@@ -37,7 +37,7 @@
 
   
   
-  <link rel="alternate" type="application/rss+xml" title="ops" href="https://ops.m114.org/topics/mysql/index.xml" />
+  <link rel="alternate" type="application/rss+xml" title="ops" href="https://ops.m114.org/tags/tomcat/index.xml" />
   
 
   
@@ -106,7 +106,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://ops.m114.org/topics/mysql/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      <a class="pure-menu-link" href="https://ops.m114.org/tags/tomcat/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
     </li>
     
 
@@ -181,33 +181,26 @@
 
 
 <div class="header">
-  <h1>Mysql</h1>
+  <h1>Tomcat</h1>
 </div>
 
 <div class="content">
   
     <article>
   <header>
-    <h2><a href="https://ops.m114.org/post/solve-too-many-connections/">不重启解决Too Many Connections</a></h2>
+    <h2><a href="https://ops.m114.org/post/fix-tomcat-upgrade-error/">Tomcat 7.0.76 Invalid character found in the request target</a></h2>
 
     <div class="post-meta">
 
   <div>
     <i class="fa fa-calendar fa-fw"></i>
-    <time>2017/01/07, 19:57</time>
+    <time>2017/03/27, 13:08</time>
   </div>
 
   
 
   
   
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/mysql">MySQL</a>
-    
-  </div>
   
   
 
@@ -217,7 +210,7 @@
   <div>
     <i class="fa fa-tags fa-fw"></i>
     
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/mysql">MySQL</a>
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/tomcat">tomcat</a>
     
   </div>
   
@@ -228,60 +221,12 @@
   </header>
 
   <p>
-  当发生Too many connections时，即使是DBA也无法登录到数据库，一般的做法是修改配置文件的max_connections参数，然后重启数据库，这样业务就有几秒钟的中断，对于线上不能中断的数据库就只能采用另外一种极客的方法了，用gdb直接修改mysqld内存中max_connections的值，具体做法如下：
-gdb -p $(cat /data/mysql/mysql-server.pid) -ex &quot;set max_connections=3000&quot; -batch  改进方法如下
-通常有两个参数控制控制最大连接数：
-max_connections：该实例允许最大的连接数 max_user_connections：该实例允许每个用户的最大连接数  每个人要根据自己业务量，设置合适的值，不要盲目设置过大，但也不可设置过小，因为MySQL在连接数上升的情况下性能下降非常厉害，如果需要大量连接，这时可以引入thread_pool，所以我们需要保持一个原则：系统创建的用户（给应用使用用户）数 * max_user_connections &lt; max_connections。
-  </p>
-
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/MySQL-Unable-to-lock-ibdata1-error-11-fix/">MySQL Unable to lock ibdata1 error 11 fix</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2016/08/03, 10:52</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/mysql">MySQL</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/mysql">MySQL</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-   A bad shutdown can cause such erros on MySQL.
-InnoDB: Unable to lock ./ibdata1, error: 11 InnoDB: Check that you do not already have another mysqld process InnoDB: using the same InnoDB data or log files. InnoDB: Error in opening ./ibdata1  For solution mv ibdata1 ibdata1.bak cp -a ibdata1.bak ibdata1 service mysqld restart  
+  故障现象
+升级tomcat至7.0.76后，GET请求的参数中含有中文时tomcat返回400错误，tomcat错误日志如下
+java.lang.IllegalArgumentException: Invalid character found in the request target. The valid characters are defined in RFC 7230 and RFC 3986 at org.apache.coyote.http11.InternalNioInputBuffer.parseRequestLine(InternalNioInputBuffer.java:317) at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1000) at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:637) at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1756) at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.run(NioEndpoint.java:1715) at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886) at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908) at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) at java.lang.Thread.run(Thread.java:662)  原因
+查询Changelog得知，tomcat 7.0.73版本添加了Add additional checks for valid characters to the HTTP request line parsing so invalid request lines are rejected sooner导致。
+解决方法
+ 请求前自行转义 更换tomcat为较低版本(不过tomcat的这次更改是依据RFC7230 and RFC 3986,在往后的版本,不会移除该特性)  
   </p>
 
   

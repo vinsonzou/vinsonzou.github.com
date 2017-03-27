@@ -7,8 +7,43 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2017. All rights reserved.</copyright>
-    <lastBuildDate>Sat, 07 Jan 2017 19:57:32 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 27 Mar 2017 13:08:25 +0800</lastBuildDate>
     <atom:link href="https://ops.m114.org/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Tomcat 7.0.76 Invalid character found in the request target</title>
+      <link>https://ops.m114.org/post/fix-tomcat-upgrade-error/</link>
+      <pubDate>Mon, 27 Mar 2017 13:08:25 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/fix-tomcat-upgrade-error/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;故障现象&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;升级tomcat至7.0.76后，GET请求的参数中含有中文时tomcat返回400错误，tomcat错误日志如下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;java.lang.IllegalArgumentException: Invalid character found in the request target. The valid characters are defined in RFC 7230 and RFC 3986
+	at org.apache.coyote.http11.InternalNioInputBuffer.parseRequestLine(InternalNioInputBuffer.java:317)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1000)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:637)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1756)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.run(NioEndpoint.java:1715)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:662)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;原因&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;查询&lt;a href=&#34;http://tomcat.apache.org/tomcat-7.0-doc/changelog.html#Tomcat_7.0.73_(violetagg)&#34;&gt;Changelog&lt;/a&gt;得知，tomcat 7.0.73版本添加了&lt;strong&gt;Add additional checks for valid characters to the HTTP request line parsing so invalid request lines are rejected sooner&lt;/strong&gt;导致。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;解决方法&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;请求前自行转义&lt;/li&gt;
+&lt;li&gt;更换tomcat为较低版本(不过tomcat的这次更改是依据RFC7230 and RFC 3986,在往后的版本,不会移除该特性)&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>不重启解决Too Many Connections</title>
@@ -1088,73 +1123,6 @@ git push origin --delete tag v0.1
 
 &lt;pre&gt;&lt;code&gt;git show commit哈希值 文件名
 &lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Docker for Mac Beta尝鲜</title>
-      <link>https://ops.m114.org/post/docker-for-mac-beta/</link>
-      <pubDate>Fri, 20 May 2016 00:05:35 +0800</pubDate>
-      
-      <guid>https://ops.m114.org/post/docker-for-mac-beta/</guid>
-      <description>
-
-&lt;h2 id=&#34;docker-for-mac&#34;&gt;Docker for Mac&lt;/h2&gt;
-
-&lt;p&gt;Docker for Mac 是一个原生的苹果应用程序，被安装到 &lt;code&gt;/Application&lt;/code&gt; 目录。安装时会创建 &lt;code&gt;/usr/local/bin&lt;/code&gt; 目录下的 &lt;code&gt;docker&lt;/code&gt;、&lt;code&gt;docker-compose&lt;/code&gt;、&lt;code&gt;docker-machine&lt;/code&gt; 符号链接，这些符号链接指向 &lt;code&gt;~/Library/Group Containers/group.com.docker/bin&lt;/code&gt; 目录下的各类文件，而 &lt;code&gt;~/Library/Group Containers/group.com.docker/bin&lt;/code&gt; 的文件实际上也是符号链接，他们指向 &lt;code&gt;/Applications/Docker.app/Contents/Resources/bin&lt;/code&gt; 目录下的实际二进制文件。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Docker for Mac 使用通过 Hypervisor.framework 提供的轻量级的 &lt;a href=&#34;https://github.com/mist64/xhyve&#34;&gt;xhyve&lt;/a&gt; 虚拟化技术&lt;/li&gt;
-&lt;li&gt;Docker for Mac 不使用 docker-machine 管理虚拟机&lt;/li&gt;
-&lt;li&gt;Docker for Mac 不通过 TCP 端口通信，反而使用 /var/tmp/docker.sock 套接字文件通信（实际上是将 /var/tmp 目录挂载到了虚拟机中，虚拟机在其中生成套接字文件）&lt;/li&gt;
-&lt;li&gt;由于使用了 xhyve 虚拟机，所以可以模拟不同架构的处理器，这样开发者就直接能在 Mac 上使用 Docker 使用诸多平台的镜像文件，比如 arm 等。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;为了能主机虚拟机共享文件，Docker 使用 osxfs 作为全新的文件共享方案，在很多方面都有全新的特性，比如在文件权限、命名空间、文件所有者、文件系统事件、挂载点、符号链接、文件类型、扩展属性等方面都有了全新的内容，并且，所有产生的日志都能通过 syslog 查询，非常方便。不过现在依旧存在许多问题，比如没有设置 docker daemon 各项参数的接口。&lt;/p&gt;
-
-&lt;h2 id=&#34;如何为docker-engine设置代理&#34;&gt;如何为Docker Engine设置代理&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;敲一下回车，登录，用户名root，没有密码，直接回车。编辑/etc/init.d/docker文件，如下添加代理：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;start-stop-daemon --start --quiet \
--e HTTP_PROXY=http(s)://proxy_host:proxy_port \
---background \
---exec ${command} \
---pidfile ${pidfile} \
---stderr &amp;quot;${DOCKER_LOGFILE}&amp;quot; \
---stdout &amp;quot;${DOCKER_LOGFILE}&amp;quot; \
--- daemon --pidfile=${pidfile} ${DOCKER_OPTS}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;重启Docker服务&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;/etc/init.d/docker restart
-/etc/init.d/docker status
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;如何添加registry-mirror&#34;&gt;如何添加registry-mirror&lt;/h2&gt;
-
-&lt;p&gt;由于你懂的原因，国内拉镜像非常慢，甚至根本无法下载，解决方法如下：&lt;/p&gt;
-
-&lt;p&gt;导出:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;pinata get daemon &amp;gt; myconfig.json
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;将myconfig.json修改为:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{&amp;quot;storage-driver&amp;quot;:&amp;quot;aufs&amp;quot;,&amp;quot;debug&amp;quot;:true,&amp;quot;registry-mirrors&amp;quot;:[&amp;quot;https://docker.mirrors.ustc.edu.cn&amp;quot;]}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;导入:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;pinata set daemon @myconfig.json
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;重新启动Docker服务即可生效！&lt;/p&gt;
 </description>
     </item>
     

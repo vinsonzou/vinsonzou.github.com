@@ -7,8 +7,43 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2017. All rights reserved.</copyright>
-    <lastBuildDate>Sat, 07 Jan 2017 19:57:32 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 27 Mar 2017 13:08:25 +0800</lastBuildDate>
     <atom:link href="https://ops.m114.org/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Tomcat 7.0.76 Invalid character found in the request target</title>
+      <link>https://ops.m114.org/post/fix-tomcat-upgrade-error/</link>
+      <pubDate>Mon, 27 Mar 2017 13:08:25 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/fix-tomcat-upgrade-error/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;故障现象&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;升级tomcat至7.0.76后，GET请求的参数中含有中文时tomcat返回400错误，tomcat错误日志如下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;java.lang.IllegalArgumentException: Invalid character found in the request target. The valid characters are defined in RFC 7230 and RFC 3986
+	at org.apache.coyote.http11.InternalNioInputBuffer.parseRequestLine(InternalNioInputBuffer.java:317)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1000)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:637)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1756)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.run(NioEndpoint.java:1715)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:662)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;原因&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;查询&lt;a href=&#34;http://tomcat.apache.org/tomcat-7.0-doc/changelog.html#Tomcat_7.0.73_(violetagg)&#34;&gt;Changelog&lt;/a&gt;得知，tomcat 7.0.73版本添加了&lt;strong&gt;Add additional checks for valid characters to the HTTP request line parsing so invalid request lines are rejected sooner&lt;/strong&gt;导致。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;解决方法&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;请求前自行转义&lt;/li&gt;
+&lt;li&gt;更换tomcat为较低版本(不过tomcat的这次更改是依据RFC7230 and RFC 3986,在往后的版本,不会移除该特性)&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>不重启解决Too Many Connections</title>
@@ -1087,43 +1122,6 @@ git push origin --delete tag v0.1
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;重新启动Docker服务即可生效！&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>kernel igb 00000500 0 eth0 reset adapter</title>
-      <link>https://ops.m114.org/post/kernel-igb-00000100-0-eth0-reset-adapter/</link>
-      <pubDate>Wed, 03 Jun 2015 23:04:55 +0800</pubDate>
-      
-      <guid>https://ops.m114.org/post/kernel-igb-00000100-0-eth0-reset-adapter/</guid>
-      <description>&lt;p&gt;系统环境&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;CentOS 6.4&lt;/li&gt;
-&lt;li&gt;igb driver version 4.0.1-k&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;报错信息如下&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Jun  3 13:20:05 localhost kernel: igb 0000:05:00.1: eth1: Reset adapter
-Jun  3 13:20:06 localhost kernel: igb 0000:05:00.0: eth0: Reset adapter
-Jun  3 13:20:11 localhost kernel: igb: eth1 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX
-Jun  3 13:20:12 localhost kernel: igb: eth0 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX
-Jun  3 13:55:26 localhost kernel: igb 0000:05:00.1: eth1: Reset adapter
-Jun  3 13:55:27 localhost kernel: igb 0000:05:00.0: eth0: Reset adapter
-Jun  3 13:55:30 localhost kernel: igb: eth1 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX
-Jun  3 13:55:30 localhost kernel: igb: eth0 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;解决办法,参考&lt;a href=&#34;https://bugs.centos.org/view.php?id=7034&#34;&gt;CentOS Bug Tracker&lt;/a&gt;，升级igb driver至5.1.2以上，我这里直接升级至最新版本。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;wget http://sourceforge.net/projects/e1000/files/igb%20stable/5.2.18/igb-5.2.18.tar.gz/download -O igb-5.2.18.tar.gz
-tar zxf igb-5.2.18.tar.gz
-cd igb-5.2.18/src/igb-5.1.2/src
-yum install kernel-devel
-make install
-rmmod igb; modprobe igb
-&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
