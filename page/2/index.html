@@ -189,6 +189,63 @@
   
     <article>
   <header>
+    <h2><a href="https://ops.m114.org/post/ceph-jewel-osd-activate-bug/">ceph集群jewel版本部署osd激活权限报错</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2016/07/29, 00:29</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/ceph">Ceph</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/ceph">ceph</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  环境
+ceph version 10.2.2 (45107e21c568dd033c2f0a3107dec8f0b0e58374) ceph-deploy 1.5.34
+ceph集群jewel版本部署过程中执行osd激活操作如下
+ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2  报错内容如下
+[2016-07-29 00:05:19,106][ceph_deploy.conf][DEBUG ] found configuration file at: /root/.cephdeploy.conf [2016-07-29 00:05:19,107][ceph_deploy.cli][INFO ] Invoked (1.5.34): /bin/ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2 [2016-07-29 00:05:19,107][ceph_deploy.cli][INFO ] ceph-deploy options: [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] username : None [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] verbose : False [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] overwrite_conf : False [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] subcommand : activate [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] quiet : False [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] cd_conf : &lt;ceph_deploy.
+  </p>
+
+  
+  <footer>
+    <a href="https://ops.m114.org/post/ceph-jewel-osd-activate-bug/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="https://ops.m114.org/post/deploy-ceph-using-china-mirror/">使用国内源部署Ceph</a></h2>
 
     <div class="post-meta">
@@ -626,61 +683,6 @@ java -jar tzupdater.jar -l http://www.iana.org/time-zones/repository/tzdata-late
   <footer>
     <a href="https://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
   </footer>
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/zabbix-alerts-use-telegram/">Zabbix使用Telegram发送报警</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2015/04/25, 17:16</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/zabbix">Zabbix</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/zabbix">Zabbix</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/telegram">Telegram</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  环境 CentOS 6.X x86_64
-编译Telegram yum -y install lua-devel openssl-devel libconfig-devel readline-devel libevent-devel git clone --recursive https://github.com/vysheng/tg.git cd tg ./configure make mkdir /usr/local/tg cp tg-server.pub /usr/local/tg cp bin/telegram-cli /usr/local/tg  zabbix报警脚本/usr/local/tg/telegram.sh:
-#!/bin/sh cd `dirname $0` ./telegram-cli -k tg-server.pub -WDCRE -P 8890 -d &amp;&gt;/dev/null &amp;  Zabbix报警配置 将如下Zabbix Server配置注释并修改如下 AlertScriptsPath=/usr/local/zabbix/alertscripts
-/usr/local/zabbix/alertscripts/tg.sh内容如下:
-#!/bin/sh export to=$1; export subject=$2; export body=$3; echo -e &quot;msg $to ${subject}_#_${body}&quot; | nc localhost 8890 #注意事项: body只能有一行内容，超过一行的内容是不会发送的。  Zabbix添加Media types PS：Telegram已于2015年7月10日被天朝和谐。。。
-  </p>
-
   
 </article>
 

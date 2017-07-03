@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://ops.m114.org/post/sync-WaitGroup/</loc>
+    <lastmod>2017-07-03T16:27:12+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://ops.m114.org/post/fix-tomcat-upgrade-error/</loc>
     <lastmod>2017-03-27T13:08:25+08:00</lastmod>
   </url>
@@ -153,6 +158,18 @@
   </url>
   
   <url>
+    <loc>https://ops.m114.org/topics/go/</loc>
+    <lastmod>2017-07-03T16:27:12+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ops.m114.org/tags/go/</loc>
+    <lastmod>2017-07-03T16:27:12+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://ops.m114.org/tags/golang/</loc>
     <lastmod>2014-11-11T17:15:00+08:00</lastmod>
     <priority>0</priority>
@@ -208,7 +225,7 @@
   
   <url>
     <loc>https://ops.m114.org/post/</loc>
-    <lastmod>2017-03-27T13:08:25+08:00</lastmod>
+    <lastmod>2017-07-03T16:27:12+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -278,7 +295,7 @@
   
   <url>
     <loc>https://ops.m114.org/</loc>
-    <lastmod>2017-03-27T13:08:25+08:00</lastmod>
+    <lastmod>2017-07-03T16:27:12+08:00</lastmod>
     <priority>0</priority>
   </url>
   

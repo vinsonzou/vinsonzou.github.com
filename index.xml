@@ -7,8 +7,50 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2017. All rights reserved.</copyright>
-    <lastBuildDate>Mon, 27 Mar 2017 13:08:25 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 03 Jul 2017 16:27:12 +0800</lastBuildDate>
     <atom:link href="https://ops.m114.org/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>golang sync.WaitGroup解决goroutine同步</title>
+      <link>https://ops.m114.org/post/sync-WaitGroup/</link>
+      <pubDate>Mon, 03 Jul 2017 16:27:12 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/sync-WaitGroup/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;go提供了sync包和channel来解决协程同步和通讯。&lt;/strong&gt;新手对channel通道操作起来更容易产生死锁，如果时缓冲的channel还要考虑channel放入和取出数据的速率问题。&lt;/p&gt;
+
+&lt;p&gt;从字面就可以理解，sync.WaitGroup是等待一组协程结束。它实现了一个类似任务队列的结构，你可以向队列中加入任务，任务完成后就把任务从队列中移除，如果队列中的任务没有全部完成，队列就会触发阻塞以阻止程序继续运行。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;sync.WaitGroup只有3个方法，Add()，Done()，Wait()。&lt;/strong&gt; 其中Done()是Add(-1)的别名。简单的来说，使用Add()添加计数，Done()减掉一个计数，计数不为0, 阻塞Wait()的运行。&lt;/p&gt;
+
+&lt;p&gt;简单示例如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package main
+ 
+import (
+	&amp;quot;fmt&amp;quot;
+	&amp;quot;sync&amp;quot;
+)
+ 
+var waitgroup sync.WaitGroup
+ 
+func test(shownum int) {
+	fmt.Println(shownum)
+	waitgroup.Done() //任务完成，将任务队列中的任务数量-1，其实.Done就是.Add(-1)
+}
+ 
+func main() {
+	for i := 0; i &amp;lt; 10; i++ {
+		waitgroup.Add(1) //每创建一个goroutine，就把任务队列中任务的数量+1
+		go test(i)
+	}
+	waitgroup.Wait() //.Wait()这里会发生阻塞，直到队列中所有的任务结束就会解除阻塞
+	fmt.Println(&amp;quot;done!&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Ps: 此文为学习记录，如有错误还请多指教。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Tomcat 7.0.76 Invalid character found in the request target</title>
@@ -963,166 +1005,6 @@ racadm fwupdate -g -u -a $tftp_server_ip -d /dell/idrac7-1.57.57
 &lt;h2 id=&#34;性能测试&#34;&gt;性能测试&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&#34;http://m114-static.qiniudn.com/img/linux_benchmarking_tools.png?imageView2/2/w/800/q/75&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Git常用命令备忘</title>
-      <link>https://ops.m114.org/post/git-common-command/</link>
-      <pubDate>Thu, 16 Jun 2016 12:33:10 +0800</pubDate>
-      
-      <guid>https://ops.m114.org/post/git-common-command/</guid>
-      <description>
-
-&lt;h1 id=&#34;配置&#34;&gt;配置&lt;/h1&gt;
-
-&lt;p&gt;Git的设置文件为&lt;code&gt;.gitconfig&lt;/code&gt;，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# 显示当前的Git配置
-$ git config --list
-
-# 文本编辑器
-$ git config --global core.editor vim
-
-# 编辑Git配置文件
-$ git config -e [--global]
-
-# 设置提交代码时的用户信息
-$ git config [--global] user.name &amp;quot;[name]&amp;quot;
-$ git config [--global] user.email &amp;quot;[email address]&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;faq&#34;&gt;FAQ&lt;/h1&gt;
-
-&lt;h3 id=&#34;1-如果在你fork之后-原始的repo更新了-怎么将原始的更新内容与你当前的合并&#34;&gt;1. 如果在你Fork之后，原始的repo更新了，怎么将原始的更新内容与你当前的合并？&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;1. 增加原分支为远程分支，命名为upstream
-   git remote add upstream https://github.com/vinsonzou/docker-images.git
-2. fetch该远程仓库下的所有分支到remote-tracking分支
-   git fetch upstream
-3. 确保你当前在master分支
-   git checkout master
-4. Fork同步
-   两种方式，任选其一即可
-   a) 如果你已经对当前自己的副本做过更改，并且想要保留，则将更新合并到主分支
-      git merge upstream/master
-   b) 如果想要保留所有原仓库的历史更新则使用rebase复写当前分支(`本地所有修改丢失`)
-      git rebase upstream/master
-5. 然后推送
-   git push
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;2-git-删除错误提交的commit&#34;&gt;2. git 删除错误提交的commit&lt;/h3&gt;
-
-&lt;p&gt;起因: 不小新把记录了公司服务器IP,账号,密码的文件提交到了git&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#方法
-git reset --hard &amp;lt;commit_id&amp;gt;
-git push origin HEAD --force
-
-#说明
-根据--soft --mixed --hard，会对working tree和index和HEAD进行重置:
-git reset --mixed：此为默认方式，不带任何参数的git reset，即时这种方式，它回退到某个版本，只保留源码，回退commit和index信息
-git reset --soft：回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可
-git reset --hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容
-
-HEAD 最近一个提交
-HEAD^ 上一次
-&amp;lt;commit_id&amp;gt;  每次commit的SHA1值. 可以用git log 看到,也可以在页面上commit标签页里找到.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;3-git-空目录无法提交解决方法&#34;&gt;3. git 空目录无法提交解决方法&lt;/h3&gt;
-
-&lt;p&gt;空目录下touch .gitkeep&lt;/p&gt;
-
-&lt;h3 id=&#34;4-git-恢复单个文件的历史版本&#34;&gt;4. git 恢复单个文件的历史版本&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;#查看该文件的历史版本信息
-git log tmp.txt
-
-#记录下需要恢复的commit版本号：如 c2fcb51d554021c0603cbfc8c3b5fc3427d5d9a4
-
-#恢复该文件
-git reset c2fcb51d554021c0603cbfc8c3b5fc3427d5d9a4 tmp.txt
-
-#提交
-git commit -m &amp;quot;revert old file&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;5-根据commit生成patch&#34;&gt;5. 根据COMMIT生成PATCH&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;# 生成patch文件(生成的patch有统计信息和git的版本信息)
-git format-patch -1 commit版本号
-
-# 应用patch文件
-git apply xxx.patch
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;6-使用-rebase-i-合并提交&#34;&gt;6. 使用 rebase -i 合并提交&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;合并最近两个commit&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;git rebase -i HEAD~~
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;默认的文字编辑器会自动开启，将看的HEAD 到 HEAD~~ 的提交&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;pick 7118c53 添加commit1的说明
-pick ce32af7 添加commit2的说明
-
-#
-# Commands:
-#  p, pick = use commit
-#  r, reword = use commit, but edit the commit message
-#  e, edit = use commit, but stop for amending
-#  s, squash = use commit, but meld into previous commit
-#  f, fixup = like &amp;quot;squash&amp;quot;, but discard this commit&#39;s log message
-#  x, exec = run command (the rest of the line) using shell
-#
-# If you remove a line here THAT COMMIT WILL BE LOST.
-# However, if you remove everything, the rebase will be aborted.
-#
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;将第二行的 &amp;ldquo;pick&amp;rdquo; 改为 &amp;ldquo;squash&amp;rdquo;, 保存后退出。由于合并后要提交，所以编辑器会提醒您编辑这个最新的提交信息，请编辑信息后保存并退出。&lt;/p&gt;
-
-&lt;p&gt;这样，两个提交就合并成一个提交了。请用 log 命令确认历史记录。&lt;/p&gt;
-
-&lt;h3 id=&#34;7-tag使用&#34;&gt;7. tag使用&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;创建tag&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;git tag -a v0.1 -m &#39;version 0.1&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;查看tag&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;git tag
-git show v0.1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;tag 远程推送&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;git push origin --tags
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;获取远程版本部署&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;git fetch origin tag v0.1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;删除tag&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#本地删除
-git tag -d v0.1
-#远程删除(git &amp;gt;= v1.7.0)
-git push origin --delete tag v0.1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;8-查看具体commit的某个文件的修改内容&#34;&gt;8. 查看具体commit的某个文件的修改内容&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;git show commit哈希值 文件名
-&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
