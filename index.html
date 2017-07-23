@@ -189,6 +189,56 @@
   
     <article>
   <header>
+    <h2><a href="https://ops.m114.org/post/python-version-cmp/">Python版本号比较</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2017/07/23, 16:13</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/python">Python</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  第一种比较方法(StrictVersion) StrictVersion是由.将一串带有预发布标签的数字分隔为两个或三个部分的格式，预发布标签的字母只能是a或者b加数字版本号，而且只能在最末尾。预发布a版本低于b版本，并且预发布版本永远小于正式发布版本。
+合法格式:
+0.4 0.4.0 (相同版本) 0.4.1 0.5a1 (预发布版本a1，小于0.5，即0.5版本更新) 0.5b3 0.5 0.9.6 1.0 1.0.4a3 1.0.4b1 1.0.4  非法格式:
+1 没有.分隔，需要分隔为2-3部分 2.7.2.2 被分隔成了4个部分 1.3.a4 预发布版本号应该在数字后面 1.3pl1 预发布版本号字母标签只能是a或者b 1.3B1 预发布版本号字母标签只能是a或者b 1.3c 预发布版本号字母标签后必须加数字版本号  版本比较
+In [1]: from distutils.version import StrictVersion In [2]: StrictVersion('1.2a3') &lt; StrictVersion('1.2b1') Out[2]: True In [3]: StrictVersion('1.2b1') &lt; StrictVersion('1.2') Out[3]: True In [4]: StrictVersion('1.2') &lt; StrictVersion('1.2.1') Out[4]: True In [5]: StrictVersion('1.2') == StrictVersion('1.2.0') Out[5]: True In [6]: StrictVersion('1.2.11') &lt; StrictVersion('1.
+  </p>
+
+  
+  <footer>
+    <a href="https://ops.m114.org/post/python-version-cmp/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="https://ops.m114.org/post/sync-WaitGroup/">golang sync.WaitGroup解决goroutine同步</a></h2>
 
     <div class="post-meta">
@@ -206,7 +256,7 @@
   <div>
     <i class="fa fa-folder fa-fw"></i>
     
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/go">go</a>
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/golang">golang</a>
     
   </div>
   
@@ -218,7 +268,7 @@
   <div>
     <i class="fa fa-tags fa-fw"></i>
     
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/go">go</a>
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/golang">golang</a>
     
   </div>
   
@@ -648,56 +698,6 @@ status: 参数来查看服务运行情况 reload: 重新加载服务，加载更
   <footer>
     <a href="https://ops.m114.org/post/CentOS7-systemd-vs-CentOS6-daemon/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
   </footer>
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/MySQL-Unable-to-lock-ibdata1-error-11-fix/">MySQL Unable to lock ibdata1 error 11 fix</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2016/08/03, 10:52</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/mysql">MySQL</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/mysql">MySQL</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-   A bad shutdown can cause such erros on MySQL.
-InnoDB: Unable to lock ./ibdata1, error: 11 InnoDB: Check that you do not already have another mysqld process InnoDB: using the same InnoDB data or log files. InnoDB: Error in opening ./ibdata1  For solution mv ibdata1 ibdata1.bak cp -a ibdata1.bak ibdata1 service mysqld restart  
-  </p>
-
   
 </article>
 

@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://ops.m114.org/post/python-version-cmp/</loc>
+    <lastmod>2017-07-23T16:13:10+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://ops.m114.org/post/sync-WaitGroup/</loc>
     <lastmod>2017-07-03T16:27:12+08:00</lastmod>
   </url>
@@ -128,25 +133,25 @@
   </url>
   
   <url>
-    <loc>https://ops.m114.org/topics/ceph/</loc>
-    <lastmod>2016-08-26T14:38:12+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://ops.m114.org/tags/ceph/</loc>
     <lastmod>2016-07-29T00:29:29+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://ops.m114.org/topics/docker/</loc>
-    <lastmod>2016-05-20T00:05:35+08:00</lastmod>
+    <loc>https://ops.m114.org/topics/ceph/</loc>
+    <lastmod>2016-08-26T14:38:12+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://ops.m114.org/tags/docker/</loc>
+    <lastmod>2016-05-20T00:05:35+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ops.m114.org/topics/docker/</loc>
     <lastmod>2016-05-20T00:05:35+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -158,20 +163,14 @@
   </url>
   
   <url>
-    <loc>https://ops.m114.org/topics/go/</loc>
-    <lastmod>2017-07-03T16:27:12+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://ops.m114.org/tags/go/</loc>
-    <lastmod>2017-07-03T16:27:12+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://ops.m114.org/tags/golang/</loc>
-    <lastmod>2014-11-11T17:15:00+08:00</lastmod>
+    <lastmod>2017-07-03T16:27:12+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ops.m114.org/topics/golang/</loc>
+    <lastmod>2017-07-03T16:27:12+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -200,13 +199,13 @@
   </url>
   
   <url>
-    <loc>https://ops.m114.org/topics/mysql/</loc>
+    <loc>https://ops.m114.org/tags/mysql/</loc>
     <lastmod>2017-01-07T19:57:32+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://ops.m114.org/tags/mysql/</loc>
+    <loc>https://ops.m114.org/topics/mysql/</loc>
     <lastmod>2017-01-07T19:57:32+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -225,7 +224,13 @@
   
   <url>
     <loc>https://ops.m114.org/post/</loc>
-    <lastmod>2017-07-03T16:27:12+08:00</lastmod>
+    <lastmod>2017-07-23T16:13:10+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ops.m114.org/tags/python/</loc>
+    <lastmod>2017-07-23T16:13:10+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -282,20 +287,20 @@
   </url>
   
   <url>
-    <loc>https://ops.m114.org/topics/zabbix/</loc>
-    <lastmod>2015-04-25T17:16:29+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://ops.m114.org/tags/zabbix/</loc>
     <lastmod>2015-04-25T17:16:29+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
+    <loc>https://ops.m114.org/topics/zabbix/</loc>
+    <lastmod>2015-04-25T17:16:29+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://ops.m114.org/</loc>
-    <lastmod>2017-07-03T16:27:12+08:00</lastmod>
+    <lastmod>2017-07-23T16:13:10+08:00</lastmod>
     <priority>0</priority>
   </url>
   
