@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vsftpd on ops</title>
+    <link>https://ops.m114.org/tags/vsftpd/index.xml</link>
+    <description>Recent content in Vsftpd on ops</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>&amp;copy; 2014-2017. All rights reserved.</copyright>
+    <atom:link href="https://ops.m114.org/tags/vsftpd/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Error: 500 OOPS: priv_sock_get_cmd [SOLVED]</title>
+      <link>https://ops.m114.org/post/error-500-oops-priv_sock_get_cmd-solved/</link>
+      <pubDate>Sun, 23 Jul 2017 16:21:45 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/error-500-oops-priv_sock_get_cmd-solved/</guid>
+      <description>
+
+&lt;h2 id=&#34;troubleshooting&#34;&gt;Troubleshooting&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;seccomp filter sanboxing with vsftpd 3.0.x&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The following error may occur on ftp clients with vsftpd 3.0.x:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;500 OOPS: priv_sock_get_cmd
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is caused by &lt;a href=&#34;http://en.wikipedia.org/wiki/Seccomp&#34;&gt;seccomp filter sanboxing&lt;/a&gt;, which is enabled by default on &lt;code&gt;amd64&lt;/code&gt;. To workaround this issue, disable seccomp filter sanboxing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;echo &#39;seccomp_sandbox=NO&#39; &amp;gt;&amp;gt; vsftpd.conf
+service vsftpd restart
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For further information, refer to &lt;a href=&#34;https://bugzilla.redhat.com/show_bug.cgi?id=845980&#34;&gt;Red Hat bug #845980&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

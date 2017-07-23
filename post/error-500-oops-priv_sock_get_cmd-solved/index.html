@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.18.1" />
 
-  <title>Topics &middot; ops</title>
+  <title>Error: 500 OOPS: priv_sock_get_cmd [SOLVED] &middot; ops</title>
 
   
   
@@ -36,8 +36,6 @@
   <link href="//fonts.lug.ustc.edu.cn/css?family=Raleway" rel="stylesheet" type="text/css">
 
   
-  
-  <link rel="alternate" type="application/rss+xml" title="ops" href="https://ops.m114.org/topics/index.xml" />
   
 
   
@@ -104,10 +102,6 @@
   <div class="pure-menu social">
   <ul class="pure-menu-list">
 
-    
-    <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://ops.m114.org/topics/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
-    </li>
     
 
     
@@ -181,63 +175,114 @@
 
 
 <div class="header">
-  <h1>Topics</h1>
+  <h1>Error: 500 OOPS: priv_sock_get_cmd [SOLVED]</h1>
+  <h2></h2>
 </div>
 <div class="content">
-  <ul>
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2017/07/23, 16:21</time>
+  </div>
+
+  
+
   
   
-    <li>
-      <a href="ceph">ceph</a>
-      <span>&#40;5&#41;</span>
-    </li>
   
-    <li>
-      <a href="tips">tips</a>
-      <span>&#40;3&#41;</span>
-    </li>
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/troubleshooting">Troubleshooting</a>
+    
+  </div>
   
-    <li>
-      <a href="mysql">mysql</a>
-      <span>&#40;2&#41;</span>
-    </li>
   
-    <li>
-      <a href="centos7">centos7</a>
-      <span>&#40;1&#41;</span>
-    </li>
+
   
-    <li>
-      <a href="docker">docker</a>
-      <span>&#40;1&#41;</span>
-    </li>
   
-    <li>
-      <a href="golang">golang</a>
-      <span>&#40;1&#41;</span>
-    </li>
   
-    <li>
-      <a href="openresty">openresty</a>
-      <span>&#40;1&#41;</span>
-    </li>
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/vsftpd">vsftpd</a>
+    
+  </div>
   
-    <li>
-      <a href="python">python</a>
-      <span>&#40;1&#41;</span>
-    </li>
   
-    <li>
-      <a href="troubleshooting">troubleshooting</a>
-      <span>&#40;1&#41;</span>
-    </li>
+
+</div>
+
   
-    <li>
-      <a href="zabbix">zabbix</a>
-      <span>&#40;1&#41;</span>
-    </li>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<p><strong>seccomp filter sanboxing with vsftpd 3.0.x</strong></p>
+
+<p>The following error may occur on ftp clients with vsftpd 3.0.x:</p>
+
+<pre><code>500 OOPS: priv_sock_get_cmd
+</code></pre>
+
+<p>This is caused by <a href="http://en.wikipedia.org/wiki/Seccomp">seccomp filter sanboxing</a>, which is enabled by default on <code>amd64</code>. To workaround this issue, disable seccomp filter sanboxing:</p>
+
+<pre><code>echo 'seccomp_sandbox=NO' &gt;&gt; vsftpd.conf
+service vsftpd restart
+</code></pre>
+
+<p>For further information, refer to <a href="https://bugzilla.redhat.com/show_bug.cgi?id=845980">Red Hat bug #845980</a>.</p>
+
+
   
-  </ul>
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://ops.m114.org/post/python-version-cmp/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://ops.m114.org/post/python-version-cmp/">Python版本号比较</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+
+  
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'vinsoncou';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
 </div>
 
 </div>
@@ -249,3 +294,4 @@
 
 <script data-no-instant>document.write('<script src="/livereload.js?port=1313&mindelay=10"></' + 'script>')</script></body>
 </html>
+

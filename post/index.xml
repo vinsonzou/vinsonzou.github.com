@@ -7,8 +7,35 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2017. All rights reserved.</copyright>
-    <lastBuildDate>Sun, 23 Jul 2017 16:13:10 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 23 Jul 2017 16:21:45 +0800</lastBuildDate>
     <atom:link href="https://ops.m114.org/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Error: 500 OOPS: priv_sock_get_cmd [SOLVED]</title>
+      <link>https://ops.m114.org/post/error-500-oops-priv_sock_get_cmd-solved/</link>
+      <pubDate>Sun, 23 Jul 2017 16:21:45 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/error-500-oops-priv_sock_get_cmd-solved/</guid>
+      <description>
+
+&lt;h2 id=&#34;troubleshooting&#34;&gt;Troubleshooting&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;seccomp filter sanboxing with vsftpd 3.0.x&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The following error may occur on ftp clients with vsftpd 3.0.x:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;500 OOPS: priv_sock_get_cmd
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is caused by &lt;a href=&#34;http://en.wikipedia.org/wiki/Seccomp&#34;&gt;seccomp filter sanboxing&lt;/a&gt;, which is enabled by default on &lt;code&gt;amd64&lt;/code&gt;. To workaround this issue, disable seccomp filter sanboxing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;echo &#39;seccomp_sandbox=NO&#39; &amp;gt;&amp;gt; vsftpd.conf
+service vsftpd restart
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For further information, refer to &lt;a href=&#34;https://bugzilla.redhat.com/show_bug.cgi?id=845980&#34;&gt;Red Hat bug #845980&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Python版本号比较</title>
@@ -1019,28 +1046,6 @@ racadm fwupdate -g -u -a $tftp_server_ip -d /dell/idrac7-1.57.57
 
 &lt;pre&gt;&lt;code&gt;racadm -r iDrac_IP -u root -p calvin fwupdate -g -u -a $tftp_server_ip -d /dell/idrac7-1.57.57
 &lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>运维工具汇总之 性能调优，性能监控，性能测试</title>
-      <link>https://ops.m114.org/post/linux-performance-tools/</link>
-      <pubDate>Sun, 03 Jul 2016 13:39:01 +0800</pubDate>
-      
-      <guid>https://ops.m114.org/post/linux-performance-tools/</guid>
-      <description>
-
-&lt;h2 id=&#34;性能调优&#34;&gt;性能调优&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://m114-static.qiniudn.com/img/linux_tuning_tools.png?imageView2/2/w/800/q/75&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;性能监控&#34;&gt;性能监控&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://m114-static.qiniudn.com/img/linux_observability_tools.png?imageView2/2/w/800/q/75&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;性能测试&#34;&gt;性能测试&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://m114-static.qiniudn.com/img/linux_benchmarking_tools.png?imageView2/2/w/800/q/75&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     

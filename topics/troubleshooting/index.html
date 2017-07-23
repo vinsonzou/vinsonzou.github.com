@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.18.1" />
 
-  <title>Topics &middot; ops</title>
+  <title>Troubleshooting &middot; ops</title>
 
   
   
@@ -37,7 +37,7 @@
 
   
   
-  <link rel="alternate" type="application/rss+xml" title="ops" href="https://ops.m114.org/topics/index.xml" />
+  <link rel="alternate" type="application/rss+xml" title="ops" href="https://ops.m114.org/topics/troubleshooting/index.xml" />
   
 
   
@@ -106,7 +106,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://ops.m114.org/topics/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      <a class="pure-menu-link" href="https://ops.m114.org/topics/troubleshooting/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
     </li>
     
 
@@ -181,63 +181,63 @@
 
 
 <div class="header">
-  <h1>Topics</h1>
+  <h1>Troubleshooting</h1>
 </div>
+
 <div class="content">
-  <ul>
+  
+    <article>
+  <header>
+    <h2><a href="https://ops.m114.org/post/error-500-oops-priv_sock_get_cmd-solved/">Error: 500 OOPS: priv_sock_get_cmd [SOLVED]</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2017/07/23, 16:21</time>
+  </div>
+
+  
+
   
   
-    <li>
-      <a href="ceph">ceph</a>
-      <span>&#40;5&#41;</span>
-    </li>
   
-    <li>
-      <a href="tips">tips</a>
-      <span>&#40;3&#41;</span>
-    </li>
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/troubleshooting">Troubleshooting</a>
+    
+  </div>
   
-    <li>
-      <a href="mysql">mysql</a>
-      <span>&#40;2&#41;</span>
-    </li>
   
-    <li>
-      <a href="centos7">centos7</a>
-      <span>&#40;1&#41;</span>
-    </li>
+
   
-    <li>
-      <a href="docker">docker</a>
-      <span>&#40;1&#41;</span>
-    </li>
   
-    <li>
-      <a href="golang">golang</a>
-      <span>&#40;1&#41;</span>
-    </li>
   
-    <li>
-      <a href="openresty">openresty</a>
-      <span>&#40;1&#41;</span>
-    </li>
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/vsftpd">vsftpd</a>
+    
+  </div>
   
-    <li>
-      <a href="python">python</a>
-      <span>&#40;1&#41;</span>
-    </li>
   
-    <li>
-      <a href="troubleshooting">troubleshooting</a>
-      <span>&#40;1&#41;</span>
-    </li>
+
+</div>
+
+  </header>
+
+  <p>
+  Troubleshooting seccomp filter sanboxing with vsftpd 3.0.x
+The following error may occur on ftp clients with vsftpd 3.0.x:
+500 OOPS: priv_sock_get_cmd  This is caused by seccomp filter sanboxing, which is enabled by default on amd64. To workaround this issue, disable seccomp filter sanboxing:
+echo 'seccomp_sandbox=NO' &gt;&gt; vsftpd.conf service vsftpd restart  For further information, refer to Red Hat bug #845980.
+  </p>
+
   
-    <li>
-      <a href="zabbix">zabbix</a>
-      <span>&#40;1&#41;</span>
-    </li>
+</article>
+
   
-  </ul>
 </div>
 
 </div>
