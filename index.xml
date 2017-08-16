@@ -7,8 +7,136 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2017. All rights reserved.</copyright>
-    <lastBuildDate>Sun, 23 Jul 2017 16:32:26 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 16 Aug 2017 23:28:33 +0800</lastBuildDate>
     <atom:link href="https://ops.m114.org/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>go command line flags demo</title>
+      <link>https://ops.m114.org/post/go-command-line-flags/</link>
+      <pubDate>Wed, 16 Aug 2017 23:28:33 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/go-command-line-flags/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;示例代码，仅供参考&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package main
+
+import (
+    &amp;quot;fmt&amp;quot;
+    &amp;quot;flag&amp;quot;
+)
+
+func main() {
+    // golang的flag包的一些基本使用方法
+
+    // 待使用的变量
+    var id int
+    var name string
+    var male bool
+
+    // 是否已经解析
+    fmt.Println(&amp;quot;parsed? = &amp;quot;, flag.Parsed())
+
+    // 设置flag参数 (变量指针，参数名，默认值，帮助信息)
+    // 也可以用以下带返回值的方法代替，不过他们返回的是指针，比较麻烦点
+    // Int(name string, value int, usage string) *int
+    // String(name string, value string, usage string) *string
+    // Bool(name string, value bool, usage string) *bool
+    flag.IntVar(&amp;amp;id, &amp;quot;id&amp;quot;, 123, &amp;quot;help msg for id&amp;quot;)
+    flag.StringVar(&amp;amp;name, &amp;quot;name&amp;quot;, &amp;quot;default name&amp;quot;, &amp;quot;help msg for name&amp;quot;)
+    flag.BoolVar(&amp;amp;male, &amp;quot;male&amp;quot;, false, &amp;quot;help msg for male&amp;quot;)
+
+    // 解析
+    flag.Parse()
+
+    // 是否已经解析
+    fmt.Println(&amp;quot;parsed? = &amp;quot;, flag.Parsed())
+
+    // 获取非flag参数
+    fmt.Println(&amp;quot;------ Args start ------&amp;quot;)
+    for i, v := range flag.Args() {
+        fmt.Printf(&amp;quot;arg[%d] = (%s).\n&amp;quot;, i, v)
+    }
+    fmt.Println(&amp;quot;------ Args end ------&amp;quot;)
+
+    // visit只包含已经设置了的flag
+    fmt.Println(&amp;quot;------ visit flag start ------&amp;quot;)
+    flag.Visit(func(f *flag.Flag) {
+        fmt.Println(f.Name, f.Value, f.Usage, f.DefValue)
+    })
+    fmt.Println(&amp;quot;------ visit flag end ------&amp;quot;)
+
+    // visitAll只包含所有的flag(包括未设置的)
+    fmt.Println(&amp;quot;------ visitAll flag start ------&amp;quot;)
+    flag.VisitAll(func(f *flag.Flag) {
+        fmt.Println(f.Name, f.Value, f.Usage, f.DefValue)
+
+    })
+    fmt.Println(&amp;quot;------ visitAll flag end ------&amp;quot;)
+
+    // flag参数
+    fmt.Printf(&amp;quot;id = %d\n&amp;quot;, id)
+    fmt.Printf(&amp;quot;name = %s\n&amp;quot;, name)
+    fmt.Printf(&amp;quot;male = %t\n&amp;quot;, male)
+
+    // flag参数默认值
+    fmt.Println(&amp;quot;------ PrintDefaults start ------&amp;quot;)
+    flag.PrintDefaults()
+    fmt.Println(&amp;quot;------ PrintDefaults end ------&amp;quot;)
+
+    // 非flag参数个数
+    fmt.Printf(&amp;quot;NArg = %d\n&amp;quot;, flag.NArg())
+    // 已设置的flag参数个数
+    fmt.Printf(&amp;quot;NFlag = %d\n&amp;quot;, flag.NFlag())
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;传参数go run&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;go run flag_demo.go -id=123 -name=&amp;quot;zhangsan&amp;quot; -male=true p1 p2 p3 p4
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;示例输出结果&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;parsed? =  false
+parsed? =  true
+------ Args start ------
+arg[0] = (p1).
+arg[1] = (p2).
+arg[2] = (p3).
+arg[3] = (p4).
+------ Args end ------
+------ visit flag start ------
+id 123 help msg for id 123
+male true help msg for male false
+name zhangsan help msg for name default name
+------ visit flag end ------
+------ visitAll flag start ------
+id 123 help msg for id 123
+male true help msg for male false
+name zhangsan help msg for name default name
+------ visitAll flag end ------
+id = 123
+name = zhangsan
+male = true
+------ PrintDefaults start ------
+  -id int
+    	help msg for id (default 123)
+  -male
+    	help msg for male
+  -name string
+    	help msg for name (default &amp;quot;default name&amp;quot;)
+------ PrintDefaults end ------
+NArg = 4
+NFlag = 3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;参考&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://gobyexample.com/command-line-flags&#34;&gt;https://gobyexample.com/command-line-flags&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>analysing java core dump</title>
@@ -1035,111 +1163,6 @@ InnoDB: Error in opening ./ibdata1
 cp -a ibdata1.bak ibdata1
 service mysqld restart
 &lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>ceph集群jewel版本部署osd激活权限报错</title>
-      <link>https://ops.m114.org/post/ceph-jewel-osd-activate-bug/</link>
-      <pubDate>Fri, 29 Jul 2016 00:29:29 +0800</pubDate>
-      
-      <guid>https://ops.m114.org/post/ceph-jewel-osd-activate-bug/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;环境&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;ceph version 10.2.2 (45107e21c568dd033c2f0a3107dec8f0b0e58374)&lt;/br&gt;
-ceph-deploy 1.5.34&lt;/p&gt;
-
-&lt;p&gt;ceph集群jewel版本部署过程中执行osd激活操作如下&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;报错内容如下&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[2016-07-29 00:05:19,106][ceph_deploy.conf][DEBUG ] found configuration file at: /root/.cephdeploy.conf
-[2016-07-29 00:05:19,107][ceph_deploy.cli][INFO  ] Invoked (1.5.34): /bin/ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2
-[2016-07-29 00:05:19,107][ceph_deploy.cli][INFO  ] ceph-deploy options:
-[2016-07-29 00:05:19,108][ceph_deploy.cli][INFO  ]  username                      : None
-[2016-07-29 00:05:19,108][ceph_deploy.cli][INFO  ]  verbose                       : False
-[2016-07-29 00:05:19,108][ceph_deploy.cli][INFO  ]  overwrite_conf                : False
-[2016-07-29 00:05:19,108][ceph_deploy.cli][INFO  ]  subcommand                    : activate
-[2016-07-29 00:05:19,108][ceph_deploy.cli][INFO  ]  quiet                         : False
-[2016-07-29 00:05:19,108][ceph_deploy.cli][INFO  ]  cd_conf                       : &amp;lt;ceph_deploy.conf.cephdeploy.Conf instance at 0x26dcb90&amp;gt;
-[2016-07-29 00:05:19,109][ceph_deploy.cli][INFO  ]  cluster                       : ceph
-[2016-07-29 00:05:19,109][ceph_deploy.cli][INFO  ]  func                          : &amp;lt;function osd at 0x26d0320&amp;gt;
-[2016-07-29 00:05:19,109][ceph_deploy.cli][INFO  ]  ceph_conf                     : None
-[2016-07-29 00:05:19,109][ceph_deploy.cli][INFO  ]  default_release               : False
-[2016-07-29 00:05:19,109][ceph_deploy.cli][INFO  ]  disk                          : [(&#39;ceph13&#39;, &#39;/dev/sdb1&#39;, &#39;/dev/sda2&#39;)]
-[2016-07-29 00:05:19,110][ceph_deploy.osd][DEBUG ] Activating cluster ceph disks ceph13:/dev/sdb1:/dev/sda2
-[2016-07-29 00:05:19,217][ceph13][DEBUG ] connected to host: ceph13
-[2016-07-29 00:05:19,218][ceph13][DEBUG ] detect platform information from remote host
-[2016-07-29 00:05:19,258][ceph13][DEBUG ] detect machine type
-[2016-07-29 00:05:19,264][ceph13][DEBUG ] find the location of an executable
-[2016-07-29 00:05:19,266][ceph_deploy.osd][INFO  ] Distro info: CentOS Linux 7.2.1511 Core
-[2016-07-29 00:05:19,266][ceph_deploy.osd][DEBUG ] activating host ceph13 disk /dev/sdb1
-[2016-07-29 00:05:19,266][ceph_deploy.osd][DEBUG ] will use init type: systemd
-[2016-07-29 00:05:19,266][ceph13][DEBUG ] find the location of an executable
-[2016-07-29 00:05:19,270][ceph13][INFO  ] Running command: /usr/sbin/ceph-disk -v activate --mark-init systemd --mount /dev/sdb1
-[2016-07-29 00:05:19,598][ceph13][WARNING] main_activate: path = /dev/sdb1
-[2016-07-29 00:05:19,598][ceph13][WARNING] get_dm_uuid: get_dm_uuid /dev/sdb1 uuid path is /sys/dev/block/8:17/dm/uuid
-[2016-07-29 00:05:19,598][ceph13][WARNING] command: Running command: /sbin/blkid -o udev -p /dev/sdb1
-[2016-07-29 00:05:19,630][ceph13][WARNING] command: Running command: /sbin/blkid -p -s TYPE -o value -- /dev/sdb1
-[2016-07-29 00:05:19,638][ceph13][WARNING] command: Running command: /usr/bin/ceph-conf --cluster=ceph --name=osd. --lookup osd_mount_options_xfs
-[2016-07-29 00:05:19,803][ceph13][WARNING] command: Running command: /usr/bin/ceph-conf --cluster=ceph --name=osd. --lookup osd_fs_mount_options_xfs
-[2016-07-29 00:05:19,967][ceph13][WARNING] mount: Mounting /dev/sdb1 on /var/lib/ceph/tmp/mnt.K5WBsO with options noatime,inode64
-[2016-07-29 00:05:19,967][ceph13][WARNING] command_check_call: Running command: /usr/bin/mount -t xfs -o noatime,inode64 -- /dev/sdb1 /var/lib/ceph/tmp/mnt.K5WBsO
-[2016-07-29 00:05:19,983][ceph13][WARNING] command: Running command: /sbin/restorecon /var/lib/ceph/tmp/mnt.K5WBsO
-[2016-07-29 00:05:19,991][ceph13][WARNING] activate: Cluster uuid is f2694afb-b5fc-4225-982a-342c4a1ca389
-[2016-07-29 00:05:19,991][ceph13][WARNING] command: Running command: /usr/bin/ceph-osd --cluster=ceph --show-config-value=fsid
-[2016-07-29 00:05:20,156][ceph13][WARNING] activate: Cluster name is ceph
-[2016-07-29 00:05:20,156][ceph13][WARNING] activate: OSD uuid is 684effdc-67ae-4f54-a9b8-a113f4a8f0cc
-[2016-07-29 00:05:20,156][ceph13][WARNING] activate: OSD id is 0
-[2016-07-29 00:05:20,156][ceph13][WARNING] activate: Initializing OSD...
-[2016-07-29 00:05:20,157][ceph13][WARNING] command_check_call: Running command: /usr/bin/ceph --cluster ceph --name client.bootstrap-osd --keyring /var/lib/ceph/bootstrap-osd/ceph.keyring mon getmap -o /var/lib/ceph/tmp/mnt.K5WBsO/activate.monmap
-[2016-07-29 00:05:20,572][ceph13][WARNING] got monmap epoch 1
-[2016-07-29 00:05:20,572][ceph13][WARNING] command: Running command: /usr/bin/timeout 300 ceph-osd --cluster ceph --mkfs --mkkey -i 0 --monmap /var/lib/ceph/tmp/mnt.K5WBsO/activate.monmap --osd-data /var/lib/ceph/tmp/mnt.K5WBsO --osd-journal /var/lib/ceph/tmp/mnt.K5WBsO/journal --osd-uuid 684effdc-67ae-4f54-a9b8-a113f4a8f0cc --keyring /var/lib/ceph/tmp/mnt.K5WBsO/keyring --setuser ceph --setgroup ceph
-[2016-07-29 00:05:20,686][ceph13][WARNING] mount_activate: Failed to activate
-[2016-07-29 00:05:20,686][ceph13][WARNING] unmount: Unmounting /var/lib/ceph/tmp/mnt.K5WBsO
-[2016-07-29 00:05:20,687][ceph13][WARNING] command_check_call: Running command: /bin/umount -- /var/lib/ceph/tmp/mnt.K5WBsO
-[2016-07-29 00:05:21,052][ceph13][WARNING] Traceback (most recent call last):
-[2016-07-29 00:05:21,052][ceph13][WARNING]   File &amp;quot;/usr/sbin/ceph-disk&amp;quot;, line 9, in &amp;lt;module&amp;gt;
-[2016-07-29 00:05:21,052][ceph13][WARNING]     load_entry_point(&#39;ceph-disk==1.0.0&#39;, &#39;console_scripts&#39;, &#39;ceph-disk&#39;)()
-[2016-07-29 00:05:21,052][ceph13][WARNING]   File &amp;quot;/usr/lib/python2.7/site-packages/ceph_disk/main.py&amp;quot;, line 4994, in run
-[2016-07-29 00:05:21,053][ceph13][WARNING]     main(sys.argv[1:])
-[2016-07-29 00:05:21,053][ceph13][WARNING]   File &amp;quot;/usr/lib/python2.7/site-packages/ceph_disk/main.py&amp;quot;, line 4945, in main
-[2016-07-29 00:05:21,053][ceph13][WARNING]     args.func(args)
-[2016-07-29 00:05:21,053][ceph13][WARNING]   File &amp;quot;/usr/lib/python2.7/site-packages/ceph_disk/main.py&amp;quot;, line 3299, in main_activate
-[2016-07-29 00:05:21,053][ceph13][WARNING]     reactivate=args.reactivate,
-[2016-07-29 00:05:21,054][ceph13][WARNING]   File &amp;quot;/usr/lib/python2.7/site-packages/ceph_disk/main.py&amp;quot;, line 3056, in mount_activate
-[2016-07-29 00:05:21,054][ceph13][WARNING]     (osd_id, cluster) = activate(path, activate_key_template, init)
-[2016-07-29 00:05:21,054][ceph13][WARNING]   File &amp;quot;/usr/lib/python2.7/site-packages/ceph_disk/main.py&amp;quot;, line 3232, in activate
-[2016-07-29 00:05:21,054][ceph13][WARNING]     keyring=keyring,
-[2016-07-29 00:05:21,054][ceph13][WARNING]   File &amp;quot;/usr/lib/python2.7/site-packages/ceph_disk/main.py&amp;quot;, line 2725, in mkfs
-[2016-07-29 00:05:21,055][ceph13][WARNING]     &#39;--setgroup&#39;, get_ceph_group(),
-[2016-07-29 00:05:21,055][ceph13][WARNING]   File &amp;quot;/usr/lib/python2.7/site-packages/ceph_disk/main.py&amp;quot;, line 2672, in ceph_osd_mkfs
-[2016-07-29 00:05:21,055][ceph13][WARNING]     raise Error(&#39;%s failed : %s&#39; % (str(arguments), error))
-[2016-07-29 00:05:21,055][ceph13][WARNING] ceph_disk.main.Error: Error: [&#39;ceph-osd&#39;, &#39;--cluster&#39;, &#39;ceph&#39;, &#39;--mkfs&#39;, &#39;--mkkey&#39;, &#39;-i&#39;, &#39;0&#39;, &#39;--monmap&#39;, &#39;/var/lib/ceph/tmp/mnt.K5WBsO/activate.monmap&#39;, &#39;--osd-data&#39;, &#39;/var/lib/ceph/tmp/mnt.K5WBsO&#39;, &#39;--osd-journal&#39;, &#39;/var/lib/ceph/tmp/mnt.K5WBsO/journal&#39;, &#39;--osd-uuid&#39;, &#39;684effdc-67ae-4f54-a9b8-a113f4a8f0cc&#39;, &#39;--keyring&#39;, &#39;/var/lib/ceph/tmp/mnt.K5WBsO/keyring&#39;, &#39;--setuser&#39;, &#39;ceph&#39;, &#39;--setgroup&#39;, &#39;ceph&#39;] failed : 2016-07-29 00:05:20.672440 7f46517dd800 -1 filestore(/var/lib/ceph/tmp/mnt.K5WBsO) mkjournal error creating journal on /var/lib/ceph/tmp/mnt.K5WBsO/journal: (13) Permission denied
-[2016-07-29 00:05:21,056][ceph13][WARNING] 2016-07-29 00:05:20.672462 7f46517dd800 -1 OSD::mkfs: ObjectStore::mkfs failed with error -13
-[2016-07-29 00:05:21,056][ceph13][WARNING] 2016-07-29 00:05:20.672526 7f46517dd800 -1  ** ERROR: error creating empty object store in /var/lib/ceph/tmp/mnt.K5WBsO: (13) Permission denied
-[2016-07-29 00:05:21,056][ceph13][WARNING]
-[2016-07-29 00:05:21,057][ceph13][ERROR ] RuntimeError: command returned non-zero exit status: 1
-[2016-07-29 00:05:21,057][ceph_deploy][ERROR ] RuntimeError: Failed to execute command: /usr/sbin/ceph-disk -v activate --mark-init systemd --mount /dev/sdb1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;解决办法:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;将ceph集群需要使用的所有磁盘权限，所属用户、用户组改给ceph&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;chown ceph:ceph /dev/sdb1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;问题延伸:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;此问题本次修复后，系统重启磁盘权限会被修改回，导致osd服务无法正常启动，这个权限问题很坑，每次系统启动自动修改磁盘权限。&lt;/p&gt;
-
-&lt;p&gt;查找ceph资料，发现这其实是一个bug，社区暂未解决。&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://tracker.ceph.com/issues/13833&#34;&gt;http://tracker.ceph.com/issues/13833&lt;/a&gt;&lt;/p&gt;
 </description>
     </item>
     

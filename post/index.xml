@@ -7,8 +7,136 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2017. All rights reserved.</copyright>
-    <lastBuildDate>Sun, 23 Jul 2017 16:32:26 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 16 Aug 2017 23:28:33 +0800</lastBuildDate>
     <atom:link href="https://ops.m114.org/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>go command line flags demo</title>
+      <link>https://ops.m114.org/post/go-command-line-flags/</link>
+      <pubDate>Wed, 16 Aug 2017 23:28:33 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/go-command-line-flags/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;示例代码，仅供参考&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package main
+
+import (
+    &amp;quot;fmt&amp;quot;
+    &amp;quot;flag&amp;quot;
+)
+
+func main() {
+    // golang的flag包的一些基本使用方法
+
+    // 待使用的变量
+    var id int
+    var name string
+    var male bool
+
+    // 是否已经解析
+    fmt.Println(&amp;quot;parsed? = &amp;quot;, flag.Parsed())
+
+    // 设置flag参数 (变量指针，参数名，默认值，帮助信息)
+    // 也可以用以下带返回值的方法代替，不过他们返回的是指针，比较麻烦点
+    // Int(name string, value int, usage string) *int
+    // String(name string, value string, usage string) *string
+    // Bool(name string, value bool, usage string) *bool
+    flag.IntVar(&amp;amp;id, &amp;quot;id&amp;quot;, 123, &amp;quot;help msg for id&amp;quot;)
+    flag.StringVar(&amp;amp;name, &amp;quot;name&amp;quot;, &amp;quot;default name&amp;quot;, &amp;quot;help msg for name&amp;quot;)
+    flag.BoolVar(&amp;amp;male, &amp;quot;male&amp;quot;, false, &amp;quot;help msg for male&amp;quot;)
+
+    // 解析
+    flag.Parse()
+
+    // 是否已经解析
+    fmt.Println(&amp;quot;parsed? = &amp;quot;, flag.Parsed())
+
+    // 获取非flag参数
+    fmt.Println(&amp;quot;------ Args start ------&amp;quot;)
+    for i, v := range flag.Args() {
+        fmt.Printf(&amp;quot;arg[%d] = (%s).\n&amp;quot;, i, v)
+    }
+    fmt.Println(&amp;quot;------ Args end ------&amp;quot;)
+
+    // visit只包含已经设置了的flag
+    fmt.Println(&amp;quot;------ visit flag start ------&amp;quot;)
+    flag.Visit(func(f *flag.Flag) {
+        fmt.Println(f.Name, f.Value, f.Usage, f.DefValue)
+    })
+    fmt.Println(&amp;quot;------ visit flag end ------&amp;quot;)
+
+    // visitAll只包含所有的flag(包括未设置的)
+    fmt.Println(&amp;quot;------ visitAll flag start ------&amp;quot;)
+    flag.VisitAll(func(f *flag.Flag) {
+        fmt.Println(f.Name, f.Value, f.Usage, f.DefValue)
+
+    })
+    fmt.Println(&amp;quot;------ visitAll flag end ------&amp;quot;)
+
+    // flag参数
+    fmt.Printf(&amp;quot;id = %d\n&amp;quot;, id)
+    fmt.Printf(&amp;quot;name = %s\n&amp;quot;, name)
+    fmt.Printf(&amp;quot;male = %t\n&amp;quot;, male)
+
+    // flag参数默认值
+    fmt.Println(&amp;quot;------ PrintDefaults start ------&amp;quot;)
+    flag.PrintDefaults()
+    fmt.Println(&amp;quot;------ PrintDefaults end ------&amp;quot;)
+
+    // 非flag参数个数
+    fmt.Printf(&amp;quot;NArg = %d\n&amp;quot;, flag.NArg())
+    // 已设置的flag参数个数
+    fmt.Printf(&amp;quot;NFlag = %d\n&amp;quot;, flag.NFlag())
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;传参数go run&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;go run flag_demo.go -id=123 -name=&amp;quot;zhangsan&amp;quot; -male=true p1 p2 p3 p4
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;示例输出结果&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;parsed? =  false
+parsed? =  true
+------ Args start ------
+arg[0] = (p1).
+arg[1] = (p2).
+arg[2] = (p3).
+arg[3] = (p4).
+------ Args end ------
+------ visit flag start ------
+id 123 help msg for id 123
+male true help msg for male false
+name zhangsan help msg for name default name
+------ visit flag end ------
+------ visitAll flag start ------
+id 123 help msg for id 123
+male true help msg for male false
+name zhangsan help msg for name default name
+------ visitAll flag end ------
+id = 123
+name = zhangsan
+male = true
+------ PrintDefaults start ------
+  -id int
+    	help msg for id (default 123)
+  -male
+    	help msg for male
+  -name string
+    	help msg for name (default &amp;quot;default name&amp;quot;)
+------ PrintDefaults end ------
+NArg = 4
+NFlag = 3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;参考&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://gobyexample.com/command-line-flags&#34;&gt;https://gobyexample.com/command-line-flags&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>analysing java core dump</title>
@@ -1072,62 +1200,6 @@ ceph-deploy 1.5.34&lt;/p&gt;
 &lt;p&gt;查找ceph资料，发现这其实是一个bug，社区暂未解决。&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://tracker.ceph.com/issues/13833&#34;&gt;http://tracker.ceph.com/issues/13833&lt;/a&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>使用国内源部署Ceph</title>
-      <link>https://ops.m114.org/post/deploy-ceph-using-china-mirror/</link>
-      <pubDate>Thu, 28 Jul 2016 13:17:52 +0800</pubDate>
-      
-      <guid>https://ops.m114.org/post/deploy-ceph-using-china-mirror/</guid>
-      <description>
-
-&lt;p&gt;由于网络方面的原因，Ceph的部署经常受到干扰，通常为了加速部署，基本上大家都是将Ceph的源同步到本地进行安装。根据Ceph中国社区的统计，当前已经有国内的网站定期将Ceph安装源同步，极大的方便了我们的测试。本文就是介绍如何使用国内源，加速ceph-deploy部署Ceph集群。&lt;/p&gt;
-
-&lt;h1 id=&#34;关于国内源&#34;&gt;关于国内源&lt;/h1&gt;
-
-&lt;p&gt;根据Ceph中国社区的统计，国内已经有四家网站开始同步Ceph源，分别是：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;网易镜像源&lt;a href=&#34;http://mirrors.163.com/ceph&#34;&gt;http://mirrors.163.com/ceph&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;阿里镜像源&lt;a href=&#34;http://mirrors.aliyun.com/ceph&#34;&gt;http://mirrors.aliyun.com/ceph&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;中科大镜像源&lt;a href=&#34;http://mirrors.ustc.edu.cn/ceph&#34;&gt;http://mirrors.ustc.edu.cn/ceph&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;宝德镜像源&lt;a href=&#34;http://mirrors.plcloud.com/ceph&#34;&gt;http://mirrors.plcloud.com/ceph&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&#34;安装ceph-jewel版&#34;&gt;安装Ceph(Jewel版)&lt;/h1&gt;
-
-&lt;p&gt;由于Jewel版本中已经不提供el6的镜像源，所以只能使用CentOS 7以上版本进行安装。我们并不需要在repos里增加相应的源，只需要设置环境变量，即可让ceph-deploy使用国内源，具体过程如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;export CEPH_DEPLOY_REPO_URL=http://mirrors.aliyun.com/ceph/rpm-jewel/el7
-export CEPH_DEPLOY_GPG_URL=http://mirrors.aliyun.com/ceph/keys/release.asc
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;之后的过程就没任何区别了&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# Create monitor node
-ceph-deploy new node1 node2 node3
-
-# Software Installation
-ceph-deploy install deploy node1 node2 node3
-
-# Gather keys
-ceph-deploy mon create-initial
-
-# Ceph deploy osd create disk
-ceph-deploy osd create node1:sdb:/dev/sdc
-ceph-deploy osd create node2:sdb:/dev/sdc
-ceph-deploy osd create node3:sdb:/dev/sdc
-
-# Make 3 copies by default
-echo &amp;quot;osd pool default size = 3&amp;quot; | tee -a $HOME/ceph.conf
-
-# Copy admin keys and configuration files
-ceph-deploy --overwrite-conf admin deploy node1 node2 node3
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这样就可以很快速的使用国内源创建出Ceph集群，希望能对大家日常的使用提供便捷。&lt;/p&gt;
 </description>
     </item>
     

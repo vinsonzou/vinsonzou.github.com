@@ -10,6 +10,134 @@
     <atom:link href="https://ops.m114.org/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>go command line flags demo</title>
+      <link>https://ops.m114.org/post/go-command-line-flags/</link>
+      <pubDate>Wed, 16 Aug 2017 23:28:33 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/go-command-line-flags/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;示例代码，仅供参考&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package main
+
+import (
+    &amp;quot;fmt&amp;quot;
+    &amp;quot;flag&amp;quot;
+)
+
+func main() {
+    // golang的flag包的一些基本使用方法
+
+    // 待使用的变量
+    var id int
+    var name string
+    var male bool
+
+    // 是否已经解析
+    fmt.Println(&amp;quot;parsed? = &amp;quot;, flag.Parsed())
+
+    // 设置flag参数 (变量指针，参数名，默认值，帮助信息)
+    // 也可以用以下带返回值的方法代替，不过他们返回的是指针，比较麻烦点
+    // Int(name string, value int, usage string) *int
+    // String(name string, value string, usage string) *string
+    // Bool(name string, value bool, usage string) *bool
+    flag.IntVar(&amp;amp;id, &amp;quot;id&amp;quot;, 123, &amp;quot;help msg for id&amp;quot;)
+    flag.StringVar(&amp;amp;name, &amp;quot;name&amp;quot;, &amp;quot;default name&amp;quot;, &amp;quot;help msg for name&amp;quot;)
+    flag.BoolVar(&amp;amp;male, &amp;quot;male&amp;quot;, false, &amp;quot;help msg for male&amp;quot;)
+
+    // 解析
+    flag.Parse()
+
+    // 是否已经解析
+    fmt.Println(&amp;quot;parsed? = &amp;quot;, flag.Parsed())
+
+    // 获取非flag参数
+    fmt.Println(&amp;quot;------ Args start ------&amp;quot;)
+    for i, v := range flag.Args() {
+        fmt.Printf(&amp;quot;arg[%d] = (%s).\n&amp;quot;, i, v)
+    }
+    fmt.Println(&amp;quot;------ Args end ------&amp;quot;)
+
+    // visit只包含已经设置了的flag
+    fmt.Println(&amp;quot;------ visit flag start ------&amp;quot;)
+    flag.Visit(func(f *flag.Flag) {
+        fmt.Println(f.Name, f.Value, f.Usage, f.DefValue)
+    })
+    fmt.Println(&amp;quot;------ visit flag end ------&amp;quot;)
+
+    // visitAll只包含所有的flag(包括未设置的)
+    fmt.Println(&amp;quot;------ visitAll flag start ------&amp;quot;)
+    flag.VisitAll(func(f *flag.Flag) {
+        fmt.Println(f.Name, f.Value, f.Usage, f.DefValue)
+
+    })
+    fmt.Println(&amp;quot;------ visitAll flag end ------&amp;quot;)
+
+    // flag参数
+    fmt.Printf(&amp;quot;id = %d\n&amp;quot;, id)
+    fmt.Printf(&amp;quot;name = %s\n&amp;quot;, name)
+    fmt.Printf(&amp;quot;male = %t\n&amp;quot;, male)
+
+    // flag参数默认值
+    fmt.Println(&amp;quot;------ PrintDefaults start ------&amp;quot;)
+    flag.PrintDefaults()
+    fmt.Println(&amp;quot;------ PrintDefaults end ------&amp;quot;)
+
+    // 非flag参数个数
+    fmt.Printf(&amp;quot;NArg = %d\n&amp;quot;, flag.NArg())
+    // 已设置的flag参数个数
+    fmt.Printf(&amp;quot;NFlag = %d\n&amp;quot;, flag.NFlag())
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;传参数go run&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;go run flag_demo.go -id=123 -name=&amp;quot;zhangsan&amp;quot; -male=true p1 p2 p3 p4
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;示例输出结果&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;parsed? =  false
+parsed? =  true
+------ Args start ------
+arg[0] = (p1).
+arg[1] = (p2).
+arg[2] = (p3).
+arg[3] = (p4).
+------ Args end ------
+------ visit flag start ------
+id 123 help msg for id 123
+male true help msg for male false
+name zhangsan help msg for name default name
+------ visit flag end ------
+------ visitAll flag start ------
+id 123 help msg for id 123
+male true help msg for male false
+name zhangsan help msg for name default name
+------ visitAll flag end ------
+id = 123
+name = zhangsan
+male = true
+------ PrintDefaults start ------
+  -id int
+    	help msg for id (default 123)
+  -male
+    	help msg for male
+  -name string
+    	help msg for name (default &amp;quot;default name&amp;quot;)
+------ PrintDefaults end ------
+NArg = 4
+NFlag = 3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;参考&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://gobyexample.com/command-line-flags&#34;&gt;https://gobyexample.com/command-line-flags&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>golang sync.WaitGroup解决goroutine同步</title>
       <link>https://ops.m114.org/post/sync-WaitGroup/</link>
       <pubDate>Mon, 03 Jul 2017 16:27:12 +0800</pubDate>
