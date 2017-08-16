@@ -10,11 +10,11 @@
     <atom:link href="https://ops.m114.org/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>go command line flags demo</title>
-      <link>https://ops.m114.org/post/go-command-line-flags/</link>
+      <title>Golang之command line flag笔记</title>
+      <link>https://ops.m114.org/post/golang-command-line-flags/</link>
       <pubDate>Wed, 16 Aug 2017 23:28:33 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/go-command-line-flags/</guid>
+      <guid>https://ops.m114.org/post/golang-command-line-flags/</guid>
       <description>&lt;p&gt;&lt;strong&gt;示例代码，仅供参考&lt;/strong&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;package main
