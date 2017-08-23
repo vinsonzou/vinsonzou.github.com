@@ -10,6 +10,103 @@
     <atom:link href="https://ops.m114.org/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>go如何编译出更小的执行文件?</title>
+      <link>https://ops.m114.org/post/go-build-small-exec/</link>
+      <pubDate>Wed, 23 Aug 2017 23:38:09 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/go-build-small-exec/</guid>
+      <description>
+
+&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
+
+&lt;p&gt;本地默认编译出的文件总与官方提供的二进制文件大很多，Google之后得知通过编译参数控制还能编译出更小的可执行文件。&lt;/p&gt;
+
+&lt;h1 id=&#34;加-ldflags参数&#34;&gt;加-ldflags参数&lt;/h1&gt;
+
+&lt;p&gt;在程序编译的时候可以加上&lt;code&gt;-ldflags &amp;quot;-s -w&amp;quot;&lt;/code&gt; 参数来优化编译程序, 其实通过去除部分连接和调试等信息来使得编译之后的执行程序更小,具体参数如下:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;-a 强制编译所有依赖包&lt;/li&gt;
+&lt;li&gt;-s 去掉符号表信息, panic时候的stack trace就没有任何文件名/行号信息了&lt;/li&gt;
+&lt;li&gt;-w 去掉DWARF调试信息，得到的程序就不能用gdb调试了&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;测试代码如下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package main
+
+import &amp;quot;fmt&amp;quot;
+
+func main() {
+    fmt.Println(&amp;quot;Hello, 世界&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;编译方式及文件大小对比结果如下&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;编译参数&lt;/th&gt;
+&lt;th&gt;大小&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;go build(默认)&lt;/td&gt;
+&lt;td&gt;1.6M&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;go build -ldflags -s&lt;/td&gt;
+&lt;td&gt;1.6M&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;go build -ldflags &amp;ldquo;-s -w&amp;rdquo;&lt;/td&gt;
+&lt;td&gt;1.1M&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;go build -ldflags -w&lt;/td&gt;
+&lt;td&gt;1.1M&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;测试环境: go 1.8.3 on macOS 10.12.6
+不建议s和w同时使用。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&#34;使用upx&#34;&gt;使用upx&lt;/h1&gt;
+
+&lt;p&gt;上面go build 时加上-ldflags参数得到了比较小的可执行程序，但是还可以通过upx这个开源，绿色，好用的压缩工具进行进一步压缩。&lt;/p&gt;
+
+&lt;p&gt;Mac用户直接brew安装&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;brew install upx
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;upx使用效果如下&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;                       Ultimate Packer for eXecutables
+                          Copyright (C) 1996 - 2017
+UPX 3.94        Markus Oberhumer, Laszlo Molnar &amp;amp; John Reiser   May 12th 2017
+
+        File size         Ratio      Format      Name
+   --------------------   ------   -----------   -----------
+   1181728 -&amp;gt;    438928   37.14%   macho/amd64   test
+
+Packed 1 file.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以看到通过upx进一步压缩之后得到的程序只有429K了，压缩比率达到了37.14%.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Golang之command line flag笔记</title>
       <link>https://ops.m114.org/post/golang-command-line-flags/</link>
       <pubDate>Wed, 16 Aug 2017 23:28:33 +0800</pubDate>

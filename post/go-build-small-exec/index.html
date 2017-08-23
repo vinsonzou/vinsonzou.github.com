@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.18.1" />
 
-  <title>Golang之command line flag笔记 &middot; ops</title>
+  <title>go如何编译出更小的执行文件? &middot; ops</title>
 
   
   
@@ -175,7 +175,7 @@
 
 
 <div class="header">
-  <h1>Golang之command line flag笔记</h1>
+  <h1>go如何编译出更小的执行文件?</h1>
   <h2></h2>
 </div>
 <div class="content">
@@ -184,7 +184,7 @@
 
   <div>
     <i class="fa fa-calendar fa-fw"></i>
-    <time>2017/08/16, 23:28</time>
+    <time>2017/08/23, 23:38</time>
   </div>
 
   
@@ -208,138 +208,107 @@
 
 </div>
 
-  <p><strong>示例代码，仅供参考</strong></p>
+  
+
+<h1 id="前言">前言</h1>
+
+<p>本地默认编译出的文件总与官方提供的二进制文件大很多，Google之后得知通过编译参数控制还能编译出更小的可执行文件。</p>
+
+<h1 id="加-ldflags参数">加-ldflags参数</h1>
+
+<p>在程序编译的时候可以加上<code>-ldflags &quot;-s -w&quot;</code> 参数来优化编译程序, 其实通过去除部分连接和调试等信息来使得编译之后的执行程序更小,具体参数如下:</p>
+
+<ul>
+<li>-a 强制编译所有依赖包</li>
+<li>-s 去掉符号表信息, panic时候的stack trace就没有任何文件名/行号信息了</li>
+<li>-w 去掉DWARF调试信息，得到的程序就不能用gdb调试了</li>
+</ul>
+
+<p>测试代码如下</p>
 
 <pre><code>package main
 
-import (
-    &quot;fmt&quot;
-    &quot;flag&quot;
-)
+import &quot;fmt&quot;
 
 func main() {
-    // golang的flag包的一些基本使用方法
-
-    // 待使用的变量
-    var id int
-    var name string
-    var male bool
-
-    // 是否已经解析
-    fmt.Println(&quot;parsed? = &quot;, flag.Parsed())
-
-    // 设置flag参数 (变量指针，参数名，默认值，帮助信息)
-    // 也可以用以下带返回值的方法代替，不过他们返回的是指针，比较麻烦点
-    // Int(name string, value int, usage string) *int
-    // String(name string, value string, usage string) *string
-    // Bool(name string, value bool, usage string) *bool
-    flag.IntVar(&amp;id, &quot;id&quot;, 123, &quot;help msg for id&quot;)
-    flag.StringVar(&amp;name, &quot;name&quot;, &quot;default name&quot;, &quot;help msg for name&quot;)
-    flag.BoolVar(&amp;male, &quot;male&quot;, false, &quot;help msg for male&quot;)
-
-    // 解析
-    flag.Parse()
-
-    // 是否已经解析
-    fmt.Println(&quot;parsed? = &quot;, flag.Parsed())
-
-    // 获取非flag参数
-    fmt.Println(&quot;------ Args start ------&quot;)
-    for i, v := range flag.Args() {
-        fmt.Printf(&quot;arg[%d] = (%s).\n&quot;, i, v)
-    }
-    fmt.Println(&quot;------ Args end ------&quot;)
-
-    // visit只包含已经设置了的flag
-    fmt.Println(&quot;------ visit flag start ------&quot;)
-    flag.Visit(func(f *flag.Flag) {
-        fmt.Println(f.Name, f.Value, f.Usage, f.DefValue)
-    })
-    fmt.Println(&quot;------ visit flag end ------&quot;)
-
-    // visitAll只包含所有的flag(包括未设置的)
-    fmt.Println(&quot;------ visitAll flag start ------&quot;)
-    flag.VisitAll(func(f *flag.Flag) {
-        fmt.Println(f.Name, f.Value, f.Usage, f.DefValue)
-
-    })
-    fmt.Println(&quot;------ visitAll flag end ------&quot;)
-
-    // flag参数
-    fmt.Printf(&quot;id = %d\n&quot;, id)
-    fmt.Printf(&quot;name = %s\n&quot;, name)
-    fmt.Printf(&quot;male = %t\n&quot;, male)
-
-    // flag参数默认值
-    fmt.Println(&quot;------ PrintDefaults start ------&quot;)
-    flag.PrintDefaults()
-    fmt.Println(&quot;------ PrintDefaults end ------&quot;)
-
-    // 非flag参数个数
-    fmt.Printf(&quot;NArg = %d\n&quot;, flag.NArg())
-    // 已设置的flag参数个数
-    fmt.Printf(&quot;NFlag = %d\n&quot;, flag.NFlag())
+    fmt.Println(&quot;Hello, 世界&quot;)
 }
 </code></pre>
 
-<p><strong>传参数go run</strong></p>
+<p>编译方式及文件大小对比结果如下</p>
 
-<pre><code>go run flag_demo.go -id=123 -name=&quot;zhangsan&quot; -male=true p1 p2 p3 p4
+<table>
+<thead>
+<tr>
+<th>编译参数</th>
+<th>大小</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>go build(默认)</td>
+<td>1.6M</td>
+</tr>
+
+<tr>
+<td>go build -ldflags -s</td>
+<td>1.6M</td>
+</tr>
+
+<tr>
+<td>go build -ldflags &ldquo;-s -w&rdquo;</td>
+<td>1.1M</td>
+</tr>
+
+<tr>
+<td>go build -ldflags -w</td>
+<td>1.1M</td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+<p>测试环境: go 1.8.3 on macOS 10.12.6
+不建议s和w同时使用。</p>
+</blockquote>
+
+<h1 id="使用upx">使用upx</h1>
+
+<p>上面go build 时加上-ldflags参数得到了比较小的可执行程序，但是还可以通过upx这个开源，绿色，好用的压缩工具进行进一步压缩。</p>
+
+<p>Mac用户直接brew安装</p>
+
+<pre><code>brew install upx
 </code></pre>
 
-<p><strong>示例输出结果</strong></p>
+<p>upx使用效果如下</p>
 
-<pre><code>parsed? =  false
-parsed? =  true
------- Args start ------
-arg[0] = (p1).
-arg[1] = (p2).
-arg[2] = (p3).
-arg[3] = (p4).
------- Args end ------
------- visit flag start ------
-id 123 help msg for id 123
-male true help msg for male false
-name zhangsan help msg for name default name
------- visit flag end ------
------- visitAll flag start ------
-id 123 help msg for id 123
-male true help msg for male false
-name zhangsan help msg for name default name
------- visitAll flag end ------
-id = 123
-name = zhangsan
-male = true
------- PrintDefaults start ------
-  -id int
-    	help msg for id (default 123)
-  -male
-    	help msg for male
-  -name string
-    	help msg for name (default &quot;default name&quot;)
------- PrintDefaults end ------
-NArg = 4
-NFlag = 3
+<pre><code>                       Ultimate Packer for eXecutables
+                          Copyright (C) 1996 - 2017
+UPX 3.94        Markus Oberhumer, Laszlo Molnar &amp; John Reiser   May 12th 2017
+
+        File size         Ratio      Format      Name
+   --------------------   ------   -----------   -----------
+   1181728 -&gt;    438928   37.14%   macho/amd64   test
+
+Packed 1 file.
 </code></pre>
 
-<p><strong>参考</strong></p>
-
-<ul>
-<li><a href="https://gobyexample.com/command-line-flags">https://gobyexample.com/command-line-flags</a></li>
-</ul>
+<p>可以看到通过upx进一步压缩之后得到的程序只有429K了，压缩比率达到了37.14%.</p>
 
 
   
 <div class="prev-next-post pure-g">
   <div class="pure-u-1-24" style="text-align: left;">
     
-    <a href="https://ops.m114.org/post/analysing-java-core-dump/"><i class="fa fa-chevron-left"></i></a>
+    <a href="https://ops.m114.org/post/golang-command-line-flags/"><i class="fa fa-chevron-left"></i></a>
     
   </div>
   <div class="pure-u-10-24">
     
     <nav class="prev">
-      <a href="https://ops.m114.org/post/analysing-java-core-dump/">analysing java core dump</a>
+      <a href="https://ops.m114.org/post/golang-command-line-flags/">Golang之command line flag笔记</a>
     </nav>
     
   </div>
@@ -348,14 +317,8 @@ NFlag = 3
   </div>
   <div class="pure-u-10-24">
     
-    <nav class="next">
-      <a href="https://ops.m114.org/post/go-build-small-exec/">go如何编译出更小的执行文件?</a>
-    </nav>
-    
   </div>
   <div class="pure-u-1-24" style="text-align: right;">
-    
-    <a href="https://ops.m114.org/post/go-build-small-exec/"><i class="fa fa-chevron-right"></i></a>
     
   </div>
 </div>
