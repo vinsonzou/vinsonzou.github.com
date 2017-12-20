@@ -799,6 +799,7 @@ url，正则处理亦非瓶颈。不过 resty.core.regex 对自己的项目是�
 &lt;li&gt;&lt;a href=&#34;https://github.com/upyun/lua-resty-checkups&#34;&gt;lua-resty-checkups&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/agentzh/lua-resty-balancer&#34;&gt;lua-resty-balancer&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/thibaultcha/lua-resty-jit-uuid&#34;&gt;lua-resty-jit-uuid&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/thibaultcha/lua-resty-mlcache&#34;&gt;lua-resty-mlcache&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;ngx-lua-web开发&#34;&gt;ngx_lua Web开发&lt;/h2&gt;
@@ -806,6 +807,12 @@ url，正则处理亦非瓶颈。不过 resty.core.regex 对自己的项目是�
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/sumory/lor&#34;&gt;Lor&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://tylerneylon.com/a/learn-lua/&#34;&gt;Learn Lua in 15 Minutes&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;go-web开发&#34;&gt;Go Web开发&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/gin-gonic/gin&#34;&gt;Gin&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
