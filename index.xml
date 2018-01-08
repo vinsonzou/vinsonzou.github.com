@@ -765,6 +765,8 @@ url，正则处理亦非瓶颈。不过 resty.core.regex 对自己的项目是�
 &lt;li&gt;&lt;a href=&#34;https://github.com/kennethreitz/tablib&#34;&gt;tablib&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://pypi.python.org/pypi/yapf&#34;&gt;yapf&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://pypi.python.org/pypi/keyring&#34;&gt;keyring&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://pypi.python.org/pypi/ahocorasick&#34;&gt;ahocorasick&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://pypi.python.org/pypi/esmre&#34;&gt;esmre&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;python-web开发&#34;&gt;Python Web开发&lt;/h2&gt;
@@ -813,6 +815,14 @@ url，正则处理亦非瓶颈。不过 resty.core.regex 对自己的项目是�
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/gin-gonic/gin&#34;&gt;Gin&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;tools&#34;&gt;Tools&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/chihaya/chihaya&#34;&gt;Go BitTorrent Tracker, Facebook/CoreOS used&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/GrappigPanda/notorious&#34;&gt;Go BitTorrent Tracker&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/anacrolix/torrent&#34;&gt;Go Full-featured BitTorrent client package and utilities&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
