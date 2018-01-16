@@ -755,6 +755,7 @@ url，正则处理亦非瓶颈。不过 resty.core.regex 对自己的项目是�
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://moonbingbing.gitbooks.io/openresty-best-practices/content/index.html&#34;&gt;OpenResty最佳实践&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://imququ.com&#34;&gt;Jerry Qu HTTPS最佳实践&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/firehol/blocklist-ipsets&#34;&gt;IP黑名单&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;python常用模块&#34;&gt;Python常用模块&lt;/h2&gt;
