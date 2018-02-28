@@ -762,6 +762,7 @@ url，正则处理亦非瓶颈。不过 resty.core.regex 对自己的项目是�
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/kennethreitz/requests&#34;&gt;requests&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/kennethreitz/requests-html&#34;&gt;requests-html&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/kennethreitz/records&#34;&gt;records&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/kennethreitz/tablib&#34;&gt;tablib&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://pypi.python.org/pypi/yapf&#34;&gt;yapf&lt;/a&gt;&lt;/li&gt;
@@ -803,6 +804,7 @@ url，正则处理亦非瓶颈。不过 resty.core.regex 对自己的项目是�
 &lt;li&gt;&lt;a href=&#34;https://github.com/agentzh/lua-resty-balancer&#34;&gt;lua-resty-balancer&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/thibaultcha/lua-resty-jit-uuid&#34;&gt;lua-resty-jit-uuid&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/thibaultcha/lua-resty-mlcache&#34;&gt;lua-resty-mlcache&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/hamishforbes/lua-resty-iputils&#34;&gt;lua-resty-iputils&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;ngx-lua-web开发&#34;&gt;ngx_lua Web开发&lt;/h2&gt;
@@ -816,6 +818,13 @@ url，正则处理亦非瓶颈。不过 resty.core.regex 对自己的项目是�
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/gin-gonic/gin&#34;&gt;Gin&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;go常用模块&#34;&gt;Go常用模块&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/pquerna/otp&#34;&gt;otp&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/spf13/viper&#34;&gt;viper&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;tools&#34;&gt;Tools&lt;/h2&gt;
