@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Golang on ops</title>
-    <link>https://ops.m114.org/tags/golang/index.xml</link>
+    <link>http://ops.m114.org/tags/golang/index.xml</link>
     <description>Recent content in Golang on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <copyright>&amp;copy; 2014-2017. All rights reserved.</copyright>
-    <atom:link href="https://ops.m114.org/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>&amp;copy; 2014-2018. All rights reserved.</copyright>
+    <atom:link href="http://ops.m114.org/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>go如何编译出更小的执行文件?</title>
-      <link>https://ops.m114.org/post/go-build-small-exec/</link>
+      <link>http://ops.m114.org/post/go-build-small-exec/</link>
       <pubDate>Wed, 23 Aug 2017 23:38:09 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/go-build-small-exec/</guid>
+      <guid>http://ops.m114.org/post/go-build-small-exec/</guid>
       <description>
 
 &lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
@@ -108,10 +108,10 @@ Packed 1 file.
     
     <item>
       <title>Golang之command line flag笔记</title>
-      <link>https://ops.m114.org/post/golang-command-line-flags/</link>
+      <link>http://ops.m114.org/post/golang-command-line-flags/</link>
       <pubDate>Wed, 16 Aug 2017 23:28:33 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/golang-command-line-flags/</guid>
+      <guid>http://ops.m114.org/post/golang-command-line-flags/</guid>
       <description>&lt;p&gt;&lt;strong&gt;示例代码，仅供参考&lt;/strong&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;package main
@@ -236,10 +236,10 @@ NFlag = 3
     
     <item>
       <title>golang sync.WaitGroup解决goroutine同步</title>
-      <link>https://ops.m114.org/post/sync-WaitGroup/</link>
+      <link>http://ops.m114.org/post/sync-WaitGroup/</link>
       <pubDate>Mon, 03 Jul 2017 16:27:12 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/sync-WaitGroup/</guid>
+      <guid>http://ops.m114.org/post/sync-WaitGroup/</guid>
       <description>&lt;p&gt;&lt;strong&gt;go提供了sync包和channel来解决协程同步和通讯。&lt;/strong&gt;新手对channel通道操作起来更容易产生死锁，如果时缓冲的channel还要考虑channel放入和取出数据的速率问题。&lt;/p&gt;
 
 &lt;p&gt;从字面就可以理解，sync.WaitGroup是等待一组协程结束。它实现了一个类似任务队列的结构，你可以向队列中加入任务，任务完成后就把任务从队列中移除，如果队列中的任务没有全部完成，队列就会触发阻塞以阻止程序继续运行。&lt;/p&gt;
@@ -278,10 +278,10 @@ func main() {
     
     <item>
       <title>使用Hugo搭建免费个人Blog</title>
-      <link>https://ops.m114.org/post/how-to-use-hugo/</link>
+      <link>http://ops.m114.org/post/how-to-use-hugo/</link>
       <pubDate>Tue, 11 Nov 2014 17:15:00 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/how-to-use-hugo/</guid>
+      <guid>http://ops.m114.org/post/how-to-use-hugo/</guid>
       <description>
 
 &lt;h1 id=&#34;hugo是什么&#34;&gt;Hugo是什么&lt;/h1&gt;

@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ceph on ops</title>
-    <link>https://ops.m114.org/topics/ceph/index.xml</link>
+    <link>http://ops.m114.org/topics/ceph/index.xml</link>
     <description>Recent content in Ceph on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <copyright>&amp;copy; 2014-2017. All rights reserved.</copyright>
-    <atom:link href="https://ops.m114.org/topics/ceph/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>&amp;copy; 2014-2018. All rights reserved.</copyright>
+    <atom:link href="http://ops.m114.org/topics/ceph/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Ceph核心概念备忘录</title>
-      <link>https://ops.m114.org/post/ceph-key-concepts-backup/</link>
+      <link>http://ops.m114.org/post/ceph-key-concepts-backup/</link>
       <pubDate>Fri, 26 Aug 2016 14:38:12 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/ceph-key-concepts-backup/</guid>
+      <guid>http://ops.m114.org/post/ceph-key-concepts-backup/</guid>
       <description>
 
 &lt;h2 id=&#34;scrub&#34;&gt;scrub&lt;/h2&gt;
@@ -66,10 +66,10 @@
     
     <item>
       <title>ceph pgs inconsistent</title>
-      <link>https://ops.m114.org/post/ceph-pgs-inconsistent/</link>
+      <link>http://ops.m114.org/post/ceph-pgs-inconsistent/</link>
       <pubDate>Wed, 17 Aug 2016 23:44:59 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/ceph-pgs-inconsistent/</guid>
+      <guid>http://ops.m114.org/post/ceph-pgs-inconsistent/</guid>
       <description>&lt;p&gt;OSD扩容后出现如下错误&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;HEALTH_ERR 2 pgs inconsistent; 320 scrub errors&lt;/code&gt;&lt;/p&gt;
@@ -96,10 +96,10 @@ instructing pg 10.10 on osd.2 to repair
     
     <item>
       <title>删除osd的正确方式</title>
-      <link>https://ops.m114.org/post/right-steps-delete-ceph-osd/</link>
+      <link>http://ops.m114.org/post/right-steps-delete-ceph-osd/</link>
       <pubDate>Sat, 06 Aug 2016 23:51:26 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/right-steps-delete-ceph-osd/</guid>
+      <guid>http://ops.m114.org/post/right-steps-delete-ceph-osd/</guid>
       <description>
 
 &lt;p&gt;按照官网的步骤走的话，在 &lt;code&gt;标记osd为out&lt;/code&gt; 和 &lt;code&gt;从crushmap删除osd&lt;/code&gt; 这两步都会触发数据再平衡，如下方式只触发了一次迁移，建议使用。&lt;/p&gt;
@@ -152,10 +152,10 @@ instructing pg 10.10 on osd.2 to repair
     
     <item>
       <title>ceph集群jewel版本部署osd激活权限报错</title>
-      <link>https://ops.m114.org/post/ceph-jewel-osd-activate-bug/</link>
+      <link>http://ops.m114.org/post/ceph-jewel-osd-activate-bug/</link>
       <pubDate>Fri, 29 Jul 2016 00:29:29 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/ceph-jewel-osd-activate-bug/</guid>
+      <guid>http://ops.m114.org/post/ceph-jewel-osd-activate-bug/</guid>
       <description>&lt;p&gt;&lt;strong&gt;环境&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;ceph version 10.2.2 (45107e21c568dd033c2f0a3107dec8f0b0e58374)&lt;/br&gt;
@@ -257,10 +257,10 @@ ceph-deploy 1.5.34&lt;/p&gt;
     
     <item>
       <title>使用国内源部署Ceph</title>
-      <link>https://ops.m114.org/post/deploy-ceph-using-china-mirror/</link>
+      <link>http://ops.m114.org/post/deploy-ceph-using-china-mirror/</link>
       <pubDate>Thu, 28 Jul 2016 13:17:52 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/deploy-ceph-using-china-mirror/</guid>
+      <guid>http://ops.m114.org/post/deploy-ceph-using-china-mirror/</guid>
       <description>
 
 &lt;p&gt;由于网络方面的原因，Ceph的部署经常受到干扰，通常为了加速部署，基本上大家都是将Ceph的源同步到本地进行安装。根据Ceph中国社区的统计，当前已经有国内的网站定期将Ceph安装源同步，极大的方便了我们的测试。本文就是介绍如何使用国内源，加速ceph-deploy部署Ceph集群。&lt;/p&gt;

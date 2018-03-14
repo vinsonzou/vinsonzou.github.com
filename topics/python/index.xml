@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on ops</title>
-    <link>https://ops.m114.org/topics/python/index.xml</link>
+    <link>http://ops.m114.org/topics/python/index.xml</link>
     <description>Recent content in Python on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <copyright>&amp;copy; 2014-2017. All rights reserved.</copyright>
-    <atom:link href="https://ops.m114.org/topics/python/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>&amp;copy; 2014-2018. All rights reserved.</copyright>
+    <atom:link href="http://ops.m114.org/topics/python/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>[python]统计列表中重复项的出现次数</title>
-      <link>https://ops.m114.org/post/python-count-duplicate-values-of-list/</link>
+      <link>http://ops.m114.org/post/python-count-duplicate-values-of-list/</link>
       <pubDate>Sun, 30 Oct 2016 10:27:24 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/python-count-duplicate-values-of-list/</guid>
+      <guid>http://ops.m114.org/post/python-count-duplicate-values-of-list/</guid>
       <description>&lt;p&gt;列表项由数字、字符串组成，统计重复项&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; from collections import defaultdict

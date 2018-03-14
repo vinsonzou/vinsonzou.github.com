@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on ops</title>
-    <link>https://ops.m114.org/tags/python/index.xml</link>
+    <link>http://ops.m114.org/tags/python/index.xml</link>
     <description>Recent content in Python on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <copyright>&amp;copy; 2014-2017. All rights reserved.</copyright>
-    <atom:link href="https://ops.m114.org/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>&amp;copy; 2014-2018. All rights reserved.</copyright>
+    <atom:link href="http://ops.m114.org/tags/python/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Python版本号比较</title>
-      <link>https://ops.m114.org/post/python-version-cmp/</link>
+      <link>http://ops.m114.org/post/python-version-cmp/</link>
       <pubDate>Sun, 23 Jul 2017 16:13:10 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/python-version-cmp/</guid>
+      <guid>http://ops.m114.org/post/python-version-cmp/</guid>
       <description>
 
 &lt;h2 id=&#34;第一种比较方法-strictversion&#34;&gt;第一种比较方法(StrictVersion)&lt;/h2&gt;

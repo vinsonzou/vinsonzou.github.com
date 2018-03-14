@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Golang on ops</title>
-    <link>https://ops.m114.org/topics/golang/index.xml</link>
+    <link>http://ops.m114.org/topics/golang/index.xml</link>
     <description>Recent content in Golang on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <copyright>&amp;copy; 2014-2017. All rights reserved.</copyright>
-    <atom:link href="https://ops.m114.org/topics/golang/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>&amp;copy; 2014-2018. All rights reserved.</copyright>
+    <atom:link href="http://ops.m114.org/topics/golang/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>golang sync.WaitGroup解决goroutine同步</title>
-      <link>https://ops.m114.org/post/sync-WaitGroup/</link>
+      <link>http://ops.m114.org/post/sync-WaitGroup/</link>
       <pubDate>Mon, 03 Jul 2017 16:27:12 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/sync-WaitGroup/</guid>
+      <guid>http://ops.m114.org/post/sync-WaitGroup/</guid>
       <description>&lt;p&gt;&lt;strong&gt;go提供了sync包和channel来解决协程同步和通讯。&lt;/strong&gt;新手对channel通道操作起来更容易产生死锁，如果时缓冲的channel还要考虑channel放入和取出数据的速率问题。&lt;/p&gt;
 
 &lt;p&gt;从字面就可以理解，sync.WaitGroup是等待一组协程结束。它实现了一个类似任务队列的结构，你可以向队列中加入任务，任务完成后就把任务从队列中移除，如果队列中的任务没有全部完成，队列就会触发阻塞以阻止程序继续运行。&lt;/p&gt;

@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Telegram on ops</title>
-    <link>https://ops.m114.org/tags/telegram/index.xml</link>
+    <link>http://ops.m114.org/tags/telegram/index.xml</link>
     <description>Recent content in Telegram on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <copyright>&amp;copy; 2014-2017. All rights reserved.</copyright>
-    <atom:link href="https://ops.m114.org/tags/telegram/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>&amp;copy; 2014-2018. All rights reserved.</copyright>
+    <atom:link href="http://ops.m114.org/tags/telegram/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Zabbix使用Telegram发送报警</title>
-      <link>https://ops.m114.org/post/zabbix-alerts-use-telegram/</link>
+      <link>http://ops.m114.org/post/zabbix-alerts-use-telegram/</link>
       <pubDate>Sat, 25 Apr 2015 17:16:29 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/zabbix-alerts-use-telegram/</guid>
+      <guid>http://ops.m114.org/post/zabbix-alerts-use-telegram/</guid>
       <description>
 
 &lt;h3 id=&#34;环境&#34;&gt;环境&lt;/h3&gt;

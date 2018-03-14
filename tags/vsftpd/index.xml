@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Vsftpd on ops</title>
-    <link>https://ops.m114.org/tags/vsftpd/index.xml</link>
+    <link>http://ops.m114.org/tags/vsftpd/index.xml</link>
     <description>Recent content in Vsftpd on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <copyright>&amp;copy; 2014-2017. All rights reserved.</copyright>
-    <atom:link href="https://ops.m114.org/tags/vsftpd/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>&amp;copy; 2014-2018. All rights reserved.</copyright>
+    <atom:link href="http://ops.m114.org/tags/vsftpd/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Error: 500 OOPS: priv_sock_get_cmd [SOLVED]</title>
-      <link>https://ops.m114.org/post/error-500-oops-priv_sock_get_cmd-solved/</link>
+      <link>http://ops.m114.org/post/error-500-oops-priv_sock_get_cmd-solved/</link>
       <pubDate>Sun, 23 Jul 2017 16:21:45 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/error-500-oops-priv_sock_get_cmd-solved/</guid>
+      <guid>http://ops.m114.org/post/error-500-oops-priv_sock_get_cmd-solved/</guid>
       <description>
 
 &lt;h2 id=&#34;troubleshooting&#34;&gt;Troubleshooting&lt;/h2&gt;

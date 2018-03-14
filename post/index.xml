@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on ops</title>
-    <link>https://ops.m114.org/post/index.xml</link>
+    <link>http://ops.m114.org/post/index.xml</link>
     <description>Recent content in Posts on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <copyright>&amp;copy; 2014-2017. All rights reserved.</copyright>
+    <copyright>&amp;copy; 2014-2018. All rights reserved.</copyright>
     <lastBuildDate>Wed, 23 Aug 2017 23:38:09 +0800</lastBuildDate>
-    <atom:link href="https://ops.m114.org/post/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://ops.m114.org/post/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>go如何编译出更小的执行文件?</title>
-      <link>https://ops.m114.org/post/go-build-small-exec/</link>
+      <link>http://ops.m114.org/post/go-build-small-exec/</link>
       <pubDate>Wed, 23 Aug 2017 23:38:09 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/go-build-small-exec/</guid>
+      <guid>http://ops.m114.org/post/go-build-small-exec/</guid>
       <description>
 
 &lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
@@ -109,10 +109,10 @@ Packed 1 file.
     
     <item>
       <title>Golang之command line flag笔记</title>
-      <link>https://ops.m114.org/post/golang-command-line-flags/</link>
+      <link>http://ops.m114.org/post/golang-command-line-flags/</link>
       <pubDate>Wed, 16 Aug 2017 23:28:33 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/golang-command-line-flags/</guid>
+      <guid>http://ops.m114.org/post/golang-command-line-flags/</guid>
       <description>&lt;p&gt;&lt;strong&gt;示例代码，仅供参考&lt;/strong&gt;&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;package main
@@ -237,10 +237,10 @@ NFlag = 3
     
     <item>
       <title>analysing java core dump</title>
-      <link>https://ops.m114.org/post/analysing-java-core-dump/</link>
+      <link>http://ops.m114.org/post/analysing-java-core-dump/</link>
       <pubDate>Sun, 23 Jul 2017 16:32:26 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/analysing-java-core-dump/</guid>
+      <guid>http://ops.m114.org/post/analysing-java-core-dump/</guid>
       <description>&lt;p&gt;In this post, I will show you how you can debug a Java core file to see what caused your JVM to crash. I will be using a core file I generated in my previous post: &lt;a href=&#34;http://fahdshariff.blogspot.co.uk/2012/08/generating-java-core-dump.html&#34;&gt;Generating a Java Core Dump&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;There are different ways you can diagnose a JVM crash, listed below:&lt;/p&gt;
@@ -382,10 +382,10 @@ JVM version is 17.0-b16
     
     <item>
       <title>Error: 500 OOPS: priv_sock_get_cmd [SOLVED]</title>
-      <link>https://ops.m114.org/post/error-500-oops-priv_sock_get_cmd-solved/</link>
+      <link>http://ops.m114.org/post/error-500-oops-priv_sock_get_cmd-solved/</link>
       <pubDate>Sun, 23 Jul 2017 16:21:45 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/error-500-oops-priv_sock_get_cmd-solved/</guid>
+      <guid>http://ops.m114.org/post/error-500-oops-priv_sock_get_cmd-solved/</guid>
       <description>
 
 &lt;h2 id=&#34;troubleshooting&#34;&gt;Troubleshooting&lt;/h2&gt;
@@ -409,10 +409,10 @@ service vsftpd restart
     
     <item>
       <title>Python版本号比较</title>
-      <link>https://ops.m114.org/post/python-version-cmp/</link>
+      <link>http://ops.m114.org/post/python-version-cmp/</link>
       <pubDate>Sun, 23 Jul 2017 16:13:10 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/python-version-cmp/</guid>
+      <guid>http://ops.m114.org/post/python-version-cmp/</guid>
       <description>
 
 &lt;h2 id=&#34;第一种比较方法-strictversion&#34;&gt;第一种比较方法(StrictVersion)&lt;/h2&gt;
@@ -513,10 +513,10 @@ Out[5]: True
     
     <item>
       <title>golang sync.WaitGroup解决goroutine同步</title>
-      <link>https://ops.m114.org/post/sync-WaitGroup/</link>
+      <link>http://ops.m114.org/post/sync-WaitGroup/</link>
       <pubDate>Mon, 03 Jul 2017 16:27:12 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/sync-WaitGroup/</guid>
+      <guid>http://ops.m114.org/post/sync-WaitGroup/</guid>
       <description>&lt;p&gt;&lt;strong&gt;go提供了sync包和channel来解决协程同步和通讯。&lt;/strong&gt;新手对channel通道操作起来更容易产生死锁，如果时缓冲的channel还要考虑channel放入和取出数据的速率问题。&lt;/p&gt;
 
 &lt;p&gt;从字面就可以理解，sync.WaitGroup是等待一组协程结束。它实现了一个类似任务队列的结构，你可以向队列中加入任务，任务完成后就把任务从队列中移除，如果队列中的任务没有全部完成，队列就会触发阻塞以阻止程序继续运行。&lt;/p&gt;
@@ -555,10 +555,10 @@ func main() {
     
     <item>
       <title>Tomcat 7.0.76 Invalid character found in the request target</title>
-      <link>https://ops.m114.org/post/fix-tomcat-upgrade-error/</link>
+      <link>http://ops.m114.org/post/fix-tomcat-upgrade-error/</link>
       <pubDate>Mon, 27 Mar 2017 13:08:25 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/fix-tomcat-upgrade-error/</guid>
+      <guid>http://ops.m114.org/post/fix-tomcat-upgrade-error/</guid>
       <description>&lt;p&gt;&lt;strong&gt;故障现象&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;升级tomcat至7.0.76后，GET请求的参数中含有中文时tomcat返回400错误，tomcat错误日志如下&lt;/p&gt;
@@ -590,10 +590,10 @@ func main() {
     
     <item>
       <title>不重启解决Too Many Connections</title>
-      <link>https://ops.m114.org/post/solve-too-many-connections/</link>
+      <link>http://ops.m114.org/post/solve-too-many-connections/</link>
       <pubDate>Sat, 07 Jan 2017 19:57:32 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/solve-too-many-connections/</guid>
+      <guid>http://ops.m114.org/post/solve-too-many-connections/</guid>
       <description>&lt;p&gt;当发生Too many connections时，即使是DBA也无法登录到数据库，一般的做法是修改配置文件的max_connections参数，然后重启数据库，这样业务就有几秒钟的中断，对于线上不能中断的数据库就只能采用另外一种极客的方法了，用gdb直接修改mysqld内存中max_connections的值，具体做法如下：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;gdb -p $(cat /data/mysql/mysql-server.pid) -ex &amp;quot;set max_connections=3000&amp;quot; -batch
@@ -613,10 +613,10 @@ max_user_connections：该实例允许每个用户的最大连接数
     
     <item>
       <title>在 OpenResty 中使用正则表达式</title>
-      <link>https://ops.m114.org/post/use-regular-expressions-in-OpenResty/</link>
+      <link>http://ops.m114.org/post/use-regular-expressions-in-OpenResty/</link>
       <pubDate>Sun, 30 Oct 2016 10:48:19 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/use-regular-expressions-in-OpenResty/</guid>
+      <guid>http://ops.m114.org/post/use-regular-expressions-in-OpenResty/</guid>
       <description>&lt;p&gt;在 OpenResty 中使用正则表达式，社区中推荐的做法是使用ngx.re api。比如匹配一个字符串是否为 http(s) 的链接，可以这么写：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;local function is_http_url(s)
@@ -700,10 +700,10 @@ url，正则处理亦非瓶颈。不过 resty.core.regex 对自己的项目是�
     
     <item>
       <title>[python]统计列表中重复项的出现次数</title>
-      <link>https://ops.m114.org/post/python-count-duplicate-values-of-list/</link>
+      <link>http://ops.m114.org/post/python-count-duplicate-values-of-list/</link>
       <pubDate>Sun, 30 Oct 2016 10:27:24 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/python-count-duplicate-values-of-list/</guid>
+      <guid>http://ops.m114.org/post/python-count-duplicate-values-of-list/</guid>
       <description>&lt;p&gt;列表项由数字、字符串组成，统计重复项&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; from collections import defaultdict
@@ -744,10 +744,10 @@ url，正则处理亦非瓶颈。不过 resty.core.regex 对自己的项目是�
     
     <item>
       <title>Ceph核心概念备忘录</title>
-      <link>https://ops.m114.org/post/ceph-key-concepts-backup/</link>
+      <link>http://ops.m114.org/post/ceph-key-concepts-backup/</link>
       <pubDate>Fri, 26 Aug 2016 14:38:12 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/ceph-key-concepts-backup/</guid>
+      <guid>http://ops.m114.org/post/ceph-key-concepts-backup/</guid>
       <description>
 
 &lt;h2 id=&#34;scrub&#34;&gt;scrub&lt;/h2&gt;
@@ -799,10 +799,10 @@ url，正则处理亦非瓶颈。不过 resty.core.regex 对自己的项目是�
     
     <item>
       <title>ceph pgs inconsistent</title>
-      <link>https://ops.m114.org/post/ceph-pgs-inconsistent/</link>
+      <link>http://ops.m114.org/post/ceph-pgs-inconsistent/</link>
       <pubDate>Wed, 17 Aug 2016 23:44:59 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/ceph-pgs-inconsistent/</guid>
+      <guid>http://ops.m114.org/post/ceph-pgs-inconsistent/</guid>
       <description>&lt;p&gt;OSD扩容后出现如下错误&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;HEALTH_ERR 2 pgs inconsistent; 320 scrub errors&lt;/code&gt;&lt;/p&gt;
@@ -829,10 +829,10 @@ instructing pg 10.10 on osd.2 to repair
     
     <item>
       <title>删除osd的正确方式</title>
-      <link>https://ops.m114.org/post/right-steps-delete-ceph-osd/</link>
+      <link>http://ops.m114.org/post/right-steps-delete-ceph-osd/</link>
       <pubDate>Sat, 06 Aug 2016 23:51:26 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/right-steps-delete-ceph-osd/</guid>
+      <guid>http://ops.m114.org/post/right-steps-delete-ceph-osd/</guid>
       <description>
 
 &lt;p&gt;按照官网的步骤走的话，在 &lt;code&gt;标记osd为out&lt;/code&gt; 和 &lt;code&gt;从crushmap删除osd&lt;/code&gt; 这两步都会触发数据再平衡，如下方式只触发了一次迁移，建议使用。&lt;/p&gt;
@@ -885,10 +885,10 @@ instructing pg 10.10 on osd.2 to repair
     
     <item>
       <title>Centos 7.x systemd对比Centos 6.x daemon</title>
-      <link>https://ops.m114.org/post/CentOS7-systemd-vs-CentOS6-daemon/</link>
+      <link>http://ops.m114.org/post/CentOS7-systemd-vs-CentOS6-daemon/</link>
       <pubDate>Sat, 06 Aug 2016 13:54:53 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/CentOS7-systemd-vs-CentOS6-daemon/</guid>
+      <guid>http://ops.m114.org/post/CentOS7-systemd-vs-CentOS6-daemon/</guid>
       <description>
 
 &lt;p&gt;从CentOS 7.x开始，CentOS开始使用systemd服务来代替daemon，原来管理系统启动和管理系统服务的相关命令全部由systemctl命令来代替。&lt;/p&gt;
@@ -1172,10 +1172,10 @@ systemctl disable sshd.service sshd.socket
     
     <item>
       <title>MySQL Unable to lock ibdata1 error 11 fix</title>
-      <link>https://ops.m114.org/post/MySQL-Unable-to-lock-ibdata1-error-11-fix/</link>
+      <link>http://ops.m114.org/post/MySQL-Unable-to-lock-ibdata1-error-11-fix/</link>
       <pubDate>Wed, 03 Aug 2016 10:52:24 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/MySQL-Unable-to-lock-ibdata1-error-11-fix/</guid>
+      <guid>http://ops.m114.org/post/MySQL-Unable-to-lock-ibdata1-error-11-fix/</guid>
       <description>
 
 &lt;p&gt;A bad shutdown can cause such erros on MySQL.&lt;/p&gt;
