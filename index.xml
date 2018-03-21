@@ -806,6 +806,7 @@ url，正则处理亦非瓶颈。不过 resty.core.regex 对自己的项目是�
 &lt;li&gt;&lt;a href=&#34;https://github.com/thibaultcha/lua-resty-mlcache&#34;&gt;lua-resty-mlcache&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/hamishforbes/lua-resty-iputils&#34;&gt;lua-resty-iputils&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/doujiang24/lua-resty-rsa&#34;&gt;lua-resty-rsa&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/jkeys089/lua-resty-hmac&#34;&gt;lua-resty-hmac&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;ngx-lua-web开发&#34;&gt;ngx_lua Web开发&lt;/h2&gt;
