@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Mysql on ops</title>
-    <link>http://ops.m114.org/tags/mysql/index.xml</link>
+    <link>https://ops.m114.org/tags/mysql/index.xml</link>
     <description>Recent content in Mysql on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2018. All rights reserved.</copyright>
-    <atom:link href="http://ops.m114.org/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://ops.m114.org/tags/mysql/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>不重启解决Too Many Connections</title>
-      <link>http://ops.m114.org/post/solve-too-many-connections/</link>
+      <link>https://ops.m114.org/post/solve-too-many-connections/</link>
       <pubDate>Sat, 07 Jan 2017 19:57:32 +0800</pubDate>
       
-      <guid>http://ops.m114.org/post/solve-too-many-connections/</guid>
+      <guid>https://ops.m114.org/post/solve-too-many-connections/</guid>
       <description>&lt;p&gt;当发生Too many connections时，即使是DBA也无法登录到数据库，一般的做法是修改配置文件的max_connections参数，然后重启数据库，这样业务就有几秒钟的中断，对于线上不能中断的数据库就只能采用另外一种极客的方法了，用gdb直接修改mysqld内存中max_connections的值，具体做法如下：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;gdb -p $(cat /data/mysql/mysql-server.pid) -ex &amp;quot;set max_connections=3000&amp;quot; -batch
@@ -34,10 +34,10 @@ max_user_connections：该实例允许每个用户的最大连接数
     
     <item>
       <title>MySQL Unable to lock ibdata1 error 11 fix</title>
-      <link>http://ops.m114.org/post/MySQL-Unable-to-lock-ibdata1-error-11-fix/</link>
+      <link>https://ops.m114.org/post/MySQL-Unable-to-lock-ibdata1-error-11-fix/</link>
       <pubDate>Wed, 03 Aug 2016 10:52:24 +0800</pubDate>
       
-      <guid>http://ops.m114.org/post/MySQL-Unable-to-lock-ibdata1-error-11-fix/</guid>
+      <guid>https://ops.m114.org/post/MySQL-Unable-to-lock-ibdata1-error-11-fix/</guid>
       <description>
 
 &lt;p&gt;A bad shutdown can cause such erros on MySQL.&lt;/p&gt;

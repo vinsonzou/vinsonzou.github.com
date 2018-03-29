@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Centos7 on ops</title>
-    <link>http://ops.m114.org/topics/centos7/index.xml</link>
+    <link>https://ops.m114.org/topics/centos7/index.xml</link>
     <description>Recent content in Centos7 on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2018. All rights reserved.</copyright>
-    <atom:link href="http://ops.m114.org/topics/centos7/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://ops.m114.org/topics/centos7/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Centos 7.x systemd对比Centos 6.x daemon</title>
-      <link>http://ops.m114.org/post/CentOS7-systemd-vs-CentOS6-daemon/</link>
+      <link>https://ops.m114.org/post/CentOS7-systemd-vs-CentOS6-daemon/</link>
       <pubDate>Sat, 06 Aug 2016 13:54:53 +0800</pubDate>
       
-      <guid>http://ops.m114.org/post/CentOS7-systemd-vs-CentOS6-daemon/</guid>
+      <guid>https://ops.m114.org/post/CentOS7-systemd-vs-CentOS6-daemon/</guid>
       <description>
 
 &lt;p&gt;从CentOS 7.x开始，CentOS开始使用systemd服务来代替daemon，原来管理系统启动和管理系统服务的相关命令全部由systemctl命令来代替。&lt;/p&gt;

@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>转载 on ops</title>
-    <link>http://ops.m114.org/tags/%E8%BD%AC%E8%BD%BD/index.xml</link>
+    <link>https://ops.m114.org/tags/%E8%BD%AC%E8%BD%BD/index.xml</link>
     <description>Recent content in 转载 on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2018. All rights reserved.</copyright>
-    <atom:link href="http://ops.m114.org/tags/%E8%BD%AC%E8%BD%BD/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://ops.m114.org/tags/%E8%BD%AC%E8%BD%BD/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>analysing java core dump</title>
-      <link>http://ops.m114.org/post/analysing-java-core-dump/</link>
+      <link>https://ops.m114.org/post/analysing-java-core-dump/</link>
       <pubDate>Sun, 23 Jul 2017 16:32:26 +0800</pubDate>
       
-      <guid>http://ops.m114.org/post/analysing-java-core-dump/</guid>
+      <guid>https://ops.m114.org/post/analysing-java-core-dump/</guid>
       <description>&lt;p&gt;In this post, I will show you how you can debug a Java core file to see what caused your JVM to crash. I will be using a core file I generated in my previous post: &lt;a href=&#34;http://fahdshariff.blogspot.co.uk/2012/08/generating-java-core-dump.html&#34;&gt;Generating a Java Core Dump&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;There are different ways you can diagnose a JVM crash, listed below:&lt;/p&gt;
@@ -156,10 +156,10 @@ JVM version is 17.0-b16
     
     <item>
       <title>在 OpenResty 中使用正则表达式</title>
-      <link>http://ops.m114.org/post/use-regular-expressions-in-OpenResty/</link>
+      <link>https://ops.m114.org/post/use-regular-expressions-in-OpenResty/</link>
       <pubDate>Sun, 30 Oct 2016 10:48:19 +0800</pubDate>
       
-      <guid>http://ops.m114.org/post/use-regular-expressions-in-OpenResty/</guid>
+      <guid>https://ops.m114.org/post/use-regular-expressions-in-OpenResty/</guid>
       <description>&lt;p&gt;在 OpenResty 中使用正则表达式，社区中推荐的做法是使用ngx.re api。比如匹配一个字符串是否为 http(s) 的链接，可以这么写：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;local function is_http_url(s)

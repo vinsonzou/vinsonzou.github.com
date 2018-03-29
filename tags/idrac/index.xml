@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Idrac on ops</title>
-    <link>http://ops.m114.org/tags/idrac/index.xml</link>
+    <link>https://ops.m114.org/tags/idrac/index.xml</link>
     <description>Recent content in Idrac on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2018. All rights reserved.</copyright>
-    <atom:link href="http://ops.m114.org/tags/idrac/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://ops.m114.org/tags/idrac/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>R420服务器idrac连接用户数超限制</title>
-      <link>http://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/</link>
+      <link>https://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/</link>
       <pubDate>Tue, 12 Jul 2016 23:29:35 +0800</pubDate>
       
-      <guid>http://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/</guid>
+      <guid>https://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/</guid>
       <description>&lt;p&gt;Dell R420服务器中，比较经常出现idrac无法连接，或者连接用户数超限(&lt;code&gt;RAC0218错误&lt;/code&gt;)的问题，升级iDrac卡firmware至1.57.57即可解决。&lt;/p&gt;
 
 &lt;p&gt;该版本的bug fix中提到过一点：&lt;/p&gt;

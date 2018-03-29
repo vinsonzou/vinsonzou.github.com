@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ceph on ops</title>
-    <link>http://ops.m114.org/tags/ceph/index.xml</link>
+    <link>https://ops.m114.org/tags/ceph/index.xml</link>
     <description>Recent content in Ceph on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2018. All rights reserved.</copyright>
-    <atom:link href="http://ops.m114.org/tags/ceph/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://ops.m114.org/tags/ceph/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>ceph集群jewel版本部署osd激活权限报错</title>
-      <link>http://ops.m114.org/post/ceph-jewel-osd-activate-bug/</link>
+      <link>https://ops.m114.org/post/ceph-jewel-osd-activate-bug/</link>
       <pubDate>Fri, 29 Jul 2016 00:29:29 +0800</pubDate>
       
-      <guid>http://ops.m114.org/post/ceph-jewel-osd-activate-bug/</guid>
+      <guid>https://ops.m114.org/post/ceph-jewel-osd-activate-bug/</guid>
       <description>&lt;p&gt;&lt;strong&gt;环境&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;ceph version 10.2.2 (45107e21c568dd033c2f0a3107dec8f0b0e58374)&lt;/br&gt;
@@ -116,10 +116,10 @@ ceph-deploy 1.5.34&lt;/p&gt;
     
     <item>
       <title>使用国内源部署Ceph</title>
-      <link>http://ops.m114.org/post/deploy-ceph-using-china-mirror/</link>
+      <link>https://ops.m114.org/post/deploy-ceph-using-china-mirror/</link>
       <pubDate>Thu, 28 Jul 2016 13:17:52 +0800</pubDate>
       
-      <guid>http://ops.m114.org/post/deploy-ceph-using-china-mirror/</guid>
+      <guid>https://ops.m114.org/post/deploy-ceph-using-china-mirror/</guid>
       <description>
 
 &lt;p&gt;由于网络方面的原因，Ceph的部署经常受到干扰，通常为了加速部署，基本上大家都是将Ceph的源同步到本地进行安装。根据Ceph中国社区的统计，当前已经有国内的网站定期将Ceph安装源同步，极大的方便了我们的测试。本文就是介绍如何使用国内源，加速ceph-deploy部署Ceph集群。&lt;/p&gt;

@@ -2,342 +2,342 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://ops.m114.org/post/go-build-small-exec/</loc>
+    <loc>https://ops.m114.org/post/go-build-small-exec/</loc>
     <lastmod>2017-08-23T23:38:09+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/golang-command-line-flags/</loc>
+    <loc>https://ops.m114.org/post/golang-command-line-flags/</loc>
     <lastmod>2017-08-16T23:28:33+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/analysing-java-core-dump/</loc>
+    <loc>https://ops.m114.org/post/analysing-java-core-dump/</loc>
     <lastmod>2017-07-23T16:32:26+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/error-500-oops-priv_sock_get_cmd-solved/</loc>
+    <loc>https://ops.m114.org/post/error-500-oops-priv_sock_get_cmd-solved/</loc>
     <lastmod>2017-07-23T16:21:45+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/python-version-cmp/</loc>
+    <loc>https://ops.m114.org/post/python-version-cmp/</loc>
     <lastmod>2017-07-23T16:13:10+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/sync-WaitGroup/</loc>
+    <loc>https://ops.m114.org/post/sync-WaitGroup/</loc>
     <lastmod>2017-07-03T16:27:12+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/fix-tomcat-upgrade-error/</loc>
+    <loc>https://ops.m114.org/post/fix-tomcat-upgrade-error/</loc>
     <lastmod>2017-03-27T13:08:25+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/solve-too-many-connections/</loc>
+    <loc>https://ops.m114.org/post/solve-too-many-connections/</loc>
     <lastmod>2017-01-07T19:57:32+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/use-regular-expressions-in-OpenResty/</loc>
+    <loc>https://ops.m114.org/post/use-regular-expressions-in-OpenResty/</loc>
     <lastmod>2016-10-30T10:48:19+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/python-count-duplicate-values-of-list/</loc>
+    <loc>https://ops.m114.org/post/python-count-duplicate-values-of-list/</loc>
     <lastmod>2016-10-30T10:27:24+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/about/</loc>
+    <loc>https://ops.m114.org/about/</loc>
     <lastmod>2016-10-22T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/ceph-key-concepts-backup/</loc>
+    <loc>https://ops.m114.org/post/ceph-key-concepts-backup/</loc>
     <lastmod>2016-08-26T14:38:12+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/ceph-pgs-inconsistent/</loc>
+    <loc>https://ops.m114.org/post/ceph-pgs-inconsistent/</loc>
     <lastmod>2016-08-17T23:44:59+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/right-steps-delete-ceph-osd/</loc>
+    <loc>https://ops.m114.org/post/right-steps-delete-ceph-osd/</loc>
     <lastmod>2016-08-06T23:51:26+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/CentOS7-systemd-vs-CentOS6-daemon/</loc>
+    <loc>https://ops.m114.org/post/CentOS7-systemd-vs-CentOS6-daemon/</loc>
     <lastmod>2016-08-06T13:54:53+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/MySQL-Unable-to-lock-ibdata1-error-11-fix/</loc>
+    <loc>https://ops.m114.org/post/MySQL-Unable-to-lock-ibdata1-error-11-fix/</loc>
     <lastmod>2016-08-03T10:52:24+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/ceph-jewel-osd-activate-bug/</loc>
+    <loc>https://ops.m114.org/post/ceph-jewel-osd-activate-bug/</loc>
     <lastmod>2016-07-29T00:29:29+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/deploy-ceph-using-china-mirror/</loc>
+    <loc>https://ops.m114.org/post/deploy-ceph-using-china-mirror/</loc>
     <lastmod>2016-07-28T13:17:52+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/</loc>
+    <loc>https://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/</loc>
     <lastmod>2016-07-12T23:29:35+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/linux-performance-tools/</loc>
+    <loc>https://ops.m114.org/post/linux-performance-tools/</loc>
     <lastmod>2016-07-03T13:39:01+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/git-common-command/</loc>
+    <loc>https://ops.m114.org/post/git-common-command/</loc>
     <lastmod>2016-06-16T12:33:10+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/docker-for-mac-beta/</loc>
+    <loc>https://ops.m114.org/post/docker-for-mac-beta/</loc>
     <lastmod>2016-05-20T00:05:35+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/kernel-igb-00000100-0-eth0-reset-adapter/</loc>
+    <loc>https://ops.m114.org/post/kernel-igb-00000100-0-eth0-reset-adapter/</loc>
     <lastmod>2015-06-03T23:04:55+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/DNSPOD-API-SSL-subjectAltName/</loc>
+    <loc>https://ops.m114.org/post/DNSPOD-API-SSL-subjectAltName/</loc>
     <lastmod>2015-05-10T23:44:43+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/russia-permanent-winter-time/</loc>
+    <loc>https://ops.m114.org/post/russia-permanent-winter-time/</loc>
     <lastmod>2015-04-26T16:59:30+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/</loc>
+    <loc>https://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/</loc>
     <lastmod>2015-04-26T16:00:00+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/zabbix-alerts-use-telegram/</loc>
+    <loc>https://ops.m114.org/post/zabbix-alerts-use-telegram/</loc>
     <lastmod>2015-04-25T17:16:29+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/monitor-ssl-certificate-expiry/</loc>
+    <loc>https://ops.m114.org/post/monitor-ssl-certificate-expiry/</loc>
     <lastmod>2015-04-25T16:31:41+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/how-to-use-hugo/</loc>
+    <loc>https://ops.m114.org/post/how-to-use-hugo/</loc>
     <lastmod>2014-11-11T17:15:00+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/topics/centos7/</loc>
+    <loc>https://ops.m114.org/topics/centos7/</loc>
     <lastmod>2016-08-06T13:54:53+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/topics/ceph/</loc>
+    <loc>https://ops.m114.org/topics/ceph/</loc>
     <lastmod>2016-08-26T14:38:12+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/tags/ceph/</loc>
+    <loc>https://ops.m114.org/tags/ceph/</loc>
     <lastmod>2016-07-29T00:29:29+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/topics/docker/</loc>
+    <loc>https://ops.m114.org/topics/docker/</loc>
     <lastmod>2016-05-20T00:05:35+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/tags/docker/</loc>
+    <loc>https://ops.m114.org/tags/docker/</loc>
     <lastmod>2016-05-20T00:05:35+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/tags/git/</loc>
+    <loc>https://ops.m114.org/tags/git/</loc>
     <lastmod>2016-06-16T12:33:10+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/topics/golang/</loc>
+    <loc>https://ops.m114.org/topics/golang/</loc>
     <lastmod>2017-07-03T16:27:12+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/tags/golang/</loc>
+    <loc>https://ops.m114.org/tags/golang/</loc>
     <lastmod>2017-08-23T23:38:09+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/tags/hugo/</loc>
+    <loc>https://ops.m114.org/tags/hugo/</loc>
     <lastmod>2014-11-11T17:15:00+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/tags/idrac/</loc>
+    <loc>https://ops.m114.org/tags/idrac/</loc>
     <lastmod>2016-07-12T23:29:35+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/tags/igb/</loc>
+    <loc>https://ops.m114.org/tags/igb/</loc>
     <lastmod>2015-06-03T23:04:55+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/tags/java/</loc>
+    <loc>https://ops.m114.org/tags/java/</loc>
     <lastmod>2015-04-26T16:59:30+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/topics/mysql/</loc>
+    <loc>https://ops.m114.org/topics/mysql/</loc>
     <lastmod>2017-01-07T19:57:32+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/tags/mysql/</loc>
+    <loc>https://ops.m114.org/tags/mysql/</loc>
     <lastmod>2017-01-07T19:57:32+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/topics/openresty/</loc>
+    <loc>https://ops.m114.org/topics/openresty/</loc>
     <lastmod>2016-10-30T10:48:19+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/tags/openssl/</loc>
+    <loc>https://ops.m114.org/tags/openssl/</loc>
     <lastmod>2015-04-25T16:31:41+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/post/</loc>
+    <loc>https://ops.m114.org/post/</loc>
     <lastmod>2017-08-23T23:38:09+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/topics/python/</loc>
+    <loc>https://ops.m114.org/topics/python/</loc>
     <lastmod>2016-10-30T10:27:24+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/tags/python/</loc>
+    <loc>https://ops.m114.org/tags/python/</loc>
     <lastmod>2017-07-23T16:13:10+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/tags/subjectaltname/</loc>
+    <loc>https://ops.m114.org/tags/subjectaltname/</loc>
     <lastmod>2015-05-10T23:44:43+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/tags/systemd/</loc>
+    <loc>https://ops.m114.org/tags/systemd/</loc>
     <lastmod>2016-08-06T13:54:53+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/tags/</loc>
+    <loc>https://ops.m114.org/tags/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/tags/telegram/</loc>
+    <loc>https://ops.m114.org/tags/telegram/</loc>
     <lastmod>2015-04-25T17:16:29+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/topics/tips/</loc>
+    <loc>https://ops.m114.org/topics/tips/</loc>
     <lastmod>2016-07-03T13:39:01+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/tags/tomcat/</loc>
+    <loc>https://ops.m114.org/tags/tomcat/</loc>
     <lastmod>2017-03-27T13:08:25+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/topics/</loc>
+    <loc>https://ops.m114.org/topics/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/topics/troubleshooting/</loc>
+    <loc>https://ops.m114.org/topics/troubleshooting/</loc>
     <lastmod>2017-07-23T16:21:45+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/tags/tsunamiudp/</loc>
+    <loc>https://ops.m114.org/tags/tsunamiudp/</loc>
     <lastmod>2015-04-26T16:00:00+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/tags/vsftpd/</loc>
+    <loc>https://ops.m114.org/tags/vsftpd/</loc>
     <lastmod>2017-07-23T16:21:45+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/topics/zabbix/</loc>
+    <loc>https://ops.m114.org/topics/zabbix/</loc>
     <lastmod>2015-04-25T17:16:29+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/tags/zabbix/</loc>
+    <loc>https://ops.m114.org/tags/zabbix/</loc>
     <lastmod>2015-04-25T17:16:29+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/</loc>
+    <loc>https://ops.m114.org/</loc>
     <lastmod>2017-08-23T23:38:09+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://ops.m114.org/tags/%E8%BD%AC%E8%BD%BD/</loc>
+    <loc>https://ops.m114.org/tags/%E8%BD%AC%E8%BD%BD/</loc>
     <lastmod>2017-07-23T16:32:26+08:00</lastmod>
     <priority>0</priority>
   </url>
