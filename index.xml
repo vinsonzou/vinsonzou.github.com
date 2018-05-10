@@ -831,6 +831,7 @@ url，正则处理亦非瓶颈。不过 resty.core.regex 对自己的项目是�
 &lt;li&gt;&lt;a href=&#34;https://github.com/spf13/viper&#34;&gt;viper&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/goofansu/wego&#34;&gt;屏蔽字过滤服务&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/tidwall/gjson&#34;&gt;gjson&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/didi/gendry&#34;&gt;gendry&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;tools&#34;&gt;Tools&lt;/h2&gt;
@@ -840,6 +841,8 @@ url，正则处理亦非瓶颈。不过 resty.core.regex 对自己的项目是�
 &lt;li&gt;&lt;a href=&#34;https://github.com/GrappigPanda/notorious&#34;&gt;Go BitTorrent Tracker&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/anacrolix/torrent&#34;&gt;Go Full-featured BitTorrent client package and utilities&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/laher/goxc&#34;&gt;跨平台生成工具&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/uber/go-torch&#34;&gt;go火焰图&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/radondb/xenon&#34;&gt;QingCloud MySQL Plus开源版(GTID + Raft + Semi-Sync-Replication)&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
