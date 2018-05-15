@@ -809,6 +809,7 @@ url，正则处理亦非瓶颈。不过 resty.core.regex 对自己的项目是�
 &lt;li&gt;&lt;a href=&#34;https://github.com/jkeys089/lua-resty-hmac&#34;&gt;lua-resty-hmac&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/cloudflare/nginx-google-oauth&#34;&gt;nginx-google-oauth&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/cloudflare/lua-aho-corasick&#34;&gt;lua-aho-corasick&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/jx-sec/jxwaf&#34;&gt;jxwaf&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;ngx-lua-web开发&#34;&gt;ngx_lua Web开发&lt;/h2&gt;
@@ -842,8 +843,9 @@ url，正则处理亦非瓶颈。不过 resty.core.regex 对自己的项目是�
 &lt;li&gt;&lt;a href=&#34;https://github.com/anacrolix/torrent&#34;&gt;Go Full-featured BitTorrent client package and utilities&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/laher/goxc&#34;&gt;跨平台生成工具&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/uber/go-torch&#34;&gt;go火焰图&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/jx-sec/jxwaf&#34;&gt;jxwaf&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/radondb/xenon&#34;&gt;QingCloud MySQL Plus开源版(GTID + Raft + Semi-Sync-Replication)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/meqio/meq&#34;&gt;MQ: meq&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/gocolly/colly&#34;&gt;Go爬虫框架: colly&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
