@@ -7,8 +7,39 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2018. All rights reserved.</copyright>
-    <lastBuildDate>Wed, 23 Aug 2017 23:38:09 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 06 Jun 2018 10:00:00 +0800</lastBuildDate>
     <atom:link href="https://ops.m114.org/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>使用curl请求https时指定IP</title>
+      <link>https://ops.m114.org/post/request-https-server-in-custom-ip-with-curl/</link>
+      <pubDate>Wed, 06 Jun 2018 10:00:00 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/request-https-server-in-custom-ip-with-curl/</guid>
+      <description>&lt;p&gt;一般使用curl请求自定义IP地址并且指定HOST的话可以这样。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;curl -H &#39;Host: ops.m114.org&#39; http://127.0.0.1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;但是如果你需要请求的地址是HTTPS就不行了&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ curl -H &#39;Host: ops.m114.org&#39; https://127.0.0.1/
+curl: (51) Unable to communicate securely with peer: requested domain name does not match the server&#39;s certificate.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;因为IP绝大多数情况下无法通过域名证书验证，还好curl中有&lt;code&gt;--resolv&lt;/code&gt;参数可以让我们方便的指定域名的解析&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# --resolv参数形式
+--resolv host:port:address
+# 示例
+curl --resolv ops.m114.org:443:127.0.0.1 https://ops.m114.org
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Ps:&lt;/p&gt;
+
+&lt;p&gt;小编经常使用的CentOS6的自带curl就不支持此参数，幸运的是CentOS7已经支持。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>go如何编译出更小的执行文件?</title>
@@ -1166,31 +1197,6 @@ sshd.socket         loaded inactive dead        OpenSSH Server Socket
 &lt;pre&gt;&lt;code&gt;systemctl stop sshd.service
 systemctl stop sshd.socket
 systemctl disable sshd.service sshd.socket
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>MySQL Unable to lock ibdata1 error 11 fix</title>
-      <link>https://ops.m114.org/post/MySQL-Unable-to-lock-ibdata1-error-11-fix/</link>
-      <pubDate>Wed, 03 Aug 2016 10:52:24 +0800</pubDate>
-      
-      <guid>https://ops.m114.org/post/MySQL-Unable-to-lock-ibdata1-error-11-fix/</guid>
-      <description>
-
-&lt;p&gt;A bad shutdown can cause such erros on MySQL.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;InnoDB: Unable to lock ./ibdata1, error: 11
-InnoDB: Check that you do not already have another mysqld process
-InnoDB: using the same InnoDB data or log files.
-InnoDB: Error in opening ./ibdata1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;for-solution&#34;&gt;For solution&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;mv ibdata1 ibdata1.bak
-cp -a ibdata1.bak ibdata1
-service mysqld restart
 &lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
