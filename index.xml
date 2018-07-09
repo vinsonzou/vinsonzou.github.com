@@ -877,6 +877,8 @@ url，正则处理亦非瓶颈。不过 resty.core.regex 对自己的项目是�
 &lt;li&gt;&lt;a href=&#34;https://github.com/radondb/xenon&#34;&gt;QingCloud MySQL Plus开源版(GTID + Raft + Semi-Sync-Replication)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/meqio/meq&#34;&gt;MQ: meq&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/gocolly/colly&#34;&gt;Go爬虫框架: colly&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/coredns/coredns&#34;&gt;coredns&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/colinmarc/hdfs&#34;&gt;A native go client for HDFS&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
