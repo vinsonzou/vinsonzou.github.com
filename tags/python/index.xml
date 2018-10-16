@@ -10,6 +10,61 @@
     <atom:link href="https://ops.m114.org/tags/python/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Python数据库连接池实例--PooledDB</title>
+      <link>https://ops.m114.org/post/python-mysql-PooledDB/</link>
+      <pubDate>Tue, 16 Oct 2018 16:27:12 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/python-mysql-PooledDB/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;不用连接池的MySQL连接方法&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import MySQLdb
+conn= MySQLdb.connect(host=&#39;127.0.0.1&#39;,user=&#39;root&#39;,passwd=&#39;password&#39;,db=&#39;DB_test&#39;,port=3306)
+cur=conn.cursor()
+SQL=&amp;quot;select * from table_test&amp;quot;
+cur.execute(SQL)
+r=cur.fetchall()
+cur.close()
+conn.close()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;用连接池后的连接方法&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import MySQLdb
+from DBUtils.PooledDB import PooledDB
+pool = PooledDB(MySQLdb,5,host=&#39;127.0.0.1&#39;,user=&#39;root&#39;,passwd=&#39;password&#39;,db=&#39;DB_test&#39;,port=3306)    #5为连接池里的最少连接数
+
+conn = pool.connection()  #以后每次需要数据库连接就是用connection()函数获取连接就好了
+cur=conn.cursor()
+SQL=&amp;quot;select * from table_test&amp;quot;
+cur.execute(SQL)
+r=cur.fetchall()
+cur.close()
+conn.close()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;PooledDB的参数&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;mincached: 最少的空闲连接数，如果空闲连接数小于这个数，pool会创建一个新的连接&lt;/li&gt;
+&lt;li&gt;maxcached: 最大的空闲连接数，如果空闲连接数大于这个数，pool会关闭空闲连接&lt;/li&gt;
+&lt;li&gt;maxconnections: 最大的连接数，&lt;/li&gt;
+&lt;li&gt;blocking: 当连接数达到最大的连接数时，在请求连接的时候，如果这个值是True，请求连接的程序会一直等待，直到当前连接数小于最大连接数，如果这个值是False，会报错，&lt;/li&gt;
+&lt;li&gt;maxshared: 当连接数达到这个数，新请求的连接会分享已经分配出去的连接&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;连接池对性能的提升表现在&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;在程序创建连接的时候，可以从一个空闲的连接中获取，不需要重新初始化连接，提升获取连接的速度&lt;/li&gt;
+&lt;li&gt;关闭连接的时候，把连接放回连接池，而不是真正的关闭，所以可以减少频繁地打开和关闭连接&lt;/li&gt;
+&lt;li&gt;避免mysql连接数耗尽&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;DBUtils下载地址：&lt;a href=&#34;https://pypi.python.org/pypi/DBUtils/&#34;&gt;https://pypi.python.org/pypi/DBUtils/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Python版本号比较</title>
       <link>https://ops.m114.org/post/python-version-cmp/</link>
       <pubDate>Sun, 23 Jul 2017 16:13:10 +0800</pubDate>
