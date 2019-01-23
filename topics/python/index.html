@@ -188,6 +188,62 @@
   
     <article>
   <header>
+    <h2><a href="https://ops.m114.org/post/python-while-1-vs-for-whiletrue/">Python的while 1跟while True到底有什么区别?</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2019/01/23, 17:46</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/python">Python</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/python">Python</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  定义两个方法,分别使用while循环
+def t1(): while 1: pass def t2(): while True: pass  单从功能上说,两种无任何区别,那么,来看看字节码上的区别:
+For Python 2.x
+import dis #载入反编译模块,Python内置的 dis.dis(t1) #对应的是while 1,下面是输出 2 0 SETUP_LOOP 3 (to 6) 3 &gt;&gt; 3 JUMP_ABSOLUTE 3 &gt;&gt; 6 LOAD_CONST 0 (None) 9 RETURN_VALUE dis.dis(t2) #对应的是while True,下面是输出 2 0 SETUP_LOOP 10 (to 13) &gt;&gt; 3 LOAD_GLOBAL 0 (True) 6 POP_JUMP_IF_FALSE 12 3 9 JUMP_ABSOLUTE 3 &gt;&gt; 12 POP_BLOCK &gt;&gt; 13 LOAD_CONST 0 (None) 16 RETURN_VALUE  很明显, while 1的字节码只有while True的一半.
+  </p>
+
+  
+  <footer>
+    <a href="https://ops.m114.org/post/python-while-1-vs-for-whiletrue/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="https://ops.m114.org/post/python-mysql-PooledDB/">Python数据库连接池实例--PooledDB</a></h2>
 
     <div class="post-meta">

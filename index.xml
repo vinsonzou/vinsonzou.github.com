@@ -7,8 +7,105 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2018. All rights reserved.</copyright>
-    <lastBuildDate>Tue, 15 Jan 2019 17:27:22 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 23 Jan 2019 17:46:06 +0800</lastBuildDate>
     <atom:link href="https://ops.m114.org/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Python的while 1跟while True到底有什么区别?</title>
+      <link>https://ops.m114.org/post/python-while-1-vs-for-whiletrue/</link>
+      <pubDate>Wed, 23 Jan 2019 17:46:06 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/python-while-1-vs-for-whiletrue/</guid>
+      <description>&lt;p&gt;定义两个方法,分别使用while循环&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def t1():
+    while 1:
+        pass
+
+def t2():
+    while True:
+        pass
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;单从功能上说,两种无任何区别,那么,来看看字节码上的区别:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;For Python 2.x&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import dis  #载入反编译模块,Python内置的
+
+dis.dis(t1) #对应的是while 1,下面是输出
+  2           0 SETUP_LOOP               3 (to 6)
+
+  3     &amp;gt;&amp;gt;    3 JUMP_ABSOLUTE            3
+        &amp;gt;&amp;gt;    6 LOAD_CONST               0 (None)
+              9 RETURN_VALUE
+
+dis.dis(t2) #对应的是while True,下面是输出
+  2           0 SETUP_LOOP              10 (to 13)
+        &amp;gt;&amp;gt;    3 LOAD_GLOBAL              0 (True)
+              6 POP_JUMP_IF_FALSE       12
+
+  3           9 JUMP_ABSOLUTE            3
+        &amp;gt;&amp;gt;   12 POP_BLOCK
+        &amp;gt;&amp;gt;   13 LOAD_CONST               0 (None)
+             16 RETURN_VALUE
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;很明显, while 1的字节码只有while True的一半. 为什么呢? 因为Python2.x中True不是关键字,只是一个全局变量而已&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;For Python 3.x&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; dis.dis(t1)
+  2           0 SETUP_LOOP               4 (to 6)
+
+  3     &amp;gt;&amp;gt;    2 JUMP_ABSOLUTE            2
+              4 POP_BLOCK
+        &amp;gt;&amp;gt;    6 LOAD_CONST               0 (None)
+              8 RETURN_VALUE
+&amp;gt;&amp;gt;&amp;gt; dis.dis(t2)
+  2           0 SETUP_LOOP               4 (to 6)
+
+  3     &amp;gt;&amp;gt;    2 JUMP_ABSOLUTE            2
+              4 POP_BLOCK
+        &amp;gt;&amp;gt;    6 LOAD_CONST               0 (None)
+              8 RETURN_VALUE
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在python 3.x中，while 1和while True无任何区别。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;总结:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;在Python 2.x中，True不是关键字，而是在bool类型中定义为1的&lt;a href=&#34;http://docs.python.org/library/constants.html#True&#34;&gt;built-in global constant&lt;/a&gt;。因此，解释器仍然必须加载True的内容。换句话说，True是可重新分配的。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;Python 2.7.15 (default, Jan 12 2019, 21:07:57)
+[GCC 4.2.1 Compatible Apple LLVM 10.0.0 (clang-1000.11.45.5)] on darwin
+Type &amp;quot;help&amp;quot;, &amp;quot;copyright&amp;quot;, &amp;quot;credits&amp;quot; or &amp;quot;license&amp;quot; for more information.
+&amp;gt;&amp;gt;&amp;gt; True = 4
+&amp;gt;&amp;gt;&amp;gt; True
+4
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;在Python 3.x中，True也是&lt;a href=&#34;http://docs.python.org/py3k/reference/lexical_analysis.html#keywords&#34;&gt;关键字&lt;/a&gt;了。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;Python 3.7.0 (default, Jun 29 2018, 20:13:13)
+[Clang 9.1.0 (clang-902.0.39.2)] on darwin
+Type &amp;quot;help&amp;quot;, &amp;quot;copyright&amp;quot;, &amp;quot;credits&amp;quot; or &amp;quot;license&amp;quot; for more information.
+&amp;gt;&amp;gt;&amp;gt; True = 4
+  File &amp;quot;&amp;lt;stdin&amp;gt;&amp;quot;, line 1
+SyntaxError: can&#39;t assign to keyword
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;参考:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://stackoverflow.com/questions/3815359/while-1-vs-for-whiletrue-why-is-there-a-difference&#34;&gt;https://stackoverflow.com/questions/3815359/while-1-vs-for-whiletrue-why-is-there-a-difference&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>libvirt 4.5 virModuleLoadFile:53</title>
@@ -975,61 +1072,6 @@ url，正则处理亦非瓶颈。不过 resty.core.regex 对自己的项目是�
 &lt;li&gt;&lt;a href=&#34;https://github.com/coredns/coredns&#34;&gt;coredns&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/colinmarc/hdfs&#34;&gt;A native go client for HDFS&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Ceph核心概念备忘录</title>
-      <link>https://ops.m114.org/post/ceph-key-concepts-backup/</link>
-      <pubDate>Fri, 26 Aug 2016 14:38:12 +0800</pubDate>
-      
-      <guid>https://ops.m114.org/post/ceph-key-concepts-backup/</guid>
-      <description>
-
-&lt;h2 id=&#34;scrub&#34;&gt;scrub&lt;/h2&gt;
-
-&lt;p&gt;ceph-osd会定义启动scrub线程，扫描部分对象（哪些对象？），和其他副本比较，发现是否一致。如果发现不一致，ceph会抛出这个异常给用户解决。以PG为粒度，触发scrub。用户手动修复，使用：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;ceph pg repair &amp;lt;pg_id&amp;gt; # 全量复制master节点数据到副本节点。
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;scrub分为light scrubbing和Deep scrubbing，前者是频率多直接检查hash值，后者是频率少直接读取内容计算checksum比较。&lt;/p&gt;
-
-&lt;h2 id=&#34;backfill&#34;&gt;backfill&lt;/h2&gt;
-
-&lt;p&gt;当加入或者减少一个新的osd时，所有remapped之后的PG都要迁移到该osd上，此时就叫做backfill。&lt;/p&gt;
-
-&lt;h2 id=&#34;recovery&#34;&gt;recovery&lt;/h2&gt;
-
-&lt;p&gt;当一个osd或者多个osd崩溃之后，再次上线，该osd的状态已经严重滞后了（此时crushmap中还保持该osd）,这个时候就会进行recovery过程。如果是多个osd recovery, 那么这个时候会占用非常多的服务器资源。&lt;/p&gt;
-
-&lt;h2 id=&#34;peering&#34;&gt;peering&lt;/h2&gt;
-
-&lt;p&gt;故障恢复时，对比各个副本的PGlog, 根据PGlog差异构造missing列表，恢复阶段根据missing列表来恢复。peering以PG为单位进行，peering过程中，改PG的IO会被挂起，进入recovery阶段，则可以接受IO，但hit到missing列表项的，也会挂起，直到恢复完成后。因为PGlog的记录是有限的，当peering时发现，PGlog差异太大，则会触发backfill。&lt;/p&gt;
-
-&lt;h2 id=&#34;active-clean&#34;&gt;active + clean&lt;/h2&gt;
-
-&lt;p&gt;PG的status，active的意思是说该PG可以接受读写请求，clean的意思是说PG的副本数达到了要求。&lt;/p&gt;
-
-&lt;h2 id=&#34;degrade&#34;&gt;degrade&lt;/h2&gt;
-
-&lt;p&gt;PG的副本数没有达到要求，但是满足最小副本数要求。&lt;/p&gt;
-
-&lt;h2 id=&#34;incomplete&#34;&gt;incomplete&lt;/h2&gt;
-
-&lt;p&gt;PG的副本数连最小副本数都没有达到。&lt;/p&gt;
-
-&lt;h2 id=&#34;inconsistent&#34;&gt;inconsistent&lt;/h2&gt;
-
-&lt;p&gt;scrub或者deep scrub的时候发现PG内容不一致。&lt;/p&gt;
-
-&lt;h2 id=&#34;down&#34;&gt;down&lt;/h2&gt;
-
-&lt;p&gt;关键数据丢失。进入这个状态的一种方法，比如一个PG有两个副本，先down掉其中的一个osd，再down掉第二个osd，最后把第一个osd起起来，这样这个PG就处于down状态。&lt;/p&gt;
-
-&lt;h2 id=&#34;pglog和日志文件系统&#34;&gt;PGlog和日志文件系统&lt;/h2&gt;
-
-&lt;p&gt;PGlog相当于undo log, journal相当于redo log。一个是在某个操作执行完成之后，做log记录，如果操作成功，则可以undo；另一个是在某个操作执行之前，做log记录，如果操作失败，下次可以redo。&lt;/p&gt;
 </description>
     </item>
     

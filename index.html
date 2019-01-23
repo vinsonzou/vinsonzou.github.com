@@ -189,6 +189,62 @@
   
     <article>
   <header>
+    <h2><a href="https://ops.m114.org/post/python-while-1-vs-for-whiletrue/">Python的while 1跟while True到底有什么区别?</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2019/01/23, 17:46</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/python">Python</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/python">Python</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  定义两个方法,分别使用while循环
+def t1(): while 1: pass def t2(): while True: pass  单从功能上说,两种无任何区别,那么,来看看字节码上的区别:
+For Python 2.x
+import dis #载入反编译模块,Python内置的 dis.dis(t1) #对应的是while 1,下面是输出 2 0 SETUP_LOOP 3 (to 6) 3 &gt;&gt; 3 JUMP_ABSOLUTE 3 &gt;&gt; 6 LOAD_CONST 0 (None) 9 RETURN_VALUE dis.dis(t2) #对应的是while True,下面是输出 2 0 SETUP_LOOP 10 (to 13) &gt;&gt; 3 LOAD_GLOBAL 0 (True) 6 POP_JUMP_IF_FALSE 12 3 9 JUMP_ABSOLUTE 3 &gt;&gt; 12 POP_BLOCK &gt;&gt; 13 LOAD_CONST 0 (None) 16 RETURN_VALUE  很明显, while 1的字节码只有while True的一半.
+  </p>
+
+  
+  <footer>
+    <a href="https://ops.m114.org/post/python-while-1-vs-for-whiletrue/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="https://ops.m114.org/post/libvirt-4.5-virModuleLoadFile:53/">libvirt 4.5 virModuleLoadFile:53</a></h2>
 
     <div class="post-meta">
@@ -631,53 +687,6 @@ In [1]: from distutils.version import StrictVersion In [2]: StrictVersion('1.2a3
 sync.WaitGroup只有3个方法，Add()，Done()，Wait()。 其中Done()是Add(-1)的别名。简单的来说，使用Add()添加计数，Done()减掉一个计数，计数不为0, 阻塞Wait()的运行。
 简单示例如下：
 package main import ( &quot;fmt&quot; &quot;sync&quot; ) var waitgroup sync.WaitGroup func test(shownum int) { fmt.Println(shownum) waitgroup.Done() //任务完成，将任务队列中的任务数量-1，其实.Done就是.Add(-1) } func main() { for i := 0; i &lt; 10; i++ { waitgroup.Add(1) //每创建一个goroutine，就把任务队列中任务的数量+1 go test(i) } waitgroup.Wait() //.Wait()这里会发生阻塞，直到队列中所有的任务结束就会解除阻塞 fmt.Println(&quot;done!&quot;) }  Ps: 此文为学习记录，如有错误还请多指教。
-  </p>
-
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/fix-tomcat-upgrade-error/">Tomcat 7.0.76 Invalid character found in the request target</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2017/03/27, 13:08</time>
-  </div>
-
-  
-
-  
-  
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/tomcat">tomcat</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  故障现象
-升级tomcat至7.0.76后，GET请求的参数中含有中文时tomcat返回400错误，tomcat错误日志如下
-java.lang.IllegalArgumentException: Invalid character found in the request target. The valid characters are defined in RFC 7230 and RFC 3986 at org.apache.coyote.http11.InternalNioInputBuffer.parseRequestLine(InternalNioInputBuffer.java:317) at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1000) at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:637) at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1756) at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.run(NioEndpoint.java:1715) at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886) at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908) at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) at java.lang.Thread.run(Thread.java:662)  原因
-查询Changelog得知，tomcat 7.0.73版本添加了Add additional checks for valid characters to the HTTP request line parsing so invalid request lines are rejected sooner导致。
-解决方法
- 请求前自行转义 更换tomcat为较低版本(不过tomcat的这次更改是依据RFC7230 and RFC 3986,在往后的版本,不会移除该特性)  
   </p>
 
   
