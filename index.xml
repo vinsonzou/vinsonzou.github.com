@@ -7,8 +7,47 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2018. All rights reserved.</copyright>
-    <lastBuildDate>Tue, 16 Oct 2018 16:27:12 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 15 Jan 2019 17:27:22 +0800</lastBuildDate>
     <atom:link href="https://ops.m114.org/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>libvirt 4.5 virModuleLoadFile:53</title>
+      <link>https://ops.m114.org/post/libvirt-4.5-virModuleLoadFile:53/</link>
+      <pubDate>Tue, 15 Jan 2019 17:27:22 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/libvirt-4.5-virModuleLoadFile:53/</guid>
+      <description>&lt;p&gt;CentOS 7.5.1804的libvirt从3.9升级至4.5时，无法启动，报错如下：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;error : virModuleLoadFile:53 : internal error: Failed to load module &amp;lsquo;/usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so&amp;rsquo;: /usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so: undefined symbol: rbd_diff_iterate2&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;详细报错如下:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[root@localhost ~]# libvirtd -v
+2019-01-15 08:56:53.433+0000: 34181: info : libvirt version: 4.5.0, package: 10.el7_6.3 (CentOS BuildSystem &amp;lt;http://bugs.centos.org&amp;gt;, 2018-11-28-20:51:39, x86-01.bsys.centos.org)
+2019-01-15 08:56:53.433+0000: 34181: info : hostname: localhost.localdomain
+2019-01-15 08:56:53.433+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5da690 classname=virAccessManager
+2019-01-15 08:56:53.434+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5cbfe0 classname=virAccessManager
+2019-01-15 08:56:53.434+0000: 34181: info : virObjectRef:382 : OBJECT_REF: obj=0x56166f5da690
+2019-01-15 08:56:53.434+0000: 34181: info : virObjectUnref:344 : OBJECT_UNREF: obj=0x56166f5da690
+2019-01-15 08:56:53.434+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5cc470 classname=virNetDaemon
+2019-01-15 08:56:53.434+0000: 34181: info : virEventPollAddHandle:140 : EVENT_POLL_ADD_HANDLE: watch=1 fd=5 events=1 cb=0x7f5e248272d0 opaque=(nil) ff=(nil)
+2019-01-15 08:56:53.434+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5cc7d0 classname=virNetServer
+2019-01-15 08:56:53.434+0000: 34181: info : virObjectRef:382 : OBJECT_REF: obj=0x56166f5cc7d0
+2019-01-15 08:56:53.462+0000: 34181: error : virModuleLoadFile:53 : internal error: Failed to load module &#39;/usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so&#39;: /usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so: undefined symbol: rbd_diff_iterate2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;解决方法:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;libvirt_storage_backend_rbd.so&lt;/code&gt;应该是连接ceph块设备（rbd）的一个模块，这里暂时不用连接ceph，最简单粗暴的做法就是移除该模块，重启libvirtd。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[root@localhost ~]# cd /usr/lib64/libvirt/storage-backend
+[root@localhost storage-backend]# mv libvirt_storage_backend_rbd.so libvirt_storage_backend_rbd.so.bak
+[root@localhost ~]# systemctl restart libvirtd
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>Python数据库连接池实例--PooledDB</title>
@@ -896,6 +935,7 @@ url，正则处理亦非瓶颈。不过 resty.core.regex 对自己的项目是�
 &lt;li&gt;&lt;a href=&#34;https://github.com/cloudflare/nginx-google-oauth&#34;&gt;nginx-google-oauth&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/cloudflare/lua-aho-corasick&#34;&gt;lua-aho-corasick&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/jx-sec/jxwaf&#34;&gt;jxwaf&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/GUI/lua-resty-mail&#34;&gt;lua-resty-mail&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;ngx-lua-web开发&#34;&gt;ngx_lua Web开发&lt;/h2&gt;
@@ -990,36 +1030,6 @@ url，正则处理亦非瓶颈。不过 resty.core.regex 对自己的项目是�
 &lt;h2 id=&#34;pglog和日志文件系统&#34;&gt;PGlog和日志文件系统&lt;/h2&gt;
 
 &lt;p&gt;PGlog相当于undo log, journal相当于redo log。一个是在某个操作执行完成之后，做log记录，如果操作成功，则可以undo；另一个是在某个操作执行之前，做log记录，如果操作失败，下次可以redo。&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>ceph pgs inconsistent</title>
-      <link>https://ops.m114.org/post/ceph-pgs-inconsistent/</link>
-      <pubDate>Wed, 17 Aug 2016 23:44:59 +0800</pubDate>
-      
-      <guid>https://ops.m114.org/post/ceph-pgs-inconsistent/</guid>
-      <description>&lt;p&gt;OSD扩容后出现如下错误&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;HEALTH_ERR 2 pgs inconsistent; 320 scrub errors&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[root@ceph01 ~]# ceph health detail
-HEALTH_ERR 2 pgs inconsistent; 320 scrub errors
-pg 10.9 is active+clean+inconsistent, acting [6,0,9]
-pg 10.10 is active+clean+scrubbing+deep+inconsistent, acting [2,6,4]
-320 scrub errors
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;修复处于不一致状态的pgs&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[root@ceph01 ~]# ceph pg repair 10.9
-instructing pg 10.9 on osd.6 to repair
-
-[root@ceph01 ~]# ceph pg repair 10.10
-instructing pg 10.10 on osd.2 to repair
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;经过一段时间的修复后，ceph恢复正常。&lt;/p&gt;
 </description>
     </item>
     
