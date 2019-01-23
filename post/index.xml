@@ -7,8 +7,47 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2018. All rights reserved.</copyright>
-    <lastBuildDate>Tue, 16 Oct 2018 16:27:12 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 15 Jan 2019 17:27:22 +0800</lastBuildDate>
     <atom:link href="https://ops.m114.org/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>libvirt 4.5 virModuleLoadFile:53</title>
+      <link>https://ops.m114.org/post/libvirt-4.5-virModuleLoadFile:53/</link>
+      <pubDate>Tue, 15 Jan 2019 17:27:22 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/libvirt-4.5-virModuleLoadFile:53/</guid>
+      <description>&lt;p&gt;CentOS 7.5.1804的libvirt从3.9升级至4.5时，无法启动，报错如下：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;error : virModuleLoadFile:53 : internal error: Failed to load module &amp;lsquo;/usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so&amp;rsquo;: /usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so: undefined symbol: rbd_diff_iterate2&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;详细报错如下:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[root@localhost ~]# libvirtd -v
+2019-01-15 08:56:53.433+0000: 34181: info : libvirt version: 4.5.0, package: 10.el7_6.3 (CentOS BuildSystem &amp;lt;http://bugs.centos.org&amp;gt;, 2018-11-28-20:51:39, x86-01.bsys.centos.org)
+2019-01-15 08:56:53.433+0000: 34181: info : hostname: localhost.localdomain
+2019-01-15 08:56:53.433+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5da690 classname=virAccessManager
+2019-01-15 08:56:53.434+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5cbfe0 classname=virAccessManager
+2019-01-15 08:56:53.434+0000: 34181: info : virObjectRef:382 : OBJECT_REF: obj=0x56166f5da690
+2019-01-15 08:56:53.434+0000: 34181: info : virObjectUnref:344 : OBJECT_UNREF: obj=0x56166f5da690
+2019-01-15 08:56:53.434+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5cc470 classname=virNetDaemon
+2019-01-15 08:56:53.434+0000: 34181: info : virEventPollAddHandle:140 : EVENT_POLL_ADD_HANDLE: watch=1 fd=5 events=1 cb=0x7f5e248272d0 opaque=(nil) ff=(nil)
+2019-01-15 08:56:53.434+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5cc7d0 classname=virNetServer
+2019-01-15 08:56:53.434+0000: 34181: info : virObjectRef:382 : OBJECT_REF: obj=0x56166f5cc7d0
+2019-01-15 08:56:53.462+0000: 34181: error : virModuleLoadFile:53 : internal error: Failed to load module &#39;/usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so&#39;: /usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so: undefined symbol: rbd_diff_iterate2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;解决方法:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;libvirt_storage_backend_rbd.so&lt;/code&gt;应该是连接ceph块设备（rbd）的一个模块，这里暂时不用连接ceph，最简单粗暴的做法就是移除该模块，重启libvirtd。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[root@localhost ~]# cd /usr/lib64/libvirt/storage-backend
+[root@localhost storage-backend]# mv libvirt_storage_backend_rbd.so libvirt_storage_backend_rbd.so.bak
+[root@localhost ~]# systemctl restart libvirtd
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>Python数据库连接池实例--PooledDB</title>
@@ -910,62 +949,6 @@ instructing pg 10.10 on osd.2 to repair
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;经过一段时间的修复后，ceph恢复正常。&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>删除osd的正确方式</title>
-      <link>https://ops.m114.org/post/right-steps-delete-ceph-osd/</link>
-      <pubDate>Sat, 06 Aug 2016 23:51:26 +0800</pubDate>
-      
-      <guid>https://ops.m114.org/post/right-steps-delete-ceph-osd/</guid>
-      <description>
-
-&lt;p&gt;按照官网的步骤走的话，在 &lt;code&gt;标记osd为out&lt;/code&gt; 和 &lt;code&gt;从crushmap删除osd&lt;/code&gt; 这两步都会触发数据再平衡，如下方式只触发了一次迁移，建议使用。&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;h2 id=&#34;调整osd的crush-weight&#34;&gt;调整osd的crush weight&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;ceph osd crush reweight osd.0 0.1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;说明：这个地方如果想慢慢的调整就分几次将crush 的weight 减低到0 ，这个过程实际上是让数据不分布在这个节点上，让数据慢慢的分布到其他节点上，直到最终为没有分布在这个osd，并且迁移完成这个地方不光调整了osd 的crush weight ，实际上同时调整了host 的 weight ，这样会调整集群的整体的crush 分布，在osd 的crush 为0 后， 再对这个osd的任何删除相关操作都不会影响到集群数据的分布。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;h2 id=&#34;停止osd进程&#34;&gt;停止osd进程&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;systemctl stop ceph-osd@0
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这个是通知集群这个osd进程不在了，不提供服务了，因为本身没权重，就不会影响到整体的分布，也就没有迁移&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;h2 id=&#34;将节点状态标记为out&#34;&gt;将节点状态标记为out&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;ceph osd out osd.0
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这个是通知集群这个osd不再映射数据了，不提供服务了，因为本身没权重，就不会影响到整体的分布，也就没有迁移&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;h2 id=&#34;从crush中移除节点&#34;&gt;从crush中移除节点&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;ceph osd crush remove osd.0
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这个是从crush中删除，因为已经是0了 所以没影响主机的权重，也就没有迁移了&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;h2 id=&#34;删除节点&#34;&gt;删除节点&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;ceph osd rm osd.0
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这个是从集群里面删除这个节点的记录&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;h2 id=&#34;删除节点认证-不删除编号会占住&#34;&gt;删除节点认证（不删除编号会占住)&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code&gt;ceph auth del osd.0
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这个是从认证当中删除这个节点的信息&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
 </description>
     </item>
     
