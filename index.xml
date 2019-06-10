@@ -1033,6 +1033,9 @@ url，正则处理亦非瓶颈。不过 resty.core.regex 对自己的项目是�
 &lt;li&gt;&lt;a href=&#34;https://github.com/cloudflare/lua-aho-corasick&#34;&gt;lua-aho-corasick&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/jx-sec/jxwaf&#34;&gt;jxwaf&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/GUI/lua-resty-mail&#34;&gt;lua-resty-mail&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/iresty/apisix&#34;&gt;apisix&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/iresty/lua-resty-etcd&#34;&gt;lua-resty-etcd&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/iresty/lua-resty-libr3&#34;&gt;lua-resty-lubr3&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;ngx-lua-web开发&#34;&gt;ngx_lua Web开发&lt;/h2&gt;
@@ -1056,6 +1059,7 @@ url，正则处理亦非瓶颈。不过 resty.core.regex 对自己的项目是�
 &lt;li&gt;&lt;a href=&#34;https://github.com/goofansu/wego&#34;&gt;屏蔽字过滤服务&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/tidwall/gjson&#34;&gt;gjson&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/didi/gendry&#34;&gt;gendry&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/json-iterator/go&#34;&gt;json-iterator&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;tools&#34;&gt;Tools&lt;/h2&gt;
