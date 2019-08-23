@@ -2,13 +2,28 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on ops</title>
-    <link>https://ops.m114.org/post/index.xml</link>
+    <link>https://ops.m114.org/post/</link>
     <description>Recent content in Posts on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2018. All rights reserved.</copyright>
-    <lastBuildDate>Wed, 23 Jan 2019 17:46:06 +0800</lastBuildDate>
-    <atom:link href="https://ops.m114.org/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 23 Aug 2019 15:05:22 +0800</lastBuildDate>
+    
+	<atom:link href="https://ops.m114.org/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>GitHub supports WebAuthn</title>
+      <link>https://ops.m114.org/post/github-supports-webauthn-for-security-keys/</link>
+      <pubDate>Fri, 23 Aug 2019 15:05:22 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/github-supports-webauthn-for-security-keys/</guid>
+      <description>为了提高 GitHub 帐户的安全性，GitHub平台2019-08-21通过支持 Web 身份验证（WebAuthn）标准宣布了易于使用的身份验证选项。通过 WebAuthn，开发者们现在可以使用物理安全密钥在 GitHub 上进行双因素身份验证。如果你没有物理安全密钥，也可以将笔记本电脑或手机用作安全密钥。
+以下是 GitHub 上支持的物理安全密钥的组合：
+ Windows，macOS，Linux 和 Android：基于 Firefox 和 Chrome 的浏览器 Windows：Edge macOS：Safari，目前在技术预览版中，但即将推出 iOS：Brave 浏览器以及使用新的 YubiKey 5Ci  你还可以使用以下浏览器和生物识别选项：
+ Windows 上的 Microsoft Edge，使用 Windows Hello（带面部识别，指纹识别器或 PIN） 在 macOS 的 Chrome 上使用 Touch ID 在 Android 的 Chrome 上使用指纹识别器  由于平台支持尚未普及，GitHub 目前支持安全密钥作为补充的第二个因素，将来，GitHub 会将安全密钥作为主要的第二因素。
+来源：https://github.blog/2019-08-21-github-supports-webauthn-for-security-keys/</description>
+    </item>
     
     <item>
       <title>Python的while 1跟while True到底有什么区别?</title>
@@ -16,189 +31,35 @@
       <pubDate>Wed, 23 Jan 2019 17:46:06 +0800</pubDate>
       
       <guid>https://ops.m114.org/post/python-while-1-vs-for-whiletrue/</guid>
-      <description>&lt;p&gt;定义两个方法,分别使用while循环&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;def t1():
-    while 1:
-        pass
-
-def t2():
-    while True:
-        pass
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;单从功能上说,两种无任何区别,那么,来看看字节码上的区别:&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;For Python 2.x&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;import dis  #载入反编译模块,Python内置的
-
-dis.dis(t1) #对应的是while 1,下面是输出
-  2           0 SETUP_LOOP               3 (to 6)
-
-  3     &amp;gt;&amp;gt;    3 JUMP_ABSOLUTE            3
-        &amp;gt;&amp;gt;    6 LOAD_CONST               0 (None)
-              9 RETURN_VALUE
-
-dis.dis(t2) #对应的是while True,下面是输出
-  2           0 SETUP_LOOP              10 (to 13)
-        &amp;gt;&amp;gt;    3 LOAD_GLOBAL              0 (True)
-              6 POP_JUMP_IF_FALSE       12
-
-  3           9 JUMP_ABSOLUTE            3
-        &amp;gt;&amp;gt;   12 POP_BLOCK
-        &amp;gt;&amp;gt;   13 LOAD_CONST               0 (None)
-             16 RETURN_VALUE
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;很明显, while 1的字节码只有while True的一半. 为什么呢? 因为Python2.x中True不是关键字,只是一个全局变量而已&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;For Python 3.x&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; dis.dis(t1)
-  2           0 SETUP_LOOP               4 (to 6)
-
-  3     &amp;gt;&amp;gt;    2 JUMP_ABSOLUTE            2
-              4 POP_BLOCK
-        &amp;gt;&amp;gt;    6 LOAD_CONST               0 (None)
-              8 RETURN_VALUE
-&amp;gt;&amp;gt;&amp;gt; dis.dis(t2)
-  2           0 SETUP_LOOP               4 (to 6)
-
-  3     &amp;gt;&amp;gt;    2 JUMP_ABSOLUTE            2
-              4 POP_BLOCK
-        &amp;gt;&amp;gt;    6 LOAD_CONST               0 (None)
-              8 RETURN_VALUE
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;在python 3.x中，while 1和while True无任何区别。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;总结:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;在Python 2.x中，True不是关键字，而是在bool类型中定义为1的&lt;a href=&#34;http://docs.python.org/library/constants.html#True&#34;&gt;built-in global constant&lt;/a&gt;。因此，解释器仍然必须加载True的内容。换句话说，True是可重新分配的。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;Python 2.7.15 (default, Jan 12 2019, 21:07:57)
-[GCC 4.2.1 Compatible Apple LLVM 10.0.0 (clang-1000.11.45.5)] on darwin
-Type &amp;quot;help&amp;quot;, &amp;quot;copyright&amp;quot;, &amp;quot;credits&amp;quot; or &amp;quot;license&amp;quot; for more information.
-&amp;gt;&amp;gt;&amp;gt; True = 4
-&amp;gt;&amp;gt;&amp;gt; True
-4
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;ul&gt;
-&lt;li&gt;在Python 3.x中，True也是&lt;a href=&#34;http://docs.python.org/py3k/reference/lexical_analysis.html#keywords&#34;&gt;关键字&lt;/a&gt;了。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code&gt;Python 3.7.0 (default, Jun 29 2018, 20:13:13)
-[Clang 9.1.0 (clang-902.0.39.2)] on darwin
-Type &amp;quot;help&amp;quot;, &amp;quot;copyright&amp;quot;, &amp;quot;credits&amp;quot; or &amp;quot;license&amp;quot; for more information.
-&amp;gt;&amp;gt;&amp;gt; True = 4
-  File &amp;quot;&amp;lt;stdin&amp;gt;&amp;quot;, line 1
-SyntaxError: can&#39;t assign to keyword
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;参考:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://stackoverflow.com/questions/3815359/while-1-vs-for-whiletrue-why-is-there-a-difference&#34;&gt;https://stackoverflow.com/questions/3815359/while-1-vs-for-whiletrue-why-is-there-a-difference&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>定义两个方法,分别使用while循环
+def t1(): while 1: pass def t2(): while True: pass  单从功能上说,两种无任何区别,那么,来看看字节码上的区别:
+For Python 2.x
+import dis #载入反编译模块,Python内置的 dis.dis(t1) #对应的是while 1,下面是输出 2 0 SETUP_LOOP 3 (to 6) 3 &amp;gt;&amp;gt; 3 JUMP_ABSOLUTE 3 &amp;gt;&amp;gt; 6 LOAD_CONST 0 (None) 9 RETURN_VALUE dis.dis(t2) #对应的是while True,下面是输出 2 0 SETUP_LOOP 10 (to 13) &amp;gt;&amp;gt; 3 LOAD_GLOBAL 0 (True) 6 POP_JUMP_IF_FALSE 12 3 9 JUMP_ABSOLUTE 3 &amp;gt;&amp;gt; 12 POP_BLOCK &amp;gt;&amp;gt; 13 LOAD_CONST 0 (None) 16 RETURN_VALUE  很明显, while 1的字节码只有while True的一半.</description>
     </item>
     
     <item>
       <title>libvirt 4.5 virModuleLoadFile:53</title>
-      <link>https://ops.m114.org/post/libvirt-4.5-virModuleLoadFile:53/</link>
+      <link>https://ops.m114.org/post/libvirt-4.5-virmoduleloadfile53/</link>
       <pubDate>Tue, 15 Jan 2019 17:27:22 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/libvirt-4.5-virModuleLoadFile:53/</guid>
-      <description>&lt;p&gt;CentOS 7.5.1804的libvirt从3.9升级至4.5时，无法启动，报错如下：&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;error : virModuleLoadFile:53 : internal error: Failed to load module &amp;lsquo;/usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so&amp;rsquo;: /usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so: undefined symbol: rbd_diff_iterate2&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;&lt;strong&gt;详细报错如下:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[root@localhost ~]# libvirtd -v
-2019-01-15 08:56:53.433+0000: 34181: info : libvirt version: 4.5.0, package: 10.el7_6.3 (CentOS BuildSystem &amp;lt;http://bugs.centos.org&amp;gt;, 2018-11-28-20:51:39, x86-01.bsys.centos.org)
-2019-01-15 08:56:53.433+0000: 34181: info : hostname: localhost.localdomain
-2019-01-15 08:56:53.433+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5da690 classname=virAccessManager
-2019-01-15 08:56:53.434+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5cbfe0 classname=virAccessManager
-2019-01-15 08:56:53.434+0000: 34181: info : virObjectRef:382 : OBJECT_REF: obj=0x56166f5da690
-2019-01-15 08:56:53.434+0000: 34181: info : virObjectUnref:344 : OBJECT_UNREF: obj=0x56166f5da690
-2019-01-15 08:56:53.434+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5cc470 classname=virNetDaemon
-2019-01-15 08:56:53.434+0000: 34181: info : virEventPollAddHandle:140 : EVENT_POLL_ADD_HANDLE: watch=1 fd=5 events=1 cb=0x7f5e248272d0 opaque=(nil) ff=(nil)
-2019-01-15 08:56:53.434+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5cc7d0 classname=virNetServer
-2019-01-15 08:56:53.434+0000: 34181: info : virObjectRef:382 : OBJECT_REF: obj=0x56166f5cc7d0
-2019-01-15 08:56:53.462+0000: 34181: error : virModuleLoadFile:53 : internal error: Failed to load module &#39;/usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so&#39;: /usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so: undefined symbol: rbd_diff_iterate2
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;解决方法:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;libvirt_storage_backend_rbd.so&lt;/code&gt;应该是连接ceph块设备（rbd）的一个模块，这里暂时不用连接ceph，最简单粗暴的做法就是移除该模块，重启libvirtd。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[root@localhost ~]# cd /usr/lib64/libvirt/storage-backend
-[root@localhost storage-backend]# mv libvirt_storage_backend_rbd.so libvirt_storage_backend_rbd.so.bak
-[root@localhost ~]# systemctl restart libvirtd
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <guid>https://ops.m114.org/post/libvirt-4.5-virmoduleloadfile53/</guid>
+      <description>CentOS 7.5.1804的libvirt从3.9升级至4.5时，无法启动，报错如下：
+ error : virModuleLoadFile:53 : internal error: Failed to load module &amp;lsquo;/usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so&amp;rsquo;: /usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so: undefined symbol: rbd_diff_iterate2
+ 详细报错如下:
+[root@localhost ~]# libvirtd -v 2019-01-15 08:56:53.433+0000: 34181: info : libvirt version: 4.5.0, package: 10.el7_6.3 (CentOS BuildSystem &amp;lt;http://bugs.centos.org&amp;gt;, 2018-11-28-20:51:39, x86-01.bsys.centos.org) 2019-01-15 08:56:53.433+0000: 34181: info : hostname: localhost.localdomain 2019-01-15 08:56:53.433+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5da690 classname=virAccessManager 2019-01-15 08:56:53.434+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5cbfe0 classname=virAccessManager 2019-01-15 08:56:53.434+0000: 34181: info : virObjectRef:382 : OBJECT_REF: obj=0x56166f5da690 2019-01-15 08:56:53.</description>
     </item>
     
     <item>
       <title>Python数据库连接池实例--PooledDB</title>
-      <link>https://ops.m114.org/post/python-mysql-PooledDB/</link>
+      <link>https://ops.m114.org/post/python-mysql-pooleddb/</link>
       <pubDate>Tue, 16 Oct 2018 16:27:12 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/python-mysql-PooledDB/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;不用连接池的MySQL连接方法&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;import MySQLdb
-conn= MySQLdb.connect(host=&#39;127.0.0.1&#39;,user=&#39;root&#39;,passwd=&#39;password&#39;,db=&#39;DB_test&#39;,port=3306)
-cur=conn.cursor()
-SQL=&amp;quot;select * from table_test&amp;quot;
-cur.execute(SQL)
-r=cur.fetchall()
-cur.close()
-conn.close()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;用连接池后的连接方法&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;import MySQLdb
-from DBUtils.PooledDB import PooledDB
-pool = PooledDB(MySQLdb,5,host=&#39;127.0.0.1&#39;,user=&#39;root&#39;,passwd=&#39;password&#39;,db=&#39;DB_test&#39;,port=3306)    #5为连接池里的最少连接数
-
-conn = pool.connection()  #以后每次需要数据库连接就是用connection()函数获取连接就好了
-cur=conn.cursor()
-SQL=&amp;quot;select * from table_test&amp;quot;
-cur.execute(SQL)
-r=cur.fetchall()
-cur.close()
-conn.close()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;PooledDB的参数&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;mincached: 最少的空闲连接数，如果空闲连接数小于这个数，pool会创建一个新的连接&lt;/li&gt;
-&lt;li&gt;maxcached: 最大的空闲连接数，如果空闲连接数大于这个数，pool会关闭空闲连接&lt;/li&gt;
-&lt;li&gt;maxconnections: 最大的连接数，&lt;/li&gt;
-&lt;li&gt;blocking: 当连接数达到最大的连接数时，在请求连接的时候，如果这个值是True，请求连接的程序会一直等待，直到当前连接数小于最大连接数，如果这个值是False，会报错，&lt;/li&gt;
-&lt;li&gt;maxshared: 当连接数达到这个数，新请求的连接会分享已经分配出去的连接&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;连接池对性能的提升表现在&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;在程序创建连接的时候，可以从一个空闲的连接中获取，不需要重新初始化连接，提升获取连接的速度&lt;/li&gt;
-&lt;li&gt;关闭连接的时候，把连接放回连接池，而不是真正的关闭，所以可以减少频繁地打开和关闭连接&lt;/li&gt;
-&lt;li&gt;避免mysql连接数耗尽&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;DBUtils下载地址：&lt;a href=&#34;https://pypi.python.org/pypi/DBUtils/&#34;&gt;https://pypi.python.org/pypi/DBUtils/&lt;/a&gt;&lt;/p&gt;
-</description>
+      <guid>https://ops.m114.org/post/python-mysql-pooleddb/</guid>
+      <description>不用连接池的MySQL连接方法
+import MySQLdb conn= MySQLdb.connect(host=&#39;127.0.0.1&#39;,user=&#39;root&#39;,passwd=&#39;password&#39;,db=&#39;DB_test&#39;,port=3306) cur=conn.cursor() SQL=&amp;quot;select * from table_test&amp;quot; cur.execute(SQL) r=cur.fetchall() cur.close() conn.close()  用连接池后的连接方法
+import MySQLdb from DBUtils.PooledDB import PooledDB pool = PooledDB(MySQLdb,5,host=&#39;127.0.0.1&#39;,user=&#39;root&#39;,passwd=&#39;password&#39;,db=&#39;DB_test&#39;,port=3306) #5为连接池里的最少连接数 conn = pool.connection() #以后每次需要数据库连接就是用connection()函数获取连接就好了 cur=conn.cursor() SQL=&amp;quot;select * from table_test&amp;quot; cur.execute(SQL) r=cur.fetchall() cur.close() conn.close()  PooledDB的参数
+ mincached: 最少的空闲连接数，如果空闲连接数小于这个数，pool会创建一个新的连接 maxcached: 最大的空闲连接数，如果空闲连接数大于这个数，pool会关闭空闲连接 maxconnections: 最大的连接数， blocking: 当连接数达到最大的连接数时，在请求连接的时候，如果这个值是True，请求连接的程序会一直等待，直到当前连接数小于最大连接数，如果这个值是False，会报错， maxshared: 当连接数达到这个数，新请求的连接会分享已经分配出去的连接  连接池对性能的提升表现在
+ 在程序创建连接的时候，可以从一个空闲的连接中获取，不需要重新初始化连接，提升获取连接的速度 关闭连接的时候，把连接放回连接池，而不是真正的关闭，所以可以减少频繁地打开和关闭连接 避免mysql连接数耗尽  DBUtils下载地址：https://pypi.python.org/pypi/DBUtils/</description>
     </item>
     
     <item>
@@ -207,29 +68,11 @@ conn.close()
       <pubDate>Wed, 06 Jun 2018 10:00:00 +0800</pubDate>
       
       <guid>https://ops.m114.org/post/request-https-server-in-custom-ip-with-curl/</guid>
-      <description>&lt;p&gt;一般使用curl请求自定义IP地址并且指定HOST的话可以这样。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;curl -H &#39;Host: ops.m114.org&#39; http://127.0.0.1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;但是如果你需要请求的地址是HTTPS就不行了&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ curl -H &#39;Host: ops.m114.org&#39; https://127.0.0.1/
-curl: (51) Unable to communicate securely with peer: requested domain name does not match the server&#39;s certificate.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;因为IP绝大多数情况下无法通过域名证书验证，还好curl中有&lt;code&gt;--resolv&lt;/code&gt;参数可以让我们方便的指定域名的解析&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# --resolv参数形式
---resolv host:port:address
-# 示例
-curl --resolv ops.m114.org:443:127.0.0.1 https://ops.m114.org
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Ps:&lt;/p&gt;
-
-&lt;p&gt;小编经常使用的CentOS6的自带curl就不支持此参数，幸运的是CentOS7已经支持。&lt;/p&gt;
-</description>
+      <description>一般使用curl请求自定义IP地址并且指定HOST的话可以这样。
+curl -H &#39;Host: ops.m114.org&#39; http://127.0.0.1  但是如果你需要请求的地址是HTTPS就不行了
+$ curl -H &#39;Host: ops.m114.org&#39; https://127.0.0.1/ curl: (51) Unable to communicate securely with peer: requested domain name does not match the server&#39;s certificate.  因为IP绝大多数情况下无法通过域名证书验证，还好curl中有--resolv参数可以让我们方便的指定域名的解析
+# --resolv参数形式 --resolv host:port:address # 示例 curl --resolv ops.m114.org:443:127.0.0.1 https://ops.m114.org  Ps:
+小编经常使用的CentOS6的自带curl就不支持此参数，幸运的是CentOS7已经支持。</description>
     </item>
     
     <item>
@@ -238,95 +81,11 @@ curl --resolv ops.m114.org:443:127.0.0.1 https://ops.m114.org
       <pubDate>Wed, 23 Aug 2017 23:38:09 +0800</pubDate>
       
       <guid>https://ops.m114.org/post/go-build-small-exec/</guid>
-      <description>
-
-&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
-
-&lt;p&gt;本地默认编译出的文件总与官方提供的二进制文件大很多，Google之后得知通过编译参数控制还能编译出更小的可执行文件。&lt;/p&gt;
-
-&lt;h1 id=&#34;加-ldflags参数&#34;&gt;加-ldflags参数&lt;/h1&gt;
-
-&lt;p&gt;在程序编译的时候可以加上&lt;code&gt;-ldflags &amp;quot;-s -w&amp;quot;&lt;/code&gt; 参数来优化编译程序, 其实通过去除部分连接和调试等信息来使得编译之后的执行程序更小,具体参数如下:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;-a 强制编译所有依赖包&lt;/li&gt;
-&lt;li&gt;-s 去掉符号表信息, panic时候的stack trace就没有任何文件名/行号信息了&lt;/li&gt;
-&lt;li&gt;-w 去掉DWARF调试信息，得到的程序就不能用gdb调试了&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;测试代码如下&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;package main
-
-import &amp;quot;fmt&amp;quot;
-
-func main() {
-    fmt.Println(&amp;quot;Hello, 世界&amp;quot;)
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;编译方式及文件大小对比结果如下&lt;/p&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;编译参数&lt;/th&gt;
-&lt;th&gt;大小&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;go build(默认)&lt;/td&gt;
-&lt;td&gt;1.6M&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;go build -ldflags -s&lt;/td&gt;
-&lt;td&gt;1.6M&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;go build -ldflags &amp;ldquo;-s -w&amp;rdquo;&lt;/td&gt;
-&lt;td&gt;1.1M&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;go build -ldflags -w&lt;/td&gt;
-&lt;td&gt;1.1M&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;测试环境: go 1.8.3 on macOS 10.12.6
-不建议s和w同时使用。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h1 id=&#34;使用upx&#34;&gt;使用upx&lt;/h1&gt;
-
-&lt;p&gt;上面go build 时加上-ldflags参数得到了比较小的可执行程序，但是还可以通过upx这个开源，绿色，好用的压缩工具进行进一步压缩。&lt;/p&gt;
-
-&lt;p&gt;Mac用户直接brew安装&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;brew install upx
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;upx使用效果如下&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;                       Ultimate Packer for eXecutables
-                          Copyright (C) 1996 - 2017
-UPX 3.94        Markus Oberhumer, Laszlo Molnar &amp;amp; John Reiser   May 12th 2017
-
-        File size         Ratio      Format      Name
-   --------------------   ------   -----------   -----------
-   1181728 -&amp;gt;    438928   37.14%   macho/amd64   test
-
-Packed 1 file.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;可以看到通过upx进一步压缩之后得到的程序只有429K了，压缩比率达到了37.14%.&lt;/p&gt;
-</description>
+      <description>前言 本地默认编译出的文件总与官方提供的二进制文件大很多，Google之后得知通过编译参数控制还能编译出更小的可执行文件。
+加-ldflags参数 在程序编译的时候可以加上-ldflags &amp;quot;-s -w&amp;quot; 参数来优化编译程序, 其实通过去除部分连接和调试等信息来使得编译之后的执行程序更小,具体参数如下:
+ -a 强制编译所有依赖包 -s 去掉符号表信息, panic时候的stack trace就没有任何文件名/行号信息了 -w 去掉DWARF调试信息，得到的程序就不能用gdb调试了  测试代码如下
+package main import &amp;quot;fmt&amp;quot; func main() { fmt.Println(&amp;quot;Hello, 世界&amp;quot;) }  编译方式及文件大小对比结果如下
+   编译参数 大小     go build(默认) 1.6M   go build -ldflags -s 1.6M   go build -ldflags &amp;ldquo;-s -w&amp;rdquo; 1.1M   go build -ldflags -w 1.1M     测试环境: go 1.</description>
     </item>
     
     <item>
@@ -335,126 +94,8 @@ Packed 1 file.
       <pubDate>Wed, 16 Aug 2017 23:28:33 +0800</pubDate>
       
       <guid>https://ops.m114.org/post/golang-command-line-flags/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;示例代码，仅供参考&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;package main
-
-import (
-    &amp;quot;fmt&amp;quot;
-    &amp;quot;flag&amp;quot;
-)
-
-func main() {
-    // golang的flag包的一些基本使用方法
-
-    // 待使用的变量
-    var id int
-    var name string
-    var male bool
-
-    // 是否已经解析
-    fmt.Println(&amp;quot;parsed? = &amp;quot;, flag.Parsed())
-
-    // 设置flag参数 (变量指针，参数名，默认值，帮助信息)
-    // 也可以用以下带返回值的方法代替，不过他们返回的是指针，比较麻烦点
-    // Int(name string, value int, usage string) *int
-    // String(name string, value string, usage string) *string
-    // Bool(name string, value bool, usage string) *bool
-    flag.IntVar(&amp;amp;id, &amp;quot;id&amp;quot;, 123, &amp;quot;help msg for id&amp;quot;)
-    flag.StringVar(&amp;amp;name, &amp;quot;name&amp;quot;, &amp;quot;default name&amp;quot;, &amp;quot;help msg for name&amp;quot;)
-    flag.BoolVar(&amp;amp;male, &amp;quot;male&amp;quot;, false, &amp;quot;help msg for male&amp;quot;)
-
-    // 解析
-    flag.Parse()
-
-    // 是否已经解析
-    fmt.Println(&amp;quot;parsed? = &amp;quot;, flag.Parsed())
-
-    // 获取非flag参数
-    fmt.Println(&amp;quot;------ Args start ------&amp;quot;)
-    for i, v := range flag.Args() {
-        fmt.Printf(&amp;quot;arg[%d] = (%s).\n&amp;quot;, i, v)
-    }
-    fmt.Println(&amp;quot;------ Args end ------&amp;quot;)
-
-    // visit只包含已经设置了的flag
-    fmt.Println(&amp;quot;------ visit flag start ------&amp;quot;)
-    flag.Visit(func(f *flag.Flag) {
-        fmt.Println(f.Name, f.Value, f.Usage, f.DefValue)
-    })
-    fmt.Println(&amp;quot;------ visit flag end ------&amp;quot;)
-
-    // visitAll只包含所有的flag(包括未设置的)
-    fmt.Println(&amp;quot;------ visitAll flag start ------&amp;quot;)
-    flag.VisitAll(func(f *flag.Flag) {
-        fmt.Println(f.Name, f.Value, f.Usage, f.DefValue)
-
-    })
-    fmt.Println(&amp;quot;------ visitAll flag end ------&amp;quot;)
-
-    // flag参数
-    fmt.Printf(&amp;quot;id = %d\n&amp;quot;, id)
-    fmt.Printf(&amp;quot;name = %s\n&amp;quot;, name)
-    fmt.Printf(&amp;quot;male = %t\n&amp;quot;, male)
-
-    // flag参数默认值
-    fmt.Println(&amp;quot;------ PrintDefaults start ------&amp;quot;)
-    flag.PrintDefaults()
-    fmt.Println(&amp;quot;------ PrintDefaults end ------&amp;quot;)
-
-    // 非flag参数个数
-    fmt.Printf(&amp;quot;NArg = %d\n&amp;quot;, flag.NArg())
-    // 已设置的flag参数个数
-    fmt.Printf(&amp;quot;NFlag = %d\n&amp;quot;, flag.NFlag())
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;传参数go run&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;go run flag_demo.go -id=123 -name=&amp;quot;zhangsan&amp;quot; -male=true p1 p2 p3 p4
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;示例输出结果&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;parsed? =  false
-parsed? =  true
------- Args start ------
-arg[0] = (p1).
-arg[1] = (p2).
-arg[2] = (p3).
-arg[3] = (p4).
------- Args end ------
------- visit flag start ------
-id 123 help msg for id 123
-male true help msg for male false
-name zhangsan help msg for name default name
------- visit flag end ------
------- visitAll flag start ------
-id 123 help msg for id 123
-male true help msg for male false
-name zhangsan help msg for name default name
------- visitAll flag end ------
-id = 123
-name = zhangsan
-male = true
------- PrintDefaults start ------
-  -id int
-    	help msg for id (default 123)
-  -male
-    	help msg for male
-  -name string
-    	help msg for name (default &amp;quot;default name&amp;quot;)
------- PrintDefaults end ------
-NArg = 4
-NFlag = 3
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;参考&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://gobyexample.com/command-line-flags&#34;&gt;https://gobyexample.com/command-line-flags&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>示例代码，仅供参考
+package main import ( &amp;quot;fmt&amp;quot; &amp;quot;flag&amp;quot; ) func main() { // golang的flag包的一些基本使用方法 // 待使用的变量 var id int var name string var male bool // 是否已经解析 fmt.Println(&amp;quot;parsed? = &amp;quot;, flag.Parsed()) // 设置flag参数 (变量指针，参数名，默认值，帮助信息) // 也可以用以下带返回值的方法代替，不过他们返回的是指针，比较麻烦点 // Int(name string, value int, usage string) *int // String(name string, value string, usage string) *string // Bool(name string, value bool, usage string) *bool flag.IntVar(&amp;amp;id, &amp;quot;id&amp;quot;, 123, &amp;quot;help msg for id&amp;quot;) flag.StringVar(&amp;amp;name, &amp;quot;name&amp;quot;, &amp;quot;default name&amp;quot;, &amp;quot;help msg for name&amp;quot;) flag.</description>
     </item>
     
     <item>
@@ -463,143 +104,10 @@ NFlag = 3
       <pubDate>Sun, 23 Jul 2017 16:32:26 +0800</pubDate>
       
       <guid>https://ops.m114.org/post/analysing-java-core-dump/</guid>
-      <description>&lt;p&gt;In this post, I will show you how you can debug a Java core file to see what caused your JVM to crash. I will be using a core file I generated in my previous post: &lt;a href=&#34;http://fahdshariff.blogspot.co.uk/2012/08/generating-java-core-dump.html&#34;&gt;Generating a Java Core Dump&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;There are different ways you can diagnose a JVM crash, listed below:&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;The hs_err_pid log file&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;When a fatal error occurs in the JVM, it produces an error log file called hs_err_pidXXXX.log, normally in the working directory of the process or in the temporary directory for the operating system. The top of this file contains the cause of the crash and the &amp;ldquo;problematic frame&amp;rdquo;. For example, mine shows:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ head hs_err_pid21178.log
-#
-# A fatal error has been detected by the Java Runtime Environment:
-#
-#  SIGSEGV (0xb) at pc=0x0000002b1d00075c, pid=21178, tid=1076017504
-#
-# JRE version: 6.0_21-b06
-# Java VM: Java HotSpot(TM) 64-Bit Server VM (17.0-b16 mixed mode linux-amd64 )
-# Problematic frame:
-# C  [libnativelib.so+0x75c]  bar+0x10
-#
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;There is also a stack trace:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;Stack: [0x000000004012b000,0x000000004022c000],  sp=0x000000004022aac0,  free space=3fe0000000000000018k
-Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
-C  [libnativelib.so+0x75c]  bar+0x10
-C  [libnativelib.so+0x772]  foo+0xe
-C  [libnativelib.so+0x78e]  Java_CoreDumper_core+0x1a
-j  CoreDumper.core()V+0
-j  CoreDumper.main([Ljava/lang/String;)V+7
-v  ~StubRoutines::call_stub
-V  [libjvm.so+0x3e756d]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The stack trace shows that my java method, CoreDumper.core(), called into JNI and died when the bar function was called in native code.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Debugging a Java Core Dump&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;In some cases, the JVM may not produce a hs_err_pid file, for example, if the native code abruptly aborts by calling the abort function. In such cases, we need to analyse the core file produced. On my machine, the operating system writes out core files to /var/tmp/cores. You can use the following command to see where your system is configured to write out core files to:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ cat /proc/sys/kernel/core_pattern
-/var/tmp/cores/%e.%p.%u.core
-$ ls /var/tmp/cores
-java.21178.146385.core
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;There are a few, different ways to look at core dumps:&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;1. Using gdb&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;GNU Debugger (gdb) can examine a core file and work out what the program was doing when it crashed.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ gdb $JAVA_HOME/bin/java /var/tmp/cores/java.14015.146385.core
-(gdb) where
-#0  0x0000002a959bd26d in raise () from /lib64/tls/libc.so.6
-#1  0x0000002a959bea6e in abort () from /lib64/tls/libc.so.6
-#2  0x0000002b1cecf799 in bar () from libnativelib.so
-#3  0x0000002b1cecf7a7 in foo () from libnativelib.so
-#4  0x0000002b1cecf7c3 in Java_CoreDumper_core () from libnativelib.so
-#5  0x0000002a971aac88 in ?? ()
-#6  0x0000000040113800 in ?? ()
-#7  0x0000002a9719fa42 in ?? ()
-#8  0x000000004022ab10 in ?? ()
-#9  0x0000002a9a4d5488 in ?? ()
-#10 0x000000004022ab70 in ?? ()
-#11 0x0000002a9a4d59c8 in ?? ()
-#12 0x0000000000000000 in ?? ()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The where command prints the stack frames and shows that the bar function called abort() which caused the crash.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;2. Using jstack&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;jstack prints stack traces of Java threads for a given core file.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ jstack -J-d64 $JAVA_HOME/bin/java /var/tmp/cores/java.14015.146385.core
-Debugger attached successfully.
-Server compiler detected.
-JVM version is 17.0-b16
-Deadlock Detection:
-
-No deadlocks found.
-
-Thread 16788: (state = BLOCKED)
-
-Thread 16787: (state = BLOCKED)
- - java.lang.Object.wait(long) @bci=0 (Interpreted frame)
- - java.lang.ref.ReferenceQueue.remove(long) @bci=44, line=118 (Interpreted frame)
- - java.lang.ref.ReferenceQueue.remove() @bci=2, line=134 (Interpreted frame)
- - java.lang.ref.Finalizer$FinalizerThread.run() @bci=3, line=159 (Interpreted frame)
-
-Thread 16786: (state = BLOCKED)
- - java.lang.Object.wait(long) @bci=0 (Interpreted frame)
- - java.lang.Object.wait() @bci=2, line=485 (Interpreted frame)
- - java.lang.ref.Reference$ReferenceHandler.run() @bci=46, line=116 (Interpreted frame)
-
-Thread 16780: (state = IN_NATIVE)
- - CoreDumper.core() @bci=0 (Interpreted frame)
- - CoreDumper.main(java.lang.String[]) @bci=7, line=12 (Interpreted frame)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;3. Using jmap&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;jmap examines a core file and prints out shared object memory maps or heap memory details.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ jmap -J-d64 $JAVA_HOME/bin/java /var/tmp/cores/java.14015.146385.core
-Debugger attached successfully.
-Server compiler detected.
-JVM version is 17.0-b16
-0x0000000040000000      49K     /usr/sunjdk/1.6.0_21/bin/java
-0x0000002a9566c000      124K    /lib64/tls/libpthread.so.0
-0x0000002a95782000      47K     /usr/sunjdk/1.6.0_21/jre/lib/amd64/jli/libjli.so
-0x0000002a9588c000      16K     /lib64/libdl.so.2
-0x0000002a9598f000      1593K   /lib64/tls/libc.so.6
-0x0000002a95556000      110K    /lib64/ld-linux-x86-64.so.2
-0x0000002a95bca000      11443K  /usr/sunjdk/1.6.0_21/jre/lib/amd64/server/libjvm.so
-0x0000002a96699000      625K    /lib64/tls/libm.so.6
-0x0000002a9681f000      56K     /lib64/tls/librt.so.1
-0x0000002a96939000      65K     /usr/sunjdk/1.6.0_21/jre/lib/amd64/libverify.so
-0x0000002a96a48000      228K    /usr/sunjdk/1.6.0_21/jre/lib/amd64/libjava.so
-0x0000002a96b9e000      109K    /lib64/libnsl.so.1
-0x0000002a96cb6000      54K     /usr/sunjdk/1.6.0_21/jre/lib/amd64/native_threads/libhpi.so
-0x0000002a96de8000      57K     /lib64/libnss_files.so.2
-0x0000002a96ef4000      551K    /lib64/libnss_db.so.2
-0x0000002a97086000      89K     /usr/sunjdk/1.6.0_21/jre/lib/amd64/libzip.so
-0x0000002b1cecf000      6K      /home/sharfah/tmp/jni/libnativelib.so
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;Useful Links:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://weblogs.java.net/blog/kohsuke/archive/2009/02/crash_course_on.html&#34;&gt;Crash course on JVM crash analysis&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://fahdshariff.blogspot.co.uk/2012/08/generating-java-core-dump.html&#34;&gt;Generating a Java Core Dump&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;From &lt;a href=&#34;http://fahdshariff.blogspot.co.uk/2012/08/analysing-java-core-dump.html&#34;&gt;http://fahdshariff.blogspot.co.uk/2012/08/analysing-java-core-dump.html&lt;/a&gt;&lt;/p&gt;
-</description>
+      <description>In this post, I will show you how you can debug a Java core file to see what caused your JVM to crash. I will be using a core file I generated in my previous post: Generating a Java Core Dump.
+There are different ways you can diagnose a JVM crash, listed below:
+The hs_err_pid log file
+When a fatal error occurs in the JVM, it produces an error log file called hs_err_pidXXXX.</description>
     </item>
     
     <item>
@@ -608,25 +116,10 @@ JVM version is 17.0-b16
       <pubDate>Sun, 23 Jul 2017 16:21:45 +0800</pubDate>
       
       <guid>https://ops.m114.org/post/error-500-oops-priv_sock_get_cmd-solved/</guid>
-      <description>
-
-&lt;h2 id=&#34;troubleshooting&#34;&gt;Troubleshooting&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;seccomp filter sanboxing with vsftpd 3.0.x&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;The following error may occur on ftp clients with vsftpd 3.0.x:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;500 OOPS: priv_sock_get_cmd
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This is caused by &lt;a href=&#34;http://en.wikipedia.org/wiki/Seccomp&#34;&gt;seccomp filter sanboxing&lt;/a&gt;, which is enabled by default on &lt;code&gt;amd64&lt;/code&gt;. To workaround this issue, disable seccomp filter sanboxing:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;echo &#39;seccomp_sandbox=NO&#39; &amp;gt;&amp;gt; vsftpd.conf
-service vsftpd restart
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;For further information, refer to &lt;a href=&#34;https://bugzilla.redhat.com/show_bug.cgi?id=845980&#34;&gt;Red Hat bug #845980&lt;/a&gt;.&lt;/p&gt;
-</description>
+      <description>Troubleshooting seccomp filter sanboxing with vsftpd 3.0.x
+The following error may occur on ftp clients with vsftpd 3.0.x:
+500 OOPS: priv_sock_get_cmd  This is caused by seccomp filter sanboxing, which is enabled by default on amd64. To workaround this issue, disable seccomp filter sanboxing:
+echo &#39;seccomp_sandbox=NO&#39; &amp;gt;&amp;gt; vsftpd.conf service vsftpd restart  For further information, refer to Red Hat bug #845980.</description>
     </item>
     
     <item>
@@ -635,144 +128,24 @@ service vsftpd restart
       <pubDate>Sun, 23 Jul 2017 16:13:10 +0800</pubDate>
       
       <guid>https://ops.m114.org/post/python-version-cmp/</guid>
-      <description>
-
-&lt;h2 id=&#34;第一种比较方法-strictversion&#34;&gt;第一种比较方法(StrictVersion)&lt;/h2&gt;
-
-&lt;p&gt;StrictVersion是由.将一串带有预发布标签的数字分隔为两个或三个部分的格式，预发布标签的字母只能是a或者b加数字版本号，而且只能在最末尾。预发布a版本低于b版本，并且预发布版本永远小于正式发布版本。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;合法格式:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;0.4       0.4.0  (相同版本)
-0.4.1
-0.5a1     (预发布版本a1，小于0.5，即0.5版本更新)
-0.5b3
-0.5
-0.9.6
-1.0
-1.0.4a3
-1.0.4b1
-1.0.4
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;非法格式:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;1           没有.分隔，需要分隔为2-3部分
-2.7.2.2     被分隔成了4个部分
-1.3.a4      预发布版本号应该在数字后面
-1.3pl1      预发布版本号字母标签只能是a或者b
-1.3B1       预发布版本号字母标签只能是a或者b
-1.3c        预发布版本号字母标签后必须加数字版本号
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;版本比较&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;In [1]: from distutils.version import StrictVersion
-
-In [2]: StrictVersion(&#39;1.2a3&#39;) &amp;lt; StrictVersion(&#39;1.2b1&#39;)
-Out[2]: True
-
-In [3]: StrictVersion(&#39;1.2b1&#39;) &amp;lt; StrictVersion(&#39;1.2&#39;)
-Out[3]: True
-
-In [4]: StrictVersion(&#39;1.2&#39;) &amp;lt; StrictVersion(&#39;1.2.1&#39;)
-Out[4]: True
-
-In [5]: StrictVersion(&#39;1.2&#39;) == StrictVersion(&#39;1.2.0&#39;)
-Out[5]: True
-
-In [6]: StrictVersion(&#39;1.2.11&#39;) &amp;lt; StrictVersion(&#39;1.11&#39;)
-Out[6]: True
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;第二种比较方法-looseversion&#34;&gt;第二种比较方法(LooseVersion)&lt;/h2&gt;
-
-&lt;p&gt;LooseVersion格式要求和StrictVersion不同，或者说它并没有任何规定的格式。由一系列数字,相隔时间或字母的字符串组成，并没有一个严格的格式。在进行比较的时候按照数字大小，字符串按字典顺序比较。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;合法格式&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;1.5.1
-1.5.2b2
-161
-3.10a
-8.02
-3.4j
-1996.07.12
-3.2.pl0
-3.1.1.6
-2g6
-11g
-0.960923
-2.2beta29
-1.13++
-5.5.kw
-2.0b1pl0
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;非法格式&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;并没有哟
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;格式比较&lt;/strong&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;In [1]: from distutils.version import StrictVersion
-
-In [2]: LooseVersion(&#39;1.6.0x&#39;) &amp;lt; LooseVersion(&#39;1.20.0x&#39;)
-Out[2]: True
-
-In [3]: LooseVersion(&#39;2.6.0x&#39;) &amp;lt; LooseVersion(&#39;1.20.0x&#39;)
-Out[3]: False
-
-In [4]: LooseVersion(&#39;1.20.0x&#39;) &amp;lt; LooseVersion(&#39;1.20.0z&#39;)
-Out[4]: True
-
-In [5]: LooseVersion(&#39;1&#39;) &amp;lt; LooseVersion(&#39;a&#39;)
-Out[5]: True 
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>第一种比较方法(StrictVersion) StrictVersion是由.将一串带有预发布标签的数字分隔为两个或三个部分的格式，预发布标签的字母只能是a或者b加数字版本号，而且只能在最末尾。预发布a版本低于b版本，并且预发布版本永远小于正式发布版本。
+合法格式:
+0.4 0.4.0 (相同版本) 0.4.1 0.5a1 (预发布版本a1，小于0.5，即0.5版本更新) 0.5b3 0.5 0.9.6 1.0 1.0.4a3 1.0.4b1 1.0.4  非法格式:
+1 没有.分隔，需要分隔为2-3部分 2.7.2.2 被分隔成了4个部分 1.3.a4 预发布版本号应该在数字后面 1.3pl1 预发布版本号字母标签只能是a或者b 1.3B1 预发布版本号字母标签只能是a或者b 1.3c 预发布版本号字母标签后必须加数字版本号  版本比较
+In [1]: from distutils.version import StrictVersion In [2]: StrictVersion(&#39;1.2a3&#39;) &amp;lt; StrictVersion(&#39;1.2b1&#39;) Out[2]: True In [3]: StrictVersion(&#39;1.2b1&#39;) &amp;lt; StrictVersion(&#39;1.2&#39;) Out[3]: True In [4]: StrictVersion(&#39;1.2&#39;) &amp;lt; StrictVersion(&#39;1.2.1&#39;) Out[4]: True In [5]: StrictVersion(&#39;1.2&#39;) == StrictVersion(&#39;1.2.0&#39;) Out[5]: True In [6]: StrictVersion(&#39;1.2.11&#39;) &amp;lt; StrictVersion(&#39;1.</description>
     </item>
     
     <item>
       <title>golang sync.WaitGroup解决goroutine同步</title>
-      <link>https://ops.m114.org/post/sync-WaitGroup/</link>
+      <link>https://ops.m114.org/post/sync-waitgroup/</link>
       <pubDate>Mon, 03 Jul 2017 16:27:12 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/sync-WaitGroup/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;go提供了sync包和channel来解决协程同步和通讯。&lt;/strong&gt;新手对channel通道操作起来更容易产生死锁，如果时缓冲的channel还要考虑channel放入和取出数据的速率问题。&lt;/p&gt;
-
-&lt;p&gt;从字面就可以理解，sync.WaitGroup是等待一组协程结束。它实现了一个类似任务队列的结构，你可以向队列中加入任务，任务完成后就把任务从队列中移除，如果队列中的任务没有全部完成，队列就会触发阻塞以阻止程序继续运行。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;sync.WaitGroup只有3个方法，Add()，Done()，Wait()。&lt;/strong&gt; 其中Done()是Add(-1)的别名。简单的来说，使用Add()添加计数，Done()减掉一个计数，计数不为0, 阻塞Wait()的运行。&lt;/p&gt;
-
-&lt;p&gt;简单示例如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;package main
- 
-import (
-	&amp;quot;fmt&amp;quot;
-	&amp;quot;sync&amp;quot;
-)
- 
-var waitgroup sync.WaitGroup
- 
-func test(shownum int) {
-	fmt.Println(shownum)
-	waitgroup.Done() //任务完成，将任务队列中的任务数量-1，其实.Done就是.Add(-1)
-}
- 
-func main() {
-	for i := 0; i &amp;lt; 10; i++ {
-		waitgroup.Add(1) //每创建一个goroutine，就把任务队列中任务的数量+1
-		go test(i)
-	}
-	waitgroup.Wait() //.Wait()这里会发生阻塞，直到队列中所有的任务结束就会解除阻塞
-	fmt.Println(&amp;quot;done!&amp;quot;)
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Ps: 此文为学习记录，如有错误还请多指教。&lt;/p&gt;
-</description>
+      <guid>https://ops.m114.org/post/sync-waitgroup/</guid>
+      <description>go提供了sync包和channel来解决协程同步和通讯。新手对channel通道操作起来更容易产生死锁，如果时缓冲的channel还要考虑channel放入和取出数据的速率问题。
+从字面就可以理解，sync.WaitGroup是等待一组协程结束。它实现了一个类似任务队列的结构，你可以向队列中加入任务，任务完成后就把任务从队列中移除，如果队列中的任务没有全部完成，队列就会触发阻塞以阻止程序继续运行。
+sync.WaitGroup只有3个方法，Add()，Done()，Wait()。 其中Done()是Add(-1)的别名。简单的来说，使用Add()添加计数，Done()减掉一个计数，计数不为0, 阻塞Wait()的运行。
+简单示例如下：
+package main import ( &amp;quot;fmt&amp;quot; &amp;quot;sync&amp;quot; ) var waitgroup sync.WaitGroup func test(shownum int) { fmt.Println(shownum) waitgroup.Done() //任务完成，将任务队列中的任务数量-1，其实.Done就是.Add(-1) } func main() { for i := 0; i &amp;lt; 10; i++ { waitgroup.Add(1) //每创建一个goroutine，就把任务队列中任务的数量+1 go test(i) } waitgroup.Wait() //.Wait()这里会发生阻塞，直到队列中所有的任务结束就会解除阻塞 fmt.Println(&amp;quot;done!&amp;quot;) }  Ps: 此文为学习记录，如有错误还请多指教。</description>
     </item>
     
     <item>
@@ -781,33 +154,12 @@ func main() {
       <pubDate>Mon, 27 Mar 2017 13:08:25 +0800</pubDate>
       
       <guid>https://ops.m114.org/post/fix-tomcat-upgrade-error/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;故障现象&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;升级tomcat至7.0.76后，GET请求的参数中含有中文时tomcat返回400错误，tomcat错误日志如下&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;java.lang.IllegalArgumentException: Invalid character found in the request target. The valid characters are defined in RFC 7230 and RFC 3986
-	at org.apache.coyote.http11.InternalNioInputBuffer.parseRequestLine(InternalNioInputBuffer.java:317)
-	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1000)
-	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:637)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1756)
-	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.run(NioEndpoint.java:1715)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
-	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
-	at java.lang.Thread.run(Thread.java:662)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;原因&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;查询&lt;a href=&#34;http://tomcat.apache.org/tomcat-7.0-doc/changelog.html#Tomcat_7.0.73_(violetagg)&#34;&gt;Changelog&lt;/a&gt;得知，tomcat 7.0.73版本添加了&lt;strong&gt;Add additional checks for valid characters to the HTTP request line parsing so invalid request lines are rejected sooner&lt;/strong&gt;导致。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;解决方法&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;请求前自行转义&lt;/li&gt;
-&lt;li&gt;更换tomcat为较低版本(不过tomcat的这次更改是依据RFC7230 and RFC 3986,在往后的版本,不会移除该特性)&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>故障现象
+升级tomcat至7.0.76后，GET请求的参数中含有中文时tomcat返回400错误，tomcat错误日志如下
+java.lang.IllegalArgumentException: Invalid character found in the request target. The valid characters are defined in RFC 7230 and RFC 3986 at org.apache.coyote.http11.InternalNioInputBuffer.parseRequestLine(InternalNioInputBuffer.java:317) at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1000) at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:637) at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1756) at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.run(NioEndpoint.java:1715) at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886) at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908) at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) at java.lang.Thread.run(Thread.java:662)  原因
+查询Changelog得知，tomcat 7.0.73版本添加了Add additional checks for valid characters to the HTTP request line parsing so invalid request lines are rejected sooner导致。
+解决方法
+ 请求前自行转义 更换tomcat为较低版本(不过tomcat的这次更改是依据RFC7230 and RFC 3986,在往后的版本,不会移除该特性)  </description>
     </item>
     
     <item>
@@ -816,108 +168,26 @@ func main() {
       <pubDate>Sat, 07 Jan 2017 19:57:32 +0800</pubDate>
       
       <guid>https://ops.m114.org/post/solve-too-many-connections/</guid>
-      <description>&lt;p&gt;当发生Too many connections时，即使是DBA也无法登录到数据库，一般的做法是修改配置文件的max_connections参数，然后重启数据库，这样业务就有几秒钟的中断，对于线上不能中断的数据库就只能采用另外一种极客的方法了，用gdb直接修改mysqld内存中max_connections的值，具体做法如下：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;gdb -p $(cat /data/mysql/mysql-server.pid) -ex &amp;quot;set max_connections=3000&amp;quot; -batch
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;改进方法如下&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;通常有两个参数控制控制最大连接数：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;max_connections：该实例允许最大的连接数
-max_user_connections：该实例允许每个用户的最大连接数
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;每个人要根据自己业务量，设置合适的值，不要盲目设置过大，但也不可设置过小，因为MySQL在连接数上升的情况下性能下降非常厉害，如果需要大量连接，这时可以引入thread_pool，所以我们需要保持一个原则：系统创建的用户（给应用使用用户）数 * max_user_connections &amp;lt; max_connections。&lt;/p&gt;
-</description>
+      <description>当发生Too many connections时，即使是DBA也无法登录到数据库，一般的做法是修改配置文件的max_connections参数，然后重启数据库，这样业务就有几秒钟的中断，对于线上不能中断的数据库就只能采用另外一种极客的方法了，用gdb直接修改mysqld内存中max_connections的值，具体做法如下：
+gdb -p $(cat /data/mysql/mysql-server.pid) -ex &amp;quot;set max_connections=3000&amp;quot; -batch  改进方法如下
+通常有两个参数控制控制最大连接数：
+max_connections：该实例允许最大的连接数 max_user_connections：该实例允许每个用户的最大连接数  每个人要根据自己业务量，设置合适的值，不要盲目设置过大，但也不可设置过小，因为MySQL在连接数上升的情况下性能下降非常厉害，如果需要大量连接，这时可以引入thread_pool，所以我们需要保持一个原则：系统创建的用户（给应用使用用户）数 * max_user_connections &amp;lt; max_connections。</description>
     </item>
     
     <item>
       <title>在 OpenResty 中使用正则表达式</title>
-      <link>https://ops.m114.org/post/use-regular-expressions-in-OpenResty/</link>
+      <link>https://ops.m114.org/post/use-regular-expressions-in-openresty/</link>
       <pubDate>Sun, 30 Oct 2016 10:48:19 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/use-regular-expressions-in-OpenResty/</guid>
-      <description>&lt;p&gt;在 OpenResty 中使用正则表达式，社区中推荐的做法是使用ngx.re api。比如匹配一个字符串是否为 http(s) 的链接，可以这么写：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;local function is_http_url(s)
-    return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;amp;#%]+$]])
-end
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;压测一下:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;local t = os.clock()
-for _ = 1, max do
-    is_http_url(&amp;quot;http://blog.stackoverflow.com/2016/10/Stack-Overflow-92-Podcast-The-Guerilla-Guide-to-Interviewing/?cb=1&amp;quot;)
-end
-print(&amp;quot;Time cost: &amp;quot;, os.clock() - t, &amp;quot; s&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;结果：Time cost: 2.663408 s&lt;/p&gt;
-
-&lt;p&gt;另一种做法是使用 lua 的正则语法：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;local function is_http_url(s)
-    return s:find(&amp;quot;^https?://[%w-_%.%?:/%+=&amp;amp;#%%]+$&amp;quot;)
-end
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;结果：Time cost: 0.652221 s&lt;/p&gt;
-
-&lt;p&gt;呃，怎么前者耗时是后者的四倍？lua 内置的小小状态机实现，居然打败了大名鼎鼎的 PCRE 库！说好的社区推荐呢！&lt;/p&gt;
-
-&lt;p&gt;仔细一瞧，前者的确漏了点东西。ngx.re默认不会缓存正则表达式编译后的结果。一般在其它编程平台上，我们都会先把字符串编译成正则表达式，再用到正则函数中。比如在
-Python 里使用 re.compile。所以赶紧补上：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;amp;#%]+$]], &amp;quot;o&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;好，这次性能有了明显提升：Time cost: 0.646518 s&lt;/p&gt;
-
-&lt;p&gt;不错不错，虽然还是跟 lua 的实现不分上下，考虑到 lua 本身的正则支持非常弱（比如连 (foo|bar)
-这种形式都不行），而且语法离经叛道，改用 ngx.re 还是挺有必要的。毕竟 PCRE 可是 Perl Compatibility Regex
-Expression库，我最喜欢它支持的(?name:pattern)形式的命名捕获功能。&lt;/p&gt;
-
-&lt;p&gt;其实 ngx.re 实现尚未用尽全力呢。开启了 JIT 之后，PCRE 库的性能会更上一层楼：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;amp;#%]+$]], &amp;quot;jo&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;结果：Time cost: 0.421824 s&lt;/p&gt;
-
-&lt;p&gt;此时，lua 正则已经被甩到后面去了。&lt;/p&gt;
-
-&lt;p&gt;还能更快吗？&lt;/p&gt;
-
-&lt;p&gt;当然，OpenResty 军火库里还有另外一个武器：&lt;a href=&#34;https://github.com/openresty/lua-resty-core&#34;&gt;lua-resty-core&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;require &#39;resty.core.regex&#39;
-
-local function is_http_url(s)
-    return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;amp;#%]+$]], &amp;quot;jo&amp;quot;)
-end
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;结果：Time cost: 0.175346 s&lt;/p&gt;
-
-&lt;p&gt;Boom！最终用时是 lua 正则的四分之一。lua 正则已经望尘莫及了。有趣的是，这个结果正好是第一次比较的结果倒过来。
-实话说，这个结果在我的意料之外。resty.core.regex 版本的 ngx.re api，跟默认版本的区别在于对入参和出参的处理是在 lua
-代码里完成的，另外调用 C 函数部分采用的是 ffi 而非传统的 C binding。但为什么会这么快？luajit 是否对 ffi 有 jit 优化？&lt;/p&gt;
-
-&lt;p&gt;需要注明一下，resty.core.regex并非银弹。在我们自己的应用上，我尝试引入resty.core.regex，发现对性能无可见的提升。当然，我们的应用的功能不是匹配
-url，正则处理亦非瓶颈。不过 resty.core.regex 对自己的项目是否有效，还需要诸君自己测试一番。&lt;/p&gt;
-
-&lt;p&gt;总结&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;如果在 OpenResty 项目中需要使用正则表达式，请使用 ngx.re api，并开启 jo 选项。&lt;/li&gt;
-&lt;li&gt;resty.core.regex 值得一试。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;原文：&lt;a href=&#34;https://segmentfault.com/a/1190000007298100&#34;&gt;https://segmentfault.com/a/1190000007298100&lt;/a&gt;&lt;/p&gt;
-</description>
+      <guid>https://ops.m114.org/post/use-regular-expressions-in-openresty/</guid>
+      <description>在 OpenResty 中使用正则表达式，社区中推荐的做法是使用ngx.re api。比如匹配一个字符串是否为 http(s) 的链接，可以这么写：
+local function is_http_url(s) return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;amp;#%]+$]]) end  压测一下:
+local t = os.clock() for _ = 1, max do is_http_url(&amp;quot;http://blog.stackoverflow.com/2016/10/Stack-Overflow-92-Podcast-The-Guerilla-Guide-to-Interviewing/?cb=1&amp;quot;) end print(&amp;quot;Time cost: &amp;quot;, os.clock() - t, &amp;quot; s&amp;quot;)  结果：Time cost: 2.663408 s
+另一种做法是使用 lua 的正则语法：
+local function is_http_url(s) return s:find(&amp;quot;^https?://[%w-_%.%?:/%+=&amp;amp;#%%]+$&amp;quot;) end  结果：Time cost: 0.652221 s
+呃，怎么前者耗时是后者的四倍？lua 内置的小小状态机实现，居然打败了大名鼎鼎的 PCRE 库！说好的社区推荐呢！
+仔细一瞧，前者的确漏了点东西。ngx.re默认不会缓存正则表达式编译后的结果。一般在其它编程平台上，我们都会先把字符串编译成正则表达式，再用到正则函数中。比如在 Python 里使用 re.compile。所以赶紧补上：
+return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;amp;#%]+$]], &amp;quot;o&amp;quot;)  好，这次性能有了明显提升：Time cost: 0.646518 s</description>
     </item>
     
     <item>
@@ -926,42 +196,9 @@ url，正则处理亦非瓶颈。不过 resty.core.regex 对自己的项目是�
       <pubDate>Sun, 30 Oct 2016 10:27:24 +0800</pubDate>
       
       <guid>https://ops.m114.org/post/python-count-duplicate-values-of-list/</guid>
-      <description>&lt;p&gt;列表项由数字、字符串组成，统计重复项&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; from collections import defaultdict
-&amp;gt;&amp;gt;&amp;gt; d = defaultdict(int)
-&amp;gt;&amp;gt;&amp;gt; for x in [1, 2, 3, 1, 2, 3, 1]:
-...     d[x] += 1
-...
-&amp;gt;&amp;gt;&amp;gt; dict(d)
-{1: 3, 2: 2, 3: 2}
-&amp;gt;&amp;gt;&amp;gt;
-&amp;gt;&amp;gt;&amp;gt; c = defaultdict(int)
-&amp;gt;&amp;gt;&amp;gt; for y in [&#39;a&#39;, &#39;b&#39;, &#39;a&#39;, &#39;c&#39;, &#39;c&#39;]:
-...     c[y] += 1
-...
-&amp;gt;&amp;gt;&amp;gt; dict(c)
-{&#39;a&#39;: 2, &#39;c&#39;: 2, &#39;b&#39;: 1}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;列表项由字典组成，统计某一键值的重复数&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt;&amp;gt; e = defaultdict(int)
-&amp;gt;&amp;gt;&amp;gt; for x in [{&#39;a&#39;: 1, &#39;b&#39;: 1}, {&#39;a&#39;: 2, &#39;b&#39;:1}, {&#39;a&#39;: 1, &#39;c&#39;: 3}]:
-...     e[x[&#39;a&#39;]] += 1
-...
-&amp;gt;&amp;gt;&amp;gt; dict(e)   # &#39;a&#39;: 1 出现2次，&#39;a&#39;: 2 出现1次
-{1: 2, 2: 1}
-&amp;gt;&amp;gt;&amp;gt; e.items()
-[(1, 2), (2, 1)]
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;参考&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://stackoverflow.com/questions/14374568/counting-duplicate-words-in-python-the-fastest-way&#34;&gt;dictionary - counting duplicate words in python the fastest way - Stack Overflow&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>列表项由数字、字符串组成，统计重复项
+&amp;gt;&amp;gt;&amp;gt; from collections import defaultdict &amp;gt;&amp;gt;&amp;gt; d = defaultdict(int) &amp;gt;&amp;gt;&amp;gt; for x in [1, 2, 3, 1, 2, 3, 1]: ... d[x] += 1 ... &amp;gt;&amp;gt;&amp;gt; dict(d) {1: 3, 2: 2, 3: 2} &amp;gt;&amp;gt;&amp;gt; &amp;gt;&amp;gt;&amp;gt; c = defaultdict(int) &amp;gt;&amp;gt;&amp;gt; for y in [&#39;a&#39;, &#39;b&#39;, &#39;a&#39;, &#39;c&#39;, &#39;c&#39;]: ... c[y] += 1 ... &amp;gt;&amp;gt;&amp;gt; dict(c) {&#39;a&#39;: 2, &#39;c&#39;: 2, &#39;b&#39;: 1}  列表项由字典组成，统计某一键值的重复数
+&amp;gt;&amp;gt;&amp;gt; e = defaultdict(int) &amp;gt;&amp;gt;&amp;gt; for x in [{&#39;a&#39;: 1, &#39;b&#39;: 1}, {&#39;a&#39;: 2, &#39;b&#39;:1}, {&#39;a&#39;: 1, &#39;c&#39;: 3}]: .</description>
     </item>
     
     <item>
@@ -970,53 +207,225 @@ url，正则处理亦非瓶颈。不过 resty.core.regex 对自己的项目是�
       <pubDate>Fri, 26 Aug 2016 14:38:12 +0800</pubDate>
       
       <guid>https://ops.m114.org/post/ceph-key-concepts-backup/</guid>
-      <description>
-
-&lt;h2 id=&#34;scrub&#34;&gt;scrub&lt;/h2&gt;
-
-&lt;p&gt;ceph-osd会定义启动scrub线程，扫描部分对象（哪些对象？），和其他副本比较，发现是否一致。如果发现不一致，ceph会抛出这个异常给用户解决。以PG为粒度，触发scrub。用户手动修复，使用：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;ceph pg repair &amp;lt;pg_id&amp;gt; # 全量复制master节点数据到副本节点。
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;scrub分为light scrubbing和Deep scrubbing，前者是频率多直接检查hash值，后者是频率少直接读取内容计算checksum比较。&lt;/p&gt;
-
-&lt;h2 id=&#34;backfill&#34;&gt;backfill&lt;/h2&gt;
-
-&lt;p&gt;当加入或者减少一个新的osd时，所有remapped之后的PG都要迁移到该osd上，此时就叫做backfill。&lt;/p&gt;
-
-&lt;h2 id=&#34;recovery&#34;&gt;recovery&lt;/h2&gt;
-
-&lt;p&gt;当一个osd或者多个osd崩溃之后，再次上线，该osd的状态已经严重滞后了（此时crushmap中还保持该osd）,这个时候就会进行recovery过程。如果是多个osd recovery, 那么这个时候会占用非常多的服务器资源。&lt;/p&gt;
-
-&lt;h2 id=&#34;peering&#34;&gt;peering&lt;/h2&gt;
-
-&lt;p&gt;故障恢复时，对比各个副本的PGlog, 根据PGlog差异构造missing列表，恢复阶段根据missing列表来恢复。peering以PG为单位进行，peering过程中，改PG的IO会被挂起，进入recovery阶段，则可以接受IO，但hit到missing列表项的，也会挂起，直到恢复完成后。因为PGlog的记录是有限的，当peering时发现，PGlog差异太大，则会触发backfill。&lt;/p&gt;
-
-&lt;h2 id=&#34;active-clean&#34;&gt;active + clean&lt;/h2&gt;
-
-&lt;p&gt;PG的status，active的意思是说该PG可以接受读写请求，clean的意思是说PG的副本数达到了要求。&lt;/p&gt;
-
-&lt;h2 id=&#34;degrade&#34;&gt;degrade&lt;/h2&gt;
-
-&lt;p&gt;PG的副本数没有达到要求，但是满足最小副本数要求。&lt;/p&gt;
-
-&lt;h2 id=&#34;incomplete&#34;&gt;incomplete&lt;/h2&gt;
-
-&lt;p&gt;PG的副本数连最小副本数都没有达到。&lt;/p&gt;
-
-&lt;h2 id=&#34;inconsistent&#34;&gt;inconsistent&lt;/h2&gt;
-
-&lt;p&gt;scrub或者deep scrub的时候发现PG内容不一致。&lt;/p&gt;
-
-&lt;h2 id=&#34;down&#34;&gt;down&lt;/h2&gt;
-
-&lt;p&gt;关键数据丢失。进入这个状态的一种方法，比如一个PG有两个副本，先down掉其中的一个osd，再down掉第二个osd，最后把第一个osd起起来，这样这个PG就处于down状态。&lt;/p&gt;
-
-&lt;h2 id=&#34;pglog和日志文件系统&#34;&gt;PGlog和日志文件系统&lt;/h2&gt;
-
-&lt;p&gt;PGlog相当于undo log, journal相当于redo log。一个是在某个操作执行完成之后，做log记录，如果操作成功，则可以undo；另一个是在某个操作执行之前，做log记录，如果操作失败，下次可以redo。&lt;/p&gt;
-</description>
+      <description>scrub ceph-osd会定义启动scrub线程，扫描部分对象（哪些对象？），和其他副本比较，发现是否一致。如果发现不一致，ceph会抛出这个异常给用户解决。以PG为粒度，触发scrub。用户手动修复，使用：
+ceph pg repair &amp;lt;pg_id&amp;gt; # 全量复制master节点数据到副本节点。  scrub分为light scrubbing和Deep scrubbing，前者是频率多直接检查hash值，后者是频率少直接读取内容计算checksum比较。
+backfill 当加入或者减少一个新的osd时，所有remapped之后的PG都要迁移到该osd上，此时就叫做backfill。
+recovery 当一个osd或者多个osd崩溃之后，再次上线，该osd的状态已经严重滞后了（此时crushmap中还保持该osd）,这个时候就会进行recovery过程。如果是多个osd recovery, 那么这个时候会占用非常多的服务器资源。
+peering 故障恢复时，对比各个副本的PGlog, 根据PGlog差异构造missing列表，恢复阶段根据missing列表来恢复。peering以PG为单位进行，peering过程中，改PG的IO会被挂起，进入recovery阶段，则可以接受IO，但hit到missing列表项的，也会挂起，直到恢复完成后。因为PGlog的记录是有限的，当peering时发现，PGlog差异太大，则会触发backfill。
+active + clean PG的status，active的意思是说该PG可以接受读写请求，clean的意思是说PG的副本数达到了要求。
+degrade PG的副本数没有达到要求，但是满足最小副本数要求。
+incomplete PG的副本数连最小副本数都没有达到。
+inconsistent scrub或者deep scrub的时候发现PG内容不一致。
+down 关键数据丢失。进入这个状态的一种方法，比如一个PG有两个副本，先down掉其中的一个osd，再down掉第二个osd，最后把第一个osd起起来，这样这个PG就处于down状态。
+PGlog和日志文件系统 PGlog相当于undo log, journal相当于redo log。一个是在某个操作执行完成之后，做log记录，如果操作成功，则可以undo；另一个是在某个操作执行之前，做log记录，如果操作失败，下次可以redo。</description>
+    </item>
+    
+    <item>
+      <title>ceph pgs inconsistent</title>
+      <link>https://ops.m114.org/post/ceph-pgs-inconsistent/</link>
+      <pubDate>Wed, 17 Aug 2016 23:44:59 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/ceph-pgs-inconsistent/</guid>
+      <description>OSD扩容后出现如下错误
+HEALTH_ERR 2 pgs inconsistent; 320 scrub errors
+[root@ceph01 ~]# ceph health detail HEALTH_ERR 2 pgs inconsistent; 320 scrub errors pg 10.9 is active+clean+inconsistent, acting [6,0,9] pg 10.10 is active+clean+scrubbing+deep+inconsistent, acting [2,6,4] 320 scrub errors  修复处于不一致状态的pgs
+[root@ceph01 ~]# ceph pg repair 10.9 instructing pg 10.9 on osd.6 to repair [root@ceph01 ~]# ceph pg repair 10.10 instructing pg 10.10 on osd.2 to repair  经过一段时间的修复后，ceph恢复正常。</description>
+    </item>
+    
+    <item>
+      <title>删除osd的正确方式</title>
+      <link>https://ops.m114.org/post/right-steps-delete-ceph-osd/</link>
+      <pubDate>Sat, 06 Aug 2016 23:51:26 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/right-steps-delete-ceph-osd/</guid>
+      <description>按照官网的步骤走的话，在 标记osd为out 和 从crushmap删除osd 这两步都会触发数据再平衡，如下方式只触发了一次迁移，建议使用。
+ 调整osd的crush weight ceph osd crush reweight osd.0 0.1  说明：这个地方如果想慢慢的调整就分几次将crush 的weight 减低到0 ，这个过程实际上是让数据不分布在这个节点上，让数据慢慢的分布到其他节点上，直到最终为没有分布在这个osd，并且迁移完成这个地方不光调整了osd 的crush weight ，实际上同时调整了host 的 weight ，这样会调整集群的整体的crush 分布，在osd 的crush 为0 后， 再对这个osd的任何删除相关操作都不会影响到集群数据的分布。
+ 停止osd进程 systemctl stop ceph-osd@0  这个是通知集群这个osd进程不在了，不提供服务了，因为本身没权重，就不会影响到整体的分布，也就没有迁移
+ 将节点状态标记为out ceph osd out osd.0  这个是通知集群这个osd不再映射数据了，不提供服务了，因为本身没权重，就不会影响到整体的分布，也就没有迁移
+ 从crush中移除节点 ceph osd crush remove osd.0  这个是从crush中删除，因为已经是0了 所以没影响主机的权重，也就没有迁移了
+ 删除节点 ceph osd rm osd.0  这个是从集群里面删除这个节点的记录
+ 删除节点认证（不删除编号会占住) ceph auth del osd.0  这个是从认证当中删除这个节点的信息</description>
+    </item>
+    
+    <item>
+      <title>Centos 7.x systemd对比Centos 6.x daemon</title>
+      <link>https://ops.m114.org/post/centos7-systemd-vs-centos6-daemon/</link>
+      <pubDate>Sat, 06 Aug 2016 13:54:53 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/centos7-systemd-vs-centos6-daemon/</guid>
+      <description>从CentOS 7.x开始，CentOS开始使用systemd服务来代替daemon，原来管理系统启动和管理系统服务的相关命令全部由systemctl命令来代替。
+1、原来的 service 命令与 systemctl 命令对比    daemon命令 systemctl命令 说明     service [服务] start systemctl start [unit type] 启动服务   service [服务] stop systemctl stop [unit type] 停止服务   service [服务] restart systemctl restart [unit type] 重启服务    此外还有二个systemctl参数没有与service命令参数对应
+status: 参数来查看服务运行情况 reload: 重新加载服务，加载更新后的配置文件（并不是所有服务都支持这个参数，比如network.service）  应用举例:
+#启动网络服务 systemctl start network.service #停止网络服务 systemctl stop network.service #重启网络服务 systemctl restart network.service #查看网络服务状态 systemctl status network.</description>
+    </item>
+    
+    <item>
+      <title>MySQL Unable to lock ibdata1 error 11 fix</title>
+      <link>https://ops.m114.org/post/mysql-unable-to-lock-ibdata1-error-11-fix/</link>
+      <pubDate>Wed, 03 Aug 2016 10:52:24 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/mysql-unable-to-lock-ibdata1-error-11-fix/</guid>
+      <description> A bad shutdown can cause such erros on MySQL.
+InnoDB: Unable to lock ./ibdata1, error: 11 InnoDB: Check that you do not already have another mysqld process InnoDB: using the same InnoDB data or log files. InnoDB: Error in opening ./ibdata1  For solution mv ibdata1 ibdata1.bak cp -a ibdata1.bak ibdata1 service mysqld restart  </description>
+    </item>
+    
+    <item>
+      <title>ceph集群jewel版本部署osd激活权限报错</title>
+      <link>https://ops.m114.org/post/ceph-jewel-osd-activate-bug/</link>
+      <pubDate>Fri, 29 Jul 2016 00:29:29 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/ceph-jewel-osd-activate-bug/</guid>
+      <description>环境
+ceph version 10.2.2 (45107e21c568dd033c2f0a3107dec8f0b0e58374) ceph-deploy 1.5.34
+ceph集群jewel版本部署过程中执行osd激活操作如下
+ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2  报错内容如下
+[2016-07-29 00:05:19,106][ceph_deploy.conf][DEBUG ] found configuration file at: /root/.cephdeploy.conf [2016-07-29 00:05:19,107][ceph_deploy.cli][INFO ] Invoked (1.5.34): /bin/ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2 [2016-07-29 00:05:19,107][ceph_deploy.cli][INFO ] ceph-deploy options: [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] username : None [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] verbose : False [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] overwrite_conf : False [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] subcommand : activate [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] quiet : False [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] cd_conf : &amp;lt;ceph_deploy.</description>
+    </item>
+    
+    <item>
+      <title>使用国内源部署Ceph</title>
+      <link>https://ops.m114.org/post/deploy-ceph-using-china-mirror/</link>
+      <pubDate>Thu, 28 Jul 2016 13:17:52 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/deploy-ceph-using-china-mirror/</guid>
+      <description>由于网络方面的原因，Ceph的部署经常受到干扰，通常为了加速部署，基本上大家都是将Ceph的源同步到本地进行安装。根据Ceph中国社区的统计，当前已经有国内的网站定期将Ceph安装源同步，极大的方便了我们的测试。本文就是介绍如何使用国内源，加速ceph-deploy部署Ceph集群。
+关于国内源 根据Ceph中国社区的统计，国内已经有四家网站开始同步Ceph源，分别是：
+ 网易镜像源http://mirrors.163.com/ceph 阿里镜像源http://mirrors.aliyun.com/ceph 中科大镜像源http://mirrors.ustc.edu.cn/ceph 宝德镜像源http://mirrors.plcloud.com/ceph  安装Ceph(Jewel版) 由于Jewel版本中已经不提供el6的镜像源，所以只能使用CentOS 7以上版本进行安装。我们并不需要在repos里增加相应的源，只需要设置环境变量，即可让ceph-deploy使用国内源，具体过程如下：
+export CEPH_DEPLOY_REPO_URL=http://mirrors.aliyun.com/ceph/rpm-jewel/el7 export CEPH_DEPLOY_GPG_URL=http://mirrors.aliyun.com/ceph/keys/release.asc  之后的过程就没任何区别了
+# Create monitor node ceph-deploy new node1 node2 node3 # Software Installation ceph-deploy install deploy node1 node2 node3 # Gather keys ceph-deploy mon create-initial # Ceph deploy osd create disk ceph-deploy osd create node1:sdb:/dev/sdc ceph-deploy osd create node2:sdb:/dev/sdc ceph-deploy osd create node3:sdb:/dev/sdc # Make 3 copies by default echo &amp;quot;osd pool default size = 3&amp;quot; | tee -a $HOME/ceph.</description>
+    </item>
+    
+    <item>
+      <title>R420服务器idrac连接用户数超限制</title>
+      <link>https://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/</link>
+      <pubDate>Tue, 12 Jul 2016 23:29:35 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/</guid>
+      <description>Dell R420服务器中，比较经常出现idrac无法连接，或者连接用户数超限(RAC0218错误)的问题，升级iDrac卡firmware至1.57.57即可解决。
+该版本的bug fix中提到过一点：
+ Fix for issues that cause iDRAC7 sluggish responsiveness after a prolonged period of time (approx. 45-100 days, depending on the usage). In some cases, if the iDRAC is not reset, the iDRAC may become unresponsive and requires a server AC Power on reset. This issue was introduced in firmware release 1.50.50 and fixed in 1.56.55.  RAC0218: The maximum number of user sessions is reached. 2种临时解决方法(idrac重新初始化)</description>
+    </item>
+    
+    <item>
+      <title>运维工具汇总之 性能调优，性能监控，性能测试</title>
+      <link>https://ops.m114.org/post/linux-performance-tools/</link>
+      <pubDate>Sun, 03 Jul 2016 13:39:01 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/linux-performance-tools/</guid>
+      <description> 性能调优 性能监控 性能测试 </description>
+    </item>
+    
+    <item>
+      <title>Git常用命令备忘</title>
+      <link>https://ops.m114.org/post/git-common-command/</link>
+      <pubDate>Thu, 16 Jun 2016 12:33:10 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/git-common-command/</guid>
+      <description>配置 Git的设置文件为.gitconfig，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。
+# 显示当前的Git配置 $ git config --list # 文本编辑器 $ git config --global core.editor vim # 编辑Git配置文件 $ git config -e [--global] # 设置提交代码时的用户信息 $ git config [--global] user.name &amp;quot;[name]&amp;quot; $ git config [--global] user.email &amp;quot;[email address]&amp;quot;  FAQ 1. 如果在你Fork之后，原始的repo更新了，怎么将原始的更新内容与你当前的合并？ 1. 增加原分支为远程分支，命名为upstream git remote add upstream https://github.com/vinsonzou/docker-images.git 2. fetch该远程仓库下的所有分支到remote-tracking分支 git fetch upstream 3. 确保你当前在master分支 git checkout master 4. Fork同步 两种方式，任选其一即可 a) 如果你已经对当前自己的副本做过更改，并且想要保留，则将更新合并到主分支 git merge upstream/master b) 如果想要保留所有原仓库的历史更新则使用rebase复写当前分支(`本地所有修改丢失`) git rebase upstream/master 5.</description>
+    </item>
+    
+    <item>
+      <title>Docker for Mac Beta尝鲜</title>
+      <link>https://ops.m114.org/post/docker-for-mac-beta/</link>
+      <pubDate>Fri, 20 May 2016 00:05:35 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/docker-for-mac-beta/</guid>
+      <description>Docker for Mac Docker for Mac 是一个原生的苹果应用程序，被安装到 /Application 目录。安装时会创建 /usr/local/bin 目录下的 docker、docker-compose、docker-machine 符号链接，这些符号链接指向 ~/Library/Group Containers/group.com.docker/bin 目录下的各类文件，而 ~/Library/Group Containers/group.com.docker/bin 的文件实际上也是符号链接，他们指向 /Applications/Docker.app/Contents/Resources/bin 目录下的实际二进制文件。
+ Docker for Mac 使用通过 Hypervisor.framework 提供的轻量级的 xhyve 虚拟化技术 Docker for Mac 不使用 docker-machine 管理虚拟机 Docker for Mac 不通过 TCP 端口通信，反而使用 /var/tmp/docker.sock 套接字文件通信（实际上是将 /var/tmp 目录挂载到了虚拟机中，虚拟机在其中生成套接字文件） 由于使用了 xhyve 虚拟机，所以可以模拟不同架构的处理器，这样开发者就直接能在 Mac 上使用 Docker 使用诸多平台的镜像文件，比如 arm 等。  为了能主机虚拟机共享文件，Docker 使用 osxfs 作为全新的文件共享方案，在很多方面都有全新的特性，比如在文件权限、命名空间、文件所有者、文件系统事件、挂载点、符号链接、文件类型、扩展属性等方面都有了全新的内容，并且，所有产生的日志都能通过 syslog 查询，非常方便。不过现在依旧存在许多问题，比如没有设置 docker daemon 各项参数的接口。
+如何为Docker Engine设置代理 screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty  敲一下回车，登录，用户名root，没有密码，直接回车。编辑/etc/init.</description>
+    </item>
+    
+    <item>
+      <title>kernel igb 00000500 0 eth0 reset adapter</title>
+      <link>https://ops.m114.org/post/kernel-igb-00000100-0-eth0-reset-adapter/</link>
+      <pubDate>Wed, 03 Jun 2015 23:04:55 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/kernel-igb-00000100-0-eth0-reset-adapter/</guid>
+      <description>系统环境
+ CentOS 6.4 igb driver version 4.0.1-k  报错信息如下
+Jun 3 13:20:05 localhost kernel: igb 0000:05:00.1: eth1: Reset adapter Jun 3 13:20:06 localhost kernel: igb 0000:05:00.0: eth0: Reset adapter Jun 3 13:20:11 localhost kernel: igb: eth1 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX Jun 3 13:20:12 localhost kernel: igb: eth0 NIC Link is Up 1000 Mbps Full Duplex, Flow Control: RX Jun 3 13:55:26 localhost kernel: igb 0000:05:00.</description>
+    </item>
+    
+    <item>
+      <title>DNSPOD API SSL证书调整(subjectAltName)引起的报错</title>
+      <link>https://ops.m114.org/post/dnspod-api-ssl-subjectaltname/</link>
+      <pubDate>Sun, 10 May 2015 23:44:43 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/dnspod-api-ssl-subjectaltname/</guid>
+      <description>报错信息如下：
+Python 2.7 (r27:82500, Jan 7 2014, 23:14:35) [GCC 4.1.2 20080704 (Red Hat 4.1.2-50)] on linux2 Type &amp;quot;help&amp;quot;, &amp;quot;copyright&amp;quot;, &amp;quot;credits&amp;quot; or &amp;quot;license&amp;quot; for more information. &amp;gt;&amp;gt;&amp;gt; import requests &amp;gt;&amp;gt;&amp;gt; r = requests.get(&amp;quot;https://dnsapi.cn&amp;quot;) Traceback (most recent call last): File &amp;quot;&amp;lt;stdin&amp;gt;&amp;quot;, line 1, in &amp;lt;module&amp;gt; File &amp;quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&amp;quot;, line 55, in get return request(&#39;get&#39;, url, **kwargs) File &amp;quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&amp;quot;, line 44, in request return session.request(method=method, url=url, **kwargs) File &amp;quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/sessions.py&amp;quot;, line 361, in request resp = self.</description>
+    </item>
+    
+    <item>
+      <title>俄罗斯永久冬令时的坑</title>
+      <link>https://ops.m114.org/post/russia-permanent-winter-time/</link>
+      <pubDate>Sun, 26 Apr 2015 16:59:30 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/russia-permanent-winter-time/</guid>
+      <description>本文更新说明  2017.03.17: 修复java时区更新方法  系统环境 OS: CentOS 6.X
+JDK: 6
+背景 因游戏在俄罗斯运营，采用了莫斯科时间，俄罗斯宣布2014年10月26日开始永久冬令时。
+过程 更新了系统时区文件，保证系统时间不会切换至夏令时，执行yum update tzdata即可。
+但在莫斯科时间的2015年3月29日凌晨2点，java游戏进程的日志时间跳到了凌晨3点(比系统时间快了1个小时)
+解决方法 使用Oracle TZUpdater进行更新即可
+java -jar tzupdater.jar -l http://www.iana.org/time-zones/repository/tzdata-latest.tar.gz 工具地址：http://www.oracle.com/technetwork/java/javase/downloads/tzupdater-download-513681.html  参考：http://www.jvmhost.com/articles/java-and-timezones/</description>
+    </item>
+    
+    <item>
+      <title>利用TsunamiUDP加速跨机房迁移</title>
+      <link>https://ops.m114.org/post/use-tsunamiudp-accelerate-migration-across-data-centers/</link>
+      <pubDate>Sun, 26 Apr 2015 16:00:00 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/use-tsunamiudp-accelerate-migration-across-data-centers/</guid>
+      <description>部署 yum -y install automake autoconf git clone git://github.com/rriley/tsunami-udp.git cd tsunami-udp ./recompile.sh cp server/tsunamid client/tsunami /usr/bin #或者从sf.net下载 wget http://iweb.dl.sourceforge.net/project/tsunami-udp/tsunami-udp/tsunami-v1.1-cvsbuild42/tsunami-v1.1-cvsbuild42.tar.gz tar zxf tsunami-v1.1-cvsbuild42.tar.gz cd tsunami-udp-v11-b42 ./recompile.sh cp server/tsunamid client/tsunami /usr/bin  使用 #1、防火墙调整 #服务端：开启TCP 46224(默认端口) #客户端：开启UDP 46224(默认端口) #2、开启服务端 #待迁移文件都放在/app/game_data目录下(也可指定单文件传输) tsunamid --hbtimeout 60 /app/game_data/* #PS：这里设定心跳包超时时间为60秒，默认为15秒，在使用中很容易中断导致传输失败 #3、开启客户端 # 拉取服务端(122.225.100.100)的game_db.lz4文件，并限速100M(建议限制下，不然机房带宽就满了哦) tsunami set rate 100M connect 122.225.100.100 get gcmob_db.lz4 # 拉取目录下所有文件 tsunami set rate 100M connect 122.225.100.100 get \* #文档：http://tsunami-udp.cvs.sourceforge.net/viewvc/tsunami-udp/docs/USAGE.txt PS：未避免泄密，IP是随机填的  跨机房迁移示例 场景： 将14G文件从杭州机房迁移至北京机房</description>
+    </item>
+    
+    <item>
+      <title>Zabbix使用Telegram发送报警</title>
+      <link>https://ops.m114.org/post/zabbix-alerts-use-telegram/</link>
+      <pubDate>Sat, 25 Apr 2015 17:16:29 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/zabbix-alerts-use-telegram/</guid>
+      <description>环境 CentOS 6.X x86_64
+编译Telegram yum -y install lua-devel openssl-devel libconfig-devel readline-devel libevent-devel git clone --recursive https://github.com/vysheng/tg.git cd tg ./configure make mkdir /usr/local/tg cp tg-server.pub /usr/local/tg cp bin/telegram-cli /usr/local/tg  zabbix报警脚本/usr/local/tg/telegram.sh:
+#!/bin/sh cd `dirname $0` ./telegram-cli -k tg-server.pub -WDCRE -P 8890 -d &amp;amp;&amp;gt;/dev/null &amp;amp;  Zabbix报警配置 将如下Zabbix Server配置注释并修改如下 AlertScriptsPath=/usr/local/zabbix/alertscripts
+/usr/local/zabbix/alertscripts/tg.sh内容如下:
+#!/bin/sh export to=$1; export subject=$2; export body=$3; echo -e &amp;quot;msg $to ${subject}_#_${body}&amp;quot; | nc localhost 8890 #注意事项: body只能有一行内容，超过一行的内容是不会发送的。  Zabbix添加Media types PS：Telegram已于2015年7月10日被天朝和谐。。。</description>
+    </item>
+    
+    <item>
+      <title>Monitor SSL certificate expiry</title>
+      <link>https://ops.m114.org/post/monitor-ssl-certificate-expiry/</link>
+      <pubDate>Sat, 25 Apr 2015 16:31:41 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/monitor-ssl-certificate-expiry/</guid>
+      <description>看到网上弄了个zabbix监控SSL证书过期时间的,给咱业务也加了个此监控。
+改进如下：
+  基于域名监控(一台服务器上有多个证书)   当前使用的shell脚本如下
+#!/bin/sh host=$1 port=443 end_date=`openssl s_client -servername $host -host $host -port $port -showcerts &amp;lt;/dev/null 2&amp;gt;/dev/null | sed -n &#39;/BEGIN CERTIFICATE/,/END CERT/p&#39; | openssl x509 -text 2&amp;gt;/dev/null | sed -n &#39;s/ *Not After : *//p&#39;` # openssl 检验和验证SSL证书。 # -servername $host 因一台主机存在多个证书，利用SNI特性检查 # &amp;lt;/dev/null 定向标准输入，防止交互式程序Hang。从/dev/null 读时，直接读出0 。 # sed -n 和p 一起使用，仅显示匹配到的部分。 //,// 区间匹配。 # openssl x509 -text 解码证书信息，包含证书的有效期。 if [ -n &amp;quot;$end_date&amp;quot; ] then end_date_seconds=`date &#39;+%s&#39; --date &amp;quot;$end_date&amp;quot;` now_seconds=`date &#39;+%s&#39;` echo &amp;quot;($end_date_seconds-$now_seconds)/24/3600&amp;quot; | bc fi  </description>
+    </item>
+    
+    <item>
+      <title>使用Hugo搭建免费个人Blog</title>
+      <link>https://ops.m114.org/post/how-to-use-hugo/</link>
+      <pubDate>Tue, 11 Nov 2014 17:15:00 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/how-to-use-hugo/</guid>
+      <description>Hugo是什么 Hugo是一个工具，可以用于搭建静态站点，类似jekyll，不过Hugo是Golang写的，大家应该知道Golang有一个对部署友好的特点，那就是静态编译，所以安装起来非常方便，不像jekyll安装起来比较麻烦。
+可能有些读者也不知道jekyll是干啥的，我这简单解释一下，这些软件通常可以叫做静态站点生成器，我们可以使用Markdown格式编写一些文本，按照指定的目录结构存放，然后再在指定的目录里放置css等静态文件，jekyll就可以帮你生成一个静态站点。那既然是静态站点，你就可以很方便的部署了，因为只要搭配一个web server即可，甚至可以部署在github pages上，ops.m114.org是部署在gitcafe pages上的，这样国人访问速度快一些。因为github和gitcafe的pages功能是免费的，这也是我标题中“免费”二次的原因
+Hugo的使用 Hugo的官网是gohugo.io，里边有个Docs，大家可以跟着走一遍，主要是里边的quickstart。笔者就不给大家做翻译了，给读者介绍一下如何基于笔者这个Blog来搭建，在这基础上修改就要容易不少了。
+下载Hugo 官网上首页就有下载链接，去Hugo下载即可
+把笔者的这个blog clone下来 git clone https://github.com/vinsonzou/hugo.blog.git cd hugo.blog hugo server -w  上面的代码是Linux、OS X控制台命令，windows用户请自己转换成windows操作方法。看到控制台打印出的内容了么？Hugo已经帮忙生成了一个静态站点，并且监听在本机的1313端口，访问一下试试吧：）
+修改hugo.blog 一行代码就跑起来了，是不是so easy，接下来笔者大体介绍一下各个目录中的作用，读者可以修改成自己的一些信息
+content目录就是存放你原始markdown文本的地方，content的子目录和markdown文件名组成了url地址，比如这篇文章的url是：http://ops.m114.org/post/how-to-use-hugo/ ，那是因为content目录下有个post/how-to-use-hugo.md
+public目录是刚才运行hugo server -w命令生成的，这里边的内容就是静态站点的内容，之后咱们把这些内容提交到gitcafe pages中
+static目录是存放一些静态资源
+themes目录是主题目录，我使用了hyde这个主题，在上面做了一些修改，读者要想让Blog比较个性化，就可以定制主题
+themes/hyde/{layouts,static}是我们主要修改的内容。index.html是首页，你修改一下看看，浏览器会自动刷新看到效果；partials目录是存放的一些页面片段，便于复用；_default目录是博文单页和博文列表页面，相信你一看就懂；static目录中有一些css，想怎么个性化就调整它们就成了
+使用gitcafe pages制作站点 上面搞定之后，最好把修改之后的内容push到github上。public目录无需push，这是每次都可以自动生成的。咱们这里要把public也作为一个repo，push到gitcafe，生成静态站点。
+gitcafe有个帮助文档：GitCafe Pages，照着搞一下，把public的内容push上去，绑定域名，O了
+是不是很简单，有明白的地方可以查看Hugo文档或留言。</description>
     </item>
     
   </channel>

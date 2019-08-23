@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.18.1" />
+  <meta name="generator" content="Hugo 0.55.6" />
 
   <title>R420服务器idrac连接用户数超限制 &middot; ops</title>
 
@@ -68,12 +68,6 @@
       
       
         <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/"><i class='fa fa-home fa-fw'></i>Home</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://ops.m114.org/about/"><i class='fa fa-user fa-fw'></i>About</a>
       
         </li>
@@ -93,6 +87,12 @@
       
         <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://ops.m114.org/tags/"><i class='fa fa-tags fa-fw'></i>Tags</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/"><i class='fa fa-home fa-fw'></i>Home</a>
       
         </li>
       
@@ -231,37 +231,37 @@
 <ul>
 <li><a href="http://www.dell.com/support/home/us/en/04/Drivers/DriversDetails?driverId=XH6FX">1.57.57</a></li>
 <li><a href="http://www.dell.com/support/home/us/en/04/Drivers/DriversDetails?driverId=3F4WV">1.66.65</a></li>
-<li><a href="http://www.dell.com/support/home/us/en/19/Drivers/DriversDetails?driverId=JHF76">当前最新版2.30.30.30</a>
+
+<li><p><a href="http://www.dell.com/support/home/us/en/19/Drivers/DriversDetails?driverId=JHF76">当前最新版2.30.30.30</a></p>
 
 <ul>
-<li>支持HTML5 virtual console and virtual media</li>
-</ul></li>
-</ul>
+<li><p>支持HTML5 virtual console and virtual media</p>
 
 <pre><code>#升级以1.57.57为例，也可选择更高版本使用
 wget http://downloads.dell.com/FOLDER02171695M/1/ESM_Firmware_XH6FX_LN_1.57.57_A00.BIN
 sh ESM_Firmware_XH6FX_LN_1.57.57_A00.BIN --extract ./idrac7-1.57.57
 cp ./idrac7-1.57.57/payload/firmimg.d7 /var/lib/tftpboot/dell/idrac7-1.57.57
-</code></pre>
+</code></pre></li>
+</ul></li>
+</ul>
 
 <p><strong>firmware升级方法</strong></p>
 
 <ul>
 <li><a href="http://en.community.dell.com/techcenter/b/techcenter/archive/2013/04/17/idrac7-now-supports-updating-server-components-using-racadm-and-web-gui">通过iDrac7 Web GUI升级</a></li>
-<li>通过ssh登录升级</li>
-</ul>
+
+<li><p>通过ssh登录升级</p>
 
 <pre><code>#ssh登录后进行firmware更新
 ssh root@iDrac_IP
 racadm fwupdate -g -u -a $tftp_server_ip -d /dell/idrac7-1.57.57
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>通过racadm命令行升级</li>
-</ul>
+<li><p>通过racadm命令行升级</p>
 
 <pre><code>racadm -r iDrac_IP -u root -p calvin fwupdate -g -u -a $tftp_server_ip -d /dell/idrac7-1.57.57
-</code></pre>
+</code></pre></li>
+</ul>
 
 
   

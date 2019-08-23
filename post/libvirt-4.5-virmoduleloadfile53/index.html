@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.55.6" />
 
-  <title>运维工具汇总之 性能调优，性能监控，性能测试 &middot; ops</title>
+  <title>libvirt 4.5 virModuleLoadFile:53 &middot; ops</title>
 
   
   
@@ -175,7 +175,7 @@
 
 
 <div class="header">
-  <h1>运维工具汇总之 性能调优，性能监控，性能测试</h1>
+  <h1>libvirt 4.5 virModuleLoadFile:53</h1>
   <h2></h2>
 </div>
 <div class="content">
@@ -184,7 +184,7 @@
 
   <div>
     <i class="fa fa-calendar fa-fw"></i>
-    <time>2016/07/03, 13:39</time>
+    <time>2019/01/15, 17:27</time>
   </div>
 
   
@@ -195,7 +195,7 @@
   <div>
     <i class="fa fa-folder fa-fw"></i>
     
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/tips">Tips</a>
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/libvirt">libvirt</a>
     
   </div>
   
@@ -208,32 +208,49 @@
 
 </div>
 
-  
+  <p>CentOS 7.5.1804的libvirt从3.9升级至4.5时，无法启动，报错如下：</p>
 
-<h2 id="性能调优">性能调优</h2>
+<blockquote>
+<p>error : virModuleLoadFile:53 : internal error: Failed to load module &lsquo;/usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so&rsquo;: /usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so: undefined symbol: rbd_diff_iterate2</p>
+</blockquote>
 
-<p><img src="http://m114-static.qiniudn.com/img/linux_tuning_tools.png?imageView2/2/w/800/q/75" alt="" /></p>
+<p><strong>详细报错如下:</strong></p>
 
-<h2 id="性能监控">性能监控</h2>
+<pre><code>[root@localhost ~]# libvirtd -v
+2019-01-15 08:56:53.433+0000: 34181: info : libvirt version: 4.5.0, package: 10.el7_6.3 (CentOS BuildSystem &lt;http://bugs.centos.org&gt;, 2018-11-28-20:51:39, x86-01.bsys.centos.org)
+2019-01-15 08:56:53.433+0000: 34181: info : hostname: localhost.localdomain
+2019-01-15 08:56:53.433+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5da690 classname=virAccessManager
+2019-01-15 08:56:53.434+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5cbfe0 classname=virAccessManager
+2019-01-15 08:56:53.434+0000: 34181: info : virObjectRef:382 : OBJECT_REF: obj=0x56166f5da690
+2019-01-15 08:56:53.434+0000: 34181: info : virObjectUnref:344 : OBJECT_UNREF: obj=0x56166f5da690
+2019-01-15 08:56:53.434+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5cc470 classname=virNetDaemon
+2019-01-15 08:56:53.434+0000: 34181: info : virEventPollAddHandle:140 : EVENT_POLL_ADD_HANDLE: watch=1 fd=5 events=1 cb=0x7f5e248272d0 opaque=(nil) ff=(nil)
+2019-01-15 08:56:53.434+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5cc7d0 classname=virNetServer
+2019-01-15 08:56:53.434+0000: 34181: info : virObjectRef:382 : OBJECT_REF: obj=0x56166f5cc7d0
+2019-01-15 08:56:53.462+0000: 34181: error : virModuleLoadFile:53 : internal error: Failed to load module '/usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so': /usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so: undefined symbol: rbd_diff_iterate2
+</code></pre>
 
-<p><img src="http://m114-static.qiniudn.com/img/linux_observability_tools.png?imageView2/2/w/800/q/75" alt="" /></p>
+<p><strong>解决方法:</strong></p>
 
-<h2 id="性能测试">性能测试</h2>
+<p><code>libvirt_storage_backend_rbd.so</code>应该是连接ceph块设备（rbd）的一个模块，这里暂时不用连接ceph，最简单粗暴的做法就是移除该模块，重启libvirtd。</p>
 
-<p><img src="http://m114-static.qiniudn.com/img/linux_benchmarking_tools.png?imageView2/2/w/800/q/75" alt="" /></p>
+<pre><code>[root@localhost ~]# cd /usr/lib64/libvirt/storage-backend
+[root@localhost storage-backend]# mv libvirt_storage_backend_rbd.so libvirt_storage_backend_rbd.so.bak
+[root@localhost ~]# systemctl restart libvirtd
+</code></pre>
 
 
   
 <div class="prev-next-post pure-g">
   <div class="pure-u-1-24" style="text-align: left;">
     
-    <a href="https://ops.m114.org/post/git-common-command/"><i class="fa fa-chevron-left"></i></a>
+    <a href="https://ops.m114.org/post/python-mysql-pooleddb/"><i class="fa fa-chevron-left"></i></a>
     
   </div>
   <div class="pure-u-10-24">
     
     <nav class="prev">
-      <a href="https://ops.m114.org/post/git-common-command/">Git常用命令备忘</a>
+      <a href="https://ops.m114.org/post/python-mysql-pooleddb/">Python数据库连接池实例--PooledDB</a>
     </nav>
     
   </div>
@@ -243,13 +260,13 @@
   <div class="pure-u-10-24">
     
     <nav class="next">
-      <a href="https://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/">R420服务器idrac连接用户数超限制</a>
+      <a href="https://ops.m114.org/post/python-while-1-vs-for-whiletrue/">Python的while 1跟while True到底有什么区别?</a>
     </nav>
     
   </div>
   <div class="pure-u-1-24" style="text-align: right;">
     
-    <a href="https://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/"><i class="fa fa-chevron-right"></i></a>
+    <a href="https://ops.m114.org/post/python-while-1-vs-for-whiletrue/"><i class="fa fa-chevron-right"></i></a>
     
   </div>
 </div>

@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.18.1" />
+  <meta name="generator" content="Hugo 0.55.6" />
 
   <title>Python的while 1跟while True到底有什么区别? &middot; ops</title>
 
@@ -68,12 +68,6 @@
       
       
         <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/"><i class='fa fa-home fa-fw'></i>Home</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://ops.m114.org/about/"><i class='fa fa-user fa-fw'></i>About</a>
       
         </li>
@@ -93,6 +87,12 @@
       
         <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://ops.m114.org/tags/"><i class='fa fa-tags fa-fw'></i>Tags</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/"><i class='fa fa-home fa-fw'></i>Home</a>
       
         </li>
       
@@ -275,8 +275,7 @@ dis.dis(t2) #对应的是while True,下面是输出
 <p><strong>总结:</strong></p>
 
 <ul>
-<li>在Python 2.x中，True不是关键字，而是在bool类型中定义为1的<a href="http://docs.python.org/library/constants.html#True">built-in global constant</a>。因此，解释器仍然必须加载True的内容。换句话说，True是可重新分配的。</li>
-</ul>
+<li><p>在Python 2.x中，True不是关键字，而是在bool类型中定义为1的<a href="http://docs.python.org/library/constants.html#True">built-in global constant</a>。因此，解释器仍然必须加载True的内容。换句话说，True是可重新分配的。</p>
 
 <pre><code>Python 2.7.15 (default, Jan 12 2019, 21:07:57)
 [GCC 4.2.1 Compatible Apple LLVM 10.0.0 (clang-1000.11.45.5)] on darwin
@@ -284,19 +283,18 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
 &gt;&gt;&gt; True = 4
 &gt;&gt;&gt; True
 4
-</code></pre>
+</code></pre></li>
 
-<ul>
-<li>在Python 3.x中，True也是<a href="http://docs.python.org/py3k/reference/lexical_analysis.html#keywords">关键字</a>了。</li>
-</ul>
+<li><p>在Python 3.x中，True也是<a href="http://docs.python.org/py3k/reference/lexical_analysis.html#keywords">关键字</a>了。</p>
 
 <pre><code>Python 3.7.0 (default, Jun 29 2018, 20:13:13)
 [Clang 9.1.0 (clang-902.0.39.2)] on darwin
 Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
 &gt;&gt;&gt; True = 4
-  File &quot;&lt;stdin&gt;&quot;, line 1
+File &quot;&lt;stdin&gt;&quot;, line 1
 SyntaxError: can't assign to keyword
-</code></pre>
+</code></pre></li>
+</ul>
 
 <p><strong>参考:</strong></p>
 
@@ -309,13 +307,13 @@ SyntaxError: can't assign to keyword
 <div class="prev-next-post pure-g">
   <div class="pure-u-1-24" style="text-align: left;">
     
-    <a href="https://ops.m114.org/post/libvirt-4.5-virModuleLoadFile:53/"><i class="fa fa-chevron-left"></i></a>
+    <a href="https://ops.m114.org/post/libvirt-4.5-virmoduleloadfile53/"><i class="fa fa-chevron-left"></i></a>
     
   </div>
   <div class="pure-u-10-24">
     
     <nav class="prev">
-      <a href="https://ops.m114.org/post/libvirt-4.5-virModuleLoadFile:53/">libvirt 4.5 virModuleLoadFile:53</a>
+      <a href="https://ops.m114.org/post/libvirt-4.5-virmoduleloadfile53/">libvirt 4.5 virModuleLoadFile:53</a>
     </nav>
     
   </div>
@@ -324,8 +322,14 @@ SyntaxError: can't assign to keyword
   </div>
   <div class="pure-u-10-24">
     
+    <nav class="next">
+      <a href="https://ops.m114.org/post/github-supports-webauthn-for-security-keys/">GitHub supports WebAuthn</a>
+    </nav>
+    
   </div>
   <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="https://ops.m114.org/post/github-supports-webauthn-for-security-keys/"><i class="fa fa-chevron-right"></i></a>
     
   </div>
 </div>

@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.18.1" />
+  <meta name="generator" content="Hugo 0.55.6" />
 
   <title>ops</title>
 
@@ -70,12 +70,6 @@
       
       
         <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/"><i class='fa fa-home fa-fw'></i>Home</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://ops.m114.org/about/"><i class='fa fa-user fa-fw'></i>About</a>
       
         </li>
@@ -95,6 +89,12 @@
       
         <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://ops.m114.org/tags/"><i class='fa fa-tags fa-fw'></i>Tags</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/"><i class='fa fa-home fa-fw'></i>Home</a>
       
         </li>
       
@@ -186,6 +186,59 @@
 </div>
 
 <div class="content">
+  
+    <article>
+  <header>
+    <h2><a href="https://ops.m114.org/post/sync-waitgroup/">golang sync.WaitGroup解决goroutine同步</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2017/07/03, 16:27</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/golang">golang</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/golang">golang</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  go提供了sync包和channel来解决协程同步和通讯。新手对channel通道操作起来更容易产生死锁，如果时缓冲的channel还要考虑channel放入和取出数据的速率问题。
+从字面就可以理解，sync.WaitGroup是等待一组协程结束。它实现了一个类似任务队列的结构，你可以向队列中加入任务，任务完成后就把任务从队列中移除，如果队列中的任务没有全部完成，队列就会触发阻塞以阻止程序继续运行。
+sync.WaitGroup只有3个方法，Add()，Done()，Wait()。 其中Done()是Add(-1)的别名。简单的来说，使用Add()添加计数，Done()减掉一个计数，计数不为0, 阻塞Wait()的运行。
+简单示例如下：
+package main import ( &quot;fmt&quot; &quot;sync&quot; ) var waitgroup sync.WaitGroup func test(shownum int) { fmt.Println(shownum) waitgroup.Done() //任务完成，将任务队列中的任务数量-1，其实.Done就是.Add(-1) } func main() { for i := 0; i &lt; 10; i++ { waitgroup.Add(1) //每创建一个goroutine，就把任务队列中任务的数量+1 go test(i) } waitgroup.Wait() //.Wait()这里会发生阻塞，直到队列中所有的任务结束就会解除阻塞 fmt.Println(&quot;done!&quot;) }  Ps: 此文为学习记录，如有错误还请多指教。
+  </p>
+
+  
+</article>
+
   
     <article>
   <header>
@@ -288,7 +341,7 @@ max_connections：该实例允许最大的连接数 max_user_connections：该�
   
     <article>
   <header>
-    <h2><a href="https://ops.m114.org/post/use-regular-expressions-in-OpenResty/">在 OpenResty 中使用正则表达式</a></h2>
+    <h2><a href="https://ops.m114.org/post/use-regular-expressions-in-openresty/">在 OpenResty 中使用正则表达式</a></h2>
 
     <div class="post-meta">
 
@@ -340,7 +393,7 @@ return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;#%]+$]], &quot;o&quot;)  好�
 
   
   <footer>
-    <a href="https://ops.m114.org/post/use-regular-expressions-in-OpenResty/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+    <a href="https://ops.m114.org/post/use-regular-expressions-in-openresty/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
   </footer>
   
 </article>
@@ -545,7 +598,7 @@ HEALTH_ERR 2 pgs inconsistent; 320 scrub errors
   
     <article>
   <header>
-    <h2><a href="https://ops.m114.org/post/CentOS7-systemd-vs-CentOS6-daemon/">Centos 7.x systemd对比Centos 6.x daemon</a></h2>
+    <h2><a href="https://ops.m114.org/post/centos7-systemd-vs-centos6-daemon/">Centos 7.x systemd对比Centos 6.x daemon</a></h2>
 
     <div class="post-meta">
 
@@ -593,7 +646,7 @@ status: 参数来查看服务运行情况 reload: 重新加载服务，加载更
 
   
   <footer>
-    <a href="https://ops.m114.org/post/CentOS7-systemd-vs-CentOS6-daemon/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+    <a href="https://ops.m114.org/post/centos7-systemd-vs-centos6-daemon/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
   </footer>
   
 </article>
@@ -601,7 +654,7 @@ status: 参数来查看服务运行情况 reload: 重新加载服务，加载更
   
     <article>
   <header>
-    <h2><a href="https://ops.m114.org/post/MySQL-Unable-to-lock-ibdata1-error-11-fix/">MySQL Unable to lock ibdata1 error 11 fix</a></h2>
+    <h2><a href="https://ops.m114.org/post/mysql-unable-to-lock-ibdata1-error-11-fix/">MySQL Unable to lock ibdata1 error 11 fix</a></h2>
 
     <div class="post-meta">
 
@@ -645,63 +698,6 @@ status: 参数来查看服务运行情况 reload: 重新加载服务，加载更
 InnoDB: Unable to lock ./ibdata1, error: 11 InnoDB: Check that you do not already have another mysqld process InnoDB: using the same InnoDB data or log files. InnoDB: Error in opening ./ibdata1  For solution mv ibdata1 ibdata1.bak cp -a ibdata1.bak ibdata1 service mysqld restart  
   </p>
 
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/ceph-jewel-osd-activate-bug/">ceph集群jewel版本部署osd激活权限报错</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2016/07/29, 00:29</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/ceph">Ceph</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/ceph">ceph</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  环境
-ceph version 10.2.2 (45107e21c568dd033c2f0a3107dec8f0b0e58374) ceph-deploy 1.5.34
-ceph集群jewel版本部署过程中执行osd激活操作如下
-ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2  报错内容如下
-[2016-07-29 00:05:19,106][ceph_deploy.conf][DEBUG ] found configuration file at: /root/.cephdeploy.conf [2016-07-29 00:05:19,107][ceph_deploy.cli][INFO ] Invoked (1.5.34): /bin/ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2 [2016-07-29 00:05:19,107][ceph_deploy.cli][INFO ] ceph-deploy options: [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] username : None [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] verbose : False [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] overwrite_conf : False [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] subcommand : activate [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] quiet : False [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] cd_conf : &lt;ceph_deploy.
-  </p>
-
-  
-  <footer>
-    <a href="https://ops.m114.org/post/ceph-jewel-osd-activate-bug/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
   
 </article>
 

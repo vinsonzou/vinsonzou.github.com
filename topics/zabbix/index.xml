@@ -2,12 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Zabbix on ops</title>
-    <link>https://ops.m114.org/topics/zabbix/index.xml</link>
+    <link>https://ops.m114.org/topics/zabbix/</link>
     <description>Recent content in Zabbix on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2018. All rights reserved.</copyright>
-    <atom:link href="https://ops.m114.org/topics/zabbix/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 25 Apr 2015 17:16:29 +0800</lastBuildDate>
+    
+	<atom:link href="https://ops.m114.org/topics/zabbix/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Zabbix使用Telegram发送报警</title>
@@ -15,56 +18,11 @@
       <pubDate>Sat, 25 Apr 2015 17:16:29 +0800</pubDate>
       
       <guid>https://ops.m114.org/post/zabbix-alerts-use-telegram/</guid>
-      <description>
-
-&lt;h3 id=&#34;环境&#34;&gt;环境&lt;/h3&gt;
-
-&lt;p&gt;CentOS 6.X x86_64&lt;/p&gt;
-
-&lt;h3 id=&#34;编译telegram&#34;&gt;编译Telegram&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code&gt;yum -y install lua-devel openssl-devel libconfig-devel readline-devel libevent-devel
-
-git clone --recursive https://github.com/vysheng/tg.git
-cd tg
-./configure
-make
-
-mkdir /usr/local/tg
-cp tg-server.pub /usr/local/tg
-cp bin/telegram-cli /usr/local/tg
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;zabbix报警脚本/usr/local/tg/telegram.sh:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#!/bin/sh
-
-cd `dirname $0`
-./telegram-cli -k tg-server.pub -WDCRE -P 8890 -d &amp;amp;&amp;gt;/dev/null &amp;amp;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;zabbix报警配置&#34;&gt;Zabbix报警配置&lt;/h3&gt;
-
-&lt;p&gt;将如下Zabbix Server配置注释并修改如下
-AlertScriptsPath=/usr/local/zabbix/alertscripts&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;/usr/local/zabbix/alertscripts/tg.sh&lt;/code&gt;内容如下:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#!/bin/sh
-
-export to=$1;
-export subject=$2;
-export body=$3;
-
-echo -e &amp;quot;msg $to ${subject}_#_${body}&amp;quot; | nc localhost 8890
-#注意事项: body只能有一行内容，超过一行的内容是不会发送的。
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Zabbix添加Media types
-&lt;img src=&#34;http://m114-static.qiniudn.com/img/media_Telegram.png&#34; alt=&#34;media_Telegram&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;PS：Telegram已于2015年7月10日被天朝和谐。。。&lt;/p&gt;
-</description>
+      <description>环境 CentOS 6.X x86_64
+编译Telegram yum -y install lua-devel openssl-devel libconfig-devel readline-devel libevent-devel git clone --recursive https://github.com/vysheng/tg.git cd tg ./configure make mkdir /usr/local/tg cp tg-server.pub /usr/local/tg cp bin/telegram-cli /usr/local/tg  zabbix报警脚本/usr/local/tg/telegram.sh:
+#!/bin/sh cd `dirname $0` ./telegram-cli -k tg-server.pub -WDCRE -P 8890 -d &amp;amp;&amp;gt;/dev/null &amp;amp;  Zabbix报警配置 将如下Zabbix Server配置注释并修改如下 AlertScriptsPath=/usr/local/zabbix/alertscripts
+/usr/local/zabbix/alertscripts/tg.sh内容如下:
+#!/bin/sh export to=$1; export subject=$2; export body=$3; echo -e &amp;quot;msg $to ${subject}_#_${body}&amp;quot; | nc localhost 8890 #注意事项: body只能有一行内容，超过一行的内容是不会发送的。  Zabbix添加Media types PS：Telegram已于2015年7月10日被天朝和谐。。。</description>
     </item>
     
   </channel>
