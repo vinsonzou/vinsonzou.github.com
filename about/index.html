@@ -213,40 +213,50 @@
 <h2 id="ngx-lua常用模块">ngx_lua常用模块</h2>
 
 <ul>
+<li><p>OpenResty官方库</p>
+
+<ul>
 <li><a href="https://github.com/openresty/lua-resty-core">lua-resty-core</a></li>
 <li><a href="https://github.com/openresty/lua-resty-string">lua-resty-string</a></li>
 <li><a href="https://github.com/openresty/lua-resty-mysql">lua-resty-mysql</a></li>
 <li><a href="https://github.com/openresty/lua-resty-redis">lua-resty-redis</a></li>
-<li><a href="https://github.com/cloudflare/lua-resty-logger-socket">lua-resty-logger-socket</a></li>
-<li><a href="https://github.com/pintsized/lua-resty-http">lua-resty-http</a></li>
 <li><a href="https://github.com/openresty/lua-resty-upload">lua-resty-upload</a></li>
 <li><a href="https://github.com/openresty/srcache-nginx-module">srcache-nginx-module</a></li>
 <li><a href="https://github.com/openresty/echo-nginx-module">echo-nginx-module</a></li>
-<li><a href="https://github.com/openresty/headers-more-nginx-module">headers-more-nginx-module</a></li>
 <li><a href="https://github.com/openresty/set-misc-nginx-module">set-misc-nginx-module</a></li>
-<li><a href="https://github.com/openresty/lua-resty-limit-traffic">lua-resty-limit-traffic</a></li>
+<li><a href="https://github.com/openresty/headers-more-nginx-module">headers-more-nginx-module</a></li>
 <li><a href="https://github.com/openresty/lua-resty-dns">lua-resty-dns</a></li>
 <li><a href="https://github.com/openresty/lua-resty-lock">lua-resty-lock</a></li>
-<li><a href="https://github.com/juce/lua-resty-shell">lua-resty-shell</a></li>
-<li><a href="https://github.com/bungle/lua-resty-template">lua-resty-template</a></li>
+<li><a href="https://github.com/openresty/lua-resty-limit-traffic">lua-resty-limit-traffic</a></li>
 <li><a href="https://github.com/openresty/lua-upstream-nginx-module">lua-upstream-nginx-module</a></li>
 <li><a href="https://github.com/openresty/lua-resty-upstream-healthcheck">lua-resty-upstream-healthcheck</a></li>
-<li><a href="https://github.com/upyun/lua-resty-checkups">lua-resty-checkups</a></li>
 <li><a href="https://github.com/agentzh/lua-resty-balancer">lua-resty-balancer</a></li>
+</ul></li>
+
+<li><p>第三方库</p>
+
+<ul>
+<li><a href="https://github.com/cloudflare/lua-resty-logger-socket">lua-resty-logger-socket</a></li>
+<li><a href="https://github.com/cloudflare/lua-aho-corasick">lua-aho-corasick</a></li>
+<li><a href="https://github.com/cloudflare/nginx-google-oauth">nginx-google-oauth</a></li>
+<li><a href="https://github.com/ledgetech/lua-resty-http">lua-resty-http</a></li>
+<li><a href="https://github.com/tokers/lua-resty-requests">lua-resty-requests</a></li>
+<li><a href="https://github.com/juce/lua-resty-shell">lua-resty-shell</a></li>
+<li><a href="https://github.com/bungle/lua-resty-template">lua-resty-template</a></li>
+<li><a href="https://github.com/upyun/lua-resty-checkups">lua-resty-checkups</a></li>
 <li><a href="https://github.com/thibaultcha/lua-resty-jit-uuid">lua-resty-jit-uuid</a></li>
 <li><a href="https://github.com/thibaultcha/lua-resty-mlcache">lua-resty-mlcache</a></li>
-<li><a href="https://github.com/hamishforbes/lua-resty-iputils">lua-resty-iputils</a></li>
+<li><a href="https://github.com/hamishforbes/lua-resty-iputils">lua-resty-iputils(遍历)</a></li>
 <li><a href="https://github.com/doujiang24/lua-resty-rsa">lua-resty-rsa</a></li>
 <li><a href="https://github.com/jkeys089/lua-resty-hmac">lua-resty-hmac</a></li>
-<li><a href="https://github.com/cloudflare/nginx-google-oauth">nginx-google-oauth</a></li>
-<li><a href="https://github.com/cloudflare/lua-aho-corasick">lua-aho-corasick</a></li>
 <li><a href="https://github.com/jx-sec/jxwaf">jxwaf</a></li>
 <li><a href="https://github.com/GUI/lua-resty-mail">lua-resty-mail</a></li>
-<li><a href="https://github.com/iresty/apisix">apisix</a></li>
-<li><a href="https://github.com/iresty/lua-resty-etcd">lua-resty-etcd</a></li>
-<li><a href="https://github.com/iresty/lua-resty-libr3">lua-resty-libr3</a></li>
 <li><a href="https://github.com/jkeys089/lua-resty-resolver">lua-resty-resolver</a></li>
 <li><a href="https://github.com/Kong/lua-resty-dns-client">lua-resty-dns-client</a></li>
+<li><a href="https://github.com/iresty/apisix">apisix</a></li>
+<li><a href="https://github.com/iresty/lua-resty-etcd">lua-resty-etcd</a></li>
+<li><a href="https://github.com/iresty/lua-resty-ip-matcher">lua-resty-ip-matcher(hash实现)</a></li>
+</ul></li>
 </ul>
 
 <h2 id="ngx-lua-web开发">ngx_lua Web开发</h2>
@@ -267,7 +277,7 @@
 <ul>
 <li><a href="https://github.com/pquerna/otp">otp</a></li>
 <li><a href="https://github.com/spf13/viper">viper</a></li>
-<li><a href="https://github.com/goofansu/wego">屏蔽字过滤服务</a></li>
+<li><a href="https://github.com/sunny352/wego">屏蔽字过滤服务</a></li>
 <li><a href="https://github.com/tidwall/gjson">gjson</a></li>
 <li><a href="https://github.com/didi/gendry">gendry</a></li>
 <li><a href="https://github.com/json-iterator/go">json-iterator</a></li>
