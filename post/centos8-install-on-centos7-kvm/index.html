@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.55.6" />
 
-  <title>GitHub supports WebAuthn &middot; ops</title>
+  <title>CentOS7上如何支持安装CentOS8 VM &middot; ops</title>
 
   
   
@@ -175,7 +175,7 @@
 
 
 <div class="header">
-  <h1>GitHub supports WebAuthn</h1>
+  <h1>CentOS7上如何支持安装CentOS8 VM</h1>
   <h2></h2>
 </div>
 <div class="content">
@@ -184,13 +184,20 @@
 
   <div>
     <i class="fa fa-calendar fa-fw"></i>
-    <time>2019/08/23, 15:05</time>
+    <time>2020/06/12, 13:12</time>
   </div>
 
   
 
   
   
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/libvirt">libvirt</a>
+    
+  </div>
   
   
 
@@ -200,7 +207,9 @@
   <div>
     <i class="fa fa-tags fa-fw"></i>
     
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/webauthn">webauthn</a>
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/libvirt">libvirt</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/kvm">kvm</a>
     
   </div>
   
@@ -208,41 +217,45 @@
 
 </div>
 
-  <p>为了提高 GitHub 帐户的安全性，GitHub平台2019-08-21通过支持 Web 身份验证（WebAuthn）标准宣布了易于使用的身份验证选项。通过 WebAuthn，开发者们现在可以使用物理安全密钥在 GitHub 上进行双因素身份验证。如果你没有物理安全密钥，也可以将笔记本电脑或手机用作安全密钥。</p>
+  
 
-<p>以下是 GitHub 上支持的物理安全密钥的组合：</p>
-
-<ul>
-<li>Windows，macOS，Linux 和 Android：基于 Firefox 和 Chrome 的浏览器</li>
-<li>Windows：Edge</li>
-<li>macOS：Safari，目前在技术预览版中，但即将推出</li>
-<li>iOS：Brave 浏览器以及使用新的 YubiKey 5Ci</li>
-</ul>
-
-<p>你还可以使用以下浏览器和生物识别选项：</p>
+<h2 id="环境">环境</h2>
 
 <ul>
-<li>Windows 上的 Microsoft Edge，使用 Windows Hello（带面部识别，指纹识别器或 PIN）</li>
-<li>在 macOS 的 Chrome 上使用 Touch ID</li>
-<li>在 Android 的 Chrome 上使用指纹识别器</li>
+<li>宿主机：CentOS 7.5</li>
+<li>VM: CentOS 8.1</li>
 </ul>
 
-<p>由于平台支持尚未普及，GitHub 目前支持安全密钥作为补充的第二个因素，将来，GitHub 会将安全密钥作为主要的第二因素。</p>
+<h2 id="查看支持os">查看支持os</h2>
 
-<p>来源：<a href="https://github.blog/2019-08-21-github-supports-webauthn-for-security-keys/">https://github.blog/2019-08-21-github-supports-webauthn-for-security-keys/</a></p>
+<p>osinfo-query os</p>
+
+<p>当前环境默认不支持CentOS8/RHEL8，需做如下操作:</p>
+
+<pre><code># osinfo-db 需更新至osinfo-db-20190805-2
+yum install osinfo-db-tools osinfo-db
+</code></pre>
+
+<h2 id="报错处理">报错处理</h2>
+
+<p><strong>ERROR &lsquo;virConnect&rsquo; object has no attribute &lsquo;baselineHypervisorCPU&rsquo;</strong></p>
+
+<p>将 <code>libvirt-python-3.9.0-1</code> 升级至 <code>libvirt-python-4.5.0-1</code> 即可解决</p>
+
+<p>参考链接: <a href="https://github.com/virt-manager/virt-manager/issues/57">https://github.com/virt-manager/virt-manager/issues/57</a></p>
 
 
   
 <div class="prev-next-post pure-g">
   <div class="pure-u-1-24" style="text-align: left;">
     
-    <a href="https://ops.m114.org/post/python-while-1-vs-for-whiletrue/"><i class="fa fa-chevron-left"></i></a>
+    <a href="https://ops.m114.org/post/github-supports-webauthn-for-security-keys/"><i class="fa fa-chevron-left"></i></a>
     
   </div>
   <div class="pure-u-10-24">
     
     <nav class="prev">
-      <a href="https://ops.m114.org/post/python-while-1-vs-for-whiletrue/">Python的while 1跟while True到底有什么区别?</a>
+      <a href="https://ops.m114.org/post/github-supports-webauthn-for-security-keys/">GitHub supports WebAuthn</a>
     </nav>
     
   </div>
@@ -251,14 +264,8 @@
   </div>
   <div class="pure-u-10-24">
     
-    <nav class="next">
-      <a href="https://ops.m114.org/post/centos8-install-on-centos7-kvm/">CentOS7上如何支持安装CentOS8 VM</a>
-    </nav>
-    
   </div>
   <div class="pure-u-1-24" style="text-align: right;">
-    
-    <a href="https://ops.m114.org/post/centos8-install-on-centos7-kvm/"><i class="fa fa-chevron-right"></i></a>
     
   </div>
 </div>

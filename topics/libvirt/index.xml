@@ -7,10 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2018. All rights reserved.</copyright>
-    <lastBuildDate>Tue, 15 Jan 2019 17:27:22 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 12 Jun 2020 13:12:06 +0800</lastBuildDate>
     
 	<atom:link href="https://ops.m114.org/topics/libvirt/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>CentOS7上如何支持安装CentOS8 VM</title>
+      <link>https://ops.m114.org/post/centos8-install-on-centos7-kvm/</link>
+      <pubDate>Fri, 12 Jun 2020 13:12:06 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/centos8-install-on-centos7-kvm/</guid>
+      <description>环境  宿主机：CentOS 7.5 VM: CentOS 8.1  查看支持os osinfo-query os
+当前环境默认不支持CentOS8/RHEL8，需做如下操作:
+# osinfo-db 需更新至osinfo-db-20190805-2 yum install osinfo-db-tools osinfo-db  报错处理 ERROR &amp;lsquo;virConnect&amp;rsquo; object has no attribute &amp;lsquo;baselineHypervisorCPU&amp;rsquo;
+将 libvirt-python-3.9.0-1 升级至 libvirt-python-4.5.0-1 即可解决
+参考链接: https://github.com/virt-manager/virt-manager/issues/57</description>
+    </item>
     
     <item>
       <title>libvirt 4.5 virModuleLoadFile:53</title>
