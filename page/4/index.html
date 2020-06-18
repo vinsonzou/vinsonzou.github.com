@@ -189,6 +189,61 @@
   
     <article>
   <header>
+    <h2><a href="https://ops.m114.org/post/russia-permanent-winter-time/">俄罗斯永久冬令时的坑</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2015/04/26, 16:59</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/tips">Tips</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/java">java</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  本文更新说明  2017.03.17: 修复java时区更新方法  系统环境 OS: CentOS 6.X
+JDK: 6
+背景 因游戏在俄罗斯运营，采用了莫斯科时间，俄罗斯宣布2014年10月26日开始永久冬令时。
+过程 更新了系统时区文件，保证系统时间不会切换至夏令时，执行yum update tzdata即可。
+但在莫斯科时间的2015年3月29日凌晨2点，java游戏进程的日志时间跳到了凌晨3点(比系统时间快了1个小时)
+解决方法 使用Oracle TZUpdater进行更新即可
+java -jar tzupdater.jar -l http://www.iana.org/time-zones/repository/tzdata-latest.tar.gz 工具地址：http://www.oracle.com/technetwork/java/javase/downloads/tzupdater-download-513681.html  参考：http://www.jvmhost.com/articles/java-and-timezones/
+  </p>
+
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="https://ops.m114.org/post/use-tsunamiudp-accelerate-migration-across-data-centers/">利用TsunamiUDP加速跨机房迁移</a></h2>
 
     <div class="post-meta">
