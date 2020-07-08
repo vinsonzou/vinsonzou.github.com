@@ -367,6 +367,15 @@ git push origin --delete tag v0.1
 <pre><code>git show commit哈希值 文件名
 </code></pre>
 
+<h3 id="9-覆盖上一次提交记录和注释">9. 覆盖上一次提交记录和注释</h3>
+
+<pre><code># 本地覆盖记录
+git commit --amend -m &quot;Add comment msg&quot;
+
+# 线上覆盖提交
+git push origin 分支名称：分支名称 -f
+</code></pre>
+
 
   
 <div class="prev-next-post pure-g">

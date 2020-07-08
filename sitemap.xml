@@ -8,13 +8,13 @@
   </url>
   
   <url>
-    <loc>https://ops.m114.org/topics/mysql/</loc>
+    <loc>https://ops.m114.org/tags/mysql/</loc>
     <lastmod>2020-06-18T13:41:15+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://ops.m114.org/tags/mysql/</loc>
+    <loc>https://ops.m114.org/topics/mysql/</loc>
     <lastmod>2020-06-18T13:41:15+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -61,13 +61,13 @@
   </url>
   
   <url>
-    <loc>https://ops.m114.org/topics/libvirt/</loc>
+    <loc>https://ops.m114.org/tags/libvirt/</loc>
     <lastmod>2020-06-12T13:12:06+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://ops.m114.org/tags/libvirt/</loc>
+    <loc>https://ops.m114.org/topics/libvirt/</loc>
     <lastmod>2020-06-12T13:12:06+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -84,13 +84,13 @@
   </url>
   
   <url>
-    <loc>https://ops.m114.org/topics/python/</loc>
+    <loc>https://ops.m114.org/tags/python/</loc>
     <lastmod>2019-01-23T17:46:06+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://ops.m114.org/tags/python/</loc>
+    <loc>https://ops.m114.org/topics/python/</loc>
     <lastmod>2019-01-23T17:46:06+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -311,13 +311,13 @@
   </url>
   
   <url>
-    <loc>https://ops.m114.org/topics/docker/</loc>
+    <loc>https://ops.m114.org/tags/docker/</loc>
     <lastmod>2016-05-20T00:05:35+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://ops.m114.org/tags/docker/</loc>
+    <loc>https://ops.m114.org/topics/docker/</loc>
     <lastmod>2016-05-20T00:05:35+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -378,13 +378,13 @@
   </url>
   
   <url>
-    <loc>https://ops.m114.org/topics/zabbix/</loc>
+    <loc>https://ops.m114.org/tags/zabbix/</loc>
     <lastmod>2015-04-25T17:16:29+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://ops.m114.org/tags/zabbix/</loc>
+    <loc>https://ops.m114.org/topics/zabbix/</loc>
     <lastmod>2015-04-25T17:16:29+08:00</lastmod>
     <priority>0</priority>
   </url>
