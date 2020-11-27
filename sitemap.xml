@@ -384,14 +384,14 @@
   </url>
   
   <url>
-    <loc>https://ops.m114.org/tags/zabbix/</loc>
+    <loc>https://ops.m114.org/post/zabbix-alerts-use-telegram/</loc>
     <lastmod>2015-04-25T17:16:29+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://ops.m114.org/post/zabbix-alerts-use-telegram/</loc>
+    <loc>https://ops.m114.org/tags/zabbix/</loc>
     <lastmod>2015-04-25T17:16:29+08:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
