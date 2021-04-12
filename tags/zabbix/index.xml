@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>zabbix on ops</title>
+    <title>Zabbix on ops</title>
     <link>https://ops.m114.org/tags/zabbix/</link>
-    <description>Recent content in zabbix on ops</description>
+    <description>Recent content in Zabbix on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2018. All rights reserved.</copyright>
