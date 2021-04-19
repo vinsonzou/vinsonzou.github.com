@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.55.6" />
 
-  <title>golang &middot; ops</title>
+  <title>4层TCP转发后获得真实IP之proxy_protocol &middot; ops</title>
 
   
   
@@ -36,8 +36,6 @@
   <link href="//fonts.lug.ustc.edu.cn/css?family=Raleway" rel="stylesheet" type="text/css">
 
   
-  
-  <link rel="alternate" type="application/rss+xml" title="ops" href="https://ops.m114.org/topics/golang/index.xml" />
   
 
   
@@ -104,10 +102,6 @@
   <div class="pure-menu social">
   <ul class="pure-menu-list">
 
-    
-    <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://ops.m114.org/topics/golang/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
-    </li>
     
 
     
@@ -181,16 +175,12 @@
 
 
 <div class="header">
-  <h1>golang</h1>
+  <h1>4层TCP转发后获得真实IP之proxy_protocol</h1>
+  <h2></h2>
 </div>
-
 <div class="content">
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/tcp-proxy-get-source-ip-by-proxy_protocol/">4层TCP转发后获得真实IP之proxy_protocol</a></h2>
 
-    <div class="post-meta">
+  <div class="post-meta">
 
   <div>
     <i class="fa fa-calendar fa-fw"></i>
@@ -231,78 +221,114 @@
 
 </div>
 
-  </header>
+  
 
-  <p>
-  需求 后端TCP Server在经过TCP代理(nginx stream模块)后，程序不做任何调整获得用户真实IP。 了解到cloudflare的spectrum产品与我们这个需求一致，刚好有细节和源码分享，参考如下:
- https://blog.cloudflare.com/mmproxy-creative-way-of-preserving-client-ips-in-spectrum/ https://github.com/cloudflare/mmproxy  有公司参考cloudflare的mmproxy，用golang实现了性能更优的版本。
- https://github.com/path-network/go-mmproxy  部署 拓扑与cloudflare spectrum产品一样，示意图如下：
- go &gt; 1.11 as root or with CAP_NET_RAW capability to be able to set IP_TRANSPARENT socket opt.
-go get github.com/path-network/go-mmproxy sudo setcap cap_net_raw=+ep $(readlink -f $(which go-mmproxy))   测试  启动
-# go-mmproxy监听端口为25577，TCP后端端口为25578 ip rule add from 127.0.0.1/8 iif lo table 123 ip route add local 0.0.0.0/0 dev lo table 123 go-mmproxy -l 0.
-  </p>
+<h2 id="需求">需求</h2>
+
+<p>后端TCP Server在经过TCP代理(nginx stream模块)后，程序不做任何调整获得用户真实IP。
+了解到cloudflare的spectrum产品与我们这个需求一致，刚好有细节和源码分享，参考如下:</p>
+
+<ul>
+<li><a href="https://blog.cloudflare.com/mmproxy-creative-way-of-preserving-client-ips-in-spectrum/">https://blog.cloudflare.com/mmproxy-creative-way-of-preserving-client-ips-in-spectrum/</a></li>
+<li><a href="https://github.com/cloudflare/mmproxy">https://github.com/cloudflare/mmproxy</a></li>
+</ul>
+
+<p>有公司参考cloudflare的mmproxy，用golang实现了性能更优的版本。</p>
+
+<ul>
+<li><a href="https://github.com/path-network/go-mmproxy">https://github.com/path-network/go-mmproxy</a></li>
+</ul>
+
+<h2 id="部署">部署</h2>
+
+<p>拓扑与cloudflare spectrum产品一样，示意图如下：</p>
+
+<p><img src="https://blog.cloudflare.com/content/images/2018/04/Screen-Shot-2018-04-15-at-12.26.28-PM-1.png" alt="" /></p>
+
+<ul>
+<li>go &gt; 1.11</li>
+
+<li><p>as root or with <code>CAP_NET_RAW</code> capability to be able to set <code>IP_TRANSPARENT</code> socket opt.</p>
+
+<pre><code>go get github.com/path-network/go-mmproxy
+sudo setcap cap_net_raw=+ep $(readlink -f $(which go-mmproxy))
+</code></pre></li>
+</ul>
+
+<h2 id="测试">测试</h2>
+
+<ul>
+<li><p>启动</p>
+
+<pre><code># go-mmproxy监听端口为25577，TCP后端端口为25578
+ip rule add from 127.0.0.1/8 iif lo table 123
+ip route add local 0.0.0.0/0 dev lo table 123
+go-mmproxy -l 0.0.0.0:25577 -4 127.0.0.1:25578 -6 &quot;[::1]:25578&quot; -allowed-subnets ./path-prefixes.txt
+</code></pre></li>
+
+<li><p>停止</p>
+
+<pre><code># 清理路由
+ip rule del from 127.0.0.1/8 iif lo table 123
+ip route del local 0.0.0.0/0 dev lo table 123
+</code></pre></li>
+</ul>
+
+<h2 id="faq">FAQ</h2>
+
+<ul>
+<li><strong>目前无法做到多端口映射，一个端口就得启动一个进程</strong></li>
+</ul>
+
 
   
-  <footer>
-    <a href="https://ops.m114.org/post/tcp-proxy-get-source-ip-by-proxy_protocol/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/sync-waitgroup/">golang sync.WaitGroup解决goroutine同步</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2017/07/03, 16:27</time>
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://ops.m114.org/post/centos8-build-mysql5.7.30/"><i class="fa fa-chevron-left"></i></a>
+    
   </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
+  <div class="pure-u-10-24">
     
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/golang">golang</a>
+    <nav class="prev">
+      <a href="https://ops.m114.org/post/centos8-build-mysql5.7.30/">CentOS8编译安装MySQL 5.7.30</a>
+    </nav>
     
   </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/golang">golang</a>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
     
   </div>
-  
-  
-
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
 </div>
 
-  </header>
 
-  <p>
-  go提供了sync包和channel来解决协程同步和通讯。新手对channel通道操作起来更容易产生死锁，如果时缓冲的channel还要考虑channel放入和取出数据的速率问题。
-从字面就可以理解，sync.WaitGroup是等待一组协程结束。它实现了一个类似任务队列的结构，你可以向队列中加入任务，任务完成后就把任务从队列中移除，如果队列中的任务没有全部完成，队列就会触发阻塞以阻止程序继续运行。
-sync.WaitGroup只有3个方法，Add()，Done()，Wait()。 其中Done()是Add(-1)的别名。简单的来说，使用Add()添加计数，Done()减掉一个计数，计数不为0, 阻塞Wait()的运行。
-简单示例如下：
-package main import ( &quot;fmt&quot; &quot;sync&quot; ) var waitgroup sync.WaitGroup func test(shownum int) { fmt.Println(shownum) waitgroup.Done() //任务完成，将任务队列中的任务数量-1，其实.Done就是.Add(-1) } func main() { for i := 0; i &lt; 10; i++ { waitgroup.Add(1) //每创建一个goroutine，就把任务队列中任务的数量+1 go test(i) } waitgroup.Wait() //.Wait()这里会发生阻塞，直到队列中所有的任务结束就会解除阻塞 fmt.Println(&quot;done!&quot;) }  Ps: 此文为学习记录，如有错误还请多指教。
-  </p>
 
   
-</article>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
 
-  
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'vinsoncou';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
 </div>
 
 </div>
@@ -314,3 +340,4 @@ package main import ( &quot;fmt&quot; &quot;sync&quot; ) var waitgroup sync.Wait
 
 <script data-no-instant>document.write('<script src="/livereload.js?port=1313&mindelay=10"></' + 'script>')</script></body>
 </html>
+
