@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.55.6" />
+  <meta name="generator" content="Hugo 0.83.1" />
 
   <title>ops</title>
 
+    
+
   
   
-  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
@@ -30,23 +32,32 @@
   <link rel="stylesheet" href="https://ops.m114.org/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
   
-  <link href="//fonts.lug.ustc.edu.cn/css?family=Raleway" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
 
   
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
   
-  <link rel="alternate" type="application/rss+xml" title="ops" href="https://ops.m114.org/index.xml" />
+  <link rel="alternate" type="application/rss+xml" title="ops"
+    href='https://ops.m114.org/index.xml' />
   
 
   
-  <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.5.0/styles/androidstudio.min.css">
-  <script src="//cdn.bootcss.com/highlight.js/9.5.0/highlight.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
   <script>hljs.initHighlightingOnLoad();</script>
   
 
   <link rel="shortcut icon" href="https://ops.m114.org/img/favicon.ico" type="image/x-icon" />
+
+  
+  
 
 </head>
 
@@ -106,8 +117,13 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://ops.m114.org/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      <a class="pure-menu-link" href='https://ops.m114.org/index.xml'><i
+          class="fas fa-rss fa-fw"></i>RSS</a>
     </li>
+    
+
+    
+
     
 
     
@@ -152,8 +168,28 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://github.com/vinsonzou" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+      <a class="pure-menu-link" href="https://github.com/vinsonzou" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
     </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
     
 
     
@@ -166,7 +202,7 @@
 
   <div>
   <div class="small-print">
-    <small>&copy; 2014-2018. All rights reserved.</small>
+    <small>&copy; 2014-2021. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
@@ -238,9 +274,7 @@
   需求 后端TCP Server在经过TCP代理(nginx stream模块)后，程序不做任何调整获得用户真实IP。 了解到cloudflare的spectrum产品与我们这个需求一致，刚好有细节和源码分享，参考如下:
  https://blog.cloudflare.com/mmproxy-creative-way-of-preserving-client-ips-in-spectrum/ https://github.com/cloudflare/mmproxy  有公司参考cloudflare的mmproxy，用golang实现了性能更优的版本。
  https://github.com/path-network/go-mmproxy  部署 拓扑与cloudflare spectrum产品一样，示意图如下：
- go &gt; 1.11 as root or with CAP_NET_RAW capability to be able to set IP_TRANSPARENT socket opt.
-go get github.com/path-network/go-mmproxy sudo setcap cap_net_raw=+ep $(readlink -f $(which go-mmproxy))   测试  启动
-# go-mmproxy监听端口为25577，TCP后端端口为25578 ip rule add from 127.0.0.1/8 iif lo table 123 ip route add local 0.0.0.0/0 dev lo table 123 go-mmproxy -l 0.
+ go &gt; 1.11 as root or with CAP_NET_RAW capability to be able to set IP_TRANSPARENT socket opt.  go get github.com/path-network/go-mmproxy sudo setcap cap_net_raw=+ep $(readlink -f $(which go-mmproxy)) 测试  启动  # go-mmproxy监听端口为25577，TCP后端端口为25578 ip rule add from 127.0.0.1/8 iif lo table 123 ip route add local 0.0.0.0/0 dev lo table 123 go-mmproxy -l 0.
   </p>
 
   
@@ -295,9 +329,9 @@ go get github.com/path-network/go-mmproxy sudo setcap cap_net_raw=+ep $(readlink
   </header>
 
   <p>
-  环境  OS: CentOS 8.2 MySQL: 5.7.30  报错信息 1. 编译报错 CMake Error at plugin/group_replication/libmysqlgcs/rpcgen.cmake:100 (MESSAGE): Could not find rpcgen Call Stack (most recent call first): plugin/group_replication/libmysqlgcs/CMakeLists.txt:38 (INCLUDE)  解决方法
-yum --enablerepo=PowerTools install rpcgen  2. systemctl start mysqld.service报错无法启动问题 报错信息如下
-[ERROR] Can't start server: can't check PID filepath: No such file or directory  /usr/lib/systemd/system/mysqld.service 默认配置如下
+  环境  OS: CentOS 8.2 MySQL: 5.7.30  报错信息 1. 编译报错 CMake Error at plugin/group_replication/libmysqlgcs/rpcgen.cmake:100 (MESSAGE): Could not find rpcgen Call Stack (most recent call first): plugin/group_replication/libmysqlgcs/CMakeLists.txt:38 (INCLUDE) 解决方法
+yum --enablerepo=PowerTools install rpcgen 2. systemctl start mysqld.service报错无法启动问题 报错信息如下
+[ERROR] Can't start server: can't check PID filepath: No such file or directory /usr/lib/systemd/system/mysqld.service 默认配置如下
 # Copyright (c) 2015, 2016, Oracle and/or its affiliates. All rights reserved. # # This program is free software; you can redistribute it and/or modify # it under the terms of the GNU General Public License, version 2.
   </p>
 
@@ -355,7 +389,7 @@ yum --enablerepo=PowerTools install rpcgen  2. systemctl start mysqld.service报
   <p>
   环境  宿主机：CentOS 7.5 VM: CentOS 8.1  查看支持os osinfo-query os
 当前环境默认不支持CentOS8/RHEL8，需做如下操作:
-# osinfo-db 需更新至osinfo-db-20190805-2 yum install osinfo-db-tools osinfo-db  报错处理 ERROR &lsquo;virConnect&rsquo; object has no attribute &lsquo;baselineHypervisorCPU&rsquo;
+# osinfo-db 需更新至osinfo-db-20190805-2 yum install osinfo-db-tools osinfo-db 报错处理 ERROR &lsquo;virConnect&rsquo; object has no attribute &lsquo;baselineHypervisorCPU&rsquo;
 将 libvirt-python-3.9.0-1 升级至 libvirt-python-4.5.0-1 即可解决
 参考链接: https://github.com/virt-manager/virt-manager/issues/57
   </p>
@@ -453,9 +487,9 @@ yum --enablerepo=PowerTools install rpcgen  2. systemctl start mysqld.service报
 
   <p>
   定义两个方法,分别使用while循环
-def t1(): while 1: pass def t2(): while True: pass  单从功能上说,两种无任何区别,那么,来看看字节码上的区别:
+def t1(): while 1: pass def t2(): while True: pass 单从功能上说,两种无任何区别,那么,来看看字节码上的区别:
 For Python 2.x
-import dis #载入反编译模块,Python内置的 dis.dis(t1) #对应的是while 1,下面是输出 2 0 SETUP_LOOP 3 (to 6) 3 &gt;&gt; 3 JUMP_ABSOLUTE 3 &gt;&gt; 6 LOAD_CONST 0 (None) 9 RETURN_VALUE dis.dis(t2) #对应的是while True,下面是输出 2 0 SETUP_LOOP 10 (to 13) &gt;&gt; 3 LOAD_GLOBAL 0 (True) 6 POP_JUMP_IF_FALSE 12 3 9 JUMP_ABSOLUTE 3 &gt;&gt; 12 POP_BLOCK &gt;&gt; 13 LOAD_CONST 0 (None) 16 RETURN_VALUE  很明显, while 1的字节码只有while True的一半.
+import dis #载入反编译模块,Python内置的 dis.dis(t1) #对应的是while 1,下面是输出 2 0 SETUP_LOOP 3 (to 6) 3 &gt;&gt; 3 JUMP_ABSOLUTE 3 &gt;&gt; 6 LOAD_CONST 0 (None) 9 RETURN_VALUE dis.dis(t2) #对应的是while True,下面是输出 2 0 SETUP_LOOP 10 (to 13) &gt;&gt; 3 LOAD_GLOBAL 0 (True) 6 POP_JUMP_IF_FALSE 12 3 9 JUMP_ABSOLUTE 3 &gt;&gt; 12 POP_BLOCK &gt;&gt; 13 LOAD_CONST 0 (None) 16 RETURN_VALUE 很明显, while 1的字节码只有while True的一半.
   </p>
 
   
@@ -562,8 +596,8 @@ import dis #载入反编译模块,Python内置的 dis.dis(t1) #对应的是while
 
   <p>
   不用连接池的MySQL连接方法
-import MySQLdb conn= MySQLdb.connect(host='127.0.0.1',user='root',passwd='password',db='DB_test',port=3306) cur=conn.cursor() SQL=&quot;select * from table_test&quot; cur.execute(SQL) r=cur.fetchall() cur.close() conn.close()  用连接池后的连接方法
-import MySQLdb from DBUtils.PooledDB import PooledDB pool = PooledDB(MySQLdb,5,host='127.0.0.1',user='root',passwd='password',db='DB_test',port=3306) #5为连接池里的最少连接数 conn = pool.connection() #以后每次需要数据库连接就是用connection()函数获取连接就好了 cur=conn.cursor() SQL=&quot;select * from table_test&quot; cur.execute(SQL) r=cur.fetchall() cur.close() conn.close()  PooledDB的参数
+import MySQLdb conn= MySQLdb.connect(host='127.0.0.1',user='root',passwd='password',db='DB_test',port=3306) cur=conn.cursor() SQL=&quot;select * from table_test&quot; cur.execute(SQL) r=cur.fetchall() cur.close() conn.close() 用连接池后的连接方法
+import MySQLdb from DBUtils.PooledDB import PooledDB pool = PooledDB(MySQLdb,5,host='127.0.0.1',user='root',passwd='password',db='DB_test',port=3306) #5为连接池里的最少连接数 conn = pool.connection() #以后每次需要数据库连接就是用connection()函数获取连接就好了 cur=conn.cursor() SQL=&quot;select * from table_test&quot; cur.execute(SQL) r=cur.fetchall() cur.close() conn.close() PooledDB的参数
  mincached: 最少的空闲连接数，如果空闲连接数小于这个数，pool会创建一个新的连接 maxcached: 最大的空闲连接数，如果空闲连接数大于这个数，pool会关闭空闲连接 maxconnections: 最大的连接数， blocking: 当连接数达到最大的连接数时，在请求连接的时候，如果这个值是True，请求连接的程序会一直等待，直到当前连接数小于最大连接数，如果这个值是False，会报错， maxshared: 当连接数达到这个数，新请求的连接会分享已经分配出去的连接  连接池对性能的提升表现在
  在程序创建连接的时候，可以从一个空闲的连接中获取，不需要重新初始化连接，提升获取连接的速度 关闭连接的时候，把连接放回连接池，而不是真正的关闭，所以可以减少频繁地打开和关闭连接 避免mysql连接数耗尽  DBUtils下载地址：https://pypi.python.org/pypi/DBUtils/
   </p>
@@ -653,7 +687,7 @@ $ curl -H 'Host: ops.m114.org' https://127.0.0.1/ curl: (51) Unable to communica
   前言 本地默认编译出的文件总与官方提供的二进制文件大很多，Google之后得知通过编译参数控制还能编译出更小的可执行文件。
 加-ldflags参数 在程序编译的时候可以加上-ldflags &quot;-s -w&quot; 参数来优化编译程序, 其实通过去除部分连接和调试等信息来使得编译之后的执行程序更小,具体参数如下:
  -a 强制编译所有依赖包 -s 去掉符号表信息, panic时候的stack trace就没有任何文件名/行号信息了 -w 去掉DWARF调试信息，得到的程序就不能用gdb调试了  测试代码如下
-package main import &quot;fmt&quot; func main() { fmt.Println(&quot;Hello, 世界&quot;) }  编译方式及文件大小对比结果如下
+package main import &quot;fmt&quot; func main() { fmt.Println(&quot;Hello, 世界&quot;) } 编译方式及文件大小对比结果如下
    编译参数 大小     go build(默认) 1.6M   go build -ldflags -s 1.6M   go build -ldflags &ldquo;-s -w&rdquo; 1.1M   go build -ldflags -w 1.1M     测试环境: go 1.
   </p>
 
@@ -733,10 +767,17 @@ package main import ( &quot;fmt&quot; &quot;flag&quot; ) func main() { // golang
 </div>
 </div>
 <script src="https://ops.m114.org/js/ui.js"></script>
+<script src="https://ops.m114.org/js/menus.js"></script>
 
 
 
 
-<script data-no-instant>document.write('<script src="/livereload.js?port=1313&mindelay=10"></' + 'script>')</script></body>
+
+
+
+
+
+
+</body>
 </html>
 

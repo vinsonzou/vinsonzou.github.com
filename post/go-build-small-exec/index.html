@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.55.6" />
+  <meta name="generator" content="Hugo 0.83.1" />
 
   <title>go如何编译出更小的执行文件? &middot; ops</title>
 
+    
+
   
   
-  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
@@ -30,21 +32,29 @@
   <link rel="stylesheet" href="https://ops.m114.org/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
   
-  <link href="//fonts.lug.ustc.edu.cn/css?family=Raleway" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
 
   
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
   
 
   
-  <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.5.0/styles/androidstudio.min.css">
-  <script src="//cdn.bootcss.com/highlight.js/9.5.0/highlight.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
   <script>hljs.initHighlightingOnLoad();</script>
   
 
   <link rel="shortcut icon" href="https://ops.m114.org/img/favicon.ico" type="image/x-icon" />
+
+  
+  
 
 </head>
 
@@ -145,9 +155,33 @@
     
 
     
+
+    
+
+    
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://github.com/vinsonzou" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+      <a class="pure-menu-link" href="https://github.com/vinsonzou" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
     </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
     
 
     
@@ -160,7 +194,7 @@
 
   <div>
   <div class="small-print">
-    <small>&copy; 2014-2018. All rights reserved.</small>
+    <small>&copy; 2014-2021. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
@@ -208,24 +242,16 @@
 
 </div>
 
-  
-
-<h1 id="前言">前言</h1>
-
+  <h1 id="前言">前言</h1>
 <p>本地默认编译出的文件总与官方提供的二进制文件大很多，Google之后得知通过编译参数控制还能编译出更小的可执行文件。</p>
-
 <h1 id="加-ldflags参数">加-ldflags参数</h1>
-
 <p>在程序编译的时候可以加上<code>-ldflags &quot;-s -w&quot;</code> 参数来优化编译程序, 其实通过去除部分连接和调试等信息来使得编译之后的执行程序更小,具体参数如下:</p>
-
 <ul>
 <li>-a 强制编译所有依赖包</li>
 <li>-s 去掉符号表信息, panic时候的stack trace就没有任何文件名/行号信息了</li>
 <li>-w 去掉DWARF调试信息，得到的程序就不能用gdb调试了</li>
 </ul>
-
 <p>测试代码如下</p>
-
 <pre><code>package main
 
 import &quot;fmt&quot;
@@ -233,10 +259,7 @@ import &quot;fmt&quot;
 func main() {
     fmt.Println(&quot;Hello, 世界&quot;)
 }
-</code></pre>
-
-<p>编译方式及文件大小对比结果如下</p>
-
+</code></pre><p>编译方式及文件大小对比结果如下</p>
 <table>
 <thead>
 <tr>
@@ -244,46 +267,35 @@ func main() {
 <th>大小</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>go build(默认)</td>
 <td>1.6M</td>
 </tr>
-
 <tr>
 <td>go build -ldflags -s</td>
 <td>1.6M</td>
 </tr>
-
 <tr>
 <td>go build -ldflags &ldquo;-s -w&rdquo;</td>
 <td>1.1M</td>
 </tr>
-
 <tr>
 <td>go build -ldflags -w</td>
 <td>1.1M</td>
 </tr>
 </tbody>
 </table>
-
 <blockquote>
 <p>测试环境: go 1.8.3 on macOS 10.12.6
 不建议s和w同时使用。</p>
 </blockquote>
-
 <h1 id="使用upx">使用upx</h1>
-
 <p>上面go build 时加上-ldflags参数得到了比较小的可执行程序，但是还可以通过upx这个开源，绿色，好用的压缩工具进行进一步压缩。</p>
-
 <p>Mac用户直接brew安装</p>
-
 <pre><code>brew install upx
 </code></pre>
-
 <p>upx使用效果如下</p>
-
 <pre><code>                       Ultimate Packer for eXecutables
                           Copyright (C) 1996 - 2017
 UPX 3.94        Markus Oberhumer, Laszlo Molnar &amp; John Reiser   May 12th 2017
@@ -293,9 +305,47 @@ UPX 3.94        Markus Oberhumer, Laszlo Molnar &amp; John Reiser   May 12th 201
    1181728 -&gt;    438928   37.14%   macho/amd64   test
 
 Packed 1 file.
-</code></pre>
+</code></pre><p>可以看到通过upx进一步压缩之后得到的程序只有429K了，压缩比率达到了37.14%.</p>
 
-<p>可以看到通过upx进一步压缩之后得到的程序只有429K了，压缩比率达到了37.14%.</p>
+  
+  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2fgo-build-small-exec%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2fgo-build-small-exec%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2fgo-build-small-exec%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2fgo-build-small-exec%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2fgo-build-small-exec%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2fgo-build-small-exec%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
 
 
   
@@ -330,7 +380,9 @@ Packed 1 file.
 </div>
 
 
-
+  
+  
+  
   
 <div id="disqus_thread"></div>
 <script type="text/javascript">
@@ -347,20 +399,28 @@ Packed 1 file.
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 })();
 </script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
 
+  
 
 </div>
 
 </div>
 </div>
 <script src="https://ops.m114.org/js/ui.js"></script>
+<script src="https://ops.m114.org/js/menus.js"></script>
 
 
 
 
-<script data-no-instant>document.write('<script src="/livereload.js?port=1313&mindelay=10"></' + 'script>')</script></body>
+
+
+
+
+
+
+</body>
 </html>
 

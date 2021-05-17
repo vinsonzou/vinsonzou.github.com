@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>subjectAltName on ops</title>
@@ -6,12 +6,8 @@
     <description>Recent content in subjectAltName on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <copyright>&amp;copy; 2014-2018. All rights reserved.</copyright>
-    <lastBuildDate>Sun, 10 May 2015 23:44:43 +0800</lastBuildDate>
-    
-	<atom:link href="https://ops.m114.org/tags/subjectaltname/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <copyright>&amp;copy; 2014-2021. All rights reserved.</copyright>
+    <lastBuildDate>Sun, 10 May 2015 23:44:43 +0800</lastBuildDate><atom:link href="https://ops.m114.org/tags/subjectaltname/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>DNSPOD API SSL证书调整(subjectAltName)引起的报错</title>
       <link>https://ops.m114.org/post/dnspod-api-ssl-subjectaltname/</link>

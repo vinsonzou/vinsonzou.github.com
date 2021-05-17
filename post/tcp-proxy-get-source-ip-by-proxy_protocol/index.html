@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.55.6" />
+  <meta name="generator" content="Hugo 0.83.1" />
 
   <title>4层TCP转发后获得真实IP之proxy_protocol &middot; ops</title>
 
+    
+
   
   
-  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
@@ -30,21 +32,29 @@
   <link rel="stylesheet" href="https://ops.m114.org/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
   
-  <link href="//fonts.lug.ustc.edu.cn/css?family=Raleway" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
 
   
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
   
 
   
-  <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.5.0/styles/androidstudio.min.css">
-  <script src="//cdn.bootcss.com/highlight.js/9.5.0/highlight.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
   <script>hljs.initHighlightingOnLoad();</script>
   
 
   <link rel="shortcut icon" href="https://ops.m114.org/img/favicon.ico" type="image/x-icon" />
+
+  
+  
 
 </head>
 
@@ -145,9 +155,33 @@
     
 
     
+
+    
+
+    
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://github.com/vinsonzou" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+      <a class="pure-menu-link" href="https://github.com/vinsonzou" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
     </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
     
 
     
@@ -160,7 +194,7 @@
 
   <div>
   <div class="small-print">
-    <small>&copy; 2014-2018. All rights reserved.</small>
+    <small>&copy; 2014-2021. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
@@ -221,64 +255,84 @@
 
 </div>
 
-  
-
-<h2 id="需求">需求</h2>
-
+  <h2 id="需求">需求</h2>
 <p>后端TCP Server在经过TCP代理(nginx stream模块)后，程序不做任何调整获得用户真实IP。
 了解到cloudflare的spectrum产品与我们这个需求一致，刚好有细节和源码分享，参考如下:</p>
-
 <ul>
 <li><a href="https://blog.cloudflare.com/mmproxy-creative-way-of-preserving-client-ips-in-spectrum/">https://blog.cloudflare.com/mmproxy-creative-way-of-preserving-client-ips-in-spectrum/</a></li>
 <li><a href="https://github.com/cloudflare/mmproxy">https://github.com/cloudflare/mmproxy</a></li>
 </ul>
-
 <p>有公司参考cloudflare的mmproxy，用golang实现了性能更优的版本。</p>
-
 <ul>
 <li><a href="https://github.com/path-network/go-mmproxy">https://github.com/path-network/go-mmproxy</a></li>
 </ul>
-
 <h2 id="部署">部署</h2>
-
 <p>拓扑与cloudflare spectrum产品一样，示意图如下：</p>
-
-<p><img src="https://blog.cloudflare.com/content/images/2018/04/Screen-Shot-2018-04-15-at-12.26.28-PM-1.png" alt="" /></p>
-
+<p><img src="https://blog.cloudflare.com/content/images/2018/04/Screen-Shot-2018-04-15-at-12.26.28-PM-1.png" alt=""></p>
 <ul>
 <li>go &gt; 1.11</li>
-
-<li><p>as root or with <code>CAP_NET_RAW</code> capability to be able to set <code>IP_TRANSPARENT</code> socket opt.</p>
-
+<li>as root or with <code>CAP_NET_RAW</code> capability to be able to set <code>IP_TRANSPARENT</code> socket opt.</li>
+</ul>
 <pre><code>go get github.com/path-network/go-mmproxy
 sudo setcap cap_net_raw=+ep $(readlink -f $(which go-mmproxy))
-</code></pre></li>
-</ul>
-
-<h2 id="测试">测试</h2>
-
+</code></pre><h2 id="测试">测试</h2>
 <ul>
-<li><p>启动</p>
-
+<li>启动</li>
+</ul>
 <pre><code># go-mmproxy监听端口为25577，TCP后端端口为25578
 ip rule add from 127.0.0.1/8 iif lo table 123
 ip route add local 0.0.0.0/0 dev lo table 123
 go-mmproxy -l 0.0.0.0:25577 -4 127.0.0.1:25578 -6 &quot;[::1]:25578&quot; -allowed-subnets ./path-prefixes.txt
-</code></pre></li>
-
-<li><p>停止</p>
-
+</code></pre><ul>
+<li>停止</li>
+</ul>
 <pre><code># 清理路由
 ip rule del from 127.0.0.1/8 iif lo table 123
 ip route del local 0.0.0.0/0 dev lo table 123
-</code></pre></li>
-</ul>
-
-<h2 id="faq">FAQ</h2>
-
+</code></pre><h2 id="faq">FAQ</h2>
 <ul>
 <li><strong>目前无法做到多端口映射，一个端口就得启动一个进程</strong></li>
 </ul>
+
+  
+  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2ftcp-proxy-get-source-ip-by-proxy_protocol%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2ftcp-proxy-get-source-ip-by-proxy_protocol%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2ftcp-proxy-get-source-ip-by-proxy_protocol%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2ftcp-proxy-get-source-ip-by-proxy_protocol%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2ftcp-proxy-get-source-ip-by-proxy_protocol%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2ftcp-proxy-get-source-ip-by-proxy_protocol%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
 
 
   
@@ -307,7 +361,9 @@ ip route del local 0.0.0.0/0 dev lo table 123
 </div>
 
 
-
+  
+  
+  
   
 <div id="disqus_thread"></div>
 <script type="text/javascript">
@@ -324,20 +380,31 @@ ip route del local 0.0.0.0/0 dev lo table 123
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 })();
 </script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
 
+  
 
 </div>
 
 </div>
 </div>
 <script src="https://ops.m114.org/js/ui.js"></script>
+<script src="https://ops.m114.org/js/menus.js"></script>
 
 
 
 
-<script data-no-instant>document.write('<script src="/livereload.js?port=1313&mindelay=10"></' + 'script>')</script></body>
+
+
+
+
+<script src="https://ops.m114.org/js/math-code.js"></script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
+
+
+</body>
 </html>
 

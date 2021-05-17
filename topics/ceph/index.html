@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.55.6" />
+  <meta name="generator" content="Hugo 0.83.1" />
 
   <title>Ceph &middot; ops</title>
 
+    
+
   
   
-  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
@@ -30,23 +32,32 @@
   <link rel="stylesheet" href="https://ops.m114.org/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
   
-  <link href="//fonts.lug.ustc.edu.cn/css?family=Raleway" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
 
   
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
   
-  <link rel="alternate" type="application/rss+xml" title="ops" href="https://ops.m114.org/topics/ceph/index.xml" />
+  <link rel="alternate" type="application/rss+xml" title="ops"
+    href='https://ops.m114.org/topics/ceph/index.xml' />
   
 
   
-  <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.5.0/styles/androidstudio.min.css">
-  <script src="//cdn.bootcss.com/highlight.js/9.5.0/highlight.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
   <script>hljs.initHighlightingOnLoad();</script>
   
 
   <link rel="shortcut icon" href="https://ops.m114.org/img/favicon.ico" type="image/x-icon" />
+
+  
+  
 
 </head>
 
@@ -106,8 +117,13 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://ops.m114.org/topics/ceph/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      <a class="pure-menu-link" href='https://ops.m114.org/topics/ceph/index.xml'><i
+          class="fas fa-rss fa-fw"></i>RSS</a>
     </li>
+    
+
+    
+
     
 
     
@@ -152,8 +168,28 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://github.com/vinsonzou" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+      <a class="pure-menu-link" href="https://github.com/vinsonzou" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
     </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
     
 
     
@@ -166,7 +202,7 @@
 
   <div>
   <div class="small-print">
-    <small>&copy; 2014-2018. All rights reserved.</small>
+    <small>&copy; 2014-2021. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
@@ -275,8 +311,8 @@ PGlog和日志文件系统 PGlog相当于undo log, journal相当于redo log。�
   <p>
   OSD扩容后出现如下错误
 HEALTH_ERR 2 pgs inconsistent; 320 scrub errors
-[root@ceph01 ~]# ceph health detail HEALTH_ERR 2 pgs inconsistent; 320 scrub errors pg 10.9 is active+clean+inconsistent, acting [6,0,9] pg 10.10 is active+clean+scrubbing+deep+inconsistent, acting [2,6,4] 320 scrub errors  修复处于不一致状态的pgs
-[root@ceph01 ~]# ceph pg repair 10.9 instructing pg 10.9 on osd.6 to repair [root@ceph01 ~]# ceph pg repair 10.10 instructing pg 10.10 on osd.2 to repair  经过一段时间的修复后，ceph恢复正常。
+[root@ceph01 ~]# ceph health detail HEALTH_ERR 2 pgs inconsistent; 320 scrub errors pg 10.9 is active+clean+inconsistent, acting [6,0,9] pg 10.10 is active+clean+scrubbing+deep+inconsistent, acting [2,6,4] 320 scrub errors 修复处于不一致状态的pgs
+[root@ceph01 ~]# ceph pg repair 10.9 instructing pg 10.9 on osd.6 to repair [root@ceph01 ~]# ceph pg repair 10.10 instructing pg 10.10 on osd.2 to repair 经过一段时间的修复后，ceph恢复正常。
   </p>
 
   
@@ -319,12 +355,12 @@ HEALTH_ERR 2 pgs inconsistent; 320 scrub errors
 
   <p>
   按照官网的步骤走的话，在 标记osd为out 和 从crushmap删除osd 这两步都会触发数据再平衡，如下方式只触发了一次迁移，建议使用。
- 调整osd的crush weight ceph osd crush reweight osd.0 0.1  说明：这个地方如果想慢慢的调整就分几次将crush 的weight 减低到0 ，这个过程实际上是让数据不分布在这个节点上，让数据慢慢的分布到其他节点上，直到最终为没有分布在这个osd，并且迁移完成这个地方不光调整了osd 的crush weight ，实际上同时调整了host 的 weight ，这样会调整集群的整体的crush 分布，在osd 的crush 为0 后， 再对这个osd的任何删除相关操作都不会影响到集群数据的分布。
- 停止osd进程 systemctl stop ceph-osd@0  这个是通知集群这个osd进程不在了，不提供服务了，因为本身没权重，就不会影响到整体的分布，也就没有迁移
- 将节点状态标记为out ceph osd out osd.0  这个是通知集群这个osd不再映射数据了，不提供服务了，因为本身没权重，就不会影响到整体的分布，也就没有迁移
- 从crush中移除节点 ceph osd crush remove osd.0  这个是从crush中删除，因为已经是0了 所以没影响主机的权重，也就没有迁移了
- 删除节点 ceph osd rm osd.0  这个是从集群里面删除这个节点的记录
- 删除节点认证（不删除编号会占住) ceph auth del osd.0  这个是从认证当中删除这个节点的信息
+ 调整osd的crush weight   ceph osd crush reweight osd.0 0.1 说明：这个地方如果想慢慢的调整就分几次将crush 的weight 减低到0 ，这个过程实际上是让数据不分布在这个节点上，让数据慢慢的分布到其他节点上，直到最终为没有分布在这个osd，并且迁移完成这个地方不光调整了osd 的crush weight ，实际上同时调整了host 的 weight ，这样会调整集群的整体的crush 分布，在osd 的crush 为0 后， 再对这个osd的任何删除相关操作都不会影响到集群数据的分布。
+停止osd进程   systemctl stop ceph-osd@0 这个是通知集群这个osd进程不在了，不提供服务了，因为本身没权重，就不会影响到整体的分布，也就没有迁移
+将节点状态标记为out   ceph osd out osd.0 这个是通知集群这个osd不再映射数据了，不提供服务了，因为本身没权重，就不会影响到整体的分布，也就没有迁移
+从crush中移除节点   ceph osd crush remove osd.0 这个是从crush中删除，因为已经是0了 所以没影响主机的权重，也就没有迁移了
+删除节点   ceph osd rm osd.0 这个是从集群里面删除这个节点的记录
+删除节点认证（不删除编号会占住)   ceph auth del osd.
   </p>
 
   
@@ -378,10 +414,10 @@ HEALTH_ERR 2 pgs inconsistent; 320 scrub errors
 
   <p>
   环境
-ceph version 10.2.2 (45107e21c568dd033c2f0a3107dec8f0b0e58374) ceph-deploy 1.5.34
+ceph version 10.2.2 (45107e21c568dd033c2f0a3107dec8f0b0e58374)ceph-deploy 1.5.34
 ceph集群jewel版本部署过程中执行osd激活操作如下
-ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2  报错内容如下
-[2016-07-29 00:05:19,106][ceph_deploy.conf][DEBUG ] found configuration file at: /root/.cephdeploy.conf [2016-07-29 00:05:19,107][ceph_deploy.cli][INFO ] Invoked (1.5.34): /bin/ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2 [2016-07-29 00:05:19,107][ceph_deploy.cli][INFO ] ceph-deploy options: [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] username : None [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] verbose : False [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] overwrite_conf : False [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] subcommand : activate [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] quiet : False [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] cd_conf : &lt;ceph_deploy.
+ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2 报错内容如下
+[2016-07-29 00:05:19,106][ceph_deploy.conf][DEBUG ] found configuration file at: /root/.cephdeploy.conf [2016-07-29 00:05:19,107][ceph_deploy.cli][INFO ] Invoked (1.5.34): /bin/ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2 [2016-07-29 00:05:19,107][ceph_deploy.cli][INFO ] ceph-deploy options: [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] username : None [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] verbose : False [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] overwrite_conf : False [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] subcommand : activate [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] quiet : False [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] cd_conf : &lt;ceph_deploy.conf.cephdeploy.Conf instance at 0x26dcb90&gt; [2016-07-29 00:05:19,109][ceph_deploy.
   </p>
 
   
@@ -437,7 +473,7 @@ ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2  报错内容如下
   由于网络方面的原因，Ceph的部署经常受到干扰，通常为了加速部署，基本上大家都是将Ceph的源同步到本地进行安装。根据Ceph中国社区的统计，当前已经有国内的网站定期将Ceph安装源同步，极大的方便了我们的测试。本文就是介绍如何使用国内源，加速ceph-deploy部署Ceph集群。
 关于国内源 根据Ceph中国社区的统计，国内已经有四家网站开始同步Ceph源，分别是：
  网易镜像源http://mirrors.163.com/ceph 阿里镜像源http://mirrors.aliyun.com/ceph 中科大镜像源http://mirrors.ustc.edu.cn/ceph 宝德镜像源http://mirrors.plcloud.com/ceph  安装Ceph(Jewel版) 由于Jewel版本中已经不提供el6的镜像源，所以只能使用CentOS 7以上版本进行安装。我们并不需要在repos里增加相应的源，只需要设置环境变量，即可让ceph-deploy使用国内源，具体过程如下：
-export CEPH_DEPLOY_REPO_URL=http://mirrors.aliyun.com/ceph/rpm-jewel/el7 export CEPH_DEPLOY_GPG_URL=http://mirrors.aliyun.com/ceph/keys/release.asc  之后的过程就没任何区别了
+export CEPH_DEPLOY_REPO_URL=http://mirrors.aliyun.com/ceph/rpm-jewel/el7 export CEPH_DEPLOY_GPG_URL=http://mirrors.aliyun.com/ceph/keys/release.asc 之后的过程就没任何区别了
 # Create monitor node ceph-deploy new node1 node2 node3 # Software Installation ceph-deploy install deploy node1 node2 node3 # Gather keys ceph-deploy mon create-initial # Ceph deploy osd create disk ceph-deploy osd create node1:sdb:/dev/sdc ceph-deploy osd create node2:sdb:/dev/sdc ceph-deploy osd create node3:sdb:/dev/sdc # Make 3 copies by default echo &quot;osd pool default size = 3&quot; | tee -a $HOME/ceph.
   </p>
 
@@ -454,9 +490,16 @@ export CEPH_DEPLOY_REPO_URL=http://mirrors.aliyun.com/ceph/rpm-jewel/el7 export 
 </div>
 </div>
 <script src="https://ops.m114.org/js/ui.js"></script>
+<script src="https://ops.m114.org/js/menus.js"></script>
 
 
 
 
-<script data-no-instant>document.write('<script src="/livereload.js?port=1313&mindelay=10"></' + 'script>')</script></body>
+
+
+
+
+
+
+</body>
 </html>

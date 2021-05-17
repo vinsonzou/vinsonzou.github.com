@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on ops</title>
@@ -6,12 +6,8 @@
     <description>Recent content in Posts on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <copyright>&amp;copy; 2014-2018. All rights reserved.</copyright>
-    <lastBuildDate>Mon, 19 Apr 2021 17:01:15 +0800</lastBuildDate>
-    
-	<atom:link href="https://ops.m114.org/post/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <copyright>&amp;copy; 2014-2021. All rights reserved.</copyright>
+    <lastBuildDate>Mon, 19 Apr 2021 17:01:15 +0800</lastBuildDate><atom:link href="https://ops.m114.org/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>4层TCP转发后获得真实IP之proxy_protocol</title>
       <link>https://ops.m114.org/post/tcp-proxy-get-source-ip-by-proxy_protocol/</link>
@@ -21,9 +17,7 @@
       <description>需求 后端TCP Server在经过TCP代理(nginx stream模块)后，程序不做任何调整获得用户真实IP。 了解到cloudflare的spectrum产品与我们这个需求一致，刚好有细节和源码分享，参考如下:
  https://blog.cloudflare.com/mmproxy-creative-way-of-preserving-client-ips-in-spectrum/ https://github.com/cloudflare/mmproxy  有公司参考cloudflare的mmproxy，用golang实现了性能更优的版本。
  https://github.com/path-network/go-mmproxy  部署 拓扑与cloudflare spectrum产品一样，示意图如下：
- go &amp;gt; 1.11 as root or with CAP_NET_RAW capability to be able to set IP_TRANSPARENT socket opt.
-go get github.com/path-network/go-mmproxy sudo setcap cap_net_raw=+ep $(readlink -f $(which go-mmproxy))   测试  启动
-# go-mmproxy监听端口为25577，TCP后端端口为25578 ip rule add from 127.0.0.1/8 iif lo table 123 ip route add local 0.0.0.0/0 dev lo table 123 go-mmproxy -l 0.</description>
+ go &amp;gt; 1.11 as root or with CAP_NET_RAW capability to be able to set IP_TRANSPARENT socket opt.  go get github.com/path-network/go-mmproxy sudo setcap cap_net_raw=+ep $(readlink -f $(which go-mmproxy)) 测试  启动  # go-mmproxy监听端口为25577，TCP后端端口为25578 ip rule add from 127.0.0.1/8 iif lo table 123 ip route add local 0.0.0.0/0 dev lo table 123 go-mmproxy -l 0.</description>
     </item>
     
     <item>
@@ -32,9 +26,9 @@ go get github.com/path-network/go-mmproxy sudo setcap cap_net_raw=+ep $(readlink
       <pubDate>Thu, 18 Jun 2020 13:41:15 +0800</pubDate>
       
       <guid>https://ops.m114.org/post/centos8-build-mysql5.7.30/</guid>
-      <description>环境  OS: CentOS 8.2 MySQL: 5.7.30  报错信息 1. 编译报错 CMake Error at plugin/group_replication/libmysqlgcs/rpcgen.cmake:100 (MESSAGE): Could not find rpcgen Call Stack (most recent call first): plugin/group_replication/libmysqlgcs/CMakeLists.txt:38 (INCLUDE)  解决方法
-yum --enablerepo=PowerTools install rpcgen  2. systemctl start mysqld.service报错无法启动问题 报错信息如下
-[ERROR] Can&#39;t start server: can&#39;t check PID filepath: No such file or directory  /usr/lib/systemd/system/mysqld.service 默认配置如下
+      <description>环境  OS: CentOS 8.2 MySQL: 5.7.30  报错信息 1. 编译报错 CMake Error at plugin/group_replication/libmysqlgcs/rpcgen.cmake:100 (MESSAGE): Could not find rpcgen Call Stack (most recent call first): plugin/group_replication/libmysqlgcs/CMakeLists.txt:38 (INCLUDE) 解决方法
+yum --enablerepo=PowerTools install rpcgen 2. systemctl start mysqld.service报错无法启动问题 报错信息如下
+[ERROR] Can&#39;t start server: can&#39;t check PID filepath: No such file or directory /usr/lib/systemd/system/mysqld.service 默认配置如下
 # Copyright (c) 2015, 2016, Oracle and/or its affiliates. All rights reserved. # # This program is free software; you can redistribute it and/or modify # it under the terms of the GNU General Public License, version 2.</description>
     </item>
     
@@ -46,7 +40,7 @@ yum --enablerepo=PowerTools install rpcgen  2. systemctl start mysqld.service报
       <guid>https://ops.m114.org/post/centos8-install-on-centos7-kvm/</guid>
       <description>环境  宿主机：CentOS 7.5 VM: CentOS 8.1  查看支持os osinfo-query os
 当前环境默认不支持CentOS8/RHEL8，需做如下操作:
-# osinfo-db 需更新至osinfo-db-20190805-2 yum install osinfo-db-tools osinfo-db  报错处理 ERROR &amp;lsquo;virConnect&amp;rsquo; object has no attribute &amp;lsquo;baselineHypervisorCPU&amp;rsquo;
+# osinfo-db 需更新至osinfo-db-20190805-2 yum install osinfo-db-tools osinfo-db 报错处理 ERROR &amp;lsquo;virConnect&amp;rsquo; object has no attribute &amp;lsquo;baselineHypervisorCPU&amp;rsquo;
 将 libvirt-python-3.9.0-1 升级至 libvirt-python-4.5.0-1 即可解决
 参考链接: https://github.com/virt-manager/virt-manager/issues/57</description>
     </item>
@@ -71,9 +65,9 @@ yum --enablerepo=PowerTools install rpcgen  2. systemctl start mysqld.service报
       
       <guid>https://ops.m114.org/post/python-while-1-vs-for-whiletrue/</guid>
       <description>定义两个方法,分别使用while循环
-def t1(): while 1: pass def t2(): while True: pass  单从功能上说,两种无任何区别,那么,来看看字节码上的区别:
+def t1(): while 1: pass def t2(): while True: pass 单从功能上说,两种无任何区别,那么,来看看字节码上的区别:
 For Python 2.x
-import dis #载入反编译模块,Python内置的 dis.dis(t1) #对应的是while 1,下面是输出 2 0 SETUP_LOOP 3 (to 6) 3 &amp;gt;&amp;gt; 3 JUMP_ABSOLUTE 3 &amp;gt;&amp;gt; 6 LOAD_CONST 0 (None) 9 RETURN_VALUE dis.dis(t2) #对应的是while True,下面是输出 2 0 SETUP_LOOP 10 (to 13) &amp;gt;&amp;gt; 3 LOAD_GLOBAL 0 (True) 6 POP_JUMP_IF_FALSE 12 3 9 JUMP_ABSOLUTE 3 &amp;gt;&amp;gt; 12 POP_BLOCK &amp;gt;&amp;gt; 13 LOAD_CONST 0 (None) 16 RETURN_VALUE  很明显, while 1的字节码只有while True的一半.</description>
+import dis #载入反编译模块,Python内置的 dis.dis(t1) #对应的是while 1,下面是输出 2 0 SETUP_LOOP 3 (to 6) 3 &amp;gt;&amp;gt; 3 JUMP_ABSOLUTE 3 &amp;gt;&amp;gt; 6 LOAD_CONST 0 (None) 9 RETURN_VALUE dis.dis(t2) #对应的是while True,下面是输出 2 0 SETUP_LOOP 10 (to 13) &amp;gt;&amp;gt; 3 LOAD_GLOBAL 0 (True) 6 POP_JUMP_IF_FALSE 12 3 9 JUMP_ABSOLUTE 3 &amp;gt;&amp;gt; 12 POP_BLOCK &amp;gt;&amp;gt; 13 LOAD_CONST 0 (None) 16 RETURN_VALUE 很明显, while 1的字节码只有while True的一半.</description>
     </item>
     
     <item>
@@ -95,8 +89,8 @@ import dis #载入反编译模块,Python内置的 dis.dis(t1) #对应的是while
       
       <guid>https://ops.m114.org/post/python-mysql-pooleddb/</guid>
       <description>不用连接池的MySQL连接方法
-import MySQLdb conn= MySQLdb.connect(host=&#39;127.0.0.1&#39;,user=&#39;root&#39;,passwd=&#39;password&#39;,db=&#39;DB_test&#39;,port=3306) cur=conn.cursor() SQL=&amp;quot;select * from table_test&amp;quot; cur.execute(SQL) r=cur.fetchall() cur.close() conn.close()  用连接池后的连接方法
-import MySQLdb from DBUtils.PooledDB import PooledDB pool = PooledDB(MySQLdb,5,host=&#39;127.0.0.1&#39;,user=&#39;root&#39;,passwd=&#39;password&#39;,db=&#39;DB_test&#39;,port=3306) #5为连接池里的最少连接数 conn = pool.connection() #以后每次需要数据库连接就是用connection()函数获取连接就好了 cur=conn.cursor() SQL=&amp;quot;select * from table_test&amp;quot; cur.execute(SQL) r=cur.fetchall() cur.close() conn.close()  PooledDB的参数
+import MySQLdb conn= MySQLdb.connect(host=&#39;127.0.0.1&#39;,user=&#39;root&#39;,passwd=&#39;password&#39;,db=&#39;DB_test&#39;,port=3306) cur=conn.cursor() SQL=&amp;quot;select * from table_test&amp;quot; cur.execute(SQL) r=cur.fetchall() cur.close() conn.close() 用连接池后的连接方法
+import MySQLdb from DBUtils.PooledDB import PooledDB pool = PooledDB(MySQLdb,5,host=&#39;127.0.0.1&#39;,user=&#39;root&#39;,passwd=&#39;password&#39;,db=&#39;DB_test&#39;,port=3306) #5为连接池里的最少连接数 conn = pool.connection() #以后每次需要数据库连接就是用connection()函数获取连接就好了 cur=conn.cursor() SQL=&amp;quot;select * from table_test&amp;quot; cur.execute(SQL) r=cur.fetchall() cur.close() conn.close() PooledDB的参数
  mincached: 最少的空闲连接数，如果空闲连接数小于这个数，pool会创建一个新的连接 maxcached: 最大的空闲连接数，如果空闲连接数大于这个数，pool会关闭空闲连接 maxconnections: 最大的连接数， blocking: 当连接数达到最大的连接数时，在请求连接的时候，如果这个值是True，请求连接的程序会一直等待，直到当前连接数小于最大连接数，如果这个值是False，会报错， maxshared: 当连接数达到这个数，新请求的连接会分享已经分配出去的连接  连接池对性能的提升表现在
  在程序创建连接的时候，可以从一个空闲的连接中获取，不需要重新初始化连接，提升获取连接的速度 关闭连接的时候，把连接放回连接池，而不是真正的关闭，所以可以减少频繁地打开和关闭连接 避免mysql连接数耗尽  DBUtils下载地址：https://pypi.python.org/pypi/DBUtils/</description>
     </item>
@@ -123,7 +117,7 @@ $ curl -H &#39;Host: ops.m114.org&#39; https://127.0.0.1/ curl: (51) Unable to c
       <description>前言 本地默认编译出的文件总与官方提供的二进制文件大很多，Google之后得知通过编译参数控制还能编译出更小的可执行文件。
 加-ldflags参数 在程序编译的时候可以加上-ldflags &amp;quot;-s -w&amp;quot; 参数来优化编译程序, 其实通过去除部分连接和调试等信息来使得编译之后的执行程序更小,具体参数如下:
  -a 强制编译所有依赖包 -s 去掉符号表信息, panic时候的stack trace就没有任何文件名/行号信息了 -w 去掉DWARF调试信息，得到的程序就不能用gdb调试了  测试代码如下
-package main import &amp;quot;fmt&amp;quot; func main() { fmt.Println(&amp;quot;Hello, 世界&amp;quot;) }  编译方式及文件大小对比结果如下
+package main import &amp;quot;fmt&amp;quot; func main() { fmt.Println(&amp;quot;Hello, 世界&amp;quot;) } 编译方式及文件大小对比结果如下
    编译参数 大小     go build(默认) 1.6M   go build -ldflags -s 1.6M   go build -ldflags &amp;ldquo;-s -w&amp;rdquo; 1.1M   go build -ldflags -w 1.1M     测试环境: go 1.</description>
     </item>
     
@@ -180,11 +174,11 @@ In [1]: from distutils.version import StrictVersion In [2]: StrictVersion(&#39;1
       <pubDate>Mon, 03 Jul 2017 16:27:12 +0800</pubDate>
       
       <guid>https://ops.m114.org/post/sync-waitgroup/</guid>
-      <description>go提供了sync包和channel来解决协程同步和通讯。新手对channel通道操作起来更容易产生死锁，如果时缓冲的channel还要考虑channel放入和取出数据的速率问题。
+      <description>**go提供了sync包和channel来解决协程同步和通讯。**新手对channel通道操作起来更容易产生死锁，如果时缓冲的channel还要考虑channel放入和取出数据的速率问题。
 从字面就可以理解，sync.WaitGroup是等待一组协程结束。它实现了一个类似任务队列的结构，你可以向队列中加入任务，任务完成后就把任务从队列中移除，如果队列中的任务没有全部完成，队列就会触发阻塞以阻止程序继续运行。
 sync.WaitGroup只有3个方法，Add()，Done()，Wait()。 其中Done()是Add(-1)的别名。简单的来说，使用Add()添加计数，Done()减掉一个计数，计数不为0, 阻塞Wait()的运行。
 简单示例如下：
-package main import ( &amp;quot;fmt&amp;quot; &amp;quot;sync&amp;quot; ) var waitgroup sync.WaitGroup func test(shownum int) { fmt.Println(shownum) waitgroup.Done() //任务完成，将任务队列中的任务数量-1，其实.Done就是.Add(-1) } func main() { for i := 0; i &amp;lt; 10; i++ { waitgroup.Add(1) //每创建一个goroutine，就把任务队列中任务的数量+1 go test(i) } waitgroup.Wait() //.Wait()这里会发生阻塞，直到队列中所有的任务结束就会解除阻塞 fmt.Println(&amp;quot;done!&amp;quot;) }  Ps: 此文为学习记录，如有错误还请多指教。</description>
+package main import ( &amp;quot;fmt&amp;quot; &amp;quot;sync&amp;quot; ) var waitgroup sync.WaitGroup func test(shownum int) { fmt.Println(shownum) waitgroup.Done() //任务完成，将任务队列中的任务数量-1，其实.Done就是.Add(-1) } func main() { for i := 0; i &amp;lt; 10; i++ { waitgroup.Add(1) //每创建一个goroutine，就把任务队列中任务的数量+1 go test(i) } waitgroup.Wait() //.Wait()这里会发生阻塞，直到队列中所有的任务结束就会解除阻塞 fmt.Println(&amp;quot;done!&amp;quot;) } Ps: 此文为学习记录，如有错误还请多指教。</description>
     </item>
     
     <item>
@@ -195,7 +189,7 @@ package main import ( &amp;quot;fmt&amp;quot; &amp;quot;sync&amp;quot; ) var wai
       <guid>https://ops.m114.org/post/fix-tomcat-upgrade-error/</guid>
       <description>故障现象
 升级tomcat至7.0.76后，GET请求的参数中含有中文时tomcat返回400错误，tomcat错误日志如下
-java.lang.IllegalArgumentException: Invalid character found in the request target. The valid characters are defined in RFC 7230 and RFC 3986 at org.apache.coyote.http11.InternalNioInputBuffer.parseRequestLine(InternalNioInputBuffer.java:317) at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1000) at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:637) at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1756) at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.run(NioEndpoint.java:1715) at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886) at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908) at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) at java.lang.Thread.run(Thread.java:662)  原因
+java.lang.IllegalArgumentException: Invalid character found in the request target. The valid characters are defined in RFC 7230 and RFC 3986 at org.apache.coyote.http11.InternalNioInputBuffer.parseRequestLine(InternalNioInputBuffer.java:317) at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1000) at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:637) at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1756) at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.run(NioEndpoint.java:1715) at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886) at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908) at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) at java.lang.Thread.run(Thread.java:662) 原因
 查询Changelog得知，tomcat 7.0.73版本添加了Add additional checks for valid characters to the HTTP request line parsing so invalid request lines are rejected sooner导致。
 解决方法
  请求前自行转义 更换tomcat为较低版本(不过tomcat的这次更改是依据RFC7230 and RFC 3986,在往后的版本,不会移除该特性)  </description>
@@ -208,7 +202,7 @@ java.lang.IllegalArgumentException: Invalid character found in the request targe
       
       <guid>https://ops.m114.org/post/solve-too-many-connections/</guid>
       <description>当发生Too many connections时，即使是DBA也无法登录到数据库，一般的做法是修改配置文件的max_connections参数，然后重启数据库，这样业务就有几秒钟的中断，对于线上不能中断的数据库就只能采用另外一种极客的方法了，用gdb直接修改mysqld内存中max_connections的值，具体做法如下：
-gdb -p $(cat /data/mysql/mysql-server.pid) -ex &amp;quot;set max_connections=3000&amp;quot; -batch  改进方法如下
+gdb -p $(cat /data/mysql/mysql-server.pid) -ex &amp;quot;set max_connections=3000&amp;quot; -batch 改进方法如下
 通常有两个参数控制控制最大连接数：
 max_connections：该实例允许最大的连接数 max_user_connections：该实例允许每个用户的最大连接数  每个人要根据自己业务量，设置合适的值，不要盲目设置过大，但也不可设置过小，因为MySQL在连接数上升的情况下性能下降非常厉害，如果需要大量连接，这时可以引入thread_pool，所以我们需要保持一个原则：系统创建的用户（给应用使用用户）数 * max_user_connections &amp;lt; max_connections。</description>
     </item>
@@ -220,13 +214,14 @@ max_connections：该实例允许最大的连接数 max_user_connections：该�
       
       <guid>https://ops.m114.org/post/use-regular-expressions-in-openresty/</guid>
       <description>在 OpenResty 中使用正则表达式，社区中推荐的做法是使用ngx.re api。比如匹配一个字符串是否为 http(s) 的链接，可以这么写：
-local function is_http_url(s) return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;amp;#%]+$]]) end  压测一下:
-local t = os.clock() for _ = 1, max do is_http_url(&amp;quot;http://blog.stackoverflow.com/2016/10/Stack-Overflow-92-Podcast-The-Guerilla-Guide-to-Interviewing/?cb=1&amp;quot;) end print(&amp;quot;Time cost: &amp;quot;, os.clock() - t, &amp;quot; s&amp;quot;)  结果：Time cost: 2.663408 s
+local function is_http_url(s) return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;amp;#%]+$]]) end 压测一下:
+local t = os.clock() for _ = 1, max do is_http_url(&amp;quot;http://blog.stackoverflow.com/2016/10/Stack-Overflow-92-Podcast-The-Guerilla-Guide-to-Interviewing/?cb=1&amp;quot;) end print(&amp;quot;Time cost: &amp;quot;, os.clock() - t, &amp;quot; s&amp;quot;) 结果：Time cost: 2.663408 s
 另一种做法是使用 lua 的正则语法：
-local function is_http_url(s) return s:find(&amp;quot;^https?://[%w-_%.%?:/%+=&amp;amp;#%%]+$&amp;quot;) end  结果：Time cost: 0.652221 s
+local function is_http_url(s) return s:find(&amp;quot;^https?://[%w-_%.%?:/%+=&amp;amp;#%%]+$&amp;quot;) end 结果：Time cost: 0.652221 s
 呃，怎么前者耗时是后者的四倍？lua 内置的小小状态机实现，居然打败了大名鼎鼎的 PCRE 库！说好的社区推荐呢！
 仔细一瞧，前者的确漏了点东西。ngx.re默认不会缓存正则表达式编译后的结果。一般在其它编程平台上，我们都会先把字符串编译成正则表达式，再用到正则函数中。比如在 Python 里使用 re.compile。所以赶紧补上：
-return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;amp;#%]+$]], &amp;quot;o&amp;quot;)  好，这次性能有了明显提升：Time cost: 0.646518 s</description>
+return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;amp;#%]+$]], &amp;quot;o&amp;quot;) 好，这次性能有了明显提升：Time cost: 0.646518 s
+不错不错，虽然还是跟 lua 的实现不分上下，考虑到 lua 本身的正则支持非常弱（比如连 (foo|bar) 这种形式都不行），而且语法离经叛道，改用 ngx.</description>
     </item>
     
     <item>
@@ -236,7 +231,7 @@ return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;amp;#%]+$]], &amp;quot;o&amp;q
       
       <guid>https://ops.m114.org/post/python-count-duplicate-values-of-list/</guid>
       <description>列表项由数字、字符串组成，统计重复项
-&amp;gt;&amp;gt;&amp;gt; from collections import defaultdict &amp;gt;&amp;gt;&amp;gt; d = defaultdict(int) &amp;gt;&amp;gt;&amp;gt; for x in [1, 2, 3, 1, 2, 3, 1]: ... d[x] += 1 ... &amp;gt;&amp;gt;&amp;gt; dict(d) {1: 3, 2: 2, 3: 2} &amp;gt;&amp;gt;&amp;gt; &amp;gt;&amp;gt;&amp;gt; c = defaultdict(int) &amp;gt;&amp;gt;&amp;gt; for y in [&#39;a&#39;, &#39;b&#39;, &#39;a&#39;, &#39;c&#39;, &#39;c&#39;]: ... c[y] += 1 ... &amp;gt;&amp;gt;&amp;gt; dict(c) {&#39;a&#39;: 2, &#39;c&#39;: 2, &#39;b&#39;: 1}  列表项由字典组成，统计某一键值的重复数
+&amp;gt;&amp;gt;&amp;gt; from collections import defaultdict &amp;gt;&amp;gt;&amp;gt; d = defaultdict(int) &amp;gt;&amp;gt;&amp;gt; for x in [1, 2, 3, 1, 2, 3, 1]: ... d[x] += 1 ... &amp;gt;&amp;gt;&amp;gt; dict(d) {1: 3, 2: 2, 3: 2} &amp;gt;&amp;gt;&amp;gt; &amp;gt;&amp;gt;&amp;gt; c = defaultdict(int) &amp;gt;&amp;gt;&amp;gt; for y in [&#39;a&#39;, &#39;b&#39;, &#39;a&#39;, &#39;c&#39;, &#39;c&#39;]: ... c[y] += 1 ... &amp;gt;&amp;gt;&amp;gt; dict(c) {&#39;a&#39;: 2, &#39;c&#39;: 2, &#39;b&#39;: 1} 列表项由字典组成，统计某一键值的重复数
 &amp;gt;&amp;gt;&amp;gt; e = defaultdict(int) &amp;gt;&amp;gt;&amp;gt; for x in [{&#39;a&#39;: 1, &#39;b&#39;: 1}, {&#39;a&#39;: 2, &#39;b&#39;:1}, {&#39;a&#39;: 1, &#39;c&#39;: 3}]: .</description>
     </item>
     
@@ -267,8 +262,8 @@ PGlog和日志文件系统 PGlog相当于undo log, journal相当于redo log。�
       <guid>https://ops.m114.org/post/ceph-pgs-inconsistent/</guid>
       <description>OSD扩容后出现如下错误
 HEALTH_ERR 2 pgs inconsistent; 320 scrub errors
-[root@ceph01 ~]# ceph health detail HEALTH_ERR 2 pgs inconsistent; 320 scrub errors pg 10.9 is active+clean+inconsistent, acting [6,0,9] pg 10.10 is active+clean+scrubbing+deep+inconsistent, acting [2,6,4] 320 scrub errors  修复处于不一致状态的pgs
-[root@ceph01 ~]# ceph pg repair 10.9 instructing pg 10.9 on osd.6 to repair [root@ceph01 ~]# ceph pg repair 10.10 instructing pg 10.10 on osd.2 to repair  经过一段时间的修复后，ceph恢复正常。</description>
+[root@ceph01 ~]# ceph health detail HEALTH_ERR 2 pgs inconsistent; 320 scrub errors pg 10.9 is active+clean+inconsistent, acting [6,0,9] pg 10.10 is active+clean+scrubbing+deep+inconsistent, acting [2,6,4] 320 scrub errors 修复处于不一致状态的pgs
+[root@ceph01 ~]# ceph pg repair 10.9 instructing pg 10.9 on osd.6 to repair [root@ceph01 ~]# ceph pg repair 10.10 instructing pg 10.10 on osd.2 to repair 经过一段时间的修复后，ceph恢复正常。</description>
     </item>
     
     <item>
@@ -278,12 +273,12 @@ HEALTH_ERR 2 pgs inconsistent; 320 scrub errors
       
       <guid>https://ops.m114.org/post/right-steps-delete-ceph-osd/</guid>
       <description>按照官网的步骤走的话，在 标记osd为out 和 从crushmap删除osd 这两步都会触发数据再平衡，如下方式只触发了一次迁移，建议使用。
- 调整osd的crush weight ceph osd crush reweight osd.0 0.1  说明：这个地方如果想慢慢的调整就分几次将crush 的weight 减低到0 ，这个过程实际上是让数据不分布在这个节点上，让数据慢慢的分布到其他节点上，直到最终为没有分布在这个osd，并且迁移完成这个地方不光调整了osd 的crush weight ，实际上同时调整了host 的 weight ，这样会调整集群的整体的crush 分布，在osd 的crush 为0 后， 再对这个osd的任何删除相关操作都不会影响到集群数据的分布。
- 停止osd进程 systemctl stop ceph-osd@0  这个是通知集群这个osd进程不在了，不提供服务了，因为本身没权重，就不会影响到整体的分布，也就没有迁移
- 将节点状态标记为out ceph osd out osd.0  这个是通知集群这个osd不再映射数据了，不提供服务了，因为本身没权重，就不会影响到整体的分布，也就没有迁移
- 从crush中移除节点 ceph osd crush remove osd.0  这个是从crush中删除，因为已经是0了 所以没影响主机的权重，也就没有迁移了
- 删除节点 ceph osd rm osd.0  这个是从集群里面删除这个节点的记录
- 删除节点认证（不删除编号会占住) ceph auth del osd.0  这个是从认证当中删除这个节点的信息</description>
+ 调整osd的crush weight   ceph osd crush reweight osd.0 0.1 说明：这个地方如果想慢慢的调整就分几次将crush 的weight 减低到0 ，这个过程实际上是让数据不分布在这个节点上，让数据慢慢的分布到其他节点上，直到最终为没有分布在这个osd，并且迁移完成这个地方不光调整了osd 的crush weight ，实际上同时调整了host 的 weight ，这样会调整集群的整体的crush 分布，在osd 的crush 为0 后， 再对这个osd的任何删除相关操作都不会影响到集群数据的分布。
+停止osd进程   systemctl stop ceph-osd@0 这个是通知集群这个osd进程不在了，不提供服务了，因为本身没权重，就不会影响到整体的分布，也就没有迁移
+将节点状态标记为out   ceph osd out osd.0 这个是通知集群这个osd不再映射数据了，不提供服务了，因为本身没权重，就不会影响到整体的分布，也就没有迁移
+从crush中移除节点   ceph osd crush remove osd.0 这个是从crush中删除，因为已经是0了 所以没影响主机的权重，也就没有迁移了
+删除节点   ceph osd rm osd.0 这个是从集群里面删除这个节点的记录
+删除节点认证（不删除编号会占住)   ceph auth del osd.</description>
     </item>
     
     <item>
@@ -294,8 +289,8 @@ HEALTH_ERR 2 pgs inconsistent; 320 scrub errors
       <guid>https://ops.m114.org/post/centos7-systemd-vs-centos6-daemon/</guid>
       <description>从CentOS 7.x开始，CentOS开始使用systemd服务来代替daemon，原来管理系统启动和管理系统服务的相关命令全部由systemctl命令来代替。
 1、原来的 service 命令与 systemctl 命令对比    daemon命令 systemctl命令 说明     service [服务] start systemctl start [unit type] 启动服务   service [服务] stop systemctl stop [unit type] 停止服务   service [服务] restart systemctl restart [unit type] 重启服务    此外还有二个systemctl参数没有与service命令参数对应
-status: 参数来查看服务运行情况 reload: 重新加载服务，加载更新后的配置文件（并不是所有服务都支持这个参数，比如network.service）  应用举例:
-#启动网络服务 systemctl start network.service #停止网络服务 systemctl stop network.service #重启网络服务 systemctl restart network.service #查看网络服务状态 systemctl status network.</description>
+status: 参数来查看服务运行情况 reload: 重新加载服务，加载更新后的配置文件（并不是所有服务都支持这个参数，比如network.service） 应用举例:
+#启动网络服务 systemctl start network.service #停止网络服务 systemctl stop network.service #重启网络服务 systemctl restart network.service #查看网络服务状态 systemctl status network.serivce 2、原来的chkconfig 命令与 systemctl 命令对比 2.</description>
     </item>
     
     <item>
@@ -304,8 +299,8 @@ status: 参数来查看服务运行情况 reload: 重新加载服务，加载更
       <pubDate>Wed, 03 Aug 2016 10:52:24 +0800</pubDate>
       
       <guid>https://ops.m114.org/post/mysql-unable-to-lock-ibdata1-error-11-fix/</guid>
-      <description> A bad shutdown can cause such erros on MySQL.
-InnoDB: Unable to lock ./ibdata1, error: 11 InnoDB: Check that you do not already have another mysqld process InnoDB: using the same InnoDB data or log files. InnoDB: Error in opening ./ibdata1  For solution mv ibdata1 ibdata1.bak cp -a ibdata1.bak ibdata1 service mysqld restart  </description>
+      <description>A bad shutdown can cause such erros on MySQL.
+InnoDB: Unable to lock ./ibdata1, error: 11 InnoDB: Check that you do not already have another mysqld process InnoDB: using the same InnoDB data or log files. InnoDB: Error in opening ./ibdata1 For solution mv ibdata1 ibdata1.bak cp -a ibdata1.bak ibdata1 service mysqld restart </description>
     </item>
     
     <item>
@@ -315,10 +310,10 @@ InnoDB: Unable to lock ./ibdata1, error: 11 InnoDB: Check that you do not alread
       
       <guid>https://ops.m114.org/post/ceph-jewel-osd-activate-bug/</guid>
       <description>环境
-ceph version 10.2.2 (45107e21c568dd033c2f0a3107dec8f0b0e58374) ceph-deploy 1.5.34
+ceph version 10.2.2 (45107e21c568dd033c2f0a3107dec8f0b0e58374)ceph-deploy 1.5.34
 ceph集群jewel版本部署过程中执行osd激活操作如下
-ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2  报错内容如下
-[2016-07-29 00:05:19,106][ceph_deploy.conf][DEBUG ] found configuration file at: /root/.cephdeploy.conf [2016-07-29 00:05:19,107][ceph_deploy.cli][INFO ] Invoked (1.5.34): /bin/ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2 [2016-07-29 00:05:19,107][ceph_deploy.cli][INFO ] ceph-deploy options: [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] username : None [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] verbose : False [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] overwrite_conf : False [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] subcommand : activate [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] quiet : False [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] cd_conf : &amp;lt;ceph_deploy.</description>
+ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2 报错内容如下
+[2016-07-29 00:05:19,106][ceph_deploy.conf][DEBUG ] found configuration file at: /root/.cephdeploy.conf [2016-07-29 00:05:19,107][ceph_deploy.cli][INFO ] Invoked (1.5.34): /bin/ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2 [2016-07-29 00:05:19,107][ceph_deploy.cli][INFO ] ceph-deploy options: [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] username : None [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] verbose : False [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] overwrite_conf : False [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] subcommand : activate [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] quiet : False [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] cd_conf : &amp;lt;ceph_deploy.conf.cephdeploy.Conf instance at 0x26dcb90&amp;gt; [2016-07-29 00:05:19,109][ceph_deploy.</description>
     </item>
     
     <item>
@@ -330,7 +325,7 @@ ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2  报错内容如下
       <description>由于网络方面的原因，Ceph的部署经常受到干扰，通常为了加速部署，基本上大家都是将Ceph的源同步到本地进行安装。根据Ceph中国社区的统计，当前已经有国内的网站定期将Ceph安装源同步，极大的方便了我们的测试。本文就是介绍如何使用国内源，加速ceph-deploy部署Ceph集群。
 关于国内源 根据Ceph中国社区的统计，国内已经有四家网站开始同步Ceph源，分别是：
  网易镜像源http://mirrors.163.com/ceph 阿里镜像源http://mirrors.aliyun.com/ceph 中科大镜像源http://mirrors.ustc.edu.cn/ceph 宝德镜像源http://mirrors.plcloud.com/ceph  安装Ceph(Jewel版) 由于Jewel版本中已经不提供el6的镜像源，所以只能使用CentOS 7以上版本进行安装。我们并不需要在repos里增加相应的源，只需要设置环境变量，即可让ceph-deploy使用国内源，具体过程如下：
-export CEPH_DEPLOY_REPO_URL=http://mirrors.aliyun.com/ceph/rpm-jewel/el7 export CEPH_DEPLOY_GPG_URL=http://mirrors.aliyun.com/ceph/keys/release.asc  之后的过程就没任何区别了
+export CEPH_DEPLOY_REPO_URL=http://mirrors.aliyun.com/ceph/rpm-jewel/el7 export CEPH_DEPLOY_GPG_URL=http://mirrors.aliyun.com/ceph/keys/release.asc 之后的过程就没任何区别了
 # Create monitor node ceph-deploy new node1 node2 node3 # Software Installation ceph-deploy install deploy node1 node2 node3 # Gather keys ceph-deploy mon create-initial # Ceph deploy osd create disk ceph-deploy osd create node1:sdb:/dev/sdc ceph-deploy osd create node2:sdb:/dev/sdc ceph-deploy osd create node3:sdb:/dev/sdc # Make 3 copies by default echo &amp;quot;osd pool default size = 3&amp;quot; | tee -a $HOME/ceph.</description>
     </item>
     
@@ -351,7 +346,7 @@ export CEPH_DEPLOY_REPO_URL=http://mirrors.aliyun.com/ceph/rpm-jewel/el7 export 
       <pubDate>Sun, 03 Jul 2016 13:39:01 +0800</pubDate>
       
       <guid>https://ops.m114.org/post/linux-performance-tools/</guid>
-      <description> 性能调优 性能监控 性能测试 </description>
+      <description>性能调优 性能监控 性能测试 </description>
     </item>
     
     <item>
@@ -361,7 +356,7 @@ export CEPH_DEPLOY_REPO_URL=http://mirrors.aliyun.com/ceph/rpm-jewel/el7 export 
       
       <guid>https://ops.m114.org/post/git-common-command/</guid>
       <description>配置 Git的设置文件为.gitconfig，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。
-# 显示当前的Git配置 $ git config --list # 文本编辑器 $ git config --global core.editor vim # 编辑Git配置文件 $ git config -e [--global] # 设置提交代码时的用户信息 $ git config [--global] user.name &amp;quot;[name]&amp;quot; $ git config [--global] user.email &amp;quot;[email address]&amp;quot;  FAQ 1. 如果在你Fork之后，原始的repo更新了，怎么将原始的更新内容与你当前的合并？ 1. 增加原分支为远程分支，命名为upstream git remote add upstream https://github.com/vinsonzou/docker-images.git 2. fetch该远程仓库下的所有分支到remote-tracking分支 git fetch upstream 3. 确保你当前在master分支 git checkout master 4. Fork同步 两种方式，任选其一即可 a) 如果你已经对当前自己的副本做过更改，并且想要保留，则将更新合并到主分支 git merge upstream/master b) 如果想要保留所有原仓库的历史更新则使用rebase复写当前分支(`本地所有修改丢失`) git rebase upstream/master 5.</description>
+# 显示当前的Git配置 $ git config --list # 文本编辑器 $ git config --global core.editor vim # 编辑Git配置文件 $ git config -e [--global] # 设置提交代码时的用户信息 $ git config [--global] user.name &amp;quot;[name]&amp;quot; $ git config [--global] user.email &amp;quot;[email address]&amp;quot; FAQ 1. 如果在你Fork之后，原始的repo更新了，怎么将原始的更新内容与你当前的合并？ 1. 增加原分支为远程分支，命名为upstream git remote add upstream https://github.com/vinsonzou/docker-images.git 2. fetch该远程仓库下的所有分支到remote-tracking分支 git fetch upstream 3. 确保你当前在master分支 git checkout master 4. Fork同步 两种方式，任选其一即可 a) 如果你已经对当前自己的副本做过更改，并且想要保留，则将更新合并到主分支 git merge upstream/master b) 如果想要保留所有原仓库的历史更新则使用rebase复写当前分支(`本地所有修改丢失`) git rebase upstream/master 5.</description>
     </item>
     
     <item>
@@ -372,7 +367,7 @@ export CEPH_DEPLOY_REPO_URL=http://mirrors.aliyun.com/ceph/rpm-jewel/el7 export 
       <guid>https://ops.m114.org/post/docker-for-mac-beta/</guid>
       <description>Docker for Mac Docker for Mac 是一个原生的苹果应用程序，被安装到 /Application 目录。安装时会创建 /usr/local/bin 目录下的 docker、docker-compose、docker-machine 符号链接，这些符号链接指向 ~/Library/Group Containers/group.com.docker/bin 目录下的各类文件，而 ~/Library/Group Containers/group.com.docker/bin 的文件实际上也是符号链接，他们指向 /Applications/Docker.app/Contents/Resources/bin 目录下的实际二进制文件。
  Docker for Mac 使用通过 Hypervisor.framework 提供的轻量级的 xhyve 虚拟化技术 Docker for Mac 不使用 docker-machine 管理虚拟机 Docker for Mac 不通过 TCP 端口通信，反而使用 /var/tmp/docker.sock 套接字文件通信（实际上是将 /var/tmp 目录挂载到了虚拟机中，虚拟机在其中生成套接字文件） 由于使用了 xhyve 虚拟机，所以可以模拟不同架构的处理器，这样开发者就直接能在 Mac 上使用 Docker 使用诸多平台的镜像文件，比如 arm 等。  为了能主机虚拟机共享文件，Docker 使用 osxfs 作为全新的文件共享方案，在很多方面都有全新的特性，比如在文件权限、命名空间、文件所有者、文件系统事件、挂载点、符号链接、文件类型、扩展属性等方面都有了全新的内容，并且，所有产生的日志都能通过 syslog 查询，非常方便。不过现在依旧存在许多问题，比如没有设置 docker daemon 各项参数的接口。
-如何为Docker Engine设置代理 screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty  敲一下回车，登录，用户名root，没有密码，直接回车。编辑/etc/init.</description>
+如何为Docker Engine设置代理 screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty 敲一下回车，登录，用户名root，没有密码，直接回车。编辑/etc/init.d/docker文件，如下添加代理：</description>
     </item>
     
     <item>

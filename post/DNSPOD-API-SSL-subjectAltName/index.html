@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.55.6" />
+  <meta name="generator" content="Hugo 0.83.1" />
 
   <title>DNSPOD API SSL证书调整(subjectAltName)引起的报错 &middot; ops</title>
 
+    
+
   
   
-  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
@@ -30,21 +32,29 @@
   <link rel="stylesheet" href="https://ops.m114.org/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
   
-  <link href="//fonts.lug.ustc.edu.cn/css?family=Raleway" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
 
   
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
   
 
   
-  <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.5.0/styles/androidstudio.min.css">
-  <script src="//cdn.bootcss.com/highlight.js/9.5.0/highlight.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
   <script>hljs.initHighlightingOnLoad();</script>
   
 
   <link rel="shortcut icon" href="https://ops.m114.org/img/favicon.ico" type="image/x-icon" />
+
+  
+  
 
 </head>
 
@@ -145,9 +155,33 @@
     
 
     
+
+    
+
+    
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://github.com/vinsonzou" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+      <a class="pure-menu-link" href="https://github.com/vinsonzou" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
     </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
     
 
     
@@ -160,7 +194,7 @@
 
   <div>
   <div class="small-print">
-    <small>&copy; 2014-2018. All rights reserved.</small>
+    <small>&copy; 2014-2021. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
@@ -206,38 +240,32 @@
 </div>
 
   <p>报错信息如下：</p>
-
 <pre><code>Python 2.7 (r27:82500, Jan  7 2014, 23:14:35)
 [GCC 4.1.2 20080704 (Red Hat 4.1.2-50)] on linux2
 Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
 &gt;&gt;&gt; import requests
 &gt;&gt;&gt; r = requests.get(&quot;https://dnsapi.cn&quot;)
 Traceback (most recent call last):
-    File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
-    File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&quot;, line 55, in get
+	File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+	File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&quot;, line 55, in get
         return request('get', url, **kwargs)
-    File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&quot;, line 44, in request
+	File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&quot;, line 44, in request
         return session.request(method=method, url=url, **kwargs)
-    File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/sessions.py&quot;, line 361, in request
+	File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/sessions.py&quot;, line 361, in request
         resp = self.send(prep, **send_kwargs)
-    File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/sessions.py&quot;, line 464, in send
+	File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/sessions.py&quot;, line 464, in send
         r = adapter.send(request, **kwargs)
-    File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/adapters.py&quot;, line 363, in send
+	File &quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/adapters.py&quot;, line 363, in send
         raise SSLError(e)
 requests.exceptions.SSLError: hostname 'dnsapi.cn' doesn't match u'www.dnspod.cn'
 </code></pre>
-
 <p>DNSPOD当前证书截图：
-<img src="http://m114-static.qiniudn.com/img/dnspod_cert.png" alt="dnspod" /></p>
-
+<img src="http://m114-static.qiniudn.com/img/dnspod_cert.png" alt="dnspod"></p>
 <p>证书信息查看</p>
-
 <pre><code>openssl s_client -connect dnsapi.cn:443 | tee dnsapi.cert
 openssl x509 -inform PEM -in dnsapi.cert -text
 </code></pre>
-
 <p>Python SSL验证</p>
-
 <pre><code>Python 2.7 (r27:82500, Jan  7 2014, 23:14:35)
 [GCC 4.1.2 20080704 (Red Hat 4.1.2-50)] on linux2
 Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
@@ -253,14 +281,50 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
 &gt;&gt;&gt; _ssl._test_decode_cert('dnsapi.cert')
 {'subjectAltName': (('DNS', 'www.dnsapi.cn'), ('DNS', 'monitor.dnspod.cn'), ('DNS', 'api.dnspod.com'), ('DNS', 'tickets.dnspod.com'), ('DNS', 'ec.dnspod.cn'), ('DNS', 'domains.dnspod.cn'), ('DNS', 'support.dnspod.cn'), ('DNS', 'm.dnspod.cn'), ('DNS', 'ssl.ptlogin2.dnspod.cn'), ('DNS', 'monitor.dnspod.com'), ('DNS', 'support.dnspod.com'), ('DNS', 'tickets.dnspod.cn'), ('DNS', 'statics.dnspod.cn'), ('DNS', 'stat.dnspod.cn'), ('DNS', 'www.dnspod.com'), ('DNS', 'dnspod.com'), ('DNS', 'static.dnspod.com'), ('DNS', 'libs.dnspod.cn'), ('DNS', 'blog.dnspod.cn'), ('DNS', 'dnsapi.cn'), ('DNS', 'www.dnspod.cn'), ('DNS', 'dnspod.cn')), 'notBefore': 'Mar 24 00:00:00 2015 GMT', 'serialNumber': '3E4F6D495C407163586D0B900A007555', 'notAfter': 'May 12 23:59:59 2015 GMT', 'version': 3, 'subject': ((('1.3.6.1.4.1.311.60.2.1.3', u'CN'),), (('1.3.6.1.4.1.311.60.2.1.2', u'ShanDong'),), (('1.3.6.1.4.1.311.60.2.1.1', u'YanTai'),), (('businessCategory', u'Private Organization'),), (('serialNumber', u'370635200013814'),), (('countryName', u'CN'),), (('stateOrProvinceName', u'\u5c71\u4e1c\u7701'),), (('localityName', u'\u70df\u53f0\u5e02'),), (('organizationName', u'DNSPod, Inc.'),), (('organizationalUnitName', u'IT'),), (('commonName', u'www.dnspod.cn'),)), 'issuer': ((('countryName', u'US'),), (('organizationName', u'GeoTrust Inc.'),), (('commonName', u'GeoTrust Extended Validation SSL CA - G2'),))}
 </code></pre>
-
 <p>解决方法：</p>
-
 <p><strong><code>升级Python至2.7.3以上版本,低版本不支持ssl的subjectAltName特性</code></strong></p>
-
 <p>来源参考:</p>
-
 <p><a href="https://github.com/shazow/urllib3/issues/523">https://github.com/shazow/urllib3/issues/523</a></p>
+
+  
+  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2fdnspod-api-ssl-subjectaltname%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2fdnspod-api-ssl-subjectaltname%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2fdnspod-api-ssl-subjectaltname%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2fdnspod-api-ssl-subjectaltname%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2fdnspod-api-ssl-subjectaltname%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2fdnspod-api-ssl-subjectaltname%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
 
 
   
@@ -295,7 +359,9 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
 </div>
 
 
-
+  
+  
+  
   
 <div id="disqus_thread"></div>
 <script type="text/javascript">
@@ -312,20 +378,31 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 })();
 </script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
 
+  
 
 </div>
 
 </div>
 </div>
 <script src="https://ops.m114.org/js/ui.js"></script>
+<script src="https://ops.m114.org/js/menus.js"></script>
 
 
 
 
-<script data-no-instant>document.write('<script src="/livereload.js?port=1313&mindelay=10"></' + 'script>')</script></body>
+
+
+
+
+<script src="https://ops.m114.org/js/math-code.js"></script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
+
+
+</body>
 </html>
 

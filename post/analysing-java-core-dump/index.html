@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.55.6" />
+  <meta name="generator" content="Hugo 0.83.1" />
 
   <title>analysing java core dump &middot; ops</title>
 
+    
+
   
   
-  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
@@ -30,21 +32,29 @@
   <link rel="stylesheet" href="https://ops.m114.org/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
   
-  <link href="//fonts.lug.ustc.edu.cn/css?family=Raleway" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
 
   
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
   
 
   
-  <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.5.0/styles/androidstudio.min.css">
-  <script src="//cdn.bootcss.com/highlight.js/9.5.0/highlight.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
   <script>hljs.initHighlightingOnLoad();</script>
   
 
   <link rel="shortcut icon" href="https://ops.m114.org/img/favicon.ico" type="image/x-icon" />
+
+  
+  
 
 </head>
 
@@ -145,9 +155,33 @@
     
 
     
+
+    
+
+    
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://github.com/vinsonzou" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+      <a class="pure-menu-link" href="https://github.com/vinsonzou" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
     </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
     
 
     
@@ -160,7 +194,7 @@
 
   <div>
   <div class="small-print">
-    <small>&copy; 2014-2018. All rights reserved.</small>
+    <small>&copy; 2014-2021. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
@@ -209,13 +243,9 @@
 </div>
 
   <p>In this post, I will show you how you can debug a Java core file to see what caused your JVM to crash. I will be using a core file I generated in my previous post: <a href="http://fahdshariff.blogspot.co.uk/2012/08/generating-java-core-dump.html">Generating a Java Core Dump</a>.</p>
-
 <p>There are different ways you can diagnose a JVM crash, listed below:</p>
-
 <p><strong>The hs_err_pid log file</strong></p>
-
 <p>When a fatal error occurs in the JVM, it produces an error log file called hs_err_pidXXXX.log, normally in the working directory of the process or in the temporary directory for the operating system. The top of this file contains the cause of the crash and the &ldquo;problematic frame&rdquo;. For example, mine shows:</p>
-
 <pre><code>$ head hs_err_pid21178.log
 #
 # A fatal error has been detected by the Java Runtime Environment:
@@ -227,10 +257,7 @@
 # Problematic frame:
 # C  [libnativelib.so+0x75c]  bar+0x10
 #
-</code></pre>
-
-<p>There is also a stack trace:</p>
-
+</code></pre><p>There is also a stack trace:</p>
 <pre><code>Stack: [0x000000004012b000,0x000000004022c000],  sp=0x000000004022aac0,  free space=3fe0000000000000018k
 Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
 C  [libnativelib.so+0x75c]  bar+0x10
@@ -240,26 +267,16 @@ j  CoreDumper.core()V+0
 j  CoreDumper.main([Ljava/lang/String;)V+7
 v  ~StubRoutines::call_stub
 V  [libjvm.so+0x3e756d]
-</code></pre>
-
-<p>The stack trace shows that my java method, CoreDumper.core(), called into JNI and died when the bar function was called in native code.</p>
-
+</code></pre><p>The stack trace shows that my java method, CoreDumper.core(), called into JNI and died when the bar function was called in native code.</p>
 <p><strong>Debugging a Java Core Dump</strong></p>
-
 <p>In some cases, the JVM may not produce a hs_err_pid file, for example, if the native code abruptly aborts by calling the abort function. In such cases, we need to analyse the core file produced. On my machine, the operating system writes out core files to /var/tmp/cores. You can use the following command to see where your system is configured to write out core files to:</p>
-
 <pre><code>$ cat /proc/sys/kernel/core_pattern
 /var/tmp/cores/%e.%p.%u.core
 $ ls /var/tmp/cores
 java.21178.146385.core
-</code></pre>
-
-<p>There are a few, different ways to look at core dumps:</p>
-
+</code></pre><p>There are a few, different ways to look at core dumps:</p>
 <p><strong>1. Using gdb</strong></p>
-
 <p>GNU Debugger (gdb) can examine a core file and work out what the program was doing when it crashed.</p>
-
 <pre><code>$ gdb $JAVA_HOME/bin/java /var/tmp/cores/java.14015.146385.core
 (gdb) where
 #0  0x0000002a959bd26d in raise () from /lib64/tls/libc.so.6
@@ -275,14 +292,9 @@ java.21178.146385.core
 #10 0x000000004022ab70 in ?? ()
 #11 0x0000002a9a4d59c8 in ?? ()
 #12 0x0000000000000000 in ?? ()
-</code></pre>
-
-<p>The where command prints the stack frames and shows that the bar function called abort() which caused the crash.</p>
-
+</code></pre><p>The where command prints the stack frames and shows that the bar function called abort() which caused the crash.</p>
 <p><strong>2. Using jstack</strong></p>
-
 <p>jstack prints stack traces of Java threads for a given core file.</p>
-
 <pre><code>$ jstack -J-d64 $JAVA_HOME/bin/java /var/tmp/cores/java.14015.146385.core
 Debugger attached successfully.
 Server compiler detected.
@@ -307,12 +319,8 @@ Thread 16786: (state = BLOCKED)
 Thread 16780: (state = IN_NATIVE)
  - CoreDumper.core() @bci=0 (Interpreted frame)
  - CoreDumper.main(java.lang.String[]) @bci=7, line=12 (Interpreted frame)
-</code></pre>
-
-<p><strong>3. Using jmap</strong></p>
-
+</code></pre><p><strong>3. Using jmap</strong></p>
 <p>jmap examines a core file and prints out shared object memory maps or heap memory details.</p>
-
 <pre><code>$ jmap -J-d64 $JAVA_HOME/bin/java /var/tmp/cores/java.14015.146385.core
 Debugger attached successfully.
 Server compiler detected.
@@ -334,16 +342,52 @@ JVM version is 17.0-b16
 0x0000002a96ef4000      551K    /lib64/libnss_db.so.2
 0x0000002a97086000      89K     /usr/sunjdk/1.6.0_21/jre/lib/amd64/libzip.so
 0x0000002b1cecf000      6K      /home/sharfah/tmp/jni/libnativelib.so
-</code></pre>
-
-<p><strong>Useful Links:</strong></p>
-
+</code></pre><p><strong>Useful Links:</strong></p>
 <ul>
 <li><a href="http://weblogs.java.net/blog/kohsuke/archive/2009/02/crash_course_on.html">Crash course on JVM crash analysis</a></li>
 <li><a href="http://fahdshariff.blogspot.co.uk/2012/08/generating-java-core-dump.html">Generating a Java Core Dump</a></li>
 </ul>
-
 <p>From <a href="http://fahdshariff.blogspot.co.uk/2012/08/analysing-java-core-dump.html">http://fahdshariff.blogspot.co.uk/2012/08/analysing-java-core-dump.html</a></p>
+
+  
+  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2fanalysing-java-core-dump%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2fanalysing-java-core-dump%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2fanalysing-java-core-dump%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2fanalysing-java-core-dump%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2fanalysing-java-core-dump%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2fanalysing-java-core-dump%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
 
 
   
@@ -378,7 +422,9 @@ JVM version is 17.0-b16
 </div>
 
 
-
+  
+  
+  
   
 <div id="disqus_thread"></div>
 <script type="text/javascript">
@@ -395,20 +441,31 @@ JVM version is 17.0-b16
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 })();
 </script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
 
+  
 
 </div>
 
 </div>
 </div>
 <script src="https://ops.m114.org/js/ui.js"></script>
+<script src="https://ops.m114.org/js/menus.js"></script>
 
 
 
 
-<script data-no-instant>document.write('<script src="/livereload.js?port=1313&mindelay=10"></' + 'script>')</script></body>
+
+
+
+
+<script src="https://ops.m114.org/js/math-code.js"></script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
+
+
+</body>
 </html>
 

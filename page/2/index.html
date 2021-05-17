@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.55.6" />
+  <meta name="generator" content="Hugo 0.83.1" />
 
   <title>ops</title>
 
+    
+
   
   
-  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
@@ -30,23 +32,32 @@
   <link rel="stylesheet" href="https://ops.m114.org/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
   
-  <link href="//fonts.lug.ustc.edu.cn/css?family=Raleway" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
 
   
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
   
-  <link rel="alternate" type="application/rss+xml" title="ops" href="https://ops.m114.org/index.xml" />
+  <link rel="alternate" type="application/rss+xml" title="ops"
+    href='https://ops.m114.org/index.xml' />
   
 
   
-  <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.5.0/styles/androidstudio.min.css">
-  <script src="//cdn.bootcss.com/highlight.js/9.5.0/highlight.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
   <script>hljs.initHighlightingOnLoad();</script>
   
 
   <link rel="shortcut icon" href="https://ops.m114.org/img/favicon.ico" type="image/x-icon" />
+
+  
+  
 
 </head>
 
@@ -106,8 +117,13 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://ops.m114.org/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      <a class="pure-menu-link" href='https://ops.m114.org/index.xml'><i
+          class="fas fa-rss fa-fw"></i>RSS</a>
     </li>
+    
+
+    
+
     
 
     
@@ -152,8 +168,28 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://github.com/vinsonzou" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+      <a class="pure-menu-link" href="https://github.com/vinsonzou" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
     </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
     
 
     
@@ -166,7 +202,7 @@
 
   <div>
   <div class="small-print">
-    <small>&copy; 2014-2018. All rights reserved.</small>
+    <small>&copy; 2014-2021. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
@@ -380,11 +416,11 @@ In [1]: from distutils.version import StrictVersion In [2]: StrictVersion('1.2a3
   </header>
 
   <p>
-  go提供了sync包和channel来解决协程同步和通讯。新手对channel通道操作起来更容易产生死锁，如果时缓冲的channel还要考虑channel放入和取出数据的速率问题。
+  **go提供了sync包和channel来解决协程同步和通讯。**新手对channel通道操作起来更容易产生死锁，如果时缓冲的channel还要考虑channel放入和取出数据的速率问题。
 从字面就可以理解，sync.WaitGroup是等待一组协程结束。它实现了一个类似任务队列的结构，你可以向队列中加入任务，任务完成后就把任务从队列中移除，如果队列中的任务没有全部完成，队列就会触发阻塞以阻止程序继续运行。
 sync.WaitGroup只有3个方法，Add()，Done()，Wait()。 其中Done()是Add(-1)的别名。简单的来说，使用Add()添加计数，Done()减掉一个计数，计数不为0, 阻塞Wait()的运行。
 简单示例如下：
-package main import ( &quot;fmt&quot; &quot;sync&quot; ) var waitgroup sync.WaitGroup func test(shownum int) { fmt.Println(shownum) waitgroup.Done() //任务完成，将任务队列中的任务数量-1，其实.Done就是.Add(-1) } func main() { for i := 0; i &lt; 10; i++ { waitgroup.Add(1) //每创建一个goroutine，就把任务队列中任务的数量+1 go test(i) } waitgroup.Wait() //.Wait()这里会发生阻塞，直到队列中所有的任务结束就会解除阻塞 fmt.Println(&quot;done!&quot;) }  Ps: 此文为学习记录，如有错误还请多指教。
+package main import ( &quot;fmt&quot; &quot;sync&quot; ) var waitgroup sync.WaitGroup func test(shownum int) { fmt.Println(shownum) waitgroup.Done() //任务完成，将任务队列中的任务数量-1，其实.Done就是.Add(-1) } func main() { for i := 0; i &lt; 10; i++ { waitgroup.Add(1) //每创建一个goroutine，就把任务队列中任务的数量+1 go test(i) } waitgroup.Wait() //.Wait()这里会发生阻塞，直到队列中所有的任务结束就会解除阻塞 fmt.Println(&quot;done!&quot;) } Ps: 此文为学习记录，如有错误还请多指教。
   </p>
 
   
@@ -428,7 +464,7 @@ package main import ( &quot;fmt&quot; &quot;sync&quot; ) var waitgroup sync.Wait
   <p>
   故障现象
 升级tomcat至7.0.76后，GET请求的参数中含有中文时tomcat返回400错误，tomcat错误日志如下
-java.lang.IllegalArgumentException: Invalid character found in the request target. The valid characters are defined in RFC 7230 and RFC 3986 at org.apache.coyote.http11.InternalNioInputBuffer.parseRequestLine(InternalNioInputBuffer.java:317) at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1000) at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:637) at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1756) at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.run(NioEndpoint.java:1715) at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886) at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908) at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) at java.lang.Thread.run(Thread.java:662)  原因
+java.lang.IllegalArgumentException: Invalid character found in the request target. The valid characters are defined in RFC 7230 and RFC 3986 at org.apache.coyote.http11.InternalNioInputBuffer.parseRequestLine(InternalNioInputBuffer.java:317) at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1000) at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:637) at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1756) at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.run(NioEndpoint.java:1715) at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886) at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908) at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) at java.lang.Thread.run(Thread.java:662) 原因
 查询Changelog得知，tomcat 7.0.73版本添加了Add additional checks for valid characters to the HTTP request line parsing so invalid request lines are rejected sooner导致。
 解决方法
  请求前自行转义 更换tomcat为较低版本(不过tomcat的这次更改是依据RFC7230 and RFC 3986,在往后的版本,不会移除该特性)  
@@ -481,7 +517,7 @@ java.lang.IllegalArgumentException: Invalid character found in the request targe
 
   <p>
   当发生Too many connections时，即使是DBA也无法登录到数据库，一般的做法是修改配置文件的max_connections参数，然后重启数据库，这样业务就有几秒钟的中断，对于线上不能中断的数据库就只能采用另外一种极客的方法了，用gdb直接修改mysqld内存中max_connections的值，具体做法如下：
-gdb -p $(cat /data/mysql/mysql-server.pid) -ex &quot;set max_connections=3000&quot; -batch  改进方法如下
+gdb -p $(cat /data/mysql/mysql-server.pid) -ex &quot;set max_connections=3000&quot; -batch 改进方法如下
 通常有两个参数控制控制最大连接数：
 max_connections：该实例允许最大的连接数 max_user_connections：该实例允许每个用户的最大连接数  每个人要根据自己业务量，设置合适的值，不要盲目设置过大，但也不可设置过小，因为MySQL在连接数上升的情况下性能下降非常厉害，如果需要大量连接，这时可以引入thread_pool，所以我们需要保持一个原则：系统创建的用户（给应用使用用户）数 * max_user_connections &lt; max_connections。
   </p>
@@ -533,13 +569,14 @@ max_connections：该实例允许最大的连接数 max_user_connections：该�
 
   <p>
   在 OpenResty 中使用正则表达式，社区中推荐的做法是使用ngx.re api。比如匹配一个字符串是否为 http(s) 的链接，可以这么写：
-local function is_http_url(s) return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;#%]+$]]) end  压测一下:
-local t = os.clock() for _ = 1, max do is_http_url(&quot;http://blog.stackoverflow.com/2016/10/Stack-Overflow-92-Podcast-The-Guerilla-Guide-to-Interviewing/?cb=1&quot;) end print(&quot;Time cost: &quot;, os.clock() - t, &quot; s&quot;)  结果：Time cost: 2.663408 s
+local function is_http_url(s) return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;#%]+$]]) end 压测一下:
+local t = os.clock() for _ = 1, max do is_http_url(&quot;http://blog.stackoverflow.com/2016/10/Stack-Overflow-92-Podcast-The-Guerilla-Guide-to-Interviewing/?cb=1&quot;) end print(&quot;Time cost: &quot;, os.clock() - t, &quot; s&quot;) 结果：Time cost: 2.663408 s
 另一种做法是使用 lua 的正则语法：
-local function is_http_url(s) return s:find(&quot;^https?://[%w-_%.%?:/%+=&amp;#%%]+$&quot;) end  结果：Time cost: 0.652221 s
+local function is_http_url(s) return s:find(&quot;^https?://[%w-_%.%?:/%+=&amp;#%%]+$&quot;) end 结果：Time cost: 0.652221 s
 呃，怎么前者耗时是后者的四倍？lua 内置的小小状态机实现，居然打败了大名鼎鼎的 PCRE 库！说好的社区推荐呢！
 仔细一瞧，前者的确漏了点东西。ngx.re默认不会缓存正则表达式编译后的结果。一般在其它编程平台上，我们都会先把字符串编译成正则表达式，再用到正则函数中。比如在 Python 里使用 re.compile。所以赶紧补上：
-return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;#%]+$]], &quot;o&quot;)  好，这次性能有了明显提升：Time cost: 0.646518 s
+return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;#%]+$]], &quot;o&quot;) 好，这次性能有了明显提升：Time cost: 0.646518 s
+不错不错，虽然还是跟 lua 的实现不分上下，考虑到 lua 本身的正则支持非常弱（比如连 (foo|bar) 这种形式都不行），而且语法离经叛道，改用 ngx.
   </p>
 
   
@@ -586,7 +623,7 @@ return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;#%]+$]], &quot;o&quot;)  好�
 
   <p>
   列表项由数字、字符串组成，统计重复项
-&gt;&gt;&gt; from collections import defaultdict &gt;&gt;&gt; d = defaultdict(int) &gt;&gt;&gt; for x in [1, 2, 3, 1, 2, 3, 1]: ... d[x] += 1 ... &gt;&gt;&gt; dict(d) {1: 3, 2: 2, 3: 2} &gt;&gt;&gt; &gt;&gt;&gt; c = defaultdict(int) &gt;&gt;&gt; for y in ['a', 'b', 'a', 'c', 'c']: ... c[y] += 1 ... &gt;&gt;&gt; dict(c) {'a': 2, 'c': 2, 'b': 1}  列表项由字典组成，统计某一键值的重复数
+&gt;&gt;&gt; from collections import defaultdict &gt;&gt;&gt; d = defaultdict(int) &gt;&gt;&gt; for x in [1, 2, 3, 1, 2, 3, 1]: ... d[x] += 1 ... &gt;&gt;&gt; dict(d) {1: 3, 2: 2, 3: 2} &gt;&gt;&gt; &gt;&gt;&gt; c = defaultdict(int) &gt;&gt;&gt; for y in ['a', 'b', 'a', 'c', 'c']: ... c[y] += 1 ... &gt;&gt;&gt; dict(c) {'a': 2, 'c': 2, 'b': 1} 列表项由字典组成，统计某一键值的重复数
 &gt;&gt;&gt; e = defaultdict(int) &gt;&gt;&gt; for x in [{'a': 1, 'b': 1}, {'a': 2, 'b':1}, {'a': 1, 'c': 3}]: .
   </p>
 
@@ -687,8 +724,8 @@ PGlog和日志文件系统 PGlog相当于undo log, journal相当于redo log。�
   <p>
   OSD扩容后出现如下错误
 HEALTH_ERR 2 pgs inconsistent; 320 scrub errors
-[root@ceph01 ~]# ceph health detail HEALTH_ERR 2 pgs inconsistent; 320 scrub errors pg 10.9 is active+clean+inconsistent, acting [6,0,9] pg 10.10 is active+clean+scrubbing+deep+inconsistent, acting [2,6,4] 320 scrub errors  修复处于不一致状态的pgs
-[root@ceph01 ~]# ceph pg repair 10.9 instructing pg 10.9 on osd.6 to repair [root@ceph01 ~]# ceph pg repair 10.10 instructing pg 10.10 on osd.2 to repair  经过一段时间的修复后，ceph恢复正常。
+[root@ceph01 ~]# ceph health detail HEALTH_ERR 2 pgs inconsistent; 320 scrub errors pg 10.9 is active+clean+inconsistent, acting [6,0,9] pg 10.10 is active+clean+scrubbing+deep+inconsistent, acting [2,6,4] 320 scrub errors 修复处于不一致状态的pgs
+[root@ceph01 ~]# ceph pg repair 10.9 instructing pg 10.9 on osd.6 to repair [root@ceph01 ~]# ceph pg repair 10.10 instructing pg 10.10 on osd.2 to repair 经过一段时间的修复后，ceph恢复正常。
   </p>
 
   
@@ -716,10 +753,17 @@ HEALTH_ERR 2 pgs inconsistent; 320 scrub errors
 </div>
 </div>
 <script src="https://ops.m114.org/js/ui.js"></script>
+<script src="https://ops.m114.org/js/menus.js"></script>
 
 
 
 
-<script data-no-instant>document.write('<script src="/livereload.js?port=1313&mindelay=10"></' + 'script>')</script></body>
+
+
+
+
+
+
+</body>
 </html>
 

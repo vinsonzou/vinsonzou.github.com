@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.55.6" />
+  <meta name="generator" content="Hugo 0.83.1" />
 
   <title>Python的while 1跟while True到底有什么区别? &middot; ops</title>
 
+    
+
   
   
-  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
@@ -30,21 +32,29 @@
   <link rel="stylesheet" href="https://ops.m114.org/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
   
-  <link href="//fonts.lug.ustc.edu.cn/css?family=Raleway" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
 
   
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
   
 
   
-  <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.5.0/styles/androidstudio.min.css">
-  <script src="//cdn.bootcss.com/highlight.js/9.5.0/highlight.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
   <script>hljs.initHighlightingOnLoad();</script>
   
 
   <link rel="shortcut icon" href="https://ops.m114.org/img/favicon.ico" type="image/x-icon" />
+
+  
+  
 
 </head>
 
@@ -145,9 +155,33 @@
     
 
     
+
+    
+
+    
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://github.com/vinsonzou" target="_blank"><i class="fa fa-github-square fa-fw"></i>GitHub</a>
+      <a class="pure-menu-link" href="https://github.com/vinsonzou" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
     </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
     
 
     
@@ -160,7 +194,7 @@
 
   <div>
   <div class="small-print">
-    <small>&copy; 2014-2018. All rights reserved.</small>
+    <small>&copy; 2014-2021. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
@@ -216,7 +250,6 @@
 </div>
 
   <p>定义两个方法,分别使用while循环</p>
-
 <pre><code>def t1():
     while 1:
         pass
@@ -224,12 +257,8 @@
 def t2():
     while True:
         pass
-</code></pre>
-
-<p>单从功能上说,两种无任何区别,那么,来看看字节码上的区别:</p>
-
+</code></pre><p>单从功能上说,两种无任何区别,那么,来看看字节码上的区别:</p>
 <p><strong>For Python 2.x</strong></p>
-
 <pre><code>import dis  #载入反编译模块,Python内置的
 
 dis.dis(t1) #对应的是while 1,下面是输出
@@ -248,12 +277,8 @@ dis.dis(t2) #对应的是while True,下面是输出
         &gt;&gt;   12 POP_BLOCK
         &gt;&gt;   13 LOAD_CONST               0 (None)
              16 RETURN_VALUE
-</code></pre>
-
-<p>很明显, while 1的字节码只有while True的一半. 为什么呢? 因为Python2.x中True不是关键字,只是一个全局变量而已</p>
-
+</code></pre><p>很明显, while 1的字节码只有while True的一半. 为什么呢? 因为Python2.x中True不是关键字,只是一个全局变量而已</p>
 <p><strong>For Python 3.x</strong></p>
-
 <pre><code>&gt;&gt;&gt; dis.dis(t1)
   2           0 SETUP_LOOP               4 (to 6)
 
@@ -268,39 +293,70 @@ dis.dis(t2) #对应的是while True,下面是输出
               4 POP_BLOCK
         &gt;&gt;    6 LOAD_CONST               0 (None)
               8 RETURN_VALUE
-</code></pre>
-
-<p>在python 3.x中，while 1和while True无任何区别。</p>
-
+</code></pre><p>在python 3.x中，while 1和while True无任何区别。</p>
 <p><strong>总结:</strong></p>
-
 <ul>
-<li><p>在Python 2.x中，True不是关键字，而是在bool类型中定义为1的<a href="http://docs.python.org/library/constants.html#True">built-in global constant</a>。因此，解释器仍然必须加载True的内容。换句话说，True是可重新分配的。</p>
-
+<li>在Python 2.x中，True不是关键字，而是在bool类型中定义为1的<a href="http://docs.python.org/library/constants.html#True">built-in global constant</a>。因此，解释器仍然必须加载True的内容。换句话说，True是可重新分配的。</li>
+</ul>
 <pre><code>Python 2.7.15 (default, Jan 12 2019, 21:07:57)
 [GCC 4.2.1 Compatible Apple LLVM 10.0.0 (clang-1000.11.45.5)] on darwin
 Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
 &gt;&gt;&gt; True = 4
 &gt;&gt;&gt; True
 4
-</code></pre></li>
-
-<li><p>在Python 3.x中，True也是<a href="http://docs.python.org/py3k/reference/lexical_analysis.html#keywords">关键字</a>了。</p>
-
+</code></pre><ul>
+<li>在Python 3.x中，True也是<a href="http://docs.python.org/py3k/reference/lexical_analysis.html#keywords">关键字</a>了。</li>
+</ul>
 <pre><code>Python 3.7.0 (default, Jun 29 2018, 20:13:13)
 [Clang 9.1.0 (clang-902.0.39.2)] on darwin
 Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
 &gt;&gt;&gt; True = 4
-File &quot;&lt;stdin&gt;&quot;, line 1
+  File &quot;&lt;stdin&gt;&quot;, line 1
 SyntaxError: can't assign to keyword
-</code></pre></li>
-</ul>
-
-<p><strong>参考:</strong></p>
-
+</code></pre><p><strong>参考:</strong></p>
 <ul>
 <li><a href="https://stackoverflow.com/questions/3815359/while-1-vs-for-whiletrue-why-is-there-a-difference">https://stackoverflow.com/questions/3815359/while-1-vs-for-whiletrue-why-is-there-a-difference</a></li>
 </ul>
+
+  
+  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2fpython-while-1-vs-for-whiletrue%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2fpython-while-1-vs-for-whiletrue%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2fpython-while-1-vs-for-whiletrue%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2fpython-while-1-vs-for-whiletrue%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2fpython-while-1-vs-for-whiletrue%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2fpython-while-1-vs-for-whiletrue%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
 
 
   
@@ -335,7 +391,9 @@ SyntaxError: can't assign to keyword
 </div>
 
 
-
+  
+  
+  
   
 <div id="disqus_thread"></div>
 <script type="text/javascript">
@@ -352,20 +410,28 @@ SyntaxError: can't assign to keyword
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 })();
 </script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
 
+  
 
 </div>
 
 </div>
 </div>
 <script src="https://ops.m114.org/js/ui.js"></script>
+<script src="https://ops.m114.org/js/menus.js"></script>
 
 
 
 
-<script data-no-instant>document.write('<script src="/livereload.js?port=1313&mindelay=10"></' + 'script>')</script></body>
+
+
+
+
+
+
+</body>
 </html>
 

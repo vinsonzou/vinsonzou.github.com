@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on ops</title>
@@ -6,12 +6,8 @@
     <description>Recent content in Tags on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <copyright>&amp;copy; 2014-2018. All rights reserved.</copyright>
-    <lastBuildDate>Mon, 19 Apr 2021 17:01:15 +0800</lastBuildDate>
-    
-	<atom:link href="https://ops.m114.org/tags/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <copyright>&amp;copy; 2014-2021. All rights reserved.</copyright>
+    <lastBuildDate>Mon, 19 Apr 2021 17:01:15 +0800</lastBuildDate><atom:link href="https://ops.m114.org/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>cloudflare</title>
       <link>https://ops.m114.org/tags/cloudflare/</link>
@@ -49,20 +45,20 @@
     </item>
     
     <item>
-      <title>MySQL</title>
-      <link>https://ops.m114.org/tags/mysql/</link>
-      <pubDate>Thu, 18 Jun 2020 13:41:15 +0800</pubDate>
-      
-      <guid>https://ops.m114.org/tags/mysql/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>centos8</title>
       <link>https://ops.m114.org/tags/centos8/</link>
       <pubDate>Thu, 18 Jun 2020 13:41:15 +0800</pubDate>
       
       <guid>https://ops.m114.org/tags/centos8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mysql</title>
+      <link>https://ops.m114.org/tags/mysql/</link>
+      <pubDate>Thu, 18 Jun 2020 13:41:15 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/tags/mysql/</guid>
       <description></description>
     </item>
     
