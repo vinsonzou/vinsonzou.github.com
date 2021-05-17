@@ -72,10 +72,10 @@ import dis #载入反编译模块,Python内置的 dis.dis(t1) #对应的是while
     
     <item>
       <title>libvirt 4.5 virModuleLoadFile:53</title>
-      <link>https://ops.m114.org/post/libvirt-4.5-virmoduleloadfile53/</link>
+      <link>https://ops.m114.org/post/libvirt-4.5-virModuleLoadFile53/</link>
       <pubDate>Tue, 15 Jan 2019 17:27:22 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/libvirt-4.5-virmoduleloadfile53/</guid>
+      <guid>https://ops.m114.org/post/libvirt-4.5-virModuleLoadFile53/</guid>
       <description>CentOS 7.5.1804的libvirt从3.9升级至4.5时，无法启动，报错如下：
  error : virModuleLoadFile:53 : internal error: Failed to load module &amp;lsquo;/usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so&amp;rsquo;: /usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so: undefined symbol: rbd_diff_iterate2
  详细报错如下:
@@ -84,10 +84,10 @@ import dis #载入反编译模块,Python内置的 dis.dis(t1) #对应的是while
     
     <item>
       <title>Python数据库连接池实例--PooledDB</title>
-      <link>https://ops.m114.org/post/python-mysql-pooleddb/</link>
+      <link>https://ops.m114.org/post/python-mysql-PooledDB/</link>
       <pubDate>Tue, 16 Oct 2018 16:27:12 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/python-mysql-pooleddb/</guid>
+      <guid>https://ops.m114.org/post/python-mysql-PooledDB/</guid>
       <description>不用连接池的MySQL连接方法
 import MySQLdb conn= MySQLdb.connect(host=&#39;127.0.0.1&#39;,user=&#39;root&#39;,passwd=&#39;password&#39;,db=&#39;DB_test&#39;,port=3306) cur=conn.cursor() SQL=&amp;quot;select * from table_test&amp;quot; cur.execute(SQL) r=cur.fetchall() cur.close() conn.close() 用连接池后的连接方法
 import MySQLdb from DBUtils.PooledDB import PooledDB pool = PooledDB(MySQLdb,5,host=&#39;127.0.0.1&#39;,user=&#39;root&#39;,passwd=&#39;password&#39;,db=&#39;DB_test&#39;,port=3306) #5为连接池里的最少连接数 conn = pool.connection() #以后每次需要数据库连接就是用connection()函数获取连接就好了 cur=conn.cursor() SQL=&amp;quot;select * from table_test&amp;quot; cur.execute(SQL) r=cur.fetchall() cur.close() conn.close() PooledDB的参数
@@ -170,10 +170,10 @@ In [1]: from distutils.version import StrictVersion In [2]: StrictVersion(&#39;1
     
     <item>
       <title>golang sync.WaitGroup解决goroutine同步</title>
-      <link>https://ops.m114.org/post/sync-waitgroup/</link>
+      <link>https://ops.m114.org/post/sync-WaitGroup/</link>
       <pubDate>Mon, 03 Jul 2017 16:27:12 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/sync-waitgroup/</guid>
+      <guid>https://ops.m114.org/post/sync-WaitGroup/</guid>
       <description>**go提供了sync包和channel来解决协程同步和通讯。**新手对channel通道操作起来更容易产生死锁，如果时缓冲的channel还要考虑channel放入和取出数据的速率问题。
 从字面就可以理解，sync.WaitGroup是等待一组协程结束。它实现了一个类似任务队列的结构，你可以向队列中加入任务，任务完成后就把任务从队列中移除，如果队列中的任务没有全部完成，队列就会触发阻塞以阻止程序继续运行。
 sync.WaitGroup只有3个方法，Add()，Done()，Wait()。 其中Done()是Add(-1)的别名。简单的来说，使用Add()添加计数，Done()减掉一个计数，计数不为0, 阻塞Wait()的运行。
@@ -209,10 +209,10 @@ max_connections：该实例允许最大的连接数 max_user_connections：该�
     
     <item>
       <title>在 OpenResty 中使用正则表达式</title>
-      <link>https://ops.m114.org/post/use-regular-expressions-in-openresty/</link>
+      <link>https://ops.m114.org/post/use-regular-expressions-in-OpenResty/</link>
       <pubDate>Sun, 30 Oct 2016 10:48:19 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/use-regular-expressions-in-openresty/</guid>
+      <guid>https://ops.m114.org/post/use-regular-expressions-in-OpenResty/</guid>
       <description>在 OpenResty 中使用正则表达式，社区中推荐的做法是使用ngx.re api。比如匹配一个字符串是否为 http(s) 的链接，可以这么写：
 local function is_http_url(s) return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;amp;#%]+$]]) end 压测一下:
 local t = os.clock() for _ = 1, max do is_http_url(&amp;quot;http://blog.stackoverflow.com/2016/10/Stack-Overflow-92-Podcast-The-Guerilla-Guide-to-Interviewing/?cb=1&amp;quot;) end print(&amp;quot;Time cost: &amp;quot;, os.clock() - t, &amp;quot; s&amp;quot;) 结果：Time cost: 2.663408 s
@@ -283,10 +283,10 @@ HEALTH_ERR 2 pgs inconsistent; 320 scrub errors
     
     <item>
       <title>Centos 7.x systemd对比Centos 6.x daemon</title>
-      <link>https://ops.m114.org/post/centos7-systemd-vs-centos6-daemon/</link>
+      <link>https://ops.m114.org/post/CentOS7-systemd-vs-CentOS6-daemon/</link>
       <pubDate>Sat, 06 Aug 2016 13:54:53 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/centos7-systemd-vs-centos6-daemon/</guid>
+      <guid>https://ops.m114.org/post/CentOS7-systemd-vs-CentOS6-daemon/</guid>
       <description>从CentOS 7.x开始，CentOS开始使用systemd服务来代替daemon，原来管理系统启动和管理系统服务的相关命令全部由systemctl命令来代替。
 1、原来的 service 命令与 systemctl 命令对比    daemon命令 systemctl命令 说明     service [服务] start systemctl start [unit type] 启动服务   service [服务] stop systemctl stop [unit type] 停止服务   service [服务] restart systemctl restart [unit type] 重启服务    此外还有二个systemctl参数没有与service命令参数对应
 status: 参数来查看服务运行情况 reload: 重新加载服务，加载更新后的配置文件（并不是所有服务都支持这个参数，比如network.service） 应用举例:
@@ -295,10 +295,10 @@ status: 参数来查看服务运行情况 reload: 重新加载服务，加载更
     
     <item>
       <title>MySQL Unable to lock ibdata1 error 11 fix</title>
-      <link>https://ops.m114.org/post/mysql-unable-to-lock-ibdata1-error-11-fix/</link>
+      <link>https://ops.m114.org/post/MySQL-Unable-to-lock-ibdata1-error-11-fix/</link>
       <pubDate>Wed, 03 Aug 2016 10:52:24 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/mysql-unable-to-lock-ibdata1-error-11-fix/</guid>
+      <guid>https://ops.m114.org/post/MySQL-Unable-to-lock-ibdata1-error-11-fix/</guid>
       <description>A bad shutdown can cause such erros on MySQL.
 InnoDB: Unable to lock ./ibdata1, error: 11 InnoDB: Check that you do not already have another mysqld process InnoDB: using the same InnoDB data or log files. InnoDB: Error in opening ./ibdata1 For solution mv ibdata1 ibdata1.bak cp -a ibdata1.bak ibdata1 service mysqld restart </description>
     </item>
@@ -383,10 +383,10 @@ Jun 3 13:20:05 localhost kernel: igb 0000:05:00.1: eth1: Reset adapter Jun 3 13:
     
     <item>
       <title>DNSPOD API SSL证书调整(subjectAltName)引起的报错</title>
-      <link>https://ops.m114.org/post/dnspod-api-ssl-subjectaltname/</link>
+      <link>https://ops.m114.org/post/DNSPOD-API-SSL-subjectAltName/</link>
       <pubDate>Sun, 10 May 2015 23:44:43 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/dnspod-api-ssl-subjectaltname/</guid>
+      <guid>https://ops.m114.org/post/DNSPOD-API-SSL-subjectAltName/</guid>
       <description>报错信息如下：
 Python 2.7 (r27:82500, Jan 7 2014, 23:14:35) [GCC 4.1.2 20080704 (Red Hat 4.1.2-50)] on linux2 Type &amp;quot;help&amp;quot;, &amp;quot;copyright&amp;quot;, &amp;quot;credits&amp;quot; or &amp;quot;license&amp;quot; for more information. &amp;gt;&amp;gt;&amp;gt; import requests &amp;gt;&amp;gt;&amp;gt; r = requests.get(&amp;quot;https://dnsapi.cn&amp;quot;) Traceback (most recent call last): File &amp;quot;&amp;lt;stdin&amp;gt;&amp;quot;, line 1, in &amp;lt;module&amp;gt; File &amp;quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&amp;quot;, line 55, in get return request(&#39;get&#39;, url, **kwargs) File &amp;quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&amp;quot;, line 44, in request return session.request(method=method, url=url, **kwargs) File &amp;quot;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/sessions.py&amp;quot;, line 361, in request resp = self.</description>
     </item>
@@ -408,10 +408,10 @@ java -jar tzupdater.jar -l http://www.iana.org/time-zones/repository/tzdata-late
     
     <item>
       <title>利用TsunamiUDP加速跨机房迁移</title>
-      <link>https://ops.m114.org/post/use-tsunamiudp-accelerate-migration-across-data-centers/</link>
+      <link>https://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/</link>
       <pubDate>Sun, 26 Apr 2015 16:00:00 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/use-tsunamiudp-accelerate-migration-across-data-centers/</guid>
+      <guid>https://ops.m114.org/post/Use-TsunamiUDP-accelerate-migration-across-data-centers/</guid>
       <description>部署 yum -y install automake autoconf git clone git://github.com/rriley/tsunami-udp.git cd tsunami-udp ./recompile.sh cp server/tsunamid client/tsunami /usr/bin #或者从sf.net下载 wget http://iweb.dl.sourceforge.net/project/tsunami-udp/tsunami-udp/tsunami-v1.1-cvsbuild42/tsunami-v1.1-cvsbuild42.tar.gz tar zxf tsunami-v1.1-cvsbuild42.tar.gz cd tsunami-udp-v11-b42 ./recompile.sh cp server/tsunamid client/tsunami /usr/bin  使用 #1、防火墙调整 #服务端：开启TCP 46224(默认端口) #客户端：开启UDP 46224(默认端口) #2、开启服务端 #待迁移文件都放在/app/game_data目录下(也可指定单文件传输) tsunamid --hbtimeout 60 /app/game_data/* #PS：这里设定心跳包超时时间为60秒，默认为15秒，在使用中很容易中断导致传输失败 #3、开启客户端 # 拉取服务端(122.225.100.100)的game_db.lz4文件，并限速100M(建议限制下，不然机房带宽就满了哦) tsunami set rate 100M connect 122.225.100.100 get gcmob_db.lz4 # 拉取目录下所有文件 tsunami set rate 100M connect 122.225.100.100 get \* #文档：http://tsunami-udp.cvs.sourceforge.net/viewvc/tsunami-udp/docs/USAGE.txt PS：未避免泄密，IP是随机填的  跨机房迁移示例 场景： 将14G文件从杭州机房迁移至北京机房</description>
     </item>
     

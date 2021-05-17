@@ -23,10 +23,10 @@
     
     <item>
       <title>libvirt 4.5 virModuleLoadFile:53</title>
-      <link>https://ops.m114.org/post/libvirt-4.5-virmoduleloadfile53/</link>
+      <link>https://ops.m114.org/post/libvirt-4.5-virModuleLoadFile53/</link>
       <pubDate>Tue, 15 Jan 2019 17:27:22 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/libvirt-4.5-virmoduleloadfile53/</guid>
+      <guid>https://ops.m114.org/post/libvirt-4.5-virModuleLoadFile53/</guid>
       <description>CentOS 7.5.1804的libvirt从3.9升级至4.5时，无法启动，报错如下：
  error : virModuleLoadFile:53 : internal error: Failed to load module &amp;lsquo;/usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so&amp;rsquo;: /usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so: undefined symbol: rbd_diff_iterate2
  详细报错如下:

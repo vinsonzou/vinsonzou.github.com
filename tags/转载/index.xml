@@ -22,10 +22,10 @@ When a fatal error occurs in the JVM, it produces an error log file called hs_er
     
     <item>
       <title>在 OpenResty 中使用正则表达式</title>
-      <link>https://ops.m114.org/post/use-regular-expressions-in-openresty/</link>
+      <link>https://ops.m114.org/post/use-regular-expressions-in-OpenResty/</link>
       <pubDate>Sun, 30 Oct 2016 10:48:19 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/use-regular-expressions-in-openresty/</guid>
+      <guid>https://ops.m114.org/post/use-regular-expressions-in-OpenResty/</guid>
       <description>在 OpenResty 中使用正则表达式，社区中推荐的做法是使用ngx.re api。比如匹配一个字符串是否为 http(s) 的链接，可以这么写：
 local function is_http_url(s) return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;amp;#%]+$]]) end 压测一下:
 local t = os.clock() for _ = 1, max do is_http_url(&amp;quot;http://blog.stackoverflow.com/2016/10/Stack-Overflow-92-Podcast-The-Guerilla-Guide-to-Interviewing/?cb=1&amp;quot;) end print(&amp;quot;Time cost: &amp;quot;, os.clock() - t, &amp;quot; s&amp;quot;) 结果：Time cost: 2.663408 s

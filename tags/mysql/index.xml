@@ -22,10 +22,10 @@ yum --enablerepo=PowerTools install rpcgen 2. systemctl start mysqld.service报�
     
     <item>
       <title>Python数据库连接池实例--PooledDB</title>
-      <link>https://ops.m114.org/post/python-mysql-pooleddb/</link>
+      <link>https://ops.m114.org/post/python-mysql-PooledDB/</link>
       <pubDate>Tue, 16 Oct 2018 16:27:12 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/python-mysql-pooleddb/</guid>
+      <guid>https://ops.m114.org/post/python-mysql-PooledDB/</guid>
       <description>不用连接池的MySQL连接方法
 import MySQLdb conn= MySQLdb.connect(host=&#39;127.0.0.1&#39;,user=&#39;root&#39;,passwd=&#39;password&#39;,db=&#39;DB_test&#39;,port=3306) cur=conn.cursor() SQL=&amp;quot;select * from table_test&amp;quot; cur.execute(SQL) r=cur.fetchall() cur.close() conn.close() 用连接池后的连接方法
 import MySQLdb from DBUtils.PooledDB import PooledDB pool = PooledDB(MySQLdb,5,host=&#39;127.0.0.1&#39;,user=&#39;root&#39;,passwd=&#39;password&#39;,db=&#39;DB_test&#39;,port=3306) #5为连接池里的最少连接数 conn = pool.connection() #以后每次需要数据库连接就是用connection()函数获取连接就好了 cur=conn.cursor() SQL=&amp;quot;select * from table_test&amp;quot; cur.execute(SQL) r=cur.fetchall() cur.close() conn.close() PooledDB的参数
@@ -47,10 +47,10 @@ max_connections：该实例允许最大的连接数 max_user_connections：该�
     
     <item>
       <title>MySQL Unable to lock ibdata1 error 11 fix</title>
-      <link>https://ops.m114.org/post/mysql-unable-to-lock-ibdata1-error-11-fix/</link>
+      <link>https://ops.m114.org/post/MySQL-Unable-to-lock-ibdata1-error-11-fix/</link>
       <pubDate>Wed, 03 Aug 2016 10:52:24 +0800</pubDate>
       
-      <guid>https://ops.m114.org/post/mysql-unable-to-lock-ibdata1-error-11-fix/</guid>
+      <guid>https://ops.m114.org/post/MySQL-Unable-to-lock-ibdata1-error-11-fix/</guid>
       <description>A bad shutdown can cause such erros on MySQL.
 InnoDB: Unable to lock ./ibdata1, error: 11 InnoDB: Check that you do not already have another mysqld process InnoDB: using the same InnoDB data or log files. InnoDB: Error in opening ./ibdata1 For solution mv ibdata1 ibdata1.bak cp -a ibdata1.bak ibdata1 service mysqld restart </description>
     </item>
