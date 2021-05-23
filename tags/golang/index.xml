@@ -29,7 +29,7 @@
       <description>前言 本地默认编译出的文件总与官方提供的二进制文件大很多，Google之后得知通过编译参数控制还能编译出更小的可执行文件。
 加-ldflags参数 在程序编译的时候可以加上-ldflags &amp;quot;-s -w&amp;quot; 参数来优化编译程序, 其实通过去除部分连接和调试等信息来使得编译之后的执行程序更小,具体参数如下:
  -a 强制编译所有依赖包 -s 去掉符号表信息, panic时候的stack trace就没有任何文件名/行号信息了 -w 去掉DWARF调试信息，得到的程序就不能用gdb调试了  测试代码如下
-package main import &amp;quot;fmt&amp;quot; func main() { fmt.Println(&amp;quot;Hello, 世界&amp;quot;) } 编译方式及文件大小对比结果如下
+package main import &amp;#34;fmt&amp;#34; func main() { fmt.Println(&amp;#34;Hello, 世界&amp;#34;) } 编译方式及文件大小对比结果如下
    编译参数 大小     go build(默认) 1.6M   go build -ldflags -s 1.6M   go build -ldflags &amp;ldquo;-s -w&amp;rdquo; 1.1M   go build -ldflags -w 1.1M     测试环境: go 1.</description>
     </item>
     
@@ -40,7 +40,7 @@ package main import &amp;quot;fmt&amp;quot; func main() { fmt.Println(&amp;quot;
       
       <guid>https://ops.m114.org/post/golang-command-line-flags/</guid>
       <description>示例代码，仅供参考
-package main import ( &amp;quot;fmt&amp;quot; &amp;quot;flag&amp;quot; ) func main() { // golang的flag包的一些基本使用方法 // 待使用的变量 var id int var name string var male bool // 是否已经解析 fmt.Println(&amp;quot;parsed? = &amp;quot;, flag.Parsed()) // 设置flag参数 (变量指针，参数名，默认值，帮助信息) // 也可以用以下带返回值的方法代替，不过他们返回的是指针，比较麻烦点 // Int(name string, value int, usage string) *int // String(name string, value string, usage string) *string // Bool(name string, value bool, usage string) *bool flag.IntVar(&amp;amp;id, &amp;quot;id&amp;quot;, 123, &amp;quot;help msg for id&amp;quot;) flag.StringVar(&amp;amp;name, &amp;quot;name&amp;quot;, &amp;quot;default name&amp;quot;, &amp;quot;help msg for name&amp;quot;) flag.</description>
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;flag&amp;#34; ) func main() { // golang的flag包的一些基本使用方法  // 待使用的变量  var id int var name string var male bool // 是否已经解析  fmt.Println(&amp;#34;parsed? = &amp;#34;, flag.Parsed()) // 设置flag参数 (变量指针，参数名，默认值，帮助信息)  // 也可以用以下带返回值的方法代替，不过他们返回的是指针，比较麻烦点  // Int(name string, value int, usage string) *int  // String(name string, value string, usage string) *string  // Bool(name string, value bool, usage string) *bool  flag.IntVar(&amp;amp;id, &amp;#34;id&amp;#34;, 123, &amp;#34;help msg for id&amp;#34;) flag.</description>
     </item>
     
     <item>
@@ -53,7 +53,7 @@ package main import ( &amp;quot;fmt&amp;quot; &amp;quot;flag&amp;quot; ) func ma
 从字面就可以理解，sync.WaitGroup是等待一组协程结束。它实现了一个类似任务队列的结构，你可以向队列中加入任务，任务完成后就把任务从队列中移除，如果队列中的任务没有全部完成，队列就会触发阻塞以阻止程序继续运行。
 sync.WaitGroup只有3个方法，Add()，Done()，Wait()。 其中Done()是Add(-1)的别名。简单的来说，使用Add()添加计数，Done()减掉一个计数，计数不为0, 阻塞Wait()的运行。
 简单示例如下：
-package main import ( &amp;quot;fmt&amp;quot; &amp;quot;sync&amp;quot; ) var waitgroup sync.WaitGroup func test(shownum int) { fmt.Println(shownum) waitgroup.Done() //任务完成，将任务队列中的任务数量-1，其实.Done就是.Add(-1) } func main() { for i := 0; i &amp;lt; 10; i++ { waitgroup.Add(1) //每创建一个goroutine，就把任务队列中任务的数量+1 go test(i) } waitgroup.Wait() //.Wait()这里会发生阻塞，直到队列中所有的任务结束就会解除阻塞 fmt.Println(&amp;quot;done!&amp;quot;) } Ps: 此文为学习记录，如有错误还请多指教。</description>
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;sync&amp;#34; ) var waitgroup sync.WaitGroup func test(shownum int) { fmt.Println(shownum) waitgroup.Done() //任务完成，将任务队列中的任务数量-1，其实.Done就是.Add(-1) } func main() { for i := 0; i &amp;lt; 10; i++ { waitgroup.Add(1) //每创建一个goroutine，就把任务队列中任务的数量+1 	go test(i) } waitgroup.Wait() //.Wait()这里会发生阻塞，直到队列中所有的任务结束就会解除阻塞 	fmt.Println(&amp;#34;done!&amp;#34;) } Ps: 此文为学习记录，如有错误还请多指教。</description>
     </item>
     
     <item>

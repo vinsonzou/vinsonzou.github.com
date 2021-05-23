@@ -273,23 +273,23 @@
 <li>go &gt; 1.11</li>
 <li>as root or with <code>CAP_NET_RAW</code> capability to be able to set <code>IP_TRANSPARENT</code> socket opt.</li>
 </ul>
-<pre><code>go get github.com/path-network/go-mmproxy
-sudo setcap cap_net_raw=+ep $(readlink -f $(which go-mmproxy))
-</code></pre><h2 id="测试">测试</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">go get github.com/path-network/go-mmproxy
+sudo setcap cap_net_raw<span style="color:#f92672">=</span>+ep <span style="color:#66d9ef">$(</span>readlink -f <span style="color:#66d9ef">$(</span>which go-mmproxy<span style="color:#66d9ef">))</span>
+</code></pre></div><h2 id="测试">测试</h2>
 <ul>
 <li>启动</li>
 </ul>
-<pre><code># go-mmproxy监听端口为25577，TCP后端端口为25578
-ip rule add from 127.0.0.1/8 iif lo table 123
-ip route add local 0.0.0.0/0 dev lo table 123
-go-mmproxy -l 0.0.0.0:25577 -4 127.0.0.1:25578 -6 &quot;[::1]:25578&quot; -allowed-subnets ./path-prefixes.txt
-</code></pre><ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># go-mmproxy监听端口为25577，TCP后端端口为25578</span>
+ip rule add from 127.0.0.1/8 iif lo table <span style="color:#ae81ff">123</span>
+ip route add local 0.0.0.0/0 dev lo table <span style="color:#ae81ff">123</span>
+go-mmproxy -l 0.0.0.0:25577 -4 127.0.0.1:25578 -6 <span style="color:#e6db74">&#34;[::1]:25578&#34;</span> -allowed-subnets ./path-prefixes.txt
+</code></pre></div><ul>
 <li>停止</li>
 </ul>
-<pre><code># 清理路由
-ip rule del from 127.0.0.1/8 iif lo table 123
-ip route del local 0.0.0.0/0 dev lo table 123
-</code></pre><h2 id="faq">FAQ</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># 清理路由</span>
+ip rule del from 127.0.0.1/8 iif lo table <span style="color:#ae81ff">123</span>
+ip route del local 0.0.0.0/0 dev lo table <span style="color:#ae81ff">123</span>
+</code></pre></div><h2 id="faq">FAQ</h2>
 <ul>
 <li><strong>目前无法做到多端口映射，一个端口就得启动一个进程</strong></li>
 </ul>

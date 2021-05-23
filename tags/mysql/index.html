@@ -268,7 +268,7 @@
   <p>
   环境  OS: CentOS 8.2 MySQL: 5.7.30  报错信息 1. 编译报错 CMake Error at plugin/group_replication/libmysqlgcs/rpcgen.cmake:100 (MESSAGE): Could not find rpcgen Call Stack (most recent call first): plugin/group_replication/libmysqlgcs/CMakeLists.txt:38 (INCLUDE) 解决方法
 yum --enablerepo=PowerTools install rpcgen 2. systemctl start mysqld.service报错无法启动问题 报错信息如下
-[ERROR] Can't start server: can't check PID filepath: No such file or directory /usr/lib/systemd/system/mysqld.service 默认配置如下
+[ERROR] Can&#39;t start server: can&#39;t check PID filepath: No such file or directory /usr/lib/systemd/system/mysqld.service 默认配置如下
 # Copyright (c) 2015, 2016, Oracle and/or its affiliates. All rights reserved. # # This program is free software; you can redistribute it and/or modify # it under the terms of the GNU General Public License, version 2.
   </p>
 
@@ -327,8 +327,8 @@ yum --enablerepo=PowerTools install rpcgen 2. systemctl start mysqld.service报�
 
   <p>
   不用连接池的MySQL连接方法
-import MySQLdb conn= MySQLdb.connect(host='127.0.0.1',user='root',passwd='password',db='DB_test',port=3306) cur=conn.cursor() SQL=&quot;select * from table_test&quot; cur.execute(SQL) r=cur.fetchall() cur.close() conn.close() 用连接池后的连接方法
-import MySQLdb from DBUtils.PooledDB import PooledDB pool = PooledDB(MySQLdb,5,host='127.0.0.1',user='root',passwd='password',db='DB_test',port=3306) #5为连接池里的最少连接数 conn = pool.connection() #以后每次需要数据库连接就是用connection()函数获取连接就好了 cur=conn.cursor() SQL=&quot;select * from table_test&quot; cur.execute(SQL) r=cur.fetchall() cur.close() conn.close() PooledDB的参数
+import MySQLdb conn= MySQLdb.connect(host=&#39;127.0.0.1&#39;,user=&#39;root&#39;,passwd=&#39;password&#39;,db=&#39;DB_test&#39;,port=3306) cur=conn.cursor() SQL=&#34;select * from table_test&#34; cur.execute(SQL) r=cur.fetchall() cur.close() conn.close() 用连接池后的连接方法
+import MySQLdb from DBUtils.PooledDB import PooledDB pool = PooledDB(MySQLdb,5,host=&#39;127.0.0.1&#39;,user=&#39;root&#39;,passwd=&#39;password&#39;,db=&#39;DB_test&#39;,port=3306) #5为连接池里的最少连接数 conn = pool.connection() #以后每次需要数据库连接就是用connection()函数获取连接就好了 cur=conn.cursor() SQL=&#34;select * from table_test&#34; cur.execute(SQL) r=cur.fetchall() cur.close() conn.close() PooledDB的参数
  mincached: 最少的空闲连接数，如果空闲连接数小于这个数，pool会创建一个新的连接 maxcached: 最大的空闲连接数，如果空闲连接数大于这个数，pool会关闭空闲连接 maxconnections: 最大的连接数， blocking: 当连接数达到最大的连接数时，在请求连接的时候，如果这个值是True，请求连接的程序会一直等待，直到当前连接数小于最大连接数，如果这个值是False，会报错， maxshared: 当连接数达到这个数，新请求的连接会分享已经分配出去的连接  连接池对性能的提升表现在
  在程序创建连接的时候，可以从一个空闲的连接中获取，不需要重新初始化连接，提升获取连接的速度 关闭连接的时候，把连接放回连接池，而不是真正的关闭，所以可以减少频繁地打开和关闭连接 避免mysql连接数耗尽  DBUtils下载地址：https://pypi.python.org/pypi/DBUtils/
   </p>
@@ -380,9 +380,9 @@ import MySQLdb from DBUtils.PooledDB import PooledDB pool = PooledDB(MySQLdb,5,h
 
   <p>
   当发生Too many connections时，即使是DBA也无法登录到数据库，一般的做法是修改配置文件的max_connections参数，然后重启数据库，这样业务就有几秒钟的中断，对于线上不能中断的数据库就只能采用另外一种极客的方法了，用gdb直接修改mysqld内存中max_connections的值，具体做法如下：
-gdb -p $(cat /data/mysql/mysql-server.pid) -ex &quot;set max_connections=3000&quot; -batch 改进方法如下
+gdb -p $(cat /data/mysql/mysql-server.pid) -ex &#34;set max_connections=3000&#34; -batch 改进方法如下
 通常有两个参数控制控制最大连接数：
-max_connections：该实例允许最大的连接数 max_user_connections：该实例允许每个用户的最大连接数  每个人要根据自己业务量，设置合适的值，不要盲目设置过大，但也不可设置过小，因为MySQL在连接数上升的情况下性能下降非常厉害，如果需要大量连接，这时可以引入thread_pool，所以我们需要保持一个原则：系统创建的用户（给应用使用用户）数 * max_user_connections &lt; max_connections。
+max_connections：该实例允许最大的连接数 max_user_connections：该实例允许每个用户的最大连接数 每个人要根据自己业务量，设置合适的值，不要盲目设置过大，但也不可设置过小，因为MySQL在连接数上升的情况下性能下降非常厉害，如果需要大量连接，这时可以引入thread_pool，所以我们需要保持一个原则：系统创建的用户（给应用使用用户）数 * max_user_connections &lt; max_connections。
   </p>
 
   

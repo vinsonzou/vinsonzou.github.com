@@ -244,9 +244,8 @@
 
   <h2 id="scrub">scrub</h2>
 <p>ceph-osd会定义启动scrub线程，扫描部分对象（哪些对象？），和其他副本比较，发现是否一致。如果发现不一致，ceph会抛出这个异常给用户解决。以PG为粒度，触发scrub。用户手动修复，使用：</p>
-<pre><code>ceph pg repair &lt;pg_id&gt; # 全量复制master节点数据到副本节点。
-</code></pre>
-<p>scrub分为light scrubbing和Deep scrubbing，前者是频率多直接检查hash值，后者是频率少直接读取内容计算checksum比较。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ceph pg repair &lt;pg_id&gt; <span style="color:#75715e"># 全量复制master节点数据到副本节点。</span>
+</code></pre></div><p>scrub分为light scrubbing和Deep scrubbing，前者是频率多直接检查hash值，后者是频率少直接读取内容计算checksum比较。</p>
 <h2 id="backfill">backfill</h2>
 <p>当加入或者减少一个新的osd时，所有remapped之后的PG都要迁移到该osd上，此时就叫做backfill。</p>
 <h2 id="recovery">recovery</h2>

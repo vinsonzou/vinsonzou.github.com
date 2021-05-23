@@ -252,14 +252,14 @@
 <li>-w 去掉DWARF调试信息，得到的程序就不能用gdb调试了</li>
 </ul>
 <p>测试代码如下</p>
-<pre><code>package main
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 
-import &quot;fmt&quot;
+<span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
 
-func main() {
-    fmt.Println(&quot;Hello, 世界&quot;)
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Hello, 世界&#34;</span>)
 }
-</code></pre><p>编译方式及文件大小对比结果如下</p>
+</code></pre></div><p>编译方式及文件大小对比结果如下</p>
 <table>
 <thead>
 <tr>
@@ -293,19 +293,18 @@ func main() {
 <h1 id="使用upx">使用upx</h1>
 <p>上面go build 时加上-ldflags参数得到了比较小的可执行程序，但是还可以通过upx这个开源，绿色，好用的压缩工具进行进一步压缩。</p>
 <p>Mac用户直接brew安装</p>
-<pre><code>brew install upx
-</code></pre>
-<p>upx使用效果如下</p>
-<pre><code>                       Ultimate Packer for eXecutables
-                          Copyright (C) 1996 - 2017
-UPX 3.94        Markus Oberhumer, Laszlo Molnar &amp; John Reiser   May 12th 2017
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">brew install upx
+</code></pre></div><p>upx使用效果如下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">                       Ultimate Packer <span style="color:#66d9ef">for</span> eXecutables
+                          Copyright <span style="color:#f92672">(</span>C<span style="color:#f92672">)</span> <span style="color:#ae81ff">1996</span> - <span style="color:#ae81ff">2017</span>
+UPX 3.94        Markus Oberhumer, Laszlo Molnar &amp; John Reiser   May 12th <span style="color:#ae81ff">2017</span>
 
         File size         Ratio      Format      Name
    --------------------   ------   -----------   -----------
-   1181728 -&gt;    438928   37.14%   macho/amd64   test
+   <span style="color:#ae81ff">1181728</span> -&gt;    <span style="color:#ae81ff">438928</span>   37.14%   macho/amd64   test
 
-Packed 1 file.
-</code></pre><p>可以看到通过upx进一步压缩之后得到的程序只有429K了，压缩比率达到了37.14%.</p>
+Packed <span style="color:#ae81ff">1</span> file.
+</code></pre></div><p>可以看到通过upx进一步压缩之后得到的程序只有429K了，压缩比率达到了37.14%.</p>
 
   
   <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>

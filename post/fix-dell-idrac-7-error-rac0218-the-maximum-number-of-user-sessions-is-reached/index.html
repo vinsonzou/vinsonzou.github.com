@@ -264,23 +264,23 @@
 </ul>
 </li>
 </ul>
-<pre><code>#升级以1.57.57为例，也可选择更高版本使用
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#升级以1.57.57为例，也可选择更高版本使用</span>
 wget http://downloads.dell.com/FOLDER02171695M/1/ESM_Firmware_XH6FX_LN_1.57.57_A00.BIN
 sh ESM_Firmware_XH6FX_LN_1.57.57_A00.BIN --extract ./idrac7-1.57.57
 cp ./idrac7-1.57.57/payload/firmimg.d7 /var/lib/tftpboot/dell/idrac7-1.57.57
-</code></pre><p><strong>firmware升级方法</strong></p>
+</code></pre></div><p><strong>firmware升级方法</strong></p>
 <ul>
 <li><a href="http://en.community.dell.com/techcenter/b/techcenter/archive/2013/04/17/idrac7-now-supports-updating-server-components-using-racadm-and-web-gui">通过iDrac7 Web GUI升级</a></li>
 <li>通过ssh登录升级</li>
 </ul>
-<pre><code>#ssh登录后进行firmware更新
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#ssh登录后进行firmware更新</span>
 ssh root@iDrac_IP
 racadm fwupdate -g -u -a $tftp_server_ip -d /dell/idrac7-1.57.57
-</code></pre><ul>
+</code></pre></div><ul>
 <li>通过racadm命令行升级</li>
 </ul>
-<pre><code>racadm -r iDrac_IP -u root -p calvin fwupdate -g -u -a $tftp_server_ip -d /dell/idrac7-1.57.57
-</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">racadm -r iDrac_IP -u root -p calvin fwupdate -g -u -a $tftp_server_ip -d /dell/idrac7-1.57.57
+</code></pre></div>
   
   <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
 <ul class="share-buttons">

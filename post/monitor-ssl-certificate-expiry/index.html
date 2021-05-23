@@ -249,28 +249,27 @@
 </ul>
 </blockquote>
 <p>当前使用的shell脚本如下</p>
-<pre><code>#!/bin/sh
-
-host=$1
-port=443
-end_date=`openssl s_client -servername $host -host $host -port $port -showcerts &lt;/dev/null 2&gt;/dev/null |
-  sed -n '/BEGIN CERTIFICATE/,/END CERT/p' |
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/sh
+</span><span style="color:#75715e"></span>
+host<span style="color:#f92672">=</span>$1
+port<span style="color:#f92672">=</span><span style="color:#ae81ff">443</span>
+end_date<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>openssl s_client -servername $host -host $host -port $port -showcerts &lt;/dev/null 2&gt;/dev/null |
+  sed -n <span style="color:#e6db74">&#39;/BEGIN CERTIFICATE/,/END CERT/p&#39;</span> |
   openssl x509 -text 2&gt;/dev/null |
-  sed -n 's/ *Not After : *//p'`
-# openssl 检验和验证SSL证书。
-# -servername $host 因一台主机存在多个证书，利用SNI特性检查
-# &lt;/dev/null 定向标准输入，防止交互式程序Hang。从/dev/null 读时，直接读出0 。
-# sed -n 和p 一起使用，仅显示匹配到的部分。 //,// 区间匹配。
-# openssl x509 -text 解码证书信息，包含证书的有效期。
+  sed -n <span style="color:#e6db74">&#39;s/ *Not After : *//p&#39;</span><span style="color:#e6db74">`</span>
+<span style="color:#75715e"># openssl 检验和验证SSL证书。</span>
+<span style="color:#75715e"># -servername $host 因一台主机存在多个证书，利用SNI特性检查</span>
+<span style="color:#75715e"># &lt;/dev/null 定向标准输入，防止交互式程序Hang。从/dev/null 读时，直接读出0 。</span>
+<span style="color:#75715e"># sed -n 和p 一起使用，仅显示匹配到的部分。 //,// 区间匹配。</span>
+<span style="color:#75715e"># openssl x509 -text 解码证书信息，包含证书的有效期。</span>
 
-if [ -n &quot;$end_date&quot; ]
-then
-    end_date_seconds=`date '+%s' --date &quot;$end_date&quot;`
-    now_seconds=`date '+%s'`
-    echo &quot;($end_date_seconds-$now_seconds)/24/3600&quot; | bc
-fi
-</code></pre>
-
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$end_date<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>
+<span style="color:#66d9ef">then</span>
+    end_date_seconds<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>date <span style="color:#e6db74">&#39;+%s&#39;</span> --date <span style="color:#e6db74">&#34;</span>$end_date<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">`</span>
+    now_seconds<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>date <span style="color:#e6db74">&#39;+%s&#39;</span><span style="color:#e6db74">`</span>
+    echo <span style="color:#e6db74">&#34;(</span>$end_date_seconds<span style="color:#e6db74">-</span>$now_seconds<span style="color:#e6db74">)/24/3600&#34;</span> | bc
+<span style="color:#66d9ef">fi</span>
+</code></pre></div>
   
   <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
 <ul class="share-buttons">

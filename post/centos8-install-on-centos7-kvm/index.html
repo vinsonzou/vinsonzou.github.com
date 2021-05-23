@@ -259,9 +259,9 @@
 <h2 id="查看支持os">查看支持os</h2>
 <p>osinfo-query os</p>
 <p>当前环境默认不支持CentOS8/RHEL8，需做如下操作:</p>
-<pre><code># osinfo-db 需更新至osinfo-db-20190805-2
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># osinfo-db 需更新至osinfo-db-20190805-2</span>
 yum install osinfo-db-tools osinfo-db
-</code></pre><h2 id="报错处理">报错处理</h2>
+</code></pre></div><h2 id="报错处理">报错处理</h2>
 <p><strong>ERROR &lsquo;virConnect&rsquo; object has no attribute &lsquo;baselineHypervisorCPU&rsquo;</strong></p>
 <p>将 <code>libvirt-python-3.9.0-1</code> 升级至 <code>libvirt-python-4.5.0-1</code> 即可解决</p>
 <p>参考链接: <a href="https://github.com/virt-manager/virt-manager/issues/57">https://github.com/virt-manager/virt-manager/issues/57</a></p>

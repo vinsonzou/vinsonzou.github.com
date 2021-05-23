@@ -16,8 +16,8 @@
       <guid>https://ops.m114.org/post/error-500-oops-priv_sock_get_cmd-solved/</guid>
       <description>Troubleshooting seccomp filter sanboxing with vsftpd 3.0.x
 The following error may occur on ftp clients with vsftpd 3.0.x:
-500 OOPS: priv_sock_get_cmd  This is caused by seccomp filter sanboxing, which is enabled by default on amd64. To workaround this issue, disable seccomp filter sanboxing:
-echo &#39;seccomp_sandbox=NO&#39; &amp;gt;&amp;gt; vsftpd.conf service vsftpd restart  For further information, refer to Red Hat bug #845980.</description>
+500 OOPS: priv_sock_get_cmd This is caused by seccomp filter sanboxing, which is enabled by default on amd64. To workaround this issue, disable seccomp filter sanboxing:
+echo &amp;#39;seccomp_sandbox=NO&amp;#39; &amp;gt;&amp;gt; vsftpd.conf service vsftpd restart For further information, refer to Red Hat bug #845980.</description>
     </item>
     
   </channel>

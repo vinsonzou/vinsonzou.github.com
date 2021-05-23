@@ -17,7 +17,7 @@
       <description>看到网上弄了个zabbix监控SSL证书过期时间的,给咱业务也加了个此监控。
 改进如下：
   基于域名监控(一台服务器上有多个证书)   当前使用的shell脚本如下
-#!/bin/sh host=$1 port=443 end_date=`openssl s_client -servername $host -host $host -port $port -showcerts &amp;lt;/dev/null 2&amp;gt;/dev/null | sed -n &#39;/BEGIN CERTIFICATE/,/END CERT/p&#39; | openssl x509 -text 2&amp;gt;/dev/null | sed -n &#39;s/ *Not After : *//p&#39;` # openssl 检验和验证SSL证书。 # -servername $host 因一台主机存在多个证书，利用SNI特性检查 # &amp;lt;/dev/null 定向标准输入，防止交互式程序Hang。从/dev/null 读时，直接读出0 。 # sed -n 和p 一起使用，仅显示匹配到的部分。 //,// 区间匹配。 # openssl x509 -text 解码证书信息，包含证书的有效期。 if [ -n &amp;quot;$end_date&amp;quot; ] then end_date_seconds=`date &#39;+%s&#39; --date &amp;quot;$end_date&amp;quot;` now_seconds=`date &#39;+%s&#39;` echo &amp;quot;($end_date_seconds-$now_seconds)/24/3600&amp;quot; | bc fi  </description>
+#!/bin/sh  host=$1 port=443 end_date=`openssl s_client -servername $host -host $host -port $port -showcerts &amp;lt;/dev/null 2&amp;gt;/dev/null | sed -n &amp;#39;/BEGIN CERTIFICATE/,/END CERT/p&amp;#39; | openssl x509 -text 2&amp;gt;/dev/null | sed -n &amp;#39;s/ *Not After : *//p&amp;#39;` # openssl 检验和验证SSL证书。 # -servername $host 因一台主机存在多个证书，利用SNI特性检查 # &amp;lt;/dev/null 定向标准输入，防止交互式程序Hang。从/dev/null 读时，直接读出0 。 # sed -n 和p 一起使用，仅显示匹配到的部分。 //,// 区间匹配。 # openssl x509 -text 解码证书信息，包含证书的有效期。 if [ -n &amp;#34;$end_date&amp;#34; ] then end_date_seconds=`date &amp;#39;+%s&amp;#39; --date &amp;#34;$end_date&amp;#34;` now_seconds=`date &amp;#39;+%s&amp;#39;` echo &amp;#34;($end_date_seconds-$now_seconds)/24/3600&amp;#34; | bc fi </description>
     </item>
     
   </channel>

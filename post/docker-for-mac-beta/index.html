@@ -259,28 +259,28 @@
 </ul>
 <p>为了能主机虚拟机共享文件，Docker 使用 osxfs 作为全新的文件共享方案，在很多方面都有全新的特性，比如在文件权限、命名空间、文件所有者、文件系统事件、挂载点、符号链接、文件类型、扩展属性等方面都有了全新的内容，并且，所有产生的日志都能通过 syslog 查询，非常方便。不过现在依旧存在许多问题，比如没有设置 docker daemon 各项参数的接口。</p>
 <h2 id="如何为docker-engine设置代理">如何为Docker Engine设置代理</h2>
-<pre><code>screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty
-</code></pre><p>敲一下回车，登录，用户名root，没有密码，直接回车。编辑/etc/init.d/docker文件，如下添加代理：</p>
-<pre><code>start-stop-daemon --start --quiet \
--e HTTP_PROXY=http(s)://proxy_host:proxy_port \
---background \
---exec ${command} \
---pidfile ${pidfile} \
---stderr &quot;${DOCKER_LOGFILE}&quot; \
---stdout &quot;${DOCKER_LOGFILE}&quot; \
--- daemon --pidfile=${pidfile} ${DOCKER_OPTS}
-</code></pre><p>重启Docker服务</p>
-<pre><code>/etc/init.d/docker restart
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty
+</code></pre></div><p>敲一下回车，登录，用户名root，没有密码，直接回车。编辑/etc/init.d/docker文件，如下添加代理：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">start-stop-daemon --start --quiet <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>-e HTTP_PROXY<span style="color:#f92672">=</span>http<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>://proxy_host:proxy_port <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>--background <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>--exec <span style="color:#e6db74">${</span>command<span style="color:#e6db74">}</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>--pidfile <span style="color:#e6db74">${</span>pidfile<span style="color:#e6db74">}</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>--stderr <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>DOCKER_LOGFILE<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>--stdout <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>DOCKER_LOGFILE<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>-- daemon --pidfile<span style="color:#f92672">=</span><span style="color:#e6db74">${</span>pidfile<span style="color:#e6db74">}</span> <span style="color:#e6db74">${</span>DOCKER_OPTS<span style="color:#e6db74">}</span>
+</code></pre></div><p>重启Docker服务</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">/etc/init.d/docker restart
 /etc/init.d/docker status
-</code></pre><h2 id="如何添加registry-mirror">如何添加registry-mirror</h2>
+</code></pre></div><h2 id="如何添加registry-mirror">如何添加registry-mirror</h2>
 <p>由于你懂的原因，国内拉镜像非常慢，甚至根本无法下载，解决方法如下：</p>
 <p>导出:</p>
-<pre><code>pinata get daemon &gt; myconfig.json
-</code></pre><p>将myconfig.json修改为:</p>
-<pre><code>{&quot;storage-driver&quot;:&quot;aufs&quot;,&quot;debug&quot;:true,&quot;registry-mirrors&quot;:[&quot;https://docker.mirrors.ustc.edu.cn&quot;]}
-</code></pre><p>导入:</p>
-<pre><code>pinata set daemon @myconfig.json
-</code></pre><p>重新启动Docker服务即可生效！</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">pinata get daemon &gt; myconfig.json
+</code></pre></div><p>将myconfig.json修改为:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;storage-driver&#34;</span>:<span style="color:#e6db74">&#34;aufs&#34;</span>,<span style="color:#e6db74">&#34;debug&#34;</span>:true,<span style="color:#e6db74">&#34;registry-mirrors&#34;</span>:<span style="color:#f92672">[</span><span style="color:#e6db74">&#34;https://docker.mirrors.ustc.edu.cn&#34;</span><span style="color:#f92672">]}</span>
+</code></pre></div><p>导入:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">pinata set daemon @myconfig.json
+</code></pre></div><p>重新启动Docker服务即可生效！</p>
 
   
   <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>

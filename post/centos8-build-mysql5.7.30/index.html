@@ -258,95 +258,95 @@
 </ul>
 <h2 id="报错信息">报错信息</h2>
 <h3 id="1-编译报错">1. 编译报错</h3>
-<pre><code>CMake Error at plugin/group_replication/libmysqlgcs/rpcgen.cmake:100 (MESSAGE):
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">CMake Error at plugin<span style="color:#f92672">/</span>group_replication<span style="color:#f92672">/</span>libmysqlgcs<span style="color:#f92672">/</span>rpcgen.cmake:<span style="color:#ae81ff">100</span> (MESSAGE)<span style="color:#f92672">:</span>
   Could not find rpcgen
-Call Stack (most recent call first):
-  plugin/group_replication/libmysqlgcs/CMakeLists.txt:38 (INCLUDE)
-</code></pre><p><strong>解决方法</strong></p>
-<pre><code>yum --enablerepo=PowerTools install rpcgen
-</code></pre><h3 id="2-systemctl-start-mysqldservice报错无法启动问题">2. systemctl start mysqld.service报错无法启动问题</h3>
+Call Stack (most recent call first)<span style="color:#f92672">:</span>
+  plugin<span style="color:#f92672">/</span>group_replication<span style="color:#f92672">/</span>libmysqlgcs<span style="color:#f92672">/</span>CMakeLists.txt:<span style="color:#ae81ff">38</span> (INCLUDE)
+</code></pre></div><p><strong>解决方法</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">yum --enablerepo<span style="color:#f92672">=</span>PowerTools install rpcgen
+</code></pre></div><h3 id="2-systemctl-start-mysqldservice报错无法启动问题">2. systemctl start mysqld.service报错无法启动问题</h3>
 <p><strong>报错信息如下</strong></p>
-<pre><code>[ERROR] Can't start server: can't check PID filepath: No such file or directory
-</code></pre><p>/usr/lib/systemd/system/mysqld.service 默认配置如下</p>
-<pre><code># Copyright (c) 2015, 2016, Oracle and/or its affiliates. All rights reserved.
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License, version 2.0,
-# as published by the Free Software Foundation.
-#
-# This program is also distributed with certain software (including
-# but not limited to OpenSSL) that is licensed under separate terms,
-# as designated in a particular file or component or in included license
-# documentation.  The authors of MySQL hereby grant you an additional
-# permission to link the program and your derivative works with the
-# separately licensed software that they have included with MySQL.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License, version 2.0, for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
-#
-# systemd service file for MySQL forking server
-#
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>ERROR<span style="color:#f92672">]</span> Can<span style="color:#e6db74">&#39;t start server: can&#39;</span>t check PID filepath: No such file or directory
+</code></pre></div><p>/usr/lib/systemd/system/mysqld.service 默认配置如下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># Copyright (c) 2015, 2016, Oracle and/or its affiliates. All rights reserved.</span>
+<span style="color:#75715e">#</span>
+<span style="color:#75715e"># This program is free software; you can redistribute it and/or modify</span>
+<span style="color:#75715e"># it under the terms of the GNU General Public License, version 2.0,</span>
+<span style="color:#75715e"># as published by the Free Software Foundation.</span>
+<span style="color:#75715e">#</span>
+<span style="color:#75715e"># This program is also distributed with certain software (including</span>
+<span style="color:#75715e"># but not limited to OpenSSL) that is licensed under separate terms,</span>
+<span style="color:#75715e"># as designated in a particular file or component or in included license</span>
+<span style="color:#75715e"># documentation.  The authors of MySQL hereby grant you an additional</span>
+<span style="color:#75715e"># permission to link the program and your derivative works with the</span>
+<span style="color:#75715e"># separately licensed software that they have included with MySQL.</span>
+<span style="color:#75715e">#</span>
+<span style="color:#75715e"># This program is distributed in the hope that it will be useful,</span>
+<span style="color:#75715e"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span style="color:#75715e"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span style="color:#75715e"># GNU General Public License, version 2.0, for more details.</span>
+<span style="color:#75715e">#</span>
+<span style="color:#75715e"># You should have received a copy of the GNU General Public License</span>
+<span style="color:#75715e"># along with this program; if not, write to the Free Software</span>
+<span style="color:#75715e"># Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA</span>
+<span style="color:#75715e">#</span>
+<span style="color:#75715e"># systemd service file for MySQL forking server</span>
+<span style="color:#75715e">#</span>
 
-[Unit]
-Description=MySQL Server
-Documentation=man:mysqld(8)
-Documentation=http://dev.mysql.com/doc/refman/en/using-systemd.html
-After=network.target
-After=syslog.target
+<span style="color:#f92672">[</span>Unit<span style="color:#f92672">]</span>
+Description<span style="color:#f92672">=</span>MySQL Server
+Documentation<span style="color:#f92672">=</span>man:mysqld<span style="color:#f92672">(</span>8<span style="color:#f92672">)</span>
+Documentation<span style="color:#f92672">=</span>http://dev.mysql.com/doc/refman/en/using-systemd.html
+After<span style="color:#f92672">=</span>network.target
+After<span style="color:#f92672">=</span>syslog.target
 
-[Install]
-WantedBy=multi-user.target
+<span style="color:#f92672">[</span>Install<span style="color:#f92672">]</span>
+WantedBy<span style="color:#f92672">=</span>multi-user.target
 
-[Service]
-User=mysql
-Group=mysql
+<span style="color:#f92672">[</span>Service<span style="color:#f92672">]</span>
+User<span style="color:#f92672">=</span>mysql
+Group<span style="color:#f92672">=</span>mysql
 
-Type=forking
+Type<span style="color:#f92672">=</span>forking
 
-PIDFile=/var/run/mysqld/mysqld.pid
+PIDFile<span style="color:#f92672">=</span>/var/run/mysqld/mysqld.pid
 
-# Disable service start and stop timeout logic of systemd for mysqld service.
-TimeoutSec=0
+<span style="color:#75715e"># Disable service start and stop timeout logic of systemd for mysqld service.</span>
+TimeoutSec<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
 
-# Execute pre and post scripts as root
-PermissionsStartOnly=true
+<span style="color:#75715e"># Execute pre and post scripts as root</span>
+PermissionsStartOnly<span style="color:#f92672">=</span>true
 
-# Needed to create system tables
-ExecStartPre=/usr/local/mysql/bin/mysqld_pre_systemd
+<span style="color:#75715e"># Needed to create system tables</span>
+ExecStartPre<span style="color:#f92672">=</span>/usr/local/mysql/bin/mysqld_pre_systemd
 
-# Start main service
-ExecStart=/usr/local/mysql/bin/mysqld --daemonize --pid-file=/var/run/mysqld/mysqld.pid $MYSQLD_OPTS
+<span style="color:#75715e"># Start main service</span>
+ExecStart<span style="color:#f92672">=</span>/usr/local/mysql/bin/mysqld --daemonize --pid-file<span style="color:#f92672">=</span>/var/run/mysqld/mysqld.pid $MYSQLD_OPTS
 
-# Use this to switch malloc implementation
-EnvironmentFile=-/etc/sysconfig/mysql
+<span style="color:#75715e"># Use this to switch malloc implementation</span>
+EnvironmentFile<span style="color:#f92672">=</span>-/etc/sysconfig/mysql
 
-# Sets open_files_limit
-LimitNOFILE = 5000
+<span style="color:#75715e"># Sets open_files_limit</span>
+LimitNOFILE <span style="color:#f92672">=</span> <span style="color:#ae81ff">5000</span>
 
-Restart=on-failure
+Restart<span style="color:#f92672">=</span>on-failure
 
-RestartPreventExitStatus=1
+RestartPreventExitStatus<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
 
-PrivateTmp=false
-</code></pre><p><strong>解决方法</strong></p>
+PrivateTmp<span style="color:#f92672">=</span>false
+</code></pre></div><p><strong>解决方法</strong></p>
 <ul>
 <li>默认mysqld.service中的pid存在/var/run/mysqld，此目录必须存在且mysql用户有权限</li>
 </ul>
-<pre><code>echo -e 'd /run/mysqld 0755 mysql mysql -' &gt; /usr/lib/tmpfiles.d/mysqld
-</code></pre><h3 id="3-启动警告信息">3. 启动警告信息</h3>
-<pre><code>[Warning] Could not increase number of max_open_files to more than 5000 (request: 10000)
-</code></pre><p><strong>解决方法</strong></p>
-<pre><code># 调整systemd mysqld.service配置(即/usr/lib/systemd/system/mysqld.service)
-LimitNOFILE = 5000 调整为 LimitNOFILE = 10000
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">echo -e <span style="color:#e6db74">&#39;d /run/mysqld 0755 mysql mysql -&#39;</span> &gt; /usr/lib/tmpfiles.d/mysqld
+</code></pre></div><h3 id="3-启动警告信息">3. 启动警告信息</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>Warning<span style="color:#f92672">]</span> Could not increase number of max_open_files to more than <span style="color:#ae81ff">5000</span> <span style="color:#f92672">(</span>request: 10000<span style="color:#f92672">)</span>
+</code></pre></div><p><strong>解决方法</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># 调整systemd mysqld.service配置(即/usr/lib/systemd/system/mysqld.service)</span>
+LimitNOFILE <span style="color:#f92672">=</span> <span style="color:#ae81ff">5000</span> 调整为 LimitNOFILE <span style="color:#f92672">=</span> <span style="color:#ae81ff">10000</span>
 systemctl daemon-reload
 systemctl restart mysqld
-</code></pre>
+</code></pre></div>
   
   <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
 <ul class="share-buttons">

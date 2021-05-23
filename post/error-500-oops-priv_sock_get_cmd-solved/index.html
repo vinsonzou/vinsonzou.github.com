@@ -252,13 +252,11 @@
   <h2 id="troubleshooting">Troubleshooting</h2>
 <p><strong>seccomp filter sanboxing with vsftpd 3.0.x</strong></p>
 <p>The following error may occur on ftp clients with vsftpd 3.0.x:</p>
-<pre><code>500 OOPS: priv_sock_get_cmd
-</code></pre>
-<p>This is caused by <a href="http://en.wikipedia.org/wiki/Seccomp">seccomp filter sanboxing</a>, which is enabled by default on <code>amd64</code>. To workaround this issue, disable seccomp filter sanboxing:</p>
-<pre><code>echo 'seccomp_sandbox=NO' &gt;&gt; vsftpd.conf
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#ae81ff">500</span> OOPS: priv_sock_get_cmd
+</code></pre></div><p>This is caused by <a href="http://en.wikipedia.org/wiki/Seccomp">seccomp filter sanboxing</a>, which is enabled by default on <code>amd64</code>. To workaround this issue, disable seccomp filter sanboxing:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">echo <span style="color:#e6db74">&#39;seccomp_sandbox=NO&#39;</span> &gt;&gt; vsftpd.conf
 service vsftpd restart
-</code></pre>
-<p>For further information, refer to <a href="https://bugzilla.redhat.com/show_bug.cgi?id=845980">Red Hat bug #845980</a>.</p>
+</code></pre></div><p>For further information, refer to <a href="https://bugzilla.redhat.com/show_bug.cgi?id=845980">Red Hat bug #845980</a>.</p>
 
   
   <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>

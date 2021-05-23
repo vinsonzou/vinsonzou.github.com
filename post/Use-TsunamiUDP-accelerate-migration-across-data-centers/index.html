@@ -240,44 +240,42 @@
 </div>
 
   <h2 id="部署">部署</h2>
-<pre><code>yum -y install automake autoconf
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">yum -y install automake autoconf
 
 git clone git://github.com/rriley/tsunami-udp.git
 cd tsunami-udp
 ./recompile.sh
 cp server/tsunamid client/tsunami /usr/bin
 
-#或者从sf.net下载
+<span style="color:#75715e">#或者从sf.net下载</span>
 wget http://iweb.dl.sourceforge.net/project/tsunami-udp/tsunami-udp/tsunami-v1.1-cvsbuild42/tsunami-v1.1-cvsbuild42.tar.gz
 tar zxf tsunami-v1.1-cvsbuild42.tar.gz
 cd tsunami-udp-v11-b42
 ./recompile.sh
 cp server/tsunamid client/tsunami /usr/bin
-</code></pre>
-<h2 id="使用">使用</h2>
-<pre><code>#1、防火墙调整
-#服务端：开启TCP 46224(默认端口)
-#客户端：开启UDP 46224(默认端口)
+</code></pre></div><h2 id="使用">使用</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#1、防火墙调整</span>
+<span style="color:#75715e">#服务端：开启TCP 46224(默认端口)</span>
+<span style="color:#75715e">#客户端：开启UDP 46224(默认端口)</span>
 
-#2、开启服务端
-#待迁移文件都放在/app/game_data目录下(也可指定单文件传输)
+<span style="color:#75715e">#2、开启服务端</span>
+<span style="color:#75715e">#待迁移文件都放在/app/game_data目录下(也可指定单文件传输)</span>
 
-tsunamid --hbtimeout 60 /app/game_data/*
+tsunamid --hbtimeout <span style="color:#ae81ff">60</span> /app/game_data/*
 
-#PS：这里设定心跳包超时时间为60秒，默认为15秒，在使用中很容易中断导致传输失败
+<span style="color:#75715e">#PS：这里设定心跳包超时时间为60秒，默认为15秒，在使用中很容易中断导致传输失败</span>
 
-#3、开启客户端
-# 拉取服务端(122.225.100.100)的game_db.lz4文件，并限速100M(建议限制下，不然机房带宽就满了哦)
+<span style="color:#75715e">#3、开启客户端</span>
+<span style="color:#75715e"># 拉取服务端(122.225.100.100)的game_db.lz4文件，并限速100M(建议限制下，不然机房带宽就满了哦)</span>
 tsunami set rate 100M connect 122.225.100.100 get gcmob_db.lz4
 
-# 拉取目录下所有文件
-tsunami set rate 100M connect 122.225.100.100 get \*
+<span style="color:#75715e"># 拉取目录下所有文件</span>
+tsunami set rate 100M connect 122.225.100.100 get <span style="color:#ae81ff">\*</span>
 
-#文档：http://tsunami-udp.cvs.sourceforge.net/viewvc/tsunami-udp/docs/USAGE.txt
+<span style="color:#75715e">#文档：http://tsunami-udp.cvs.sourceforge.net/viewvc/tsunami-udp/docs/USAGE.txt</span>
 
 PS：未避免泄密，IP是随机填的
-</code></pre>
-<h2 id="跨机房迁移示例">跨机房迁移示例</h2>
+</code></pre></div><h2 id="跨机房迁移示例">跨机房迁移示例</h2>
 <p>场景：
 将14G文件从杭州机房迁移至北京机房</p>
 <ul>

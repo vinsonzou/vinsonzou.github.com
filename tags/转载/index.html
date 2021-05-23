@@ -315,12 +315,12 @@ When a fatal error occurs in the JVM, it produces an error log file called hs_er
   <p>
   在 OpenResty 中使用正则表达式，社区中推荐的做法是使用ngx.re api。比如匹配一个字符串是否为 http(s) 的链接，可以这么写：
 local function is_http_url(s) return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;#%]+$]]) end 压测一下:
-local t = os.clock() for _ = 1, max do is_http_url(&quot;http://blog.stackoverflow.com/2016/10/Stack-Overflow-92-Podcast-The-Guerilla-Guide-to-Interviewing/?cb=1&quot;) end print(&quot;Time cost: &quot;, os.clock() - t, &quot; s&quot;) 结果：Time cost: 2.663408 s
+local t = os.clock() for _ = 1, max do is_http_url(&#34;http://blog.stackoverflow.com/2016/10/Stack-Overflow-92-Podcast-The-Guerilla-Guide-to-Interviewing/?cb=1&#34;) end print(&#34;Time cost: &#34;, os.clock() - t, &#34; s&#34;) 结果：Time cost: 2.663408 s
 另一种做法是使用 lua 的正则语法：
-local function is_http_url(s) return s:find(&quot;^https?://[%w-_%.%?:/%+=&amp;#%%]+$&quot;) end 结果：Time cost: 0.652221 s
+local function is_http_url(s) return s:find(&#34;^https?://[%w-_%.%?:/%+=&amp;#%%]+$&#34;) end 结果：Time cost: 0.652221 s
 呃，怎么前者耗时是后者的四倍？lua 内置的小小状态机实现，居然打败了大名鼎鼎的 PCRE 库！说好的社区推荐呢！
 仔细一瞧，前者的确漏了点东西。ngx.re默认不会缓存正则表达式编译后的结果。一般在其它编程平台上，我们都会先把字符串编译成正则表达式，再用到正则函数中。比如在 Python 里使用 re.compile。所以赶紧补上：
-return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;#%]+$]], &quot;o&quot;) 好，这次性能有了明显提升：Time cost: 0.646518 s
+return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;#%]+$]], &#34;o&#34;) 好，这次性能有了明显提升：Time cost: 0.646518 s
 不错不错，虽然还是跟 lua 的实现不分上下，考虑到 lua 本身的正则支持非常弱（比如连 (foo|bar) 这种形式都不行），而且语法离经叛道，改用 ngx.
   </p>
 

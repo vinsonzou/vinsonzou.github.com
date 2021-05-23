@@ -331,7 +331,7 @@
   <p>
   环境  OS: CentOS 8.2 MySQL: 5.7.30  报错信息 1. 编译报错 CMake Error at plugin/group_replication/libmysqlgcs/rpcgen.cmake:100 (MESSAGE): Could not find rpcgen Call Stack (most recent call first): plugin/group_replication/libmysqlgcs/CMakeLists.txt:38 (INCLUDE) 解决方法
 yum --enablerepo=PowerTools install rpcgen 2. systemctl start mysqld.service报错无法启动问题 报错信息如下
-[ERROR] Can't start server: can't check PID filepath: No such file or directory /usr/lib/systemd/system/mysqld.service 默认配置如下
+[ERROR] Can&#39;t start server: can&#39;t check PID filepath: No such file or directory /usr/lib/systemd/system/mysqld.service 默认配置如下
 # Copyright (c) 2015, 2016, Oracle and/or its affiliates. All rights reserved. # # This program is free software; you can redistribute it and/or modify # it under the terms of the GNU General Public License, version 2.
   </p>
 
@@ -596,8 +596,8 @@ import dis #载入反编译模块,Python内置的 dis.dis(t1) #对应的是while
 
   <p>
   不用连接池的MySQL连接方法
-import MySQLdb conn= MySQLdb.connect(host='127.0.0.1',user='root',passwd='password',db='DB_test',port=3306) cur=conn.cursor() SQL=&quot;select * from table_test&quot; cur.execute(SQL) r=cur.fetchall() cur.close() conn.close() 用连接池后的连接方法
-import MySQLdb from DBUtils.PooledDB import PooledDB pool = PooledDB(MySQLdb,5,host='127.0.0.1',user='root',passwd='password',db='DB_test',port=3306) #5为连接池里的最少连接数 conn = pool.connection() #以后每次需要数据库连接就是用connection()函数获取连接就好了 cur=conn.cursor() SQL=&quot;select * from table_test&quot; cur.execute(SQL) r=cur.fetchall() cur.close() conn.close() PooledDB的参数
+import MySQLdb conn= MySQLdb.connect(host=&#39;127.0.0.1&#39;,user=&#39;root&#39;,passwd=&#39;password&#39;,db=&#39;DB_test&#39;,port=3306) cur=conn.cursor() SQL=&#34;select * from table_test&#34; cur.execute(SQL) r=cur.fetchall() cur.close() conn.close() 用连接池后的连接方法
+import MySQLdb from DBUtils.PooledDB import PooledDB pool = PooledDB(MySQLdb,5,host=&#39;127.0.0.1&#39;,user=&#39;root&#39;,passwd=&#39;password&#39;,db=&#39;DB_test&#39;,port=3306) #5为连接池里的最少连接数 conn = pool.connection() #以后每次需要数据库连接就是用connection()函数获取连接就好了 cur=conn.cursor() SQL=&#34;select * from table_test&#34; cur.execute(SQL) r=cur.fetchall() cur.close() conn.close() PooledDB的参数
  mincached: 最少的空闲连接数，如果空闲连接数小于这个数，pool会创建一个新的连接 maxcached: 最大的空闲连接数，如果空闲连接数大于这个数，pool会关闭空闲连接 maxconnections: 最大的连接数， blocking: 当连接数达到最大的连接数时，在请求连接的时候，如果这个值是True，请求连接的程序会一直等待，直到当前连接数小于最大连接数，如果这个值是False，会报错， maxshared: 当连接数达到这个数，新请求的连接会分享已经分配出去的连接  连接池对性能的提升表现在
  在程序创建连接的时候，可以从一个空闲的连接中获取，不需要重新初始化连接，提升获取连接的速度 关闭连接的时候，把连接放回连接池，而不是真正的关闭，所以可以减少频繁地打开和关闭连接 避免mysql连接数耗尽  DBUtils下载地址：https://pypi.python.org/pypi/DBUtils/
   </p>
@@ -639,9 +639,9 @@ import MySQLdb from DBUtils.PooledDB import PooledDB pool = PooledDB(MySQLdb,5,h
 
   <p>
   一般使用curl请求自定义IP地址并且指定HOST的话可以这样。
-curl -H 'Host: ops.m114.org' http://127.0.0.1  但是如果你需要请求的地址是HTTPS就不行了
-$ curl -H 'Host: ops.m114.org' https://127.0.0.1/ curl: (51) Unable to communicate securely with peer: requested domain name does not match the server's certificate.  因为IP绝大多数情况下无法通过域名证书验证，还好curl中有--resolv参数可以让我们方便的指定域名的解析
-# --resolv参数形式 --resolv host:port:address # 示例 curl --resolv ops.m114.org:443:127.0.0.1 https://ops.m114.org  Ps:
+curl -H &#39;Host: ops.m114.org&#39; http://127.0.0.1 但是如果你需要请求的地址是HTTPS就不行了
+$ curl -H &#39;Host: ops.m114.org&#39; https://127.0.0.1/ curl: (51) Unable to communicate securely with peer: requested domain name does not match the server&#39;s certificate. 因为IP绝大多数情况下无法通过域名证书验证，还好curl中有--resolv参数可以让我们方便的指定域名的解析
+# --resolv参数形式 --resolv host:port:address # 示例 curl --resolv ops.m114.org:443:127.0.0.1 https://ops.m114.org Ps:
 小编经常使用的CentOS6的自带curl就不支持此参数，幸运的是CentOS7已经支持。
   </p>
 
@@ -687,7 +687,7 @@ $ curl -H 'Host: ops.m114.org' https://127.0.0.1/ curl: (51) Unable to communica
   前言 本地默认编译出的文件总与官方提供的二进制文件大很多，Google之后得知通过编译参数控制还能编译出更小的可执行文件。
 加-ldflags参数 在程序编译的时候可以加上-ldflags &quot;-s -w&quot; 参数来优化编译程序, 其实通过去除部分连接和调试等信息来使得编译之后的执行程序更小,具体参数如下:
  -a 强制编译所有依赖包 -s 去掉符号表信息, panic时候的stack trace就没有任何文件名/行号信息了 -w 去掉DWARF调试信息，得到的程序就不能用gdb调试了  测试代码如下
-package main import &quot;fmt&quot; func main() { fmt.Println(&quot;Hello, 世界&quot;) } 编译方式及文件大小对比结果如下
+package main import &#34;fmt&#34; func main() { fmt.Println(&#34;Hello, 世界&#34;) } 编译方式及文件大小对比结果如下
    编译参数 大小     go build(默认) 1.6M   go build -ldflags -s 1.6M   go build -ldflags &ldquo;-s -w&rdquo; 1.1M   go build -ldflags -w 1.1M     测试环境: go 1.
   </p>
 
@@ -735,7 +735,7 @@ package main import &quot;fmt&quot; func main() { fmt.Println(&quot;Hello, 世�
 
   <p>
   示例代码，仅供参考
-package main import ( &quot;fmt&quot; &quot;flag&quot; ) func main() { // golang的flag包的一些基本使用方法 // 待使用的变量 var id int var name string var male bool // 是否已经解析 fmt.Println(&quot;parsed? = &quot;, flag.Parsed()) // 设置flag参数 (变量指针，参数名，默认值，帮助信息) // 也可以用以下带返回值的方法代替，不过他们返回的是指针，比较麻烦点 // Int(name string, value int, usage string) *int // String(name string, value string, usage string) *string // Bool(name string, value bool, usage string) *bool flag.IntVar(&amp;id, &quot;id&quot;, 123, &quot;help msg for id&quot;) flag.StringVar(&amp;name, &quot;name&quot;, &quot;default name&quot;, &quot;help msg for name&quot;) flag.
+package main import ( &#34;fmt&#34; &#34;flag&#34; ) func main() { // golang的flag包的一些基本使用方法  // 待使用的变量  var id int var name string var male bool // 是否已经解析  fmt.Println(&#34;parsed? = &#34;, flag.Parsed()) // 设置flag参数 (变量指针，参数名，默认值，帮助信息)  // 也可以用以下带返回值的方法代替，不过他们返回的是指针，比较麻烦点  // Int(name string, value int, usage string) *int  // String(name string, value string, usage string) *string  // Bool(name string, value bool, usage string) *bool  flag.IntVar(&amp;id, &#34;id&#34;, 123, &#34;help msg for id&#34;) flag.
   </p>
 
   

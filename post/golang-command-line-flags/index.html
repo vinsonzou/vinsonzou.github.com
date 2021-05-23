@@ -243,111 +243,111 @@
 </div>
 
   <p><strong>示例代码，仅供参考</strong></p>
-<pre><code>package main
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 
-import (
-    &quot;fmt&quot;
-    &quot;flag&quot;
+<span style="color:#f92672">import</span> (
+    <span style="color:#e6db74">&#34;fmt&#34;</span>
+    <span style="color:#e6db74">&#34;flag&#34;</span>
 )
 
-func main() {
-    // golang的flag包的一些基本使用方法
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#75715e">// golang的flag包的一些基本使用方法
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// 待使用的变量
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">id</span> <span style="color:#66d9ef">int</span>
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">male</span> <span style="color:#66d9ef">bool</span>
 
-    // 待使用的变量
-    var id int
-    var name string
-    var male bool
+    <span style="color:#75715e">// 是否已经解析
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;parsed? = &#34;</span>, <span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">Parsed</span>())
 
-    // 是否已经解析
-    fmt.Println(&quot;parsed? = &quot;, flag.Parsed())
+    <span style="color:#75715e">// 设置flag参数 (变量指针，参数名，默认值，帮助信息)
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// 也可以用以下带返回值的方法代替，不过他们返回的是指针，比较麻烦点
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// Int(name string, value int, usage string) *int
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// String(name string, value string, usage string) *string
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// Bool(name string, value bool, usage string) *bool
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">IntVar</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">id</span>, <span style="color:#e6db74">&#34;id&#34;</span>, <span style="color:#ae81ff">123</span>, <span style="color:#e6db74">&#34;help msg for id&#34;</span>)
+    <span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">StringVar</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">name</span>, <span style="color:#e6db74">&#34;name&#34;</span>, <span style="color:#e6db74">&#34;default name&#34;</span>, <span style="color:#e6db74">&#34;help msg for name&#34;</span>)
+    <span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">BoolVar</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">male</span>, <span style="color:#e6db74">&#34;male&#34;</span>, <span style="color:#66d9ef">false</span>, <span style="color:#e6db74">&#34;help msg for male&#34;</span>)
 
-    // 设置flag参数 (变量指针，参数名，默认值，帮助信息)
-    // 也可以用以下带返回值的方法代替，不过他们返回的是指针，比较麻烦点
-    // Int(name string, value int, usage string) *int
-    // String(name string, value string, usage string) *string
-    // Bool(name string, value bool, usage string) *bool
-    flag.IntVar(&amp;id, &quot;id&quot;, 123, &quot;help msg for id&quot;)
-    flag.StringVar(&amp;name, &quot;name&quot;, &quot;default name&quot;, &quot;help msg for name&quot;)
-    flag.BoolVar(&amp;male, &quot;male&quot;, false, &quot;help msg for male&quot;)
+    <span style="color:#75715e">// 解析
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">Parse</span>()
 
-    // 解析
-    flag.Parse()
+    <span style="color:#75715e">// 是否已经解析
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;parsed? = &#34;</span>, <span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">Parsed</span>())
 
-    // 是否已经解析
-    fmt.Println(&quot;parsed? = &quot;, flag.Parsed())
-
-    // 获取非flag参数
-    fmt.Println(&quot;------ Args start ------&quot;)
-    for i, v := range flag.Args() {
-        fmt.Printf(&quot;arg[%d] = (%s).\n&quot;, i, v)
+    <span style="color:#75715e">// 获取非flag参数
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;------ Args start ------&#34;</span>)
+    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">Args</span>() {
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;arg[%d] = (%s).\n&#34;</span>, <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">v</span>)
     }
-    fmt.Println(&quot;------ Args end ------&quot;)
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;------ Args end ------&#34;</span>)
 
-    // visit只包含已经设置了的flag
-    fmt.Println(&quot;------ visit flag start ------&quot;)
-    flag.Visit(func(f *flag.Flag) {
-        fmt.Println(f.Name, f.Value, f.Usage, f.DefValue)
+    <span style="color:#75715e">// visit只包含已经设置了的flag
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;------ visit flag start ------&#34;</span>)
+    <span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">Visit</span>(<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">f</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">Flag</span>) {
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Name</span>, <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Value</span>, <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Usage</span>, <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">DefValue</span>)
     })
-    fmt.Println(&quot;------ visit flag end ------&quot;)
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;------ visit flag end ------&#34;</span>)
 
-    // visitAll只包含所有的flag(包括未设置的)
-    fmt.Println(&quot;------ visitAll flag start ------&quot;)
-    flag.VisitAll(func(f *flag.Flag) {
-        fmt.Println(f.Name, f.Value, f.Usage, f.DefValue)
+    <span style="color:#75715e">// visitAll只包含所有的flag(包括未设置的)
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;------ visitAll flag start ------&#34;</span>)
+    <span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">VisitAll</span>(<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">f</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">Flag</span>) {
+        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Name</span>, <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Value</span>, <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">Usage</span>, <span style="color:#a6e22e">f</span>.<span style="color:#a6e22e">DefValue</span>)
 
     })
-    fmt.Println(&quot;------ visitAll flag end ------&quot;)
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;------ visitAll flag end ------&#34;</span>)
 
-    // flag参数
-    fmt.Printf(&quot;id = %d\n&quot;, id)
-    fmt.Printf(&quot;name = %s\n&quot;, name)
-    fmt.Printf(&quot;male = %t\n&quot;, male)
+    <span style="color:#75715e">// flag参数
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;id = %d\n&#34;</span>, <span style="color:#a6e22e">id</span>)
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;name = %s\n&#34;</span>, <span style="color:#a6e22e">name</span>)
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;male = %t\n&#34;</span>, <span style="color:#a6e22e">male</span>)
 
-    // flag参数默认值
-    fmt.Println(&quot;------ PrintDefaults start ------&quot;)
-    flag.PrintDefaults()
-    fmt.Println(&quot;------ PrintDefaults end ------&quot;)
+    <span style="color:#75715e">// flag参数默认值
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;------ PrintDefaults start ------&#34;</span>)
+    <span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">PrintDefaults</span>()
+    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;------ PrintDefaults end ------&#34;</span>)
 
-    // 非flag参数个数
-    fmt.Printf(&quot;NArg = %d\n&quot;, flag.NArg())
-    // 已设置的flag参数个数
-    fmt.Printf(&quot;NFlag = %d\n&quot;, flag.NFlag())
+    <span style="color:#75715e">// 非flag参数个数
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;NArg = %d\n&#34;</span>, <span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">NArg</span>())
+    <span style="color:#75715e">// 已设置的flag参数个数
+</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;NFlag = %d\n&#34;</span>, <span style="color:#a6e22e">flag</span>.<span style="color:#a6e22e">NFlag</span>())
 }
-</code></pre><p><strong>传参数go run</strong></p>
-<pre><code>go run flag_demo.go -id=123 -name=&quot;zhangsan&quot; -male=true p1 p2 p3 p4
-</code></pre><p><strong>示例输出结果</strong></p>
-<pre><code>parsed? =  false
-parsed? =  true
------- Args start ------
-arg[0] = (p1).
-arg[1] = (p2).
-arg[2] = (p3).
-arg[3] = (p4).
------- Args end ------
------- visit flag start ------
-id 123 help msg for id 123
-male true help msg for male false
-name zhangsan help msg for name default name
------- visit flag end ------
------- visitAll flag start ------
-id 123 help msg for id 123
-male true help msg for male false
-name zhangsan help msg for name default name
------- visitAll flag end ------
-id = 123
-name = zhangsan
-male = true
------- PrintDefaults start ------
-  -id int
-    	help msg for id (default 123)
-  -male
-    	help msg for male
-  -name string
-    	help msg for name (default &quot;default name&quot;)
------- PrintDefaults end ------
-NArg = 4
-NFlag = 3
-</code></pre><p><strong>参考</strong></p>
+</code></pre></div><p><strong>传参数go run</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">go</span> <span style="color:#a6e22e">run</span> <span style="color:#a6e22e">flag_demo</span>.<span style="color:#66d9ef">go</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">id</span>=<span style="color:#ae81ff">123</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">name</span>=<span style="color:#e6db74">&#34;zhangsan&#34;</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">male</span>=<span style="color:#66d9ef">true</span> <span style="color:#a6e22e">p1</span> <span style="color:#a6e22e">p2</span> <span style="color:#a6e22e">p3</span> <span style="color:#a6e22e">p4</span>
+</code></pre></div><p><strong>示例输出结果</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">parsed</span><span style="color:#960050;background-color:#1e0010">?</span> =  <span style="color:#66d9ef">false</span>
+<span style="color:#a6e22e">parsed</span><span style="color:#960050;background-color:#1e0010">?</span> =  <span style="color:#66d9ef">true</span>
+<span style="color:#f92672">------</span> <span style="color:#a6e22e">Args</span> <span style="color:#a6e22e">start</span> <span style="color:#f92672">------</span>
+<span style="color:#a6e22e">arg</span>[<span style="color:#ae81ff">0</span>] = (<span style="color:#a6e22e">p1</span>).
+<span style="color:#a6e22e">arg</span>[<span style="color:#ae81ff">1</span>] = (<span style="color:#a6e22e">p2</span>).
+<span style="color:#a6e22e">arg</span>[<span style="color:#ae81ff">2</span>] = (<span style="color:#a6e22e">p3</span>).
+<span style="color:#a6e22e">arg</span>[<span style="color:#ae81ff">3</span>] = (<span style="color:#a6e22e">p4</span>).
+<span style="color:#f92672">------</span> <span style="color:#a6e22e">Args</span> <span style="color:#a6e22e">end</span> <span style="color:#f92672">------</span>
+<span style="color:#f92672">------</span> <span style="color:#a6e22e">visit</span> <span style="color:#a6e22e">flag</span> <span style="color:#a6e22e">start</span> <span style="color:#f92672">------</span>
+<span style="color:#a6e22e">id</span> <span style="color:#ae81ff">123</span> <span style="color:#a6e22e">help</span> <span style="color:#a6e22e">msg</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">id</span> <span style="color:#ae81ff">123</span>
+<span style="color:#a6e22e">male</span> <span style="color:#66d9ef">true</span> <span style="color:#a6e22e">help</span> <span style="color:#a6e22e">msg</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">male</span> <span style="color:#66d9ef">false</span>
+<span style="color:#a6e22e">name</span> <span style="color:#a6e22e">zhangsan</span> <span style="color:#a6e22e">help</span> <span style="color:#a6e22e">msg</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">name</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">name</span>
+<span style="color:#f92672">------</span> <span style="color:#a6e22e">visit</span> <span style="color:#a6e22e">flag</span> <span style="color:#a6e22e">end</span> <span style="color:#f92672">------</span>
+<span style="color:#f92672">------</span> <span style="color:#a6e22e">visitAll</span> <span style="color:#a6e22e">flag</span> <span style="color:#a6e22e">start</span> <span style="color:#f92672">------</span>
+<span style="color:#a6e22e">id</span> <span style="color:#ae81ff">123</span> <span style="color:#a6e22e">help</span> <span style="color:#a6e22e">msg</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">id</span> <span style="color:#ae81ff">123</span>
+<span style="color:#a6e22e">male</span> <span style="color:#66d9ef">true</span> <span style="color:#a6e22e">help</span> <span style="color:#a6e22e">msg</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">male</span> <span style="color:#66d9ef">false</span>
+<span style="color:#a6e22e">name</span> <span style="color:#a6e22e">zhangsan</span> <span style="color:#a6e22e">help</span> <span style="color:#a6e22e">msg</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">name</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">name</span>
+<span style="color:#f92672">------</span> <span style="color:#a6e22e">visitAll</span> <span style="color:#a6e22e">flag</span> <span style="color:#a6e22e">end</span> <span style="color:#f92672">------</span>
+<span style="color:#a6e22e">id</span> = <span style="color:#ae81ff">123</span>
+<span style="color:#a6e22e">name</span> = <span style="color:#a6e22e">zhangsan</span>
+<span style="color:#a6e22e">male</span> = <span style="color:#66d9ef">true</span>
+<span style="color:#f92672">------</span> <span style="color:#a6e22e">PrintDefaults</span> <span style="color:#a6e22e">start</span> <span style="color:#f92672">------</span>
+  <span style="color:#f92672">-</span><span style="color:#a6e22e">id</span> <span style="color:#66d9ef">int</span>
+    	<span style="color:#a6e22e">help</span> <span style="color:#a6e22e">msg</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">id</span> (<span style="color:#66d9ef">default</span> <span style="color:#ae81ff">123</span>)
+  <span style="color:#f92672">-</span><span style="color:#a6e22e">male</span>
+    	<span style="color:#a6e22e">help</span> <span style="color:#a6e22e">msg</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">male</span>
+  <span style="color:#f92672">-</span><span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>
+    	<span style="color:#a6e22e">help</span> <span style="color:#a6e22e">msg</span> <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">name</span> (<span style="color:#66d9ef">default</span> <span style="color:#e6db74">&#34;default name&#34;</span>)
+<span style="color:#f92672">------</span> <span style="color:#a6e22e">PrintDefaults</span> <span style="color:#a6e22e">end</span> <span style="color:#f92672">------</span>
+<span style="color:#a6e22e">NArg</span> = <span style="color:#ae81ff">4</span>
+<span style="color:#a6e22e">NFlag</span> = <span style="color:#ae81ff">3</span>
+</code></pre></div><p><strong>参考</strong></p>
 <ul>
 <li><a href="https://gobyexample.com/command-line-flags">https://gobyexample.com/command-line-flags</a></li>
 </ul>

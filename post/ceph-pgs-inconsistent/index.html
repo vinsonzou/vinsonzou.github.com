@@ -244,18 +244,18 @@
 
   <p>OSD扩容后出现如下错误</p>
 <p><code>HEALTH_ERR 2 pgs inconsistent; 320 scrub errors</code></p>
-<pre><code>[root@ceph01 ~]# ceph health detail
-HEALTH_ERR 2 pgs inconsistent; 320 scrub errors
-pg 10.9 is active+clean+inconsistent, acting [6,0,9]
-pg 10.10 is active+clean+scrubbing+deep+inconsistent, acting [2,6,4]
-320 scrub errors
-</code></pre><p>修复处于不一致状态的pgs</p>
-<pre><code>[root@ceph01 ~]# ceph pg repair 10.9
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>root@ceph01 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ceph health detail</span>
+HEALTH_ERR <span style="color:#ae81ff">2</span> pgs inconsistent; <span style="color:#ae81ff">320</span> scrub errors
+pg 10.9 is active+clean+inconsistent, acting <span style="color:#f92672">[</span>6,0,9<span style="color:#f92672">]</span>
+pg 10.10 is active+clean+scrubbing+deep+inconsistent, acting <span style="color:#f92672">[</span>2,6,4<span style="color:#f92672">]</span>
+<span style="color:#ae81ff">320</span> scrub errors
+</code></pre></div><p>修复处于不一致状态的pgs</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>root@ceph01 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ceph pg repair 10.9</span>
 instructing pg 10.9 on osd.6 to repair
 
-[root@ceph01 ~]# ceph pg repair 10.10
+<span style="color:#f92672">[</span>root@ceph01 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ceph pg repair 10.10</span>
 instructing pg 10.10 on osd.2 to repair
-</code></pre><p>经过一段时间的修复后，ceph恢复正常。</p>
+</code></pre></div><p>经过一段时间的修复后，ceph恢复正常。</p>
 
   
   <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>

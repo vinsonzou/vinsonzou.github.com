@@ -247,24 +247,24 @@
 <p>error : virModuleLoadFile:53 : internal error: Failed to load module &lsquo;/usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so&rsquo;: /usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so: undefined symbol: rbd_diff_iterate2</p>
 </blockquote>
 <p><strong>详细报错如下:</strong></p>
-<pre><code>[root@localhost ~]# libvirtd -v
-2019-01-15 08:56:53.433+0000: 34181: info : libvirt version: 4.5.0, package: 10.el7_6.3 (CentOS BuildSystem &lt;http://bugs.centos.org&gt;, 2018-11-28-20:51:39, x86-01.bsys.centos.org)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e"># libvirtd -v</span>
+2019-01-15 08:56:53.433+0000: 34181: info : libvirt version: 4.5.0, package: 10.el7_6.3 <span style="color:#f92672">(</span>CentOS BuildSystem &lt;http://bugs.centos.org&gt;, 2018-11-28-20:51:39, x86-01.bsys.centos.org<span style="color:#f92672">)</span>
 2019-01-15 08:56:53.433+0000: 34181: info : hostname: localhost.localdomain
-2019-01-15 08:56:53.433+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5da690 classname=virAccessManager
-2019-01-15 08:56:53.434+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5cbfe0 classname=virAccessManager
-2019-01-15 08:56:53.434+0000: 34181: info : virObjectRef:382 : OBJECT_REF: obj=0x56166f5da690
-2019-01-15 08:56:53.434+0000: 34181: info : virObjectUnref:344 : OBJECT_UNREF: obj=0x56166f5da690
-2019-01-15 08:56:53.434+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5cc470 classname=virNetDaemon
-2019-01-15 08:56:53.434+0000: 34181: info : virEventPollAddHandle:140 : EVENT_POLL_ADD_HANDLE: watch=1 fd=5 events=1 cb=0x7f5e248272d0 opaque=(nil) ff=(nil)
-2019-01-15 08:56:53.434+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5cc7d0 classname=virNetServer
-2019-01-15 08:56:53.434+0000: 34181: info : virObjectRef:382 : OBJECT_REF: obj=0x56166f5cc7d0
-2019-01-15 08:56:53.462+0000: 34181: error : virModuleLoadFile:53 : internal error: Failed to load module '/usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so': /usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so: undefined symbol: rbd_diff_iterate2
-</code></pre><p><strong>解决方法:</strong></p>
+2019-01-15 08:56:53.433+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj<span style="color:#f92672">=</span>0x56166f5da690 classname<span style="color:#f92672">=</span>virAccessManager
+2019-01-15 08:56:53.434+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj<span style="color:#f92672">=</span>0x56166f5cbfe0 classname<span style="color:#f92672">=</span>virAccessManager
+2019-01-15 08:56:53.434+0000: 34181: info : virObjectRef:382 : OBJECT_REF: obj<span style="color:#f92672">=</span>0x56166f5da690
+2019-01-15 08:56:53.434+0000: 34181: info : virObjectUnref:344 : OBJECT_UNREF: obj<span style="color:#f92672">=</span>0x56166f5da690
+2019-01-15 08:56:53.434+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj<span style="color:#f92672">=</span>0x56166f5cc470 classname<span style="color:#f92672">=</span>virNetDaemon
+2019-01-15 08:56:53.434+0000: 34181: info : virEventPollAddHandle:140 : EVENT_POLL_ADD_HANDLE: watch<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> fd<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span> events<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span> cb<span style="color:#f92672">=</span>0x7f5e248272d0 opaque<span style="color:#f92672">=(</span>nil<span style="color:#f92672">)</span> ff<span style="color:#f92672">=(</span>nil<span style="color:#f92672">)</span>
+2019-01-15 08:56:53.434+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj<span style="color:#f92672">=</span>0x56166f5cc7d0 classname<span style="color:#f92672">=</span>virNetServer
+2019-01-15 08:56:53.434+0000: 34181: info : virObjectRef:382 : OBJECT_REF: obj<span style="color:#f92672">=</span>0x56166f5cc7d0
+2019-01-15 08:56:53.462+0000: 34181: error : virModuleLoadFile:53 : internal error: Failed to load module <span style="color:#e6db74">&#39;/usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so&#39;</span>: /usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so: undefined symbol: rbd_diff_iterate2
+</code></pre></div><p><strong>解决方法:</strong></p>
 <p><code>libvirt_storage_backend_rbd.so</code>应该是连接ceph块设备（rbd）的一个模块，这里暂时不用连接ceph，最简单粗暴的做法就是移除该模块，重启libvirtd。</p>
-<pre><code>[root@localhost ~]# cd /usr/lib64/libvirt/storage-backend
-[root@localhost storage-backend]# mv libvirt_storage_backend_rbd.so libvirt_storage_backend_rbd.so.bak
-[root@localhost ~]# systemctl restart libvirtd
-</code></pre>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e"># cd /usr/lib64/libvirt/storage-backend</span>
+<span style="color:#f92672">[</span>root@localhost storage-backend<span style="color:#f92672">]</span><span style="color:#75715e"># mv libvirt_storage_backend_rbd.so libvirt_storage_backend_rbd.so.bak</span>
+<span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e"># systemctl restart libvirtd</span>
+</code></pre></div>
   
   <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
 <ul class="share-buttons">

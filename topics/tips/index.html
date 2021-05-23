@@ -307,7 +307,7 @@
 
   <p>
   配置 Git的设置文件为.gitconfig，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。
-# 显示当前的Git配置 $ git config --list # 文本编辑器 $ git config --global core.editor vim # 编辑Git配置文件 $ git config -e [--global] # 设置提交代码时的用户信息 $ git config [--global] user.name &quot;[name]&quot; $ git config [--global] user.email &quot;[email address]&quot; FAQ 1. 如果在你Fork之后，原始的repo更新了，怎么将原始的更新内容与你当前的合并？ 1. 增加原分支为远程分支，命名为upstream git remote add upstream https://github.com/vinsonzou/docker-images.git 2. fetch该远程仓库下的所有分支到remote-tracking分支 git fetch upstream 3. 确保你当前在master分支 git checkout master 4. Fork同步 两种方式，任选其一即可 a) 如果你已经对当前自己的副本做过更改，并且想要保留，则将更新合并到主分支 git merge upstream/master b) 如果想要保留所有原仓库的历史更新则使用rebase复写当前分支(`本地所有修改丢失`) git rebase upstream/master 5.
+# 显示当前的Git配置 $ git config --list # 文本编辑器 $ git config --global core.editor vim # 编辑Git配置文件 $ git config -e [--global] # 设置提交代码时的用户信息 $ git config [--global] user.name &#34;[name]&#34; $ git config [--global] user.email &#34;[email address]&#34; FAQ 1. 如果在你Fork之后，原始的repo更新了，怎么将原始的更新内容与你当前的合并？ 1. 增加原分支为远程分支，命名为upstream git remote add upstream https://github.com/vinsonzou/docker-images.git 2. fetch该远程仓库下的所有分支到remote-tracking分支 git fetch upstream 3. 确保你当前在master分支 git checkout master 4. Fork同步 两种方式，任选其一即可 a) 如果你已经对当前自己的副本做过更改，并且想要保留，则将更新合并到主分支 git merge upstream/master b) 如果想要保留所有原仓库的历史更新则使用rebase复写当前分支(`本地所有修改丢失`) git rebase upstream/master 5.
   </p>
 
   
@@ -366,7 +366,8 @@ JDK: 6
 过程 更新了系统时区文件，保证系统时间不会切换至夏令时，执行yum update tzdata即可。
 但在莫斯科时间的2015年3月29日凌晨2点，java游戏进程的日志时间跳到了凌晨3点(比系统时间快了1个小时)
 解决方法 使用Oracle TZUpdater进行更新即可
-java -jar tzupdater.jar -l http://www.iana.org/time-zones/repository/tzdata-latest.tar.gz 工具地址：http://www.oracle.com/technetwork/java/javase/downloads/tzupdater-download-513681.html  参考：http://www.jvmhost.com/articles/java-and-timezones/
+java -jar tzupdater.jar -l http://www.iana.org/time-zones/repository/tzdata-latest.tar.gz 工具地址：http://www.oracle.com/technetwork/java/javase/downloads/tzupdater-download-513681.html
+参考：http://www.jvmhost.com/articles/java-and-timezones/
   </p>
 
   

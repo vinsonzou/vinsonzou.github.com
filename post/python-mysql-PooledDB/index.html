@@ -254,27 +254,27 @@
 </div>
 
   <p><strong>不用连接池的MySQL连接方法</strong></p>
-<pre><code>import MySQLdb
-conn= MySQLdb.connect(host='127.0.0.1',user='root',passwd='password',db='DB_test',port=3306)
-cur=conn.cursor()
-SQL=&quot;select * from table_test&quot;
-cur.execute(SQL)
-r=cur.fetchall()
-cur.close()
-conn.close()
-</code></pre><p><strong>用连接池后的连接方法</strong></p>
-<pre><code>import MySQLdb
-from DBUtils.PooledDB import PooledDB
-pool = PooledDB(MySQLdb,5,host='127.0.0.1',user='root',passwd='password',db='DB_test',port=3306)    #5为连接池里的最少连接数
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">import</span> MySQLdb
+conn<span style="color:#f92672">=</span> MySQLdb<span style="color:#f92672">.</span>connect(host<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;127.0.0.1&#39;</span>,user<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;root&#39;</span>,passwd<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;password&#39;</span>,db<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;DB_test&#39;</span>,port<span style="color:#f92672">=</span><span style="color:#ae81ff">3306</span>)
+cur<span style="color:#f92672">=</span>conn<span style="color:#f92672">.</span>cursor()
+SQL<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;select * from table_test&#34;</span>
+cur<span style="color:#f92672">.</span>execute(SQL)
+r<span style="color:#f92672">=</span>cur<span style="color:#f92672">.</span>fetchall()
+cur<span style="color:#f92672">.</span>close()
+conn<span style="color:#f92672">.</span>close()
+</code></pre></div><p><strong>用连接池后的连接方法</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">import</span> MySQLdb
+<span style="color:#f92672">from</span> DBUtils.PooledDB <span style="color:#f92672">import</span> PooledDB
+pool <span style="color:#f92672">=</span> PooledDB(MySQLdb,<span style="color:#ae81ff">5</span>,host<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;127.0.0.1&#39;</span>,user<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;root&#39;</span>,passwd<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;password&#39;</span>,db<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;DB_test&#39;</span>,port<span style="color:#f92672">=</span><span style="color:#ae81ff">3306</span>)    <span style="color:#75715e">#5为连接池里的最少连接数</span>
 
-conn = pool.connection()  #以后每次需要数据库连接就是用connection()函数获取连接就好了
-cur=conn.cursor()
-SQL=&quot;select * from table_test&quot;
-cur.execute(SQL)
-r=cur.fetchall()
-cur.close()
-conn.close()
-</code></pre><p><strong>PooledDB的参数</strong></p>
+conn <span style="color:#f92672">=</span> pool<span style="color:#f92672">.</span>connection()  <span style="color:#75715e">#以后每次需要数据库连接就是用connection()函数获取连接就好了</span>
+cur<span style="color:#f92672">=</span>conn<span style="color:#f92672">.</span>cursor()
+SQL<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;select * from table_test&#34;</span>
+cur<span style="color:#f92672">.</span>execute(SQL)
+r<span style="color:#f92672">=</span>cur<span style="color:#f92672">.</span>fetchall()
+cur<span style="color:#f92672">.</span>close()
+conn<span style="color:#f92672">.</span>close()
+</code></pre></div><p><strong>PooledDB的参数</strong></p>
 <ul>
 <li>mincached: 最少的空闲连接数，如果空闲连接数小于这个数，pool会创建一个新的连接</li>
 <li>maxcached: 最大的空闲连接数，如果空闲连接数大于这个数，pool会关闭空闲连接</li>

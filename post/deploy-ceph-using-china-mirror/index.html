@@ -260,29 +260,29 @@
 </ul>
 <h1 id="安装cephjewel版">安装Ceph(Jewel版)</h1>
 <p>由于Jewel版本中已经不提供el6的镜像源，所以只能使用CentOS 7以上版本进行安装。我们并不需要在repos里增加相应的源，只需要设置环境变量，即可让ceph-deploy使用国内源，具体过程如下：</p>
-<pre><code>export CEPH_DEPLOY_REPO_URL=http://mirrors.aliyun.com/ceph/rpm-jewel/el7
-export CEPH_DEPLOY_GPG_URL=http://mirrors.aliyun.com/ceph/keys/release.asc
-</code></pre><p>之后的过程就没任何区别了</p>
-<pre><code># Create monitor node
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">export CEPH_DEPLOY_REPO_URL<span style="color:#f92672">=</span>http://mirrors.aliyun.com/ceph/rpm-jewel/el7
+export CEPH_DEPLOY_GPG_URL<span style="color:#f92672">=</span>http://mirrors.aliyun.com/ceph/keys/release.asc
+</code></pre></div><p>之后的过程就没任何区别了</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># Create monitor node</span>
 ceph-deploy new node1 node2 node3
 
-# Software Installation
+<span style="color:#75715e"># Software Installation</span>
 ceph-deploy install deploy node1 node2 node3
 
-# Gather keys
+<span style="color:#75715e"># Gather keys</span>
 ceph-deploy mon create-initial
 
-# Ceph deploy osd create disk
+<span style="color:#75715e"># Ceph deploy osd create disk</span>
 ceph-deploy osd create node1:sdb:/dev/sdc
 ceph-deploy osd create node2:sdb:/dev/sdc
 ceph-deploy osd create node3:sdb:/dev/sdc
 
-# Make 3 copies by default
-echo &quot;osd pool default size = 3&quot; | tee -a $HOME/ceph.conf
+<span style="color:#75715e"># Make 3 copies by default</span>
+echo <span style="color:#e6db74">&#34;osd pool default size = 3&#34;</span> | tee -a $HOME/ceph.conf
 
-# Copy admin keys and configuration files
+<span style="color:#75715e"># Copy admin keys and configuration files</span>
 ceph-deploy --overwrite-conf admin deploy node1 node2 node3
-</code></pre><p>这样就可以很快速的使用国内源创建出Ceph集群，希望能对大家日常的使用提供便捷。</p>
+</code></pre></div><p>这样就可以很快速的使用国内源创建出Ceph集群，希望能对大家日常的使用提供便捷。</p>
 
   
   <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>

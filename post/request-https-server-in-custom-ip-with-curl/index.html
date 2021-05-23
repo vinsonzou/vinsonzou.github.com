@@ -240,19 +240,16 @@
 </div>
 
   <p>一般使用curl请求自定义IP地址并且指定HOST的话可以这样。</p>
-<pre><code>curl -H 'Host: ops.m114.org' http://127.0.0.1
-</code></pre>
-<p>但是如果你需要请求的地址是HTTPS就不行了</p>
-<pre><code>$ curl -H 'Host: ops.m114.org' https://127.0.0.1/
-curl: (51) Unable to communicate securely with peer: requested domain name does not match the server's certificate.
-</code></pre>
-<p>因为IP绝大多数情况下无法通过域名证书验证，还好curl中有<code>--resolv</code>参数可以让我们方便的指定域名的解析</p>
-<pre><code># --resolv参数形式
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl -H <span style="color:#e6db74">&#39;Host: ops.m114.org&#39;</span> http://127.0.0.1
+</code></pre></div><p>但是如果你需要请求的地址是HTTPS就不行了</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ curl -H <span style="color:#e6db74">&#39;Host: ops.m114.org&#39;</span> https://127.0.0.1/
+curl: <span style="color:#f92672">(</span>51<span style="color:#f92672">)</span> Unable to communicate securely with peer: requested domain name does not match the server<span style="color:#960050;background-color:#1e0010">&#39;</span>s certificate.
+</code></pre></div><p>因为IP绝大多数情况下无法通过域名证书验证，还好curl中有<code>--resolv</code>参数可以让我们方便的指定域名的解析</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># --resolv参数形式</span>
 --resolv host:port:address
-# 示例
+<span style="color:#75715e"># 示例</span>
 curl --resolv ops.m114.org:443:127.0.0.1 https://ops.m114.org
-</code></pre>
-<p>Ps:</p>
+</code></pre></div><p>Ps:</p>
 <p>小编经常使用的CentOS6的自带curl就不支持此参数，幸运的是CentOS7已经支持。</p>
 
   
