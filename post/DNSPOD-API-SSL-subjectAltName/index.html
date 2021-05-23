@@ -259,7 +259,7 @@ Traceback (most recent call last):
 		<span style="color:#66d9ef">raise</span> SSLError(e)
 requests<span style="color:#f92672">.</span>exceptions<span style="color:#f92672">.</span>SSLError: hostname <span style="color:#e6db74">&#39;dnsapi.cn&#39;</span> doesn<span style="color:#e6db74">&#39;t match u&#39;</span>www<span style="color:#f92672">.</span>dnspod<span style="color:#f92672">.</span>cn<span style="color:#e6db74">&#39;</span>
 </code></pre></div><p>DNSPOD当前证书截图：
-<img src="http://m114-static.qiniudn.com/img/dnspod_cert.png" alt="dnspod"></p>
+<img src="https://ops.m114.org/img/dnspod_cert.png" alt="dnspod"></p>
 <p>证书信息查看</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">openssl s_client -connect dnsapi.cn:443 | tee dnsapi.cert
 openssl x509 -inform PEM -in dnsapi.cert -text
