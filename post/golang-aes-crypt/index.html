@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.83.1" />
 
-  <title>4层TCP转发后获得真实IP之proxy_protocol &middot; ops</title>
+  <title>golang encrypt/decrypt by MacOS keychain &middot; ops</title>
 
     
 
@@ -209,7 +209,7 @@
 
 
 <div class="header">
-  <h1>4层TCP转发后获得真实IP之proxy_protocol</h1>
+  <h1>golang encrypt/decrypt by MacOS keychain</h1>
   <h2></h2>
 </div>
 <div class="content">
@@ -218,7 +218,7 @@
 
   <div>
     <i class="fa fa-calendar fa-fw"></i>
-    <time>2021/04/19, 17:01</time>
+    <time>2021/05/18, 10:08</time>
   </div>
 
   
@@ -241,13 +241,7 @@
   <div>
     <i class="fa fa-tags fa-fw"></i>
     
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/golang">golang</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/proxy_protocol">proxy_protocol</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/cloudflare">cloudflare</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/go-mmproxy">go-mmproxy</a>
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/golang">golang</a>
     
   </div>
   
@@ -255,59 +249,29 @@
 
 </div>
 
-  <h2 id="需求">需求</h2>
-<p>后端TCP Server在经过TCP代理(nginx stream模块)后，程序不做任何调整获得用户真实IP。
-了解到cloudflare的spectrum产品与我们这个需求一致，刚好有细节和源码分享，参考如下:</p>
+  <p>功能如下:</p>
 <ul>
-<li><a href="https://blog.cloudflare.com/mmproxy-creative-way-of-preserving-client-ips-in-spectrum/">https://blog.cloudflare.com/mmproxy-creative-way-of-preserving-client-ips-in-spectrum/</a></li>
-<li><a href="https://github.com/cloudflare/mmproxy">https://github.com/cloudflare/mmproxy</a></li>
+<li>AES加密/解密</li>
+<li>AES秘钥从MacOS keychain读取</li>
+<li>支持Data At Rest Encryption (DARE)，加密文件内存占用小于100K，参考 <a href="https://github.com/minio/sio">sio</a></li>
 </ul>
-<p>有公司参考cloudflare的mmproxy，用golang实现了性能更优的版本。</p>
-<ul>
-<li><a href="https://github.com/path-network/go-mmproxy">https://github.com/path-network/go-mmproxy</a></li>
-</ul>
-<h2 id="部署">部署</h2>
-<p>拓扑与cloudflare spectrum产品一样，示意图如下：</p>
-<p><img src="https://blog.cloudflare.com/content/images/2018/04/Screen-Shot-2018-04-15-at-12.26.28-PM-1.png" alt=""></p>
-<ul>
-<li>go &gt; 1.11</li>
-<li>as root or with <code>CAP_NET_RAW</code> capability to be able to set <code>IP_TRANSPARENT</code> socket opt.</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">go get github.com/path-network/go-mmproxy
-sudo setcap cap_net_raw<span style="color:#f92672">=</span>+ep <span style="color:#66d9ef">$(</span>readlink -f <span style="color:#66d9ef">$(</span>which go-mmproxy<span style="color:#66d9ef">))</span>
-</code></pre></div><h2 id="测试">测试</h2>
-<ul>
-<li>启动</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># go-mmproxy监听端口为25577，TCP后端端口为25578</span>
-ip rule add from 127.0.0.1/8 iif lo table <span style="color:#ae81ff">123</span>
-ip route add local 0.0.0.0/0 dev lo table <span style="color:#ae81ff">123</span>
-go-mmproxy -l 0.0.0.0:25577 -4 127.0.0.1:25578 -6 <span style="color:#e6db74">&#34;[::1]:25578&#34;</span> -allowed-subnets ./path-prefixes.txt
-</code></pre></div><ul>
-<li>停止</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># 清理路由</span>
-ip rule del from 127.0.0.1/8 iif lo table <span style="color:#ae81ff">123</span>
-ip route del local 0.0.0.0/0 dev lo table <span style="color:#ae81ff">123</span>
-</code></pre></div><h2 id="faq">FAQ</h2>
-<ul>
-<li><strong>目前无法做到多端口映射，一个端口就得启动一个进程</strong></li>
-</ul>
+<script type="application/javascript" src="https://gist.github.com/vinsonzou/3576a4d20d3247ec0a1953d488e7d446.js"></script>
+
 
   
   <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
 <ul class="share-buttons">
-	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2ftcp-proxy-get-source-ip-by-proxy_protocol%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2fgolang-aes-crypt%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2ftcp-proxy-get-source-ip-by-proxy_protocol%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2fgolang-aes-crypt%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2ftcp-proxy-get-source-ip-by-proxy_protocol%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2fgolang-aes-crypt%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2ftcp-proxy-get-source-ip-by-proxy_protocol%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2fgolang-aes-crypt%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2ftcp-proxy-get-source-ip-by-proxy_protocol%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2fgolang-aes-crypt%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2ftcp-proxy-get-source-ip-by-proxy_protocol%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2fgolang-aes-crypt%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
 	</li>
 </ul>
 
@@ -339,13 +303,13 @@ ip route del local 0.0.0.0/0 dev lo table <span style="color:#ae81ff">123</span>
 <div class="prev-next-post pure-g">
   <div class="pure-u-1-24" style="text-align: left;">
     
-    <a href="https://ops.m114.org/post/centos8-build-mysql5.7.30/"><i class="fa fa-chevron-left"></i></a>
+    <a href="https://ops.m114.org/post/tcp-proxy-get-source-ip-by-proxy_protocol/"><i class="fa fa-chevron-left"></i></a>
     
   </div>
   <div class="pure-u-10-24">
     
     <nav class="prev">
-      <a href="https://ops.m114.org/post/centos8-build-mysql5.7.30/">CentOS8编译安装MySQL 5.7.30</a>
+      <a href="https://ops.m114.org/post/tcp-proxy-get-source-ip-by-proxy_protocol/">4层TCP转发后获得真实IP之proxy_protocol</a>
     </nav>
     
   </div>
@@ -354,14 +318,8 @@ ip route del local 0.0.0.0/0 dev lo table <span style="color:#ae81ff">123</span>
   </div>
   <div class="pure-u-10-24">
     
-    <nav class="next">
-      <a href="https://ops.m114.org/post/golang-aes-crypt/">golang encrypt/decrypt by MacOS keychain</a>
-    </nav>
-    
   </div>
   <div class="pure-u-1-24" style="text-align: right;">
-    
-    <a href="https://ops.m114.org/post/golang-aes-crypt/"><i class="fa fa-chevron-right"></i></a>
     
   </div>
 </div>
@@ -406,9 +364,6 @@ ip route del local 0.0.0.0/0 dev lo table <span style="color:#ae81ff">123</span>
 
 
 
-<script src="https://ops.m114.org/js/math-code.js"></script>
-  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-  
 
 
 </body>

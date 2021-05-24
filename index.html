@@ -225,6 +225,56 @@
   
     <article>
   <header>
+    <h2><a href="https://ops.m114.org/post/golang-aes-crypt/">golang encrypt/decrypt by MacOS keychain</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2021/05/18, 10:08</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/golang">golang</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/golang">golang</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  功能如下:
+ AES加密/解密 AES秘钥从MacOS keychain读取 支持Data At Rest Encryption (DARE)，加密文件内存占用小于100K，参考 sio   
+  </p>
+
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="https://ops.m114.org/post/tcp-proxy-get-source-ip-by-proxy_protocol/">4层TCP转发后获得真实IP之proxy_protocol</a></h2>
 
     <div class="post-meta">
@@ -694,53 +744,6 @@ package main import &#34;fmt&#34; func main() { fmt.Println(&#34;Hello, 世界&#
   
   <footer>
     <a href="https://ops.m114.org/post/go-build-small-exec/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/golang-command-line-flags/">Golang之command line flag笔记</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2017/08/16, 23:28</time>
-  </div>
-
-  
-
-  
-  
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/golang">golang</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  示例代码，仅供参考
-package main import ( &#34;fmt&#34; &#34;flag&#34; ) func main() { // golang的flag包的一些基本使用方法  // 待使用的变量  var id int var name string var male bool // 是否已经解析  fmt.Println(&#34;parsed? = &#34;, flag.Parsed()) // 设置flag参数 (变量指针，参数名，默认值，帮助信息)  // 也可以用以下带返回值的方法代替，不过他们返回的是指针，比较麻烦点  // Int(name string, value int, usage string) *int  // String(name string, value string, usage string) *string  // Bool(name string, value bool, usage string) *bool  flag.IntVar(&amp;id, &#34;id&#34;, 123, &#34;help msg for id&#34;) flag.
-  </p>
-
-  
-  <footer>
-    <a href="https://ops.m114.org/post/golang-command-line-flags/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
   </footer>
   
 </article>

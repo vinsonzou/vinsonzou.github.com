@@ -225,6 +225,53 @@
   
     <article>
   <header>
+    <h2><a href="https://ops.m114.org/post/golang-command-line-flags/">Golang之command line flag笔记</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2017/08/16, 23:28</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/golang">golang</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  示例代码，仅供参考
+package main import ( &#34;fmt&#34; &#34;flag&#34; ) func main() { // golang的flag包的一些基本使用方法  // 待使用的变量  var id int var name string var male bool // 是否已经解析  fmt.Println(&#34;parsed? = &#34;, flag.Parsed()) // 设置flag参数 (变量指针，参数名，默认值，帮助信息)  // 也可以用以下带返回值的方法代替，不过他们返回的是指针，比较麻烦点  // Int(name string, value int, usage string) *int  // String(name string, value string, usage string) *string  // Bool(name string, value bool, usage string) *bool  flag.IntVar(&amp;id, &#34;id&#34;, 123, &#34;help msg for id&#34;) flag.
+  </p>
+
+  
+  <footer>
+    <a href="https://ops.m114.org/post/golang-command-line-flags/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="https://ops.m114.org/post/analysing-java-core-dump/">analysing java core dump</a></h2>
 
     <div class="post-meta">
@@ -681,51 +728,6 @@ incomplete PG的副本数连最小副本数都没有达到。
 inconsistent scrub或者deep scrub的时候发现PG内容不一致。
 down 关键数据丢失。进入这个状态的一种方法，比如一个PG有两个副本，先down掉其中的一个osd，再down掉第二个osd，最后把第一个osd起起来，这样这个PG就处于down状态。
 PGlog和日志文件系统 PGlog相当于undo log, journal相当于redo log。一个是在某个操作执行完成之后，做log记录，如果操作成功，则可以undo；另一个是在某个操作执行之前，做log记录，如果操作失败，下次可以redo。
-  </p>
-
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/ceph-pgs-inconsistent/">ceph pgs inconsistent</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2016/08/17, 23:44</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/Ceph">Ceph</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  OSD扩容后出现如下错误
-HEALTH_ERR 2 pgs inconsistent; 320 scrub errors
-[root@ceph01 ~]# ceph health detail HEALTH_ERR 2 pgs inconsistent; 320 scrub errors pg 10.9 is active+clean+inconsistent, acting [6,0,9] pg 10.10 is active+clean+scrubbing+deep+inconsistent, acting [2,6,4] 320 scrub errors 修复处于不一致状态的pgs
-[root@ceph01 ~]# ceph pg repair 10.9 instructing pg 10.9 on osd.6 to repair [root@ceph01 ~]# ceph pg repair 10.10 instructing pg 10.10 on osd.2 to repair 经过一段时间的修复后，ceph恢复正常。
   </p>
 
   
