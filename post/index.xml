@@ -7,7 +7,31 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2021. All rights reserved.</copyright>
-    <lastBuildDate>Tue, 18 May 2021 10:08:00 +0800</lastBuildDate><atom:link href="https://ops.m114.org/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 02 Jun 2021 10:08:08 +0800</lastBuildDate><atom:link href="https://ops.m114.org/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Nginx支持WebP</title>
+      <link>https://ops.m114.org/post/nginx-support-webp/</link>
+      <pubDate>Wed, 02 Jun 2021 10:08:08 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/nginx-support-webp/</guid>
+      <description>WebP格式，Google开发的一种旨在加快图片加载速度的图片格式。图片压缩体积大约只有JPEG的2/3，并能节省大量的服务器带宽资源和数据空间。国外的有 Google（自家的东西肯定要用啦，Chrome Store 甚至已全站使用 WebP）、Facebook 和 ebay，国内的有淘宝、腾讯和美团等。
+客户端支持情况:
+ Google Chrome 23 起开始支持 WebP（最初发布于2012年11月） Google 的安卓浏览器从 4.2 版本起开始官方支持 WebP（最初发布于2012年11月），4 版本起开始部分支持 Google Chrome安卓版从 Chrome 50 起开始支持 Webp Opera 12.1 开始支持 WebP（最初发布于2012年11月） Edge 18 开始支持 (发布于2018年10月) Firefox 65 支持 (发布于2019年1月)  nginx无缝切换至WebP思路就是：用户访问一张图片(主要为png/jpg格式)，nginx收到请求判断浏览器是否支持WebP，如果支持则返回WebP，不支持则返回原图，达到减少带宽资源的目的。
+环境  CentOS 7 libwebp-1.2.0 Nginx  ngx_lua lua-resty-shell    安装部署 cwebp依赖lib
+yum -y install libGL libX11 libXi 配置 mime.types新增webp格式支持
+image/webp webp; 图片对应nginx location配置
+location ~ ^/(images|static)/ { rewrite_by_lua_file &amp;#34;/data/nginx/lua/webp.</description>
+    </item>
+    
+    <item>
+      <title>本人OpenResty实践集合</title>
+      <link>https://ops.m114.org/post/openresty-case/</link>
+      <pubDate>Tue, 01 Jun 2021 10:08:08 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/openresty-case/</guid>
+      <description> 优化  支持Brotli Upstream主动健康检查 动态证书 OCSP缓存 ssl分布式session mTLS支持   命令行执行  Nginx支持WebP gogs/gitea webhook   灰度发布  基于IP（动态IP） 自定义变量   微信机器人 安全相关  授权下载 简易CC防护 SSO认证 安全token   API服务  IP查询服务 MQ解耦，对接阿里云RocketMQ   缓存服务  主动缓存 SDK缓存   特权进程实践  ipset操作   代理相关  http代理 SNI代理    </description>
+    </item>
+    
     <item>
       <title>golang encrypt/decrypt by MacOS keychain</title>
       <link>https://ops.m114.org/post/golang-aes-crypt/</link>

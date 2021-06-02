@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.83.1" />
 
-  <title>Tags &middot; ops</title>
+  <title>WebP &middot; ops</title>
 
     
 
@@ -44,7 +44,7 @@
  
   
   <link rel="alternate" type="application/rss+xml" title="ops"
-    href='https://ops.m114.org/tags/index.xml' />
+    href='https://ops.m114.org/tags/WebP/index.xml' />
   
 
   
@@ -117,7 +117,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href='https://ops.m114.org/tags/index.xml'><i
+      <a class="pure-menu-link" href='https://ops.m114.org/tags/WebP/index.xml'><i
           class="fas fa-rss fa-fw"></i>RSS</a>
     </li>
     
@@ -217,173 +217,72 @@
 
 
 <div class="header">
-  <h1>Tags</h1>
+  <h1>WebP</h1>
 </div>
+
 <div class="content">
-  <ul>
+  
+    <article>
+  <header>
+    <h2><a href="https://ops.m114.org/post/nginx-support-webp/">Nginx支持WebP</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2021/06/02, 10:08</time>
+  </div>
+
+  
+
   
   
-    <li>
-      <a href="golang">golang</a>
-      <span>&#40;6&#41;</span>
-    </li>
   
-    <li>
-      <a href="MySQL">MySQL</a>
-      <span>&#40;3&#41;</span>
-    </li>
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
+    
+  </div>
   
-    <li>
-      <a href="Python">Python</a>
-      <span>&#40;3&#41;</span>
-    </li>
   
-    <li>
-      <a href="ceph">ceph</a>
-      <span>&#40;2&#41;</span>
-    </li>
+
   
-    <li>
-      <a href="OpenResty">OpenResty</a>
-      <span>&#40;2&#41;</span>
-    </li>
   
-    <li>
-      <a href="%E8%BD%AC%E8%BD%BD">转载</a>
-      <span>&#40;2&#41;</span>
-    </li>
   
-    <li>
-      <a href="centos8">centos8</a>
-      <span>&#40;1&#41;</span>
-    </li>
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/WebP">WebP</a>
+    
+  </div>
   
-    <li>
-      <a href="cloudflare">cloudflare</a>
-      <span>&#40;1&#41;</span>
-    </li>
   
-    <li>
-      <a href="curl">curl</a>
-      <span>&#40;1&#41;</span>
-    </li>
+
+</div>
+
+  </header>
+
+  <p>
+  WebP格式，Google开发的一种旨在加快图片加载速度的图片格式。图片压缩体积大约只有JPEG的2/3，并能节省大量的服务器带宽资源和数据空间。国外的有 Google（自家的东西肯定要用啦，Chrome Store 甚至已全站使用 WebP）、Facebook 和 ebay，国内的有淘宝、腾讯和美团等。
+客户端支持情况:
+ Google Chrome 23 起开始支持 WebP（最初发布于2012年11月） Google 的安卓浏览器从 4.2 版本起开始官方支持 WebP（最初发布于2012年11月），4 版本起开始部分支持 Google Chrome安卓版从 Chrome 50 起开始支持 Webp Opera 12.1 开始支持 WebP（最初发布于2012年11月） Edge 18 开始支持 (发布于2018年10月) Firefox 65 支持 (发布于2019年1月)  nginx无缝切换至WebP思路就是：用户访问一张图片(主要为png/jpg格式)，nginx收到请求判断浏览器是否支持WebP，如果支持则返回WebP，不支持则返回原图，达到减少带宽资源的目的。
+环境  CentOS 7 libwebp-1.2.0 Nginx  ngx_lua lua-resty-shell    安装部署 cwebp依赖lib
+yum -y install libGL libX11 libXi 配置 mime.types新增webp格式支持
+image/webp webp; 图片对应nginx location配置
+location ~ ^/(images|static)/ { rewrite_by_lua_file &#34;/data/nginx/lua/webp.
+  </p>
+
   
-    <li>
-      <a href="Docker">Docker</a>
-      <span>&#40;1&#41;</span>
-    </li>
+  <footer>
+    <a href="https://ops.m114.org/post/nginx-support-webp/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
   
-    <li>
-      <a href="git">git</a>
-      <span>&#40;1&#41;</span>
-    </li>
+</article>
+
   
-    <li>
-      <a href="go-mmproxy">go-mmproxy</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="hugo">hugo</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="idrac">idrac</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="igb">igb</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="java">java</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="kvm">kvm</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="libvirt">libvirt</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="mysql">mysql</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="Nginx">Nginx</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="openssl">openssl</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="proxy_protocol">proxy_protocol</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="subjectAltName">subjectAltName</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="systemd">systemd</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="Telegram">Telegram</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="tomcat">tomcat</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="TsunamiUDP">TsunamiUDP</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="vsftpd">vsftpd</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="webauthn">webauthn</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="WebP">WebP</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="Zabbix">Zabbix</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="zabbix">zabbix</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-  </ul>
 </div>
 
 </div>

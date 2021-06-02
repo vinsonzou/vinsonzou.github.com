@@ -2,12 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>OpenResty on ops</title>
-    <link>https://ops.m114.org/topics/OpenResty/</link>
+    <link>https://ops.m114.org/tags/OpenResty/</link>
     <description>Recent content in OpenResty on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2021. All rights reserved.</copyright>
-    <lastBuildDate>Wed, 02 Jun 2021 10:08:08 +0800</lastBuildDate><atom:link href="https://ops.m114.org/topics/OpenResty/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 02 Jun 2021 10:08:08 +0800</lastBuildDate><atom:link href="https://ops.m114.org/tags/OpenResty/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Nginx支持WebP</title>
       <link>https://ops.m114.org/post/nginx-support-webp/</link>
@@ -30,23 +30,6 @@ location ~ ^/(images|static)/ { rewrite_by_lua_file &amp;#34;/data/nginx/lua/web
       
       <guid>https://ops.m114.org/post/openresty-case/</guid>
       <description> 优化  支持Brotli Upstream主动健康检查 动态证书 OCSP缓存 ssl分布式session mTLS支持   命令行执行  Nginx支持WebP gogs/gitea webhook   灰度发布  基于IP（动态IP） 自定义变量   微信机器人 安全相关  授权下载 简易CC防护 SSO认证 安全token   API服务  IP查询服务 MQ解耦，对接阿里云RocketMQ   缓存服务  主动缓存 SDK缓存   特权进程实践  ipset操作   代理相关  http代理 SNI代理    </description>
-    </item>
-    
-    <item>
-      <title>在 OpenResty 中使用正则表达式</title>
-      <link>https://ops.m114.org/post/use-regular-expressions-in-OpenResty/</link>
-      <pubDate>Sun, 30 Oct 2016 10:48:19 +0800</pubDate>
-      
-      <guid>https://ops.m114.org/post/use-regular-expressions-in-OpenResty/</guid>
-      <description>在 OpenResty 中使用正则表达式，社区中推荐的做法是使用ngx.re api。比如匹配一个字符串是否为 http(s) 的链接，可以这么写：
-local function is_http_url(s) return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;amp;#%]+$]]) end 压测一下:
-local t = os.clock() for _ = 1, max do is_http_url(&amp;#34;http://blog.stackoverflow.com/2016/10/Stack-Overflow-92-Podcast-The-Guerilla-Guide-to-Interviewing/?cb=1&amp;#34;) end print(&amp;#34;Time cost: &amp;#34;, os.clock() - t, &amp;#34; s&amp;#34;) 结果：Time cost: 2.663408 s
-另一种做法是使用 lua 的正则语法：
-local function is_http_url(s) return s:find(&amp;#34;^https?://[%w-_%.%?:/%+=&amp;amp;#%%]+$&amp;#34;) end 结果：Time cost: 0.652221 s
-呃，怎么前者耗时是后者的四倍？lua 内置的小小状态机实现，居然打败了大名鼎鼎的 PCRE 库！说好的社区推荐呢！
-仔细一瞧，前者的确漏了点东西。ngx.re默认不会缓存正则表达式编译后的结果。一般在其它编程平台上，我们都会先把字符串编译成正则表达式，再用到正则函数中。比如在 Python 里使用 re.compile。所以赶紧补上：
-return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;amp;#%]+$]], &amp;#34;o&amp;#34;) 好，这次性能有了明显提升：Time cost: 0.646518 s
-不错不错，虽然还是跟 lua 的实现不分上下，考虑到 lua 本身的正则支持非常弱（比如连 (foo|bar) 这种形式都不行），而且语法离经叛道，改用 ngx.</description>
     </item>
     
   </channel>

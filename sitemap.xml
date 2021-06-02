@@ -2,6 +2,36 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://ops.m114.org/post/nginx-support-webp/</loc>
+    <lastmod>2021-06-02T10:08:08+08:00</lastmod>
+  </url><url>
+    <loc>https://ops.m114.org/topics/OpenResty/</loc>
+    <lastmod>2021-06-02T10:08:08+08:00</lastmod>
+  </url><url>
+    <loc>https://ops.m114.org/tags/OpenResty/</loc>
+    <lastmod>2021-06-02T10:08:08+08:00</lastmod>
+  </url><url>
+    <loc>https://ops.m114.org/</loc>
+    <lastmod>2021-06-02T10:08:08+08:00</lastmod>
+  </url><url>
+    <loc>https://ops.m114.org/post/</loc>
+    <lastmod>2021-06-02T10:08:08+08:00</lastmod>
+  </url><url>
+    <loc>https://ops.m114.org/tags/</loc>
+    <lastmod>2021-06-02T10:08:08+08:00</lastmod>
+  </url><url>
+    <loc>https://ops.m114.org/topics/</loc>
+    <lastmod>2021-06-02T10:08:08+08:00</lastmod>
+  </url><url>
+    <loc>https://ops.m114.org/tags/WebP/</loc>
+    <lastmod>2021-06-02T10:08:08+08:00</lastmod>
+  </url><url>
+    <loc>https://ops.m114.org/tags/Nginx/</loc>
+    <lastmod>2021-06-01T10:08:08+08:00</lastmod>
+  </url><url>
+    <loc>https://ops.m114.org/post/openresty-case/</loc>
+    <lastmod>2021-06-01T10:08:08+08:00</lastmod>
+  </url><url>
     <loc>https://ops.m114.org/topics/golang/</loc>
     <lastmod>2021-05-18T10:08:00+08:00</lastmod>
   </url><url>
@@ -9,18 +39,6 @@
     <lastmod>2021-05-18T10:08:00+08:00</lastmod>
   </url><url>
     <loc>https://ops.m114.org/post/golang-aes-crypt/</loc>
-    <lastmod>2021-05-18T10:08:00+08:00</lastmod>
-  </url><url>
-    <loc>https://ops.m114.org/</loc>
-    <lastmod>2021-05-18T10:08:00+08:00</lastmod>
-  </url><url>
-    <loc>https://ops.m114.org/post/</loc>
-    <lastmod>2021-05-18T10:08:00+08:00</lastmod>
-  </url><url>
-    <loc>https://ops.m114.org/tags/</loc>
-    <lastmod>2021-05-18T10:08:00+08:00</lastmod>
-  </url><url>
-    <loc>https://ops.m114.org/topics/</loc>
     <lastmod>2021-05-18T10:08:00+08:00</lastmod>
   </url><url>
     <loc>https://ops.m114.org/post/tcp-proxy-get-source-ip-by-proxy_protocol/</loc>
@@ -121,9 +139,6 @@
   </url><url>
     <loc>https://ops.m114.org/post/solve-too-many-connections/</loc>
     <lastmod>2017-01-07T19:57:32+08:00</lastmod>
-  </url><url>
-    <loc>https://ops.m114.org/topics/OpenResty/</loc>
-    <lastmod>2016-10-30T10:48:19+08:00</lastmod>
   </url><url>
     <loc>https://ops.m114.org/post/use-regular-expressions-in-OpenResty/</loc>
     <lastmod>2016-10-30T10:48:19+08:00</lastmod>
