@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.83.1" />
 
-  <title>本人OpenResty实践集合 &middot; ops</title>
+  <title>使用Nginx做SNI反向代理 &middot; ops</title>
 
     
 
@@ -209,7 +209,7 @@
 
 
 <div class="header">
-  <h1>本人OpenResty实践集合</h1>
+  <h1>使用Nginx做SNI反向代理</h1>
   <h2></h2>
 </div>
 <div class="content">
@@ -218,7 +218,7 @@
 
   <div>
     <i class="fa fa-calendar fa-fw"></i>
-    <time>2021/06/01, 10:08</time>
+    <time>2021/06/02, 10:18</time>
   </div>
 
   
@@ -243,7 +243,7 @@
     
       <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
     
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Nginx">Nginx</a>
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/SNI">SNI</a>
     
   </div>
   
@@ -251,77 +251,75 @@
 
 </div>
 
-  <ul>
-<li><strong>优化</strong>
+  <p>从 Nginx 1.11.5 版本开始支持用做 SNI 反代，使用 Nginx 做 SNI 反代比用 SNI Proxy 配置起来更简单、更稳定。Nginx stream流程处理见<a href="http://nginx.org/en/docs/stream/stream_processing.html">官方文档</a>，此功能可用来加速国外https业务，如苹果订单确认接口。</p>
+<h3 id="安装">安装</h3>
+<p>编译时添加如下参数</p>
+<blockquote>
+<p>&ndash;with-stream &ndash;with-stream_ssl_preread_module &ndash;with-stream_ssl_module</p>
+</blockquote>
+<h3 id="配置">配置</h3>
+<p><strong>基础版</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">stream <span style="color:#f92672">{</span>
+    server <span style="color:#f92672">{</span>
+        listen 443;
+        ssl_preread on;
+        resolver local<span style="color:#f92672">=</span>on ipv6<span style="color:#f92672">=</span>off valid<span style="color:#f92672">=</span>60s;  <span style="color:#75715e"># local=on需要OpenResty补丁</span>
+        proxy_pass $ssl_preread_server_name:$server_port;
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p><strong>优化版</strong></p>
 <ul>
-<li>支持Brotli</li>
-<li>Upstream主动健康检查</li>
-<li>动态证书</li>
-<li>OCSP缓存</li>
-<li>ssl分布式session</li>
-<li>mTLS支持</li>
+<li>解决原有无法过滤域名的风险</li>
 </ul>
-</li>
-<li><strong>命令行执行</strong>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">log_format proxy <span style="color:#e6db74">&#39;$remote_addr [$time_local] $sniproxy_upstream &#39;</span>
+                 <span style="color:#e6db74">&#39;$protocol $status $bytes_sent $bytes_received &#39;</span>
+                 <span style="color:#e6db74">&#39;$session_time &#34;$upstream_addr&#34; &#39;</span>
+                 <span style="color:#e6db74">&#39;&#34;$upstream_bytes_sent&#34; &#34;$upstream_bytes_received&#34; &#34;$upstream_connect_time&#34;&#39;</span>;
+
+init_by_lua_block <span style="color:#f92672">{</span>
+    local sni <span style="color:#f92672">=</span> require<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;resty.sniproxy&#34;</span><span style="color:#f92672">)</span>
+    sni.rules <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+        <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;buy.itunes.apple.com&#34;</span><span style="color:#f92672">}</span>,
+        <span style="color:#f92672">{</span><span style="color:#e6db74">&#34;.&#34;</span>, <span style="color:#e6db74">&#34;unix:/var/run/nginx-default.sock&#34;</span><span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e"># for OpenResty &gt;= 1.13.6.1, native Nginx proxying</span>
+lua_add_variable $sniproxy_upstream;
+
+server <span style="color:#f92672">{</span>
+    listen 443;
+    resolver local<span style="color:#f92672">=</span>on ipv6<span style="color:#f92672">=</span>off valid<span style="color:#f92672">=</span>60s;
+    resolver_timeout 5s;
+    preread_by_lua_block <span style="color:#f92672">{</span>
+        local sni <span style="color:#f92672">=</span> require<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;resty.sniproxy&#34;</span><span style="color:#f92672">)</span>
+        local sp <span style="color:#f92672">=</span> sni:new<span style="color:#f92672">()</span>
+        sp:preread_by<span style="color:#f92672">()</span>
+    <span style="color:#f92672">}</span>
+    proxy_pass $sniproxy_upstream;
+    access_log logs/tcp_ssl.access.log proxy buffer<span style="color:#f92672">=</span>32k flush<span style="color:#f92672">=</span>10s;
+<span style="color:#f92672">}</span>
+</code></pre></div><h3 id="参考">参考</h3>
 <ul>
-<li><a href="https://ops.m114.org/post/nginx-support-webp/">Nginx支持WebP</a></li>
-<li>gogs/gitea webhook</li>
-</ul>
-</li>
-<li><strong>灰度发布</strong>
-<ul>
-<li>基于IP（动态IP）</li>
-<li>自定义变量</li>
-</ul>
-</li>
-<li><strong>微信机器人</strong></li>
-<li><strong>安全相关</strong>
-<ul>
-<li>授权下载</li>
-<li>简易CC防护</li>
-<li>SSO认证</li>
-<li>安全token</li>
-</ul>
-</li>
-<li><strong>API服务</strong>
-<ul>
-<li>IP查询服务</li>
-<li>MQ解耦，对接阿里云RocketMQ</li>
-</ul>
-</li>
-<li><strong>缓存服务</strong>
-<ul>
-<li>主动缓存</li>
-<li>SDK缓存</li>
-</ul>
-</li>
-<li><strong>特权进程实践</strong>
-<ul>
-<li>ipset操作</li>
-</ul>
-</li>
-<li><strong>代理相关</strong>
-<ul>
-<li>http代理</li>
-<li><a href="https://ops.m114.org/post/nginx-sniproxy/">SNI代理</a></li>
-</ul>
-</li>
+<li><a href="http://nginx.org/en/docs/stream/ngx_stream_ssl_preread_module.html">http://nginx.org/en/docs/stream/ngx_stream_ssl_preread_module.html</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/46014862">https://zhuanlan.zhihu.com/p/46014862</a></li>
+<li><a href="https://github.com/fffonion/lua-resty-sniproxy">https://github.com/fffonion/lua-resty-sniproxy</a></li>
 </ul>
 
   
   <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
 <ul class="share-buttons">
-	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2fopenresty-case%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2fnginx-sniproxy%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2fopenresty-case%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2fnginx-sniproxy%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2fopenresty-case%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2fnginx-sniproxy%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2fopenresty-case%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2fnginx-sniproxy%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2fopenresty-case%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2fnginx-sniproxy%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2fopenresty-case%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2fnginx-sniproxy%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
 	</li>
 </ul>
 
@@ -353,13 +351,13 @@
 <div class="prev-next-post pure-g">
   <div class="pure-u-1-24" style="text-align: left;">
     
-    <a href="https://ops.m114.org/post/golang-aes-crypt/"><i class="fa fa-chevron-left"></i></a>
+    <a href="https://ops.m114.org/post/nginx-support-webp/"><i class="fa fa-chevron-left"></i></a>
     
   </div>
   <div class="pure-u-10-24">
     
     <nav class="prev">
-      <a href="https://ops.m114.org/post/golang-aes-crypt/">golang encrypt/decrypt by MacOS keychain</a>
+      <a href="https://ops.m114.org/post/nginx-support-webp/">Nginx支持WebP</a>
     </nav>
     
   </div>
@@ -368,14 +366,8 @@
   </div>
   <div class="pure-u-10-24">
     
-    <nav class="next">
-      <a href="https://ops.m114.org/post/nginx-support-webp/">Nginx支持WebP</a>
-    </nav>
-    
   </div>
   <div class="pure-u-1-24" style="text-align: right;">
-    
-    <a href="https://ops.m114.org/post/nginx-support-webp/"><i class="fa fa-chevron-right"></i></a>
     
   </div>
 </div>
@@ -420,6 +412,9 @@
 
 
 
+<script src="https://ops.m114.org/js/math-code.js"></script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
 
 
 </body>

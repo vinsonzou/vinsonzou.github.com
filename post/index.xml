@@ -7,7 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2021. All rights reserved.</copyright>
-    <lastBuildDate>Wed, 02 Jun 2021 10:08:08 +0800</lastBuildDate><atom:link href="https://ops.m114.org/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 02 Jun 2021 10:18:08 +0800</lastBuildDate><atom:link href="https://ops.m114.org/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用Nginx做SNI反向代理</title>
+      <link>https://ops.m114.org/post/nginx-sniproxy/</link>
+      <pubDate>Wed, 02 Jun 2021 10:18:08 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/nginx-sniproxy/</guid>
+      <description>从 Nginx 1.11.5 版本开始支持用做 SNI 反代，使用 Nginx 做 SNI 反代比用 SNI Proxy 配置起来更简单、更稳定。Nginx stream流程处理见官方文档，此功能可用来加速国外https业务，如苹果订单确认接口。
+安装 编译时添加如下参数
+ &amp;ndash;with-stream &amp;ndash;with-stream_ssl_preread_module &amp;ndash;with-stream_ssl_module
+ 配置 基础版
+stream { server { listen 443; ssl_preread on; resolver local=on ipv6=off valid=60s; # local=on需要OpenResty补丁 proxy_pass $ssl_preread_server_name:$server_port; } } 优化版
+ 解决原有无法过滤域名的风险  log_format proxy &amp;#39;$remote_addr [$time_local] $sniproxy_upstream &amp;#39; &amp;#39;$protocol $status $bytes_sent $bytes_received &amp;#39; &amp;#39;$session_time &amp;#34;$upstream_addr&amp;#34; &amp;#39; &amp;#39;&amp;#34;$upstream_bytes_sent&amp;#34; &amp;#34;$upstream_bytes_received&amp;#34; &amp;#34;$upstream_connect_time&amp;#34;&amp;#39;; init_by_lua_block { local sni = require(&amp;#34;resty.sniproxy&amp;#34;) sni.rules = { {&amp;#34;buy.</description>
+    </item>
+    
     <item>
       <title>Nginx支持WebP</title>
       <link>https://ops.m114.org/post/nginx-support-webp/</link>

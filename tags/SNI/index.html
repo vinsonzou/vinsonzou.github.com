@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.83.1" />
 
-  <title>Tags &middot; ops</title>
+  <title>SNI &middot; ops</title>
 
     
 
@@ -44,7 +44,7 @@
  
   
   <link rel="alternate" type="application/rss+xml" title="ops"
-    href='https://ops.m114.org/tags/index.xml' />
+    href='https://ops.m114.org/tags/SNI/index.xml' />
   
 
   
@@ -117,7 +117,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href='https://ops.m114.org/tags/index.xml'><i
+      <a class="pure-menu-link" href='https://ops.m114.org/tags/SNI/index.xml'><i
           class="fas fa-rss fa-fw"></i>RSS</a>
     </li>
     
@@ -217,178 +217,71 @@
 
 
 <div class="header">
-  <h1>Tags</h1>
+  <h1>SNI</h1>
 </div>
+
 <div class="content">
-  <ul>
+  
+    <article>
+  <header>
+    <h2><a href="https://ops.m114.org/post/nginx-sniproxy/">使用Nginx做SNI反向代理</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2021/06/02, 10:18</time>
+  </div>
+
+  
+
   
   
-    <li>
-      <a href="golang">golang</a>
-      <span>&#40;6&#41;</span>
-    </li>
   
-    <li>
-      <a href="MySQL">MySQL</a>
-      <span>&#40;3&#41;</span>
-    </li>
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
+    
+  </div>
   
-    <li>
-      <a href="OpenResty">OpenResty</a>
-      <span>&#40;3&#41;</span>
-    </li>
   
-    <li>
-      <a href="Python">Python</a>
-      <span>&#40;3&#41;</span>
-    </li>
+
   
-    <li>
-      <a href="ceph">ceph</a>
-      <span>&#40;2&#41;</span>
-    </li>
   
-    <li>
-      <a href="%E8%BD%AC%E8%BD%BD">转载</a>
-      <span>&#40;2&#41;</span>
-    </li>
   
-    <li>
-      <a href="centos8">centos8</a>
-      <span>&#40;1&#41;</span>
-    </li>
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/SNI">SNI</a>
+    
+  </div>
   
-    <li>
-      <a href="cloudflare">cloudflare</a>
-      <span>&#40;1&#41;</span>
-    </li>
   
-    <li>
-      <a href="curl">curl</a>
-      <span>&#40;1&#41;</span>
-    </li>
+
+</div>
+
+  </header>
+
+  <p>
+  从 Nginx 1.11.5 版本开始支持用做 SNI 反代，使用 Nginx 做 SNI 反代比用 SNI Proxy 配置起来更简单、更稳定。Nginx stream流程处理见官方文档，此功能可用来加速国外https业务，如苹果订单确认接口。
+安装 编译时添加如下参数
+ &ndash;with-stream &ndash;with-stream_ssl_preread_module &ndash;with-stream_ssl_module
+ 配置 基础版
+stream { server { listen 443; ssl_preread on; resolver local=on ipv6=off valid=60s; # local=on需要OpenResty补丁 proxy_pass $ssl_preread_server_name:$server_port; } } 优化版
+ 解决原有无法过滤域名的风险  log_format proxy &#39;$remote_addr [$time_local] $sniproxy_upstream &#39; &#39;$protocol $status $bytes_sent $bytes_received &#39; &#39;$session_time &#34;$upstream_addr&#34; &#39; &#39;&#34;$upstream_bytes_sent&#34; &#34;$upstream_bytes_received&#34; &#34;$upstream_connect_time&#34;&#39;; init_by_lua_block { local sni = require(&#34;resty.sniproxy&#34;) sni.rules = { {&#34;buy.
+  </p>
+
   
-    <li>
-      <a href="Docker">Docker</a>
-      <span>&#40;1&#41;</span>
-    </li>
+  <footer>
+    <a href="https://ops.m114.org/post/nginx-sniproxy/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
   
-    <li>
-      <a href="git">git</a>
-      <span>&#40;1&#41;</span>
-    </li>
+</article>
+
   
-    <li>
-      <a href="go-mmproxy">go-mmproxy</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="hugo">hugo</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="idrac">idrac</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="igb">igb</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="java">java</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="kvm">kvm</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="libvirt">libvirt</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="mysql">mysql</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="Nginx">Nginx</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="openssl">openssl</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="proxy_protocol">proxy_protocol</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="SNI">SNI</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="subjectAltName">subjectAltName</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="systemd">systemd</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="Telegram">Telegram</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="tomcat">tomcat</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="TsunamiUDP">TsunamiUDP</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="vsftpd">vsftpd</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="webauthn">webauthn</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="WebP">WebP</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="Zabbix">Zabbix</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="zabbix">zabbix</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-  </ul>
 </div>
 
 </div>
