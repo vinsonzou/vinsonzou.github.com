@@ -2,25 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://ops.m114.org/tags/Gitea/</loc>
+    <lastmod>2021-06-03T10:08:08+08:00</lastmod>
+  </url><url>
+    <loc>https://ops.m114.org/tags/Gogs/</loc>
+    <lastmod>2021-06-03T10:08:08+08:00</lastmod>
+  </url><url>
+    <loc>https://ops.m114.org/post/gitea-webhook/</loc>
+    <lastmod>2021-06-03T10:08:08+08:00</lastmod>
+  </url><url>
+    <loc>https://ops.m114.org/tags/Nginx/</loc>
+    <lastmod>2021-06-03T10:08:08+08:00</lastmod>
+  </url><url>
     <loc>https://ops.m114.org/topics/OpenResty/</loc>
-    <lastmod>2021-06-02T10:18:08+08:00</lastmod>
+    <lastmod>2021-06-03T10:08:08+08:00</lastmod>
   </url><url>
     <loc>https://ops.m114.org/tags/OpenResty/</loc>
-    <lastmod>2021-06-02T10:18:08+08:00</lastmod>
+    <lastmod>2021-06-03T10:08:08+08:00</lastmod>
   </url><url>
     <loc>https://ops.m114.org/</loc>
-    <lastmod>2021-06-02T10:18:08+08:00</lastmod>
+    <lastmod>2021-06-03T10:08:08+08:00</lastmod>
   </url><url>
     <loc>https://ops.m114.org/post/</loc>
-    <lastmod>2021-06-02T10:18:08+08:00</lastmod>
-  </url><url>
-    <loc>https://ops.m114.org/tags/SNI/</loc>
-    <lastmod>2021-06-02T10:18:08+08:00</lastmod>
+    <lastmod>2021-06-03T10:08:08+08:00</lastmod>
   </url><url>
     <loc>https://ops.m114.org/tags/</loc>
-    <lastmod>2021-06-02T10:18:08+08:00</lastmod>
+    <lastmod>2021-06-03T10:08:08+08:00</lastmod>
   </url><url>
     <loc>https://ops.m114.org/topics/</loc>
+    <lastmod>2021-06-03T10:08:08+08:00</lastmod>
+  </url><url>
+    <loc>https://ops.m114.org/tags/SNI/</loc>
     <lastmod>2021-06-02T10:18:08+08:00</lastmod>
   </url><url>
     <loc>https://ops.m114.org/post/nginx-sniproxy/</loc>
@@ -31,9 +43,6 @@
   </url><url>
     <loc>https://ops.m114.org/tags/WebP/</loc>
     <lastmod>2021-06-02T10:08:08+08:00</lastmod>
-  </url><url>
-    <loc>https://ops.m114.org/tags/Nginx/</loc>
-    <lastmod>2021-06-01T10:08:08+08:00</lastmod>
   </url><url>
     <loc>https://ops.m114.org/post/openresty-case/</loc>
     <lastmod>2021-06-01T10:08:08+08:00</lastmod>

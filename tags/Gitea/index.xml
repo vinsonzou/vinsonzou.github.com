@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Nginx on ops</title>
-    <link>https://ops.m114.org/tags/Nginx/</link>
-    <description>Recent content in Nginx on ops</description>
+    <title>Gitea on ops</title>
+    <link>https://ops.m114.org/tags/Gitea/</link>
+    <description>Recent content in Gitea on ops</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2021. All rights reserved.</copyright>
-    <lastBuildDate>Thu, 03 Jun 2021 10:08:08 +0800</lastBuildDate><atom:link href="https://ops.m114.org/tags/Nginx/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 03 Jun 2021 10:08:08 +0800</lastBuildDate><atom:link href="https://ops.m114.org/tags/Gitea/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Gogs/Gitea webhook支持</title>
       <link>https://ops.m114.org/post/gitea-webhook/</link>
@@ -18,15 +18,6 @@
 环境  CentOS 7 Nginx  ngx_lua lua-resty-shell lua-resty-hmac    配置 对应nginx location配置
 location = /webhook/deploy { content_by_lua_file &amp;#39;lua/webhook/deploy.lua&amp;#39;; } deploy.lua
 -- Gogs Version: &amp;gt;= v0.10 local require = require local ngx = ngx local cjson = require(&amp;#34;cjson.safe&amp;#34;) local shell = require(&amp;#34;resty.shell&amp;#34;) local hmac = require(&amp;#34;resty.hmac&amp;#34;) local json_encode = cjson.encode local json_decode = cjson.decode -- deploy config local config = { timeout = 30 * 1000, -- 30s socket = &amp;#34;unix:/data/nginx/utils/shell.</description>
-    </item>
-    
-    <item>
-      <title>本人OpenResty实践集合</title>
-      <link>https://ops.m114.org/post/openresty-case/</link>
-      <pubDate>Tue, 01 Jun 2021 10:08:08 +0800</pubDate>
-      
-      <guid>https://ops.m114.org/post/openresty-case/</guid>
-      <description> 优化  支持Brotli Upstream主动健康检查 动态证书 OCSP缓存 ssl分布式session mTLS支持   命令行执行  Nginx支持WebP gogs/gitea webhook   灰度发布  基于IP（动态IP） 自定义变量   微信机器人 安全相关  授权下载 简易CC防护 SSO认证 安全token   API服务  IP查询服务 MQ解耦，对接阿里云RocketMQ   缓存服务  主动缓存 SDK缓存   特权进程实践  ipset操作   代理相关  http代理 SNI代理    </description>
     </item>
     
   </channel>

@@ -7,7 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2021. All rights reserved.</copyright>
-    <lastBuildDate>Wed, 02 Jun 2021 10:18:08 +0800</lastBuildDate><atom:link href="https://ops.m114.org/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 03 Jun 2021 10:08:08 +0800</lastBuildDate><atom:link href="https://ops.m114.org/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Gogs/Gitea webhook支持</title>
+      <link>https://ops.m114.org/post/gitea-webhook/</link>
+      <pubDate>Thu, 03 Jun 2021 10:08:08 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/gitea-webhook/</guid>
+      <description>实现需求为git提交后，自动同步至webhook所在机器的指定目录。也可以支持github的webhook，也能根据不同条件触发不同的webhook，如CI/CD。
+环境  CentOS 7 Nginx  ngx_lua lua-resty-shell lua-resty-hmac    配置 对应nginx location配置
+location = /webhook/deploy { content_by_lua_file &amp;#39;lua/webhook/deploy.lua&amp;#39;; } deploy.lua
+-- Gogs Version: &amp;gt;= v0.10 local require = require local ngx = ngx local cjson = require(&amp;#34;cjson.safe&amp;#34;) local shell = require(&amp;#34;resty.shell&amp;#34;) local hmac = require(&amp;#34;resty.hmac&amp;#34;) local json_encode = cjson.encode local json_decode = cjson.decode -- deploy config local config = { timeout = 30 * 1000, -- 30s socket = &amp;#34;unix:/data/nginx/utils/shell.</description>
+    </item>
+    
     <item>
       <title>使用Nginx做SNI反向代理</title>
       <link>https://ops.m114.org/post/nginx-sniproxy/</link>

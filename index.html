@@ -225,6 +225,68 @@
   
     <article>
   <header>
+    <h2><a href="https://ops.m114.org/post/gitea-webhook/">Gogs/Gitea webhook支持</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2021/06/03, 10:08</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Nginx">Nginx</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Gogs">Gogs</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Gitea">Gitea</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  实现需求为git提交后，自动同步至webhook所在机器的指定目录。也可以支持github的webhook，也能根据不同条件触发不同的webhook，如CI/CD。
+环境  CentOS 7 Nginx  ngx_lua lua-resty-shell lua-resty-hmac    配置 对应nginx location配置
+location = /webhook/deploy { content_by_lua_file &#39;lua/webhook/deploy.lua&#39;; } deploy.lua
+-- Gogs Version: &gt;= v0.10 local require = require local ngx = ngx local cjson = require(&#34;cjson.safe&#34;) local shell = require(&#34;resty.shell&#34;) local hmac = require(&#34;resty.hmac&#34;) local json_encode = cjson.encode local json_decode = cjson.decode -- deploy config local config = { timeout = 30 * 1000, -- 30s socket = &#34;unix:/data/nginx/utils/shell.
+  </p>
+
+  
+  <footer>
+    <a href="https://ops.m114.org/post/gitea-webhook/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="https://ops.m114.org/post/nginx-sniproxy/">使用Nginx做SNI反向代理</a></h2>
 
     <div class="post-meta">
@@ -722,55 +784,6 @@ import dis #载入反编译模块,Python内置的 dis.dis(t1) #对应的是while
 </article>
 
   
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/libvirt-4.5-virModuleLoadFile53/">libvirt 4.5 virModuleLoadFile:53</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2019/01/15, 17:27</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/libvirt">libvirt</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  CentOS 7.5.1804的libvirt从3.9升级至4.5时，无法启动，报错如下：
- error : virModuleLoadFile:53 : internal error: Failed to load module &lsquo;/usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so&rsquo;: /usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so: undefined symbol: rbd_diff_iterate2
- 详细报错如下:
-[root@localhost ~]# libvirtd -v 2019-01-15 08:56:53.433+0000: 34181: info : libvirt version: 4.5.0, package: 10.el7_6.3 (CentOS BuildSystem &lt;http://bugs.centos.org&gt;, 2018-11-28-20:51:39, x86-01.bsys.centos.org) 2019-01-15 08:56:53.433+0000: 34181: info : hostname: localhost.localdomain 2019-01-15 08:56:53.433+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5da690 classname=virAccessManager 2019-01-15 08:56:53.434+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5cbfe0 classname=virAccessManager 2019-01-15 08:56:53.434+0000: 34181: info : virObjectRef:382 : OBJECT_REF: obj=0x56166f5da690 2019-01-15 08:56:53.
-  </p>
-
-  
-  <footer>
-    <a href="https://ops.m114.org/post/libvirt-4.5-virModuleLoadFile53/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
-
-  
 
   
 
@@ -779,7 +792,7 @@ import dis #载入反编译模块,Python内置的 dis.dis(t1) #对应的是while
   
   <i class="fa fa-chevron-left"></i>
   
-  <span>&nbsp;1 / 4&nbsp;</span>
+  <span>&nbsp;1 / 5&nbsp;</span>
   
   <a href="https://ops.m114.org/page/2/"><i class="fa fa-chevron-right"></i></a>
   

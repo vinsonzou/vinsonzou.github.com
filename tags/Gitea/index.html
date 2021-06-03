@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.83.1" />
 
-  <title>Topics &middot; ops</title>
+  <title>Gitea &middot; ops</title>
 
     
 
@@ -44,7 +44,7 @@
  
   
   <link rel="alternate" type="application/rss+xml" title="ops"
-    href='https://ops.m114.org/topics/index.xml' />
+    href='https://ops.m114.org/tags/Gitea/index.xml' />
   
 
   
@@ -117,7 +117,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href='https://ops.m114.org/topics/index.xml'><i
+      <a class="pure-menu-link" href='https://ops.m114.org/tags/Gitea/index.xml'><i
           class="fas fa-rss fa-fw"></i>RSS</a>
     </li>
     
@@ -217,73 +217,73 @@
 
 
 <div class="header">
-  <h1>Topics</h1>
+  <h1>Gitea</h1>
 </div>
+
 <div class="content">
-  <ul>
+  
+    <article>
+  <header>
+    <h2><a href="https://ops.m114.org/post/gitea-webhook/">Gogs/Gitea webhook支持</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2021/06/03, 10:08</time>
+  </div>
+
+  
+
   
   
-    <li>
-      <a href="Ceph">Ceph</a>
-      <span>&#40;5&#41;</span>
-    </li>
   
-    <li>
-      <a href="OpenResty">OpenResty</a>
-      <span>&#40;5&#41;</span>
-    </li>
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
+    
+  </div>
   
-    <li>
-      <a href="golang">golang</a>
-      <span>&#40;3&#41;</span>
-    </li>
   
-    <li>
-      <a href="MySQL">MySQL</a>
-      <span>&#40;3&#41;</span>
-    </li>
+
   
-    <li>
-      <a href="Python">Python</a>
-      <span>&#40;3&#41;</span>
-    </li>
   
-    <li>
-      <a href="Tips">Tips</a>
-      <span>&#40;3&#41;</span>
-    </li>
   
-    <li>
-      <a href="libvirt">libvirt</a>
-      <span>&#40;2&#41;</span>
-    </li>
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Nginx">Nginx</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Gogs">Gogs</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Gitea">Gitea</a>
+    
+  </div>
   
-    <li>
-      <a href="CentOS7">CentOS7</a>
-      <span>&#40;1&#41;</span>
-    </li>
   
-    <li>
-      <a href="Docker">Docker</a>
-      <span>&#40;1&#41;</span>
-    </li>
+
+</div>
+
+  </header>
+
+  <p>
+  实现需求为git提交后，自动同步至webhook所在机器的指定目录。也可以支持github的webhook，也能根据不同条件触发不同的webhook，如CI/CD。
+环境  CentOS 7 Nginx  ngx_lua lua-resty-shell lua-resty-hmac    配置 对应nginx location配置
+location = /webhook/deploy { content_by_lua_file &#39;lua/webhook/deploy.lua&#39;; } deploy.lua
+-- Gogs Version: &gt;= v0.10 local require = require local ngx = ngx local cjson = require(&#34;cjson.safe&#34;) local shell = require(&#34;resty.shell&#34;) local hmac = require(&#34;resty.hmac&#34;) local json_encode = cjson.encode local json_decode = cjson.decode -- deploy config local config = { timeout = 30 * 1000, -- 30s socket = &#34;unix:/data/nginx/utils/shell.
+  </p>
+
   
-    <li>
-      <a href="mysql">mysql</a>
-      <span>&#40;1&#41;</span>
-    </li>
+  <footer>
+    <a href="https://ops.m114.org/post/gitea-webhook/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
   
-    <li>
-      <a href="Troubleshooting">Troubleshooting</a>
-      <span>&#40;1&#41;</span>
-    </li>
+</article>
+
   
-    <li>
-      <a href="Zabbix">Zabbix</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-  </ul>
 </div>
 
 </div>
