@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.83.1" />
+
+  <title>OpenResty &middot; ops</title>
+
+    
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://ops.m114.org/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://ops.m114.org/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="https://ops.m114.org/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
+
+  
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+  <link rel="alternate" type="application/rss+xml" title="ops"
+    href='https://ops.m114.org/topics/OpenResty/index.xml' />
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://ops.m114.org/img/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="https://ops.m114.org/">Ops</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/topics/"><i class='fa fa-folder fa-fw'></i>Topics</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/tags/"><i class='fa fa-tags fa-fw'></i>Tags</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href='https://ops.m114.org/topics/OpenResty/index.xml'><i
+          class="fas fa-rss fa-fw"></i>RSS</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/vinsonzou" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2014-2021. All rights reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>OpenResty</h1>
+</div>
+
+<div class="content">
+  
+    <article>
+  <header>
+    <h2><a href="https://ops.m114.org/post/gitea-webhook/">Gogs/Gitea webhook支持</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2021/06/03, 10:08</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Nginx">Nginx</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Gogs">Gogs</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Gitea">Gitea</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  实现需求为git提交后，自动同步至webhook所在机器的指定目录。也可以支持github的webhook，也能根据不同条件触发不同的webhook，如CI/CD。
+环境  CentOS 7 Nginx  ngx_lua lua-resty-shell lua-resty-hmac    配置 对应nginx location配置
+location = /webhook/deploy { content_by_lua_file &#39;lua/webhook/deploy.lua&#39;; } deploy.lua
+-- Gogs Version: &gt;= v0.10 local require = require local ngx = ngx local cjson = require(&#34;cjson.safe&#34;) local shell = require(&#34;resty.shell&#34;) local hmac = require(&#34;resty.hmac&#34;) local json_encode = cjson.encode local json_decode = cjson.decode -- deploy config local config = { timeout = 30 * 1000, -- 30s socket = &#34;unix:/data/nginx/utils/shell.
+  </p>
+
+  
+  <footer>
+    <a href="https://ops.m114.org/post/gitea-webhook/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
+    <h2><a href="https://ops.m114.org/post/nginx-sniproxy/">使用Nginx做SNI反向代理</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2021/06/02, 10:18</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/SNI">SNI</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  从 Nginx 1.11.5 版本开始支持用做 SNI 反代，使用 Nginx 做 SNI 反代比用 SNI Proxy 配置起来更简单、更稳定。Nginx stream流程处理见官方文档，此功能可用来加速国外https业务，如苹果订单确认接口。
+安装 编译时添加如下参数
+ &ndash;with-stream &ndash;with-stream_ssl_preread_module &ndash;with-stream_ssl_module
+ 配置 基础版
+stream { server { listen 443; ssl_preread on; resolver local=on ipv6=off valid=60s; # local=on需要OpenResty补丁 proxy_pass $ssl_preread_server_name:$server_port; } } 优化版
+ 解决原有无法过滤域名的风险  log_format proxy &#39;$remote_addr [$time_local] $sniproxy_upstream &#39; &#39;$protocol $status $bytes_sent $bytes_received &#39; &#39;$session_time &#34;$upstream_addr&#34; &#39; &#39;&#34;$upstream_bytes_sent&#34; &#34;$upstream_bytes_received&#34; &#34;$upstream_connect_time&#34;&#39;; init_by_lua_block { local sni = require(&#34;resty.sniproxy&#34;) sni.rules = { {&#34;buy.
+  </p>
+
+  
+  <footer>
+    <a href="https://ops.m114.org/post/nginx-sniproxy/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
+    <h2><a href="https://ops.m114.org/post/nginx-support-webp/">Nginx支持WebP</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2021/06/02, 10:08</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/WebP">WebP</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  WebP格式，Google开发的一种旨在加快图片加载速度的图片格式。图片压缩体积大约只有JPEG的2/3，并能节省大量的服务器带宽资源和数据空间。国外的有 Google（自家的东西肯定要用啦，Chrome Store 甚至已全站使用 WebP）、Facebook 和 ebay，国内的有淘宝、腾讯和美团等。
+客户端支持情况:
+ Google Chrome 23 起开始支持 WebP（最初发布于2012年11月） Google 的安卓浏览器从 4.2 版本起开始官方支持 WebP（最初发布于2012年11月），4 版本起开始部分支持 Google Chrome安卓版从 Chrome 50 起开始支持 Webp Opera 12.1 开始支持 WebP（最初发布于2012年11月） Edge 18 开始支持 (发布于2018年10月) Firefox 65 支持 (发布于2019年1月)  nginx无缝切换至WebP思路就是：用户访问一张图片(主要为png/jpg格式)，nginx收到请求判断浏览器是否支持WebP，如果支持则返回WebP，不支持则返回原图，达到减少带宽资源的目的。
+环境  CentOS 7 libwebp-1.2.0 Nginx  ngx_lua lua-resty-shell    安装部署 cwebp依赖lib
+yum -y install libGL libX11 libXi 配置 mime.types新增webp格式支持
+image/webp webp; 图片对应nginx location配置
+location ~ ^/(images|static)/ { rewrite_by_lua_file &#34;/data/nginx/lua/webp.
+  </p>
+
+  
+  <footer>
+    <a href="https://ops.m114.org/post/nginx-support-webp/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
+    <h2><a href="https://ops.m114.org/post/openresty-case/">本人OpenResty实践集合</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2021/06/01, 10:08</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Nginx">Nginx</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+   优化  支持Brotli Upstream主动健康检查 动态证书 OCSP缓存 ssl分布式session mTLS支持   命令行执行  Nginx支持WebP gogs/gitea webhook   灰度发布  基于IP（动态IP） 自定义变量   微信机器人 安全相关  授权下载 简易CC防护 SSO认证 安全token   API服务  IP查询服务 MQ解耦，对接阿里云RocketMQ   缓存服务  主动缓存 SDK缓存   特权进程实践  ipset操作   代理相关  http代理 SNI代理    
+  </p>
+
+  
+</article>
+
+  
+    <article>
+  <header>
+    <h2><a href="https://ops.m114.org/post/use-regular-expressions-in-OpenResty/">在 OpenResty 中使用正则表达式</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2016/10/30, 10:48</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/%E8%BD%AC%E8%BD%BD">转载</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  在 OpenResty 中使用正则表达式，社区中推荐的做法是使用ngx.re api。比如匹配一个字符串是否为 http(s) 的链接，可以这么写：
+local function is_http_url(s) return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;#%]+$]]) end 压测一下:
+local t = os.clock() for _ = 1, max do is_http_url(&#34;http://blog.stackoverflow.com/2016/10/Stack-Overflow-92-Podcast-The-Guerilla-Guide-to-Interviewing/?cb=1&#34;) end print(&#34;Time cost: &#34;, os.clock() - t, &#34; s&#34;) 结果：Time cost: 2.663408 s
+另一种做法是使用 lua 的正则语法：
+local function is_http_url(s) return s:find(&#34;^https?://[%w-_%.%?:/%+=&amp;#%%]+$&#34;) end 结果：Time cost: 0.652221 s
+呃，怎么前者耗时是后者的四倍？lua 内置的小小状态机实现，居然打败了大名鼎鼎的 PCRE 库！说好的社区推荐呢！
+仔细一瞧，前者的确漏了点东西。ngx.re默认不会缓存正则表达式编译后的结果。一般在其它编程平台上，我们都会先把字符串编译成正则表达式，再用到正则函数中。比如在 Python 里使用 re.compile。所以赶紧补上：
+return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;#%]+$]], &#34;o&#34;) 好，这次性能有了明显提升：Time cost: 0.646518 s
+不错不错，虽然还是跟 lua 的实现不分上下，考虑到 lua 本身的正则支持非常弱（比如连 (foo|bar) 这种形式都不行），而且语法离经叛道，改用 ngx.
+  </p>
+
+  
+  <footer>
+    <a href="https://ops.m114.org/post/use-regular-expressions-in-OpenResty/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+</div>
+
+</div>
+</div>
+<script src="https://ops.m114.org/js/ui.js"></script>
+<script src="https://ops.m114.org/js/menus.js"></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

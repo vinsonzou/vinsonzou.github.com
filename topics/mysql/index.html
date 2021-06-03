@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.83.1" />
+
+  <title>mysql &middot; ops</title>
+
+    
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://ops.m114.org/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://ops.m114.org/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="https://ops.m114.org/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
+
+  
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+  <link rel="alternate" type="application/rss+xml" title="ops"
+    href='https://ops.m114.org/topics/mysql/index.xml' />
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://ops.m114.org/img/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="https://ops.m114.org/">Ops</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/topics/"><i class='fa fa-folder fa-fw'></i>Topics</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/tags/"><i class='fa fa-tags fa-fw'></i>Tags</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href='https://ops.m114.org/topics/mysql/index.xml'><i
+          class="fas fa-rss fa-fw"></i>RSS</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/vinsonzou" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2014-2021. All rights reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>mysql</h1>
+</div>
+
+<div class="content">
+  
+    <article>
+  <header>
+    <h2><a href="https://ops.m114.org/post/centos8-build-mysql5.7.30/">CentOS8编译安装MySQL 5.7.30</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2020/06/18, 13:41</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/mysql">mysql</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/mysql">mysql</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/centos8">centos8</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  环境  OS: CentOS 8.2 MySQL: 5.7.30  报错信息 1. 编译报错 CMake Error at plugin/group_replication/libmysqlgcs/rpcgen.cmake:100 (MESSAGE): Could not find rpcgen Call Stack (most recent call first): plugin/group_replication/libmysqlgcs/CMakeLists.txt:38 (INCLUDE) 解决方法
+yum --enablerepo=PowerTools install rpcgen 2. systemctl start mysqld.service报错无法启动问题 报错信息如下
+[ERROR] Can&#39;t start server: can&#39;t check PID filepath: No such file or directory /usr/lib/systemd/system/mysqld.service 默认配置如下
+# Copyright (c) 2015, 2016, Oracle and/or its affiliates. All rights reserved. # # This program is free software; you can redistribute it and/or modify # it under the terms of the GNU General Public License, version 2.
+  </p>
+
+  
+  <footer>
+    <a href="https://ops.m114.org/post/centos8-build-mysql5.7.30/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
+    <h2><a href="https://ops.m114.org/post/python-mysql-PooledDB/">Python数据库连接池实例--PooledDB</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2018/10/16, 16:27</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/Python">Python</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/MySQL">MySQL</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Python">Python</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/MySQL">MySQL</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  不用连接池的MySQL连接方法
+import MySQLdb conn= MySQLdb.connect(host=&#39;127.0.0.1&#39;,user=&#39;root&#39;,passwd=&#39;password&#39;,db=&#39;DB_test&#39;,port=3306) cur=conn.cursor() SQL=&#34;select * from table_test&#34; cur.execute(SQL) r=cur.fetchall() cur.close() conn.close() 用连接池后的连接方法
+import MySQLdb from DBUtils.PooledDB import PooledDB pool = PooledDB(MySQLdb,5,host=&#39;127.0.0.1&#39;,user=&#39;root&#39;,passwd=&#39;password&#39;,db=&#39;DB_test&#39;,port=3306) #5为连接池里的最少连接数 conn = pool.connection() #以后每次需要数据库连接就是用connection()函数获取连接就好了 cur=conn.cursor() SQL=&#34;select * from table_test&#34; cur.execute(SQL) r=cur.fetchall() cur.close() conn.close() PooledDB的参数
+ mincached: 最少的空闲连接数，如果空闲连接数小于这个数，pool会创建一个新的连接 maxcached: 最大的空闲连接数，如果空闲连接数大于这个数，pool会关闭空闲连接 maxconnections: 最大的连接数， blocking: 当连接数达到最大的连接数时，在请求连接的时候，如果这个值是True，请求连接的程序会一直等待，直到当前连接数小于最大连接数，如果这个值是False，会报错， maxshared: 当连接数达到这个数，新请求的连接会分享已经分配出去的连接  连接池对性能的提升表现在
+ 在程序创建连接的时候，可以从一个空闲的连接中获取，不需要重新初始化连接，提升获取连接的速度 关闭连接的时候，把连接放回连接池，而不是真正的关闭，所以可以减少频繁地打开和关闭连接 避免mysql连接数耗尽  DBUtils下载地址：https://pypi.python.org/pypi/DBUtils/
+  </p>
+
+  
+</article>
+
+  
+    <article>
+  <header>
+    <h2><a href="https://ops.m114.org/post/solve-too-many-connections/">不重启解决Too Many Connections</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2017/01/07, 19:57</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/MySQL">MySQL</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/MySQL">MySQL</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  当发生Too many connections时，即使是DBA也无法登录到数据库，一般的做法是修改配置文件的max_connections参数，然后重启数据库，这样业务就有几秒钟的中断，对于线上不能中断的数据库就只能采用另外一种极客的方法了，用gdb直接修改mysqld内存中max_connections的值，具体做法如下：
+gdb -p $(cat /data/mysql/mysql-server.pid) -ex &#34;set max_connections=3000&#34; -batch 改进方法如下
+通常有两个参数控制控制最大连接数：
+max_connections：该实例允许最大的连接数 max_user_connections：该实例允许每个用户的最大连接数 每个人要根据自己业务量，设置合适的值，不要盲目设置过大，但也不可设置过小，因为MySQL在连接数上升的情况下性能下降非常厉害，如果需要大量连接，这时可以引入thread_pool，所以我们需要保持一个原则：系统创建的用户（给应用使用用户）数 * max_user_connections &lt; max_connections。
+  </p>
+
+  
+</article>
+
+  
+    <article>
+  <header>
+    <h2><a href="https://ops.m114.org/post/MySQL-Unable-to-lock-ibdata1-error-11-fix/">MySQL Unable to lock ibdata1 error 11 fix</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2016/08/03, 10:52</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/MySQL">MySQL</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/MySQL">MySQL</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  A bad shutdown can cause such erros on MySQL.
+InnoDB: Unable to lock ./ibdata1, error: 11 InnoDB: Check that you do not already have another mysqld process InnoDB: using the same InnoDB data or log files. InnoDB: Error in opening ./ibdata1 For solution mv ibdata1 ibdata1.bak cp -a ibdata1.bak ibdata1 service mysqld restart 
+  </p>
+
+  
+</article>
+
+  
+</div>
+
+</div>
+</div>
+<script src="https://ops.m114.org/js/ui.js"></script>
+<script src="https://ops.m114.org/js/menus.js"></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>libvirt on ops</title>
+    <link>https://ops.m114.org/topics/libvirt/</link>
+    <description>Recent content in libvirt on ops</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>&amp;copy; 2014-2021. All rights reserved.</copyright>
+    <lastBuildDate>Fri, 12 Jun 2020 13:12:06 +0800</lastBuildDate><atom:link href="https://ops.m114.org/topics/libvirt/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CentOS7上如何支持安装CentOS8 VM</title>
+      <link>https://ops.m114.org/post/centos8-install-on-centos7-kvm/</link>
+      <pubDate>Fri, 12 Jun 2020 13:12:06 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/centos8-install-on-centos7-kvm/</guid>
+      <description>环境  宿主机：CentOS 7.5 VM: CentOS 8.1  查看支持os osinfo-query os
+当前环境默认不支持CentOS8/RHEL8，需做如下操作:
+# osinfo-db 需更新至osinfo-db-20190805-2 yum install osinfo-db-tools osinfo-db 报错处理 ERROR &amp;lsquo;virConnect&amp;rsquo; object has no attribute &amp;lsquo;baselineHypervisorCPU&amp;rsquo;
+将 libvirt-python-3.9.0-1 升级至 libvirt-python-4.5.0-1 即可解决
+参考链接: https://github.com/virt-manager/virt-manager/issues/57</description>
+    </item>
+    
+    <item>
+      <title>libvirt 4.5 virModuleLoadFile:53</title>
+      <link>https://ops.m114.org/post/libvirt-4.5-virModuleLoadFile53/</link>
+      <pubDate>Tue, 15 Jan 2019 17:27:22 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/libvirt-4.5-virModuleLoadFile53/</guid>
+      <description>CentOS 7.5.1804的libvirt从3.9升级至4.5时，无法启动，报错如下：
+ error : virModuleLoadFile:53 : internal error: Failed to load module &amp;lsquo;/usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so&amp;rsquo;: /usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so: undefined symbol: rbd_diff_iterate2
+ 详细报错如下:
+[root@localhost ~]# libvirtd -v 2019-01-15 08:56:53.433+0000: 34181: info : libvirt version: 4.5.0, package: 10.el7_6.3 (CentOS BuildSystem &amp;lt;http://bugs.centos.org&amp;gt;, 2018-11-28-20:51:39, x86-01.bsys.centos.org) 2019-01-15 08:56:53.433+0000: 34181: info : hostname: localhost.localdomain 2019-01-15 08:56:53.433+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5da690 classname=virAccessManager 2019-01-15 08:56:53.434+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5cbfe0 classname=virAccessManager 2019-01-15 08:56:53.434+0000: 34181: info : virObjectRef:382 : OBJECT_REF: obj=0x56166f5da690 2019-01-15 08:56:53.</description>
+    </item>
+    
+  </channel>
+</rss>
