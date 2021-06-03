@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.83.1" />
 
-  <title>Tags &middot; ops</title>
+  <title>RocketMQ &middot; ops</title>
 
     
 
@@ -44,7 +44,7 @@
  
   
   <link rel="alternate" type="application/rss+xml" title="ops"
-    href='https://ops.m114.org/tags/index.xml' />
+    href='https://ops.m114.org/tags/RocketMQ/index.xml' />
   
 
   
@@ -117,7 +117,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href='https://ops.m114.org/tags/index.xml'><i
+      <a class="pure-menu-link" href='https://ops.m114.org/tags/RocketMQ/index.xml'><i
           class="fas fa-rss fa-fw"></i>RSS</a>
     </li>
     
@@ -217,193 +217,72 @@
 
 
 <div class="header">
-  <h1>Tags</h1>
+  <h1>RocketMQ</h1>
 </div>
+
 <div class="content">
-  <ul>
+  
+    <article>
+  <header>
+    <h2><a href="https://ops.m114.org/post/nginx-use-mq/">lua发布消息至RocketMQ解耦</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2021/06/03, 15:08</time>
+  </div>
+
+  
+
   
   
-    <li>
-      <a href="OpenResty">OpenResty</a>
-      <span>&#40;7&#41;</span>
-    </li>
   
-    <li>
-      <a href="golang">golang</a>
-      <span>&#40;6&#41;</span>
-    </li>
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
+    
+  </div>
   
-    <li>
-      <a href="Nginx">Nginx</a>
-      <span>&#40;5&#41;</span>
-    </li>
   
-    <li>
-      <a href="MySQL">MySQL</a>
-      <span>&#40;3&#41;</span>
-    </li>
+
   
-    <li>
-      <a href="Python">Python</a>
-      <span>&#40;3&#41;</span>
-    </li>
   
-    <li>
-      <a href="ceph">ceph</a>
-      <span>&#40;2&#41;</span>
-    </li>
   
-    <li>
-      <a href="%E8%BD%AC%E8%BD%BD">转载</a>
-      <span>&#40;2&#41;</span>
-    </li>
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Nginx">Nginx</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/RocketMQ">RocketMQ</a>
+    
+  </div>
   
-    <li>
-      <a href="centos8">centos8</a>
-      <span>&#40;1&#41;</span>
-    </li>
   
-    <li>
-      <a href="cloudflare">cloudflare</a>
-      <span>&#40;1&#41;</span>
-    </li>
+
+</div>
+
+  </header>
+
+  <p>
+  广告点击回传数据入消息队列，避免后端处理不过来，先存入消息队列削峰。
+环境  CentOS 7 Nginx  lua-nginx-module lua-resty-core lua-resty-http   依赖服务  阿里云RocketMQ    配置 对应nginx location配置
+location / { access_by_lua_file lua/mq/mq.lua; } custom/mq.lua
+return { AKId = &#34;xxx&#34;, -- RocketMQ的AccessKeyId AKSecret = &#34;xxx&#34;, -- RocketMQ的AccessKeySecret topic_name = &#34;xxx&#34;, -- RocketMQ的topic instance_id = &#34;xxx&#34; -- RocketMQ的instance_id } mq.lua
+local require = require local ngx = ngx local config = require(&#34;custom.mq.config&#34;) local http = require &#34;resty.http&#34; local cjson = require &#34;cjson.
+  </p>
+
   
-    <li>
-      <a href="curl">curl</a>
-      <span>&#40;1&#41;</span>
-    </li>
+  <footer>
+    <a href="https://ops.m114.org/post/nginx-use-mq/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
   
-    <li>
-      <a href="Docker">Docker</a>
-      <span>&#40;1&#41;</span>
-    </li>
+</article>
+
   
-    <li>
-      <a href="git">git</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="Gitea">Gitea</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="go-mmproxy">go-mmproxy</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="Gogs">Gogs</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="hugo">hugo</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="idrac">idrac</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="igb">igb</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="java">java</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="kvm">kvm</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="libvirt">libvirt</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="mysql">mysql</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="openssl">openssl</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="proxy_protocol">proxy_protocol</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="RocketMQ">RocketMQ</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="SNI">SNI</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="subjectAltName">subjectAltName</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="systemd">systemd</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="Telegram">Telegram</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="tomcat">tomcat</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="TsunamiUDP">TsunamiUDP</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="vsftpd">vsftpd</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="webauthn">webauthn</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="WebP">WebP</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="Zabbix">Zabbix</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="zabbix">zabbix</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-  </ul>
 </div>
 
 </div>
