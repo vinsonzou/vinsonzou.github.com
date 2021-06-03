@@ -7,7 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2021. All rights reserved.</copyright>
-    <lastBuildDate>Thu, 03 Jun 2021 13:08:08 +0800</lastBuildDate><atom:link href="https://ops.m114.org/tags/Nginx/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 03 Jun 2021 14:38:08 +0800</lastBuildDate><atom:link href="https://ops.m114.org/tags/Nginx/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用动态 DNS 来完成 HTTP 请求</title>
+      <link>https://ops.m114.org/post/dynamic-http-proxy/</link>
+      <pubDate>Thu, 03 Jun 2021 14:38:08 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/dynamic-http-proxy/</guid>
+      <description>内部访问外部http请求，通过拦截内部请求至此统一访问外部业务。
+环境  CentOS 7 Nginx  lua-nginx-module lua-resty-dns lua-resty-lock lua-resty-http    配置 对应nginx配置
+lua_shared_dict dns_cache 5m; lua_shared_dict my_locks 1m; server { listen 80; server_name *.test.com; access_log logs/dyn_http.access.log default; location / { content_by_lua_file &amp;#39;lua/dyn_http.lua&amp;#39;; } } dyn_http.lua
+local require = require local ngx = ngx local resolver = require &amp;#34;resty.dns.resolver&amp;#34; local resty_lock = require &amp;#34;resty.lock&amp;#34; local http = require &amp;#34;resty.http&amp;#34; local cache = ngx.shared.dns_cache local function fail(msg, err) ngx.</description>
+    </item>
+    
     <item>
       <title>Nginx实现ip查询服务</title>
       <link>https://ops.m114.org/post/nginx-ipip-service/</link>

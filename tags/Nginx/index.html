@@ -224,6 +224,64 @@
   
     <article>
   <header>
+    <h2><a href="https://ops.m114.org/post/dynamic-http-proxy/">使用动态 DNS 来完成 HTTP 请求</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2021/06/03, 14:38</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Nginx">Nginx</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  内部访问外部http请求，通过拦截内部请求至此统一访问外部业务。
+环境  CentOS 7 Nginx  lua-nginx-module lua-resty-dns lua-resty-lock lua-resty-http    配置 对应nginx配置
+lua_shared_dict dns_cache 5m; lua_shared_dict my_locks 1m; server { listen 80; server_name *.test.com; access_log logs/dyn_http.access.log default; location / { content_by_lua_file &#39;lua/dyn_http.lua&#39;; } } dyn_http.lua
+local require = require local ngx = ngx local resolver = require &#34;resty.dns.resolver&#34; local resty_lock = require &#34;resty.lock&#34; local http = require &#34;resty.http&#34; local cache = ngx.shared.dns_cache local function fail(msg, err) ngx.
+  </p>
+
+  
+  <footer>
+    <a href="https://ops.m114.org/post/dynamic-http-proxy/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="https://ops.m114.org/post/nginx-ipip-service/">Nginx实现ip查询服务</a></h2>
 
     <div class="post-meta">

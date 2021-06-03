@@ -225,6 +225,64 @@
   
     <article>
   <header>
+    <h2><a href="https://ops.m114.org/post/dynamic-http-proxy/">使用动态 DNS 来完成 HTTP 请求</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2021/06/03, 14:38</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Nginx">Nginx</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  内部访问外部http请求，通过拦截内部请求至此统一访问外部业务。
+环境  CentOS 7 Nginx  lua-nginx-module lua-resty-dns lua-resty-lock lua-resty-http    配置 对应nginx配置
+lua_shared_dict dns_cache 5m; lua_shared_dict my_locks 1m; server { listen 80; server_name *.test.com; access_log logs/dyn_http.access.log default; location / { content_by_lua_file &#39;lua/dyn_http.lua&#39;; } } dyn_http.lua
+local require = require local ngx = ngx local resolver = require &#34;resty.dns.resolver&#34; local resty_lock = require &#34;resty.lock&#34; local http = require &#34;resty.http&#34; local cache = ngx.shared.dns_cache local function fail(msg, err) ngx.
+  </p>
+
+  
+  <footer>
+    <a href="https://ops.m114.org/post/dynamic-http-proxy/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="https://ops.m114.org/post/nginx-ipip-service/">Nginx实现ip查询服务</a></h2>
 
     <div class="post-meta">
@@ -732,52 +790,6 @@ yum --enablerepo=PowerTools install rpcgen 2. systemctl start mysqld.service报�
 # osinfo-db 需更新至osinfo-db-20190805-2 yum install osinfo-db-tools osinfo-db 报错处理 ERROR &lsquo;virConnect&rsquo; object has no attribute &lsquo;baselineHypervisorCPU&rsquo;
 将 libvirt-python-3.9.0-1 升级至 libvirt-python-4.5.0-1 即可解决
 参考链接: https://github.com/virt-manager/virt-manager/issues/57
-  </p>
-
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/github-supports-webauthn-for-security-keys/">GitHub supports WebAuthn</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2019/08/23, 15:05</time>
-  </div>
-
-  
-
-  
-  
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/webauthn">webauthn</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  为了提高 GitHub 帐户的安全性，GitHub平台2019-08-21通过支持 Web 身份验证（WebAuthn）标准宣布了易于使用的身份验证选项。通过 WebAuthn，开发者们现在可以使用物理安全密钥在 GitHub 上进行双因素身份验证。如果你没有物理安全密钥，也可以将笔记本电脑或手机用作安全密钥。
-以下是 GitHub 上支持的物理安全密钥的组合：
- Windows，macOS，Linux 和 Android：基于 Firefox 和 Chrome 的浏览器 Windows：Edge macOS：Safari，目前在技术预览版中，但即将推出 iOS：Brave 浏览器以及使用新的 YubiKey 5Ci  你还可以使用以下浏览器和生物识别选项：
- Windows 上的 Microsoft Edge，使用 Windows Hello（带面部识别，指纹识别器或 PIN） 在 macOS 的 Chrome 上使用 Touch ID 在 Android 的 Chrome 上使用指纹识别器  由于平台支持尚未普及，GitHub 目前支持安全密钥作为补充的第二个因素，将来，GitHub 会将安全密钥作为主要的第二因素。
-来源：https://github.blog/2019-08-21-github-supports-webauthn-for-security-keys/
   </p>
 
   
