@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2021. All rights reserved.</copyright>
-    <lastBuildDate>Thu, 03 Jun 2021 15:08:08 +0800</lastBuildDate><atom:link href="https://ops.m114.org/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 05 Jun 2021 13:15:08 +0800</lastBuildDate><atom:link href="https://ops.m114.org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>python 3.9.5 编译报错 Could not import runpy module 问题</title>
+      <link>https://ops.m114.org/post/python-3.9.5-build-error/</link>
+      <pubDate>Sat, 05 Jun 2021 13:15:08 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/python-3.9.5-build-error/</guid>
+      <description>环境  CentOS 7.3.1611 gcc-4.8.5-28.el7_5.1 Python 3.9.5  相关报错 ./python -E -S -m sysconfig --generate-posix-vars ;\ if test $? -ne 0 ; then \ 	echo &amp;#34;generate-posix-vars failed&amp;#34; ; \ 	rm -f ./pybuilddir.txt ; \ 	exit 1 ; \ fi Could not import runpy module Traceback (most recent call last): File &amp;#34;/tmp/Python-3.9.5/Lib/runpy.py&amp;#34;, line 15, in &amp;lt;module&amp;gt; import importlib.util File &amp;#34;/tmp/Python-3.9.5/Lib/importlib/util.py&amp;#34;, line 2, in &amp;lt;module&amp;gt; from . import abc File &amp;#34;/tmp/Python-3.</description>
+    </item>
+    
     <item>
       <title>lua发布消息至RocketMQ解耦</title>
       <link>https://ops.m114.org/post/nginx-use-mq/</link>
@@ -338,7 +347,7 @@ return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;amp;#%]+$]], &amp;#34;o&amp;#3
       <guid>https://ops.m114.org/about/</guid>
       <description>收藏站点  OpenResty最佳实践 Jerry Qu HTTPS最佳实践 IP黑名单  Python常用模块  requests requests-html records tablib yapf keyring ahocorasick esmre EasyOCR U-2-Net Excel  Python Web开发  Flask Flask-Orator Sanic  ngx_lua常用模块   OpenResty官方库
  lua-resty-core lua-resty-string lua-resty-mysql lua-resty-redis lua-resty-upload srcache-nginx-module echo-nginx-module set-misc-nginx-module headers-more-nginx-module lua-resty-dns lua-resty-lock lua-resty-limit-traffic lua-upstream-nginx-module lua-resty-upstream-healthcheck lua-resty-balancer lua-resty-shell    第三方库
- lua-resty-logger-socket lua-aho-corasick nginx-google-oauth lua-resty-http lua-resty-shell lua-resty-template lua-resty-checkups lua-resty-jit-uuid lua-resty-mlcache lua-resty-iputils(遍历) lua-resty-rsa lua-resty-hmac jxwaf lua-resty-mail lua-resty-resolver apisix lua-resty-etcd lua-resty-ipmatcher(hash实现) jsonschema lua-resty-acme skywalking-nginx-lua xml2lua 微信对接解密/加密 lua-resty-multiplexer lua-resty-sniproxy    ngx_lua Web开发  Lor Learn Lua in 15 Minutes  Go Web开发  Gin fiber  Go常用模块  otp viper 屏蔽字过滤服务 屏蔽字过滤模块 gjson gendry ⭐️json-iterator ⭐️sio cloudflare Go程序平滑重启 adiantum加密库 ants freecache go jsonschema go-attr ⭐️gopacket  Tools  Go BitTorrent Tracker, Facebook/CoreOS used Go BitTorrent Tracker Go Full-featured BitTorrent client package and utilities 跨平台生成工具 go火焰图 QingCloud MySQL Plus开源版(GTID + Raft + Semi-Sync-Replication) MQ: meq Go爬虫框架: colly coredns A native go client for HDFS redis压测工具 Netflix bpftoolkit mkcert ping动态图形化 敏感文件发现工具 gops go-xss go-keyring  </description>
+ lua-resty-logger-socket lua-aho-corasick nginx-google-oauth lua-resty-http lua-resty-shell lua-resty-template lua-resty-checkups lua-resty-jit-uuid lua-resty-mlcache lua-resty-iputils(遍历) lua-resty-rsa lua-resty-hmac jxwaf lua-resty-mail lua-resty-resolver apisix lua-resty-etcd lua-resty-ipmatcher(hash实现) jsonschema lua-resty-acme skywalking-nginx-lua xml2lua 微信对接解密/加密 lua-resty-multiplexer lua-resty-sniproxy    ngx_lua Web开发  Lor Learn Lua in 15 Minutes  Go Web开发  Gin fiber  Go常用模块  otp viper 屏蔽字过滤服务 屏蔽字过滤模块 gjson gendry ⭐️json-iterator ⭐️sio cloudflare Go程序平滑重启 adiantum加密库 ants freecache go jsonschema go-attr ⭐️gopacket  Tools  Go BitTorrent Tracker, Facebook/CoreOS used Go BitTorrent Tracker Go Full-featured BitTorrent client package and utilities 跨平台生成工具 go火焰图 QingCloud MySQL Plus开源版(GTID + Raft + Semi-Sync-Replication) MQ: meq Go爬虫框架: colly coredns ⭐️A native go client for HDFS redis压测工具 Netflix bpftoolkit mkcert ping动态图形化 敏感文件发现工具 gops go-xss go-keyring  </description>
     </item>
     
     <item>

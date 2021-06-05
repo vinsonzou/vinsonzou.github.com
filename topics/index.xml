@@ -7,7 +7,16 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2021. All rights reserved.</copyright>
-    <lastBuildDate>Thu, 03 Jun 2021 15:08:08 +0800</lastBuildDate><atom:link href="https://ops.m114.org/topics/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 05 Jun 2021 13:15:08 +0800</lastBuildDate><atom:link href="https://ops.m114.org/topics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python</title>
+      <link>https://ops.m114.org/topics/Python/</link>
+      <pubDate>Sat, 05 Jun 2021 13:15:08 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/topics/Python/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>OpenResty</title>
       <link>https://ops.m114.org/topics/OpenResty/</link>
@@ -41,15 +50,6 @@
       <pubDate>Fri, 12 Jun 2020 13:12:06 +0800</pubDate>
       
       <guid>https://ops.m114.org/topics/libvirt/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Python</title>
-      <link>https://ops.m114.org/topics/Python/</link>
-      <pubDate>Wed, 23 Jan 2019 17:46:06 +0800</pubDate>
-      
-      <guid>https://ops.m114.org/topics/Python/</guid>
       <description></description>
     </item>
     
