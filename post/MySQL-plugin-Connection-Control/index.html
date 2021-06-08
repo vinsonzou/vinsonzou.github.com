@@ -272,8 +272,8 @@
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">-- 配置文件增加以下配置
 <span style="color:#f92672">[</span>mysqld<span style="color:#f92672">]</span>
 plugin-load-add									<span style="color:#f92672">=</span> connection_control.so
-connection-control                             	<span style="color:#f92672">=</span> FORCE_PLUS_PERMANENT
-connection-control-failed-login-attempts       	<span style="color:#f92672">=</span> FORCE_PLUS_PERMANENT
+connection-control                             	<span style="color:#f92672">=</span> FORCE_PLUS_PERMANENT    // 防止运行时卸载
+connection-control-failed-login-attempts       	<span style="color:#f92672">=</span> FORCE_PLUS_PERMANENT    // 防止运行时卸载 
 connection_control_min_connection_delay			<span style="color:#f92672">=</span> <span style="color:#ae81ff">600000</span>
 connection_control_max_connection_delay			<span style="color:#f92672">=</span> <span style="color:#ae81ff">2147483647</span>
 connection_control_failed_connections_threshold	<span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>
