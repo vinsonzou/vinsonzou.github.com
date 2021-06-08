@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2021. All rights reserved.</copyright>
-    <lastBuildDate>Tue, 08 Jun 2021 13:10:08 +0800</lastBuildDate><atom:link href="https://ops.m114.org/topics/MySQL/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 08 Jun 2021 13:30:08 +0800</lastBuildDate><atom:link href="https://ops.m114.org/topics/MySQL/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQL插件之密码复杂性</title>
+      <link>https://ops.m114.org/post/MySQL-plugin-validate-password/</link>
+      <pubDate>Tue, 08 Jun 2021 13:30:08 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/MySQL-plugin-validate-password/</guid>
+      <description>目录  等保需求 插件介绍 插件安装 插件配置  等保需求  用户密码复杂度：3种字符以上，至少8位长度。使用 validate_password 插件实现。  插件介绍 MySQL 5.6/5.7 上密码复杂度策略实现, MySQL 8.0有组件实现方式，同时也支持插件方式。
+插件安装 -- 配置文件增加以下配置 [mysqld] plugin-load-add = validate_password.so validate-password = FORCE_PLUS_PERMANENT -- 插件动态安装启用 mysql&amp;gt; INSTALL PLUGIN validate_password soname &amp;#39;validate_password.so&amp;#39;; -- 验证是否正常安装 mysql&amp;gt; SELECT PLUGIN_NAME, PLUGIN_LIBRARY, PLUGIN_STATUS, LOAD_OPTION FROM INFORMATION_SCHEMA.PLUGINS WHERE PLUGIN_NAME = &amp;#39;validate_password&amp;#39;; mysql&amp;gt; SHOW PLUGINS; 注意：参数FORCE_PLUS_PERMANENT是为了防止插件在MySQL运行的时候被卸载，如下所示，当你卸载插件时就会报错： mysql&amp;gt; UNINSTALL PLUGIN validate_password; ERROR 1702 (HY000): Plugin &amp;#39;validate_password&amp;#39; is force_plus_permanent and can not be unloaded 插件配置 -- 查看默认相关变量 mysql&amp;gt; show variables like &amp;#39;validate_password%&amp;#39;; +--------------------------------------+--------+ | Variable_name | Value | +--------------------------------------+--------+ | validate_password_check_user_name | OFF | | validate_password_dictionary_file | | | validate_password_length | 8 | | validate_password_mixed_case_count | 1 | | validate_password_number_count | 1 | | validate_password_policy | MEDIUM | | validate_password_special_char_count | 1 | +--------------------------------------+--------+ mysql&amp;gt; select password(&amp;#39;abc&amp;#39;); ERROR 1819 (HY000): Your password does not satisfy the current policy requirements mysql&amp;gt; select password(&amp;#39;abc123&amp;#39;); ERROR 1819 (HY000): Your password does not satisfy the current policy requirements mysql&amp;gt; select password(&amp;#39;abc123ABC&amp;#39;); ERROR 1819 (HY000): Your password does not satisfy the current policy requirements mysql&amp;gt; select password(&amp;#39;abc123@A&amp;#39;); 所以你更改密码必须满足：数字、小写字母、大写字母 、特殊字符、长度至少8位 参数说明:</description>
+    </item>
+    
     <item>
       <title>MySQL插件之Connection-Control</title>
       <link>https://ops.m114.org/post/MySQL-plugin-Connection-Control/</link>

@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.83.1" />
 
-  <title>MySQL插件之Connection-Control &middot; ops</title>
+  <title>MySQL插件之密码复杂性 &middot; ops</title>
 
     
 
@@ -209,7 +209,7 @@
 
 
 <div class="header">
-  <h1>MySQL插件之Connection-Control</h1>
+  <h1>MySQL插件之密码复杂性</h1>
   <h2></h2>
 </div>
 <div class="content">
@@ -218,7 +218,7 @@
 
   <div>
     <i class="fa fa-calendar fa-fw"></i>
-    <time>2021/06/08, 13:10</time>
+    <time>2021/06/08, 13:30</time>
   </div>
 
   
@@ -260,105 +260,83 @@
 </ul>
 <h2 id="等保需求">等保需求</h2>
 <ul>
-<li>登录失败策略：登录失败5次锁定10分钟，使用 Connection-Control 插件实现。</li>
+<li>用户密码复杂度：3种字符以上，至少8位长度。使用 validate_password 插件实现。</li>
 </ul>
 <h2 id="插件介绍">插件介绍</h2>
-<p>MySQL 5.7.17 以后提供了 Connection-Control 插件用来控制客户端在登录操作连续失败一定次数后的响应的延迟。该插件可有效的防止客户端暴力登录的风险(攻击)。该插件包含以下2个组件:</p>
-<ul>
-<li>CONNECTION_CONTROL：用来控制登录失败的次数及延迟响应时间</li>
-<li>CONNECTION_CONTROL_FAILED_LOGIN_ATTEMPTS：该表将登录失败的操作记录至IS库中</li>
-</ul>
+<p>MySQL 5.6/5.7 上密码复杂度策略实现, MySQL 8.0有组件实现方式，同时也支持插件方式。</p>
 <h2 id="插件安装">插件安装</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">-- 配置文件增加以下配置
 <span style="color:#f92672">[</span>mysqld<span style="color:#f92672">]</span>
-plugin-load-add									<span style="color:#f92672">=</span> connection_control.so
-connection-control                             	<span style="color:#f92672">=</span> FORCE_PLUS_PERMANENT    // 防止运行时卸载
-connection-control-failed-login-attempts       	<span style="color:#f92672">=</span> FORCE_PLUS_PERMANENT    // 防止运行时卸载 
-connection_control_min_connection_delay			<span style="color:#f92672">=</span> <span style="color:#ae81ff">600000</span>
-connection_control_max_connection_delay			<span style="color:#f92672">=</span> <span style="color:#ae81ff">2147483647</span>
-connection_control_failed_connections_threshold	<span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>
+plugin-load-add      <span style="color:#f92672">=</span> validate_password.so
+validate-password    <span style="color:#f92672">=</span> FORCE_PLUS_PERMANENT
 
 -- 插件动态安装启用
-mysql&gt; INSTALL PLUGIN CONNECTION_CONTROL SONAME <span style="color:#e6db74">&#39;connection_control.so&#39;</span>;
-mysql&gt; INSTALL PLUGIN CONNECTION_CONTROL_FAILED_LOGIN_ATTEMPTS SONAME <span style="color:#e6db74">&#39;connection_control.so&#39;</span>;
+mysql&gt; INSTALL PLUGIN validate_password soname <span style="color:#e6db74">&#39;validate_password.so&#39;</span>;
 
 -- 验证是否正常安装
-mysql&gt; SELECT PLUGIN_NAME, PLUGIN_STATUS
-FROM INFORMATION_SCHEMA.PLUGINS
-WHERE PLUGIN_NAME LIKE <span style="color:#e6db74">&#39;connection%&#39;</span>;
+mysql&gt; SELECT PLUGIN_NAME, PLUGIN_LIBRARY, PLUGIN_STATUS, LOAD_OPTION 
+FROM INFORMATION_SCHEMA.PLUGINS 
+WHERE PLUGIN_NAME <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;validate_password&#39;</span>;
 
 mysql&gt; SHOW PLUGINS;
+
+注意：参数FORCE_PLUS_PERMANENT是为了防止插件在MySQL运行的时候被卸载，如下所示，当你卸载插件时就会报错：
+mysql&gt; UNINSTALL PLUGIN validate_password;
+ERROR <span style="color:#ae81ff">1702</span> <span style="color:#f92672">(</span>HY000<span style="color:#f92672">)</span>: Plugin <span style="color:#e6db74">&#39;validate_password&#39;</span> is force_plus_permanent and can not be unloaded
 </code></pre></div><h2 id="插件配置">插件配置</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">-- 查看默认相关变量
-mysql&gt; show variables like <span style="color:#e6db74">&#39;connection_control%&#39;</span>;
-+-------------------------------------------------+------------+
-| Variable_name                                   | Value      |
-+-------------------------------------------------+------------+
-| connection_control_failed_connections_threshold | <span style="color:#ae81ff">3</span>          |
-| connection_control_max_connection_delay         | <span style="color:#ae81ff">2147483647</span> |
-| connection_control_min_connection_delay         | <span style="color:#ae81ff">1000</span>       |
-+-------------------------------------------------+------------+
+mysql&gt; show variables like <span style="color:#e6db74">&#39;validate_password%&#39;</span>;
++--------------------------------------+--------+
+| Variable_name                        | Value  |
++--------------------------------------+--------+
+| validate_password_check_user_name    | OFF    |
+| validate_password_dictionary_file    |        |
+| validate_password_length             | <span style="color:#ae81ff">8</span>      |
+| validate_password_mixed_case_count   | <span style="color:#ae81ff">1</span>      |
+| validate_password_number_count       | <span style="color:#ae81ff">1</span>      |
+| validate_password_policy             | MEDIUM |
+| validate_password_special_char_count | <span style="color:#ae81ff">1</span>      |
++--------------------------------------+--------+
 
--- 定制化配置
-mysql&gt; SET GLOBAL connection_control_failed_connections_threshold <span style="color:#f92672">=</span> 5;
-mysql&gt; SET GLOBAL connection_control_min_connection_delay <span style="color:#f92672">=</span> 600000;
+mysql&gt; <span style="color:#66d9ef">select</span> password<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;abc&#39;</span><span style="color:#f92672">)</span>;
+ERROR <span style="color:#ae81ff">1819</span> <span style="color:#f92672">(</span>HY000<span style="color:#f92672">)</span>: Your password does not satisfy the current policy requirements
+mysql&gt; <span style="color:#66d9ef">select</span> password<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;abc123&#39;</span><span style="color:#f92672">)</span>;
+ERROR <span style="color:#ae81ff">1819</span> <span style="color:#f92672">(</span>HY000<span style="color:#f92672">)</span>: Your password does not satisfy the current policy requirements
+mysql&gt; <span style="color:#66d9ef">select</span> password<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;abc123ABC&#39;</span><span style="color:#f92672">)</span>;
+ERROR <span style="color:#ae81ff">1819</span> <span style="color:#f92672">(</span>HY000<span style="color:#f92672">)</span>: Your password does not satisfy the current policy requirements
+mysql&gt; <span style="color:#66d9ef">select</span> password<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;abc123@A&#39;</span><span style="color:#f92672">)</span>;
 
--- 查看修改后的配置
-mysql&gt; show variables like <span style="color:#e6db74">&#39;connection_control%&#39;</span>;
-+-------------------------------------------------+------------+
-| Variable_name                                   | Value      |
-+-------------------------------------------------+------------+
-| connection_control_failed_connections_threshold | <span style="color:#ae81ff">5</span>          |
-| connection_control_max_connection_delay         | <span style="color:#ae81ff">2147483647</span> |
-| connection_control_min_connection_delay         | <span style="color:#ae81ff">600000</span>     |
-+-------------------------------------------------+------------+
-</code></pre></div><ul>
-<li>connection_control_failed_connections_threshold
+所以你更改密码必须满足：数字、小写字母、大写字母 、特殊字符、长度至少8位
+</code></pre></div><p>参数说明:</p>
 <ul>
-<li>失败尝试的次数，默认为3，表示当连接失败3次后启用连接控制，0表示不开启</li>
+<li>validate-password=ON/OFF/FORCE/FORCE_PLUS_PERMANENT: 决定是否使用该插件(及强制/永久强制使用)。</li>
+<li>validate_password_dictionary_file：插件用于验证密码强度的字典文件路径。</li>
+<li>validate_password_length：密码最小长度。</li>
+<li>validate_password_mixed_case_count：密码至少要包含的小写字母个数和大写字母个数。</li>
+<li>validate_password_number_count：密码至少要包含的数字个数。</li>
+<li>validate_password_policy：密码强度检查等级，0/LOW、1/MEDIUM、2/STRONG。</li>
+<li>validate_password_special_char_count：密码至少要包含的特殊字符数。</li>
 </ul>
-</li>
-<li>connection_control_max_connection_delay
-<ul>
-<li>响应延迟的最大时间，默认约25天</li>
-</ul>
-</li>
-<li>connection_control_min_connection_delay
-<ul>
-<li>响应延迟的最小时间，默认1秒(1000ms)</li>
-</ul>
-</li>
-</ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">-- 该表记录登录失败的用户及失败次数，当用户登录成功后，登录失败的记录则会被删除。
--- 重新配置connection_control_failed_connections_threshold变量，该表记录会被删除<span style="color:#f92672">(</span>重置<span style="color:#f92672">)</span>
--- 如果使用不存在的用户登录，则该表记录用户名为空，但会记录具体登录的IP
-
-mysql&gt; use information_schema;
-mysql&gt; <span style="color:#66d9ef">select</span> * from connection_control_failed_login_attempts;
-
--- 连接控制的使用次数<span style="color:#f92672">(</span>可用户判断是否存在暴力登录尝试<span style="color:#f92672">)</span>
--- 重新配置connection_control_failed_connections_threshold变量，该表记录会被删除<span style="color:#f92672">(</span>重置<span style="color:#f92672">)</span>
-mysql&gt; show global status like <span style="color:#e6db74">&#39;Connection_control_delay_generated&#39;</span>;
-+------------------------------------+-------+
-| Variable_name                      | Value |
-+------------------------------------+-------+
-| Connection_control_delay_generated | <span style="color:#ae81ff">5</span>     |
-+------------------------------------+-------+
-</code></pre></div>
+<p>关于validate_password_policy-密码强度检查等级：</p>
+<pre><code>Policy	        Tests Performed
+0 or LOW   	Length
+1 or MEDIUM	Length; numeric, lowercase/uppercase, and special characters
+2 or STRONG	Length; numeric, lowercase/uppercase, and special characters; dictionary file
+</code></pre>
   
   <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
 <ul class="share-buttons">
-	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2fMySQL-plugin-Connection-Control%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2fMySQL-plugin-validate-password%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2fMySQL-plugin-Connection-Control%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2fMySQL-plugin-validate-password%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2fMySQL-plugin-Connection-Control%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2fMySQL-plugin-validate-password%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2fMySQL-plugin-Connection-Control%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2fMySQL-plugin-validate-password%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2fMySQL-plugin-Connection-Control%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2fMySQL-plugin-validate-password%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2fMySQL-plugin-Connection-Control%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2fMySQL-plugin-validate-password%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
 	</li>
 </ul>
 
@@ -390,13 +368,13 @@ mysql&gt; show global status like <span style="color:#e6db74">&#39;Connection_co
 <div class="prev-next-post pure-g">
   <div class="pure-u-1-24" style="text-align: left;">
     
-    <a href="https://ops.m114.org/post/python-3.9.5-build-error/"><i class="fa fa-chevron-left"></i></a>
+    <a href="https://ops.m114.org/post/MySQL-plugin-Connection-Control/"><i class="fa fa-chevron-left"></i></a>
     
   </div>
   <div class="pure-u-10-24">
     
     <nav class="prev">
-      <a href="https://ops.m114.org/post/python-3.9.5-build-error/">python 3.9.5 编译报错 Could not import runpy module 问题</a>
+      <a href="https://ops.m114.org/post/MySQL-plugin-Connection-Control/">MySQL插件之Connection-Control</a>
     </nav>
     
   </div>
@@ -405,14 +383,8 @@ mysql&gt; show global status like <span style="color:#e6db74">&#39;Connection_co
   </div>
   <div class="pure-u-10-24">
     
-    <nav class="next">
-      <a href="https://ops.m114.org/post/MySQL-plugin-validate-password/">MySQL插件之密码复杂性</a>
-    </nav>
-    
   </div>
   <div class="pure-u-1-24" style="text-align: right;">
-    
-    <a href="https://ops.m114.org/post/MySQL-plugin-validate-password/"><i class="fa fa-chevron-right"></i></a>
     
   </div>
 </div>
