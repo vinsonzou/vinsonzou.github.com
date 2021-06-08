@@ -7,7 +7,25 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2021. All rights reserved.</copyright>
-    <lastBuildDate>Sat, 05 Jun 2021 13:15:08 +0800</lastBuildDate><atom:link href="https://ops.m114.org/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 08 Jun 2021 13:10:08 +0800</lastBuildDate><atom:link href="https://ops.m114.org/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>mysql</title>
+      <link>https://ops.m114.org/tags/mysql/</link>
+      <pubDate>Tue, 08 Jun 2021 13:10:08 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/tags/mysql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>等保</title>
+      <link>https://ops.m114.org/tags/%E7%AD%89%E4%BF%9D/</link>
+      <pubDate>Tue, 08 Jun 2021 13:10:08 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/tags/%E7%AD%89%E4%BF%9D/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Python</title>
       <link>https://ops.m114.org/tags/Python/</link>
@@ -122,15 +140,6 @@
       <pubDate>Thu, 18 Jun 2020 13:41:15 +0800</pubDate>
       
       <guid>https://ops.m114.org/tags/centos8/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>mysql</title>
-      <link>https://ops.m114.org/tags/mysql/</link>
-      <pubDate>Thu, 18 Jun 2020 13:41:15 +0800</pubDate>
-      
-      <guid>https://ops.m114.org/tags/mysql/</guid>
       <description></description>
     </item>
     
