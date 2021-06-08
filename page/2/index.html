@@ -225,6 +225,57 @@
   
     <article>
   <header>
+    <h2><a href="https://ops.m114.org/post/openresty-case/">本人OpenResty实践集合</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2021/06/01, 10:08</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Nginx">Nginx</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+   优化  支持Brotli Upstream主动健康检查 动态证书 OCSP缓存 ssl分布式session mTLS支持   命令行执行  Nginx支持WebP gogs/gitea webhook   灰度发布  基于IP（动态IP） 自定义变量   微信机器人 安全相关  授权下载 简易CC防护 SSO认证 安全token   API服务  IP查询服务 MQ解耦，对接阿里云RocketMQ   缓存服务  主动缓存 SDK缓存   特权进程实践  ipset操作   代理相关  http代理 SNI代理    
+  </p>
+
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="https://ops.m114.org/post/golang-aes-crypt/">golang encrypt/decrypt by MacOS keychain</a></h2>
 
     <div class="post-meta">
@@ -695,56 +746,6 @@ $ curl -H &#39;Host: ops.m114.org&#39; https://127.0.0.1/ curl: (51) Unable to c
 小编经常使用的CentOS6的自带curl就不支持此参数，幸运的是CentOS7已经支持。
   </p>
 
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/go-build-small-exec/">go如何编译出更小的执行文件?</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2017/08/23, 23:38</time>
-  </div>
-
-  
-
-  
-  
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/golang">golang</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  前言 本地默认编译出的文件总与官方提供的二进制文件大很多，Google之后得知通过编译参数控制还能编译出更小的可执行文件。
-加-ldflags参数 在程序编译的时候可以加上-ldflags &quot;-s -w&quot; 参数来优化编译程序, 其实通过去除部分连接和调试等信息来使得编译之后的执行程序更小,具体参数如下:
- -a 强制编译所有依赖包 -s 去掉符号表信息, panic时候的stack trace就没有任何文件名/行号信息了 -w 去掉DWARF调试信息，得到的程序就不能用gdb调试了  测试代码如下
-package main import &#34;fmt&#34; func main() { fmt.Println(&#34;Hello, 世界&#34;) } 编译方式及文件大小对比结果如下
-   编译参数 大小     go build(默认) 1.6M   go build -ldflags -s 1.6M   go build -ldflags &ldquo;-s -w&rdquo; 1.1M   go build -ldflags -w 1.1M     测试环境: go 1.
-  </p>
-
-  
-  <footer>
-    <a href="https://ops.m114.org/post/go-build-small-exec/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
   
 </article>
 

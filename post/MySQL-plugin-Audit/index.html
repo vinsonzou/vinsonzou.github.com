@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.83.1" />
+
+  <title>MySQL插件之审计 &middot; ops</title>
+
+    
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://ops.m114.org/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://ops.m114.org/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="https://ops.m114.org/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
+
+  
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
+  
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://ops.m114.org/img/favicon.ico" type="image/x-icon" />
+
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="https://ops.m114.org/">Ops</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/about/"><i class='fa fa-user fa-fw'></i>About</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/topics/"><i class='fa fa-folder fa-fw'></i>Topics</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/tags/"><i class='fa fa-tags fa-fw'></i>Tags</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://ops.m114.org/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://github.com/vinsonzou" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2014-2021. All rights reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>MySQL插件之审计</h1>
+  <h2></h2>
+</div>
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2021/06/08, 14:10</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/MySQL">MySQL</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/MySQL">MySQL</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/%E7%AD%89%E4%BF%9D">等保</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  <h2 id="目录">目录</h2>
+<ul>
+<li><a href="#%E7%AD%89%E4%BF%9D%E9%9C%80%E6%B1%82">等保需求</a></li>
+<li><a href="#%E8%83%8C%E6%99%AF">背景</a></li>
+<li><a href="#%E6%8F%92%E4%BB%B6%E5%AE%89%E8%A3%85">插件安装</a></li>
+<li><a href="#%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE">插件配置</a></li>
+</ul>
+<h2 id="等保需求">等保需求</h2>
+<ul>
+<li>审计功能：记录时间、来源IP、用户、行为、数据库、SQL。</li>
+</ul>
+<h2 id="背景">背景</h2>
+<p>Oracle 的 MySQL 社区版不带审计插件（Audit Plugin），要想使用审计功能，你可以用企业版，不过这需要银子。业界还有一些 GPL 协议的审计插件，这里我们选择 MariaDB 的审计插件。</p>
+<ul>
+<li>系统版本: CentOS 7.4</li>
+<li>MySQL版本: 5.7.23 社区版</li>
+<li>MariaDB审计插件版本: 1.4.7</li>
+</ul>
+<p>备注:</p>
+<ul>
+<li>MariaDB审计插件一直在更新，不同版本的审计插件功能也不同，每个版本的功能见：https://mariadb.com/kb/en/mariadb-audit-plugin-options-and-system-variables/#server_audit_events</li>
+<li>我们在给MySQL数据库安装审计插件时，需要从MariaDB里面拷贝审计插件。MariaDB版本与审计插件版本关系如下：https://mariadb.com/kb/en/mariadb-audit-plugin-versions/</li>
+</ul>
+<h2 id="插件安装">插件安装</h2>
+<p>MariaDB 的 10.1 版本对应与 Oracle 的 MySQL 5.7，我们到它的官网上下载 Linux 的通用版本。</p>
+<p>找到我们需要的审计插件：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">./mariadb-10.1.48-linux-x86_64/lib/plugin/server_audit.so
+</code></pre></div><p>把这个 so 结尾的文件拷贝到 MySQL 的插件目录，例如：/usr/local/mysql/lib/plugin/</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">-- 配置文件增加以下配置
+<span style="color:#f92672">[</span>mysqld<span style="color:#f92672">]</span>
+plugin_load_add                <span style="color:#f92672">=</span> server_audit
+server_audit                   <span style="color:#f92672">=</span> FORCE_PLUS_PERMANENT  <span style="color:#75715e"># 防止审计插件被卸载</span>
+server_audit_logging           <span style="color:#f92672">=</span> on
+server_audit_events            <span style="color:#f92672">=</span> CONNECT,TABLE,QUERY_DDL,QUERY_DCL,QUERY_DML_NO_SELECT
+server_audit_file_rotate_size  <span style="color:#f92672">=</span> <span style="color:#ae81ff">268435456</span>
+server_audit_file_rotations    <span style="color:#f92672">=</span> <span style="color:#ae81ff">64</span>
+
+-- 插件动态安装启用
+mysql&gt; install plugin server_audit SONAME <span style="color:#e6db74">&#39;server_audit.so&#39;</span>;
+
+-- 验证是否正常安装
+mysql&gt; SELECT PLUGIN_NAME, PLUGIN_LIBRARY, PLUGIN_STATUS, LOAD_OPTION 
+FROM INFORMATION_SCHEMA.PLUGINS 
+WHERE PLUGIN_LIBRARY <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;server_audit.so&#39;</span>;
+
+mysql&gt; SHOW PLUGINS;
+</code></pre></div><h2 id="插件配置">插件配置</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">-- 查看默认相关变量
+mysql&gt; show variables like <span style="color:#e6db74">&#39;%server_audit%&#39;</span>;
++-------------------------------+-----------------------+
+| Variable_name                 | Value                 |
++-------------------------------+-----------------------+
+| server_audit_events           |                       |
+| server_audit_excl_users       |                       |
+| server_audit_file_path        | server_audit.log      |
+| server_audit_file_rotate_now  | OFF                   |
+| server_audit_file_rotate_size | <span style="color:#ae81ff">1000000</span>               |
+| server_audit_file_rotations   | <span style="color:#ae81ff">9</span>                     |
+| server_audit_incl_users       |                       |
+| server_audit_loc_info         |                       |
+| server_audit_logging          | OFF                   |
+| server_audit_mode             | <span style="color:#ae81ff">1</span>                     |
+| server_audit_output_type      | file                  |
+| server_audit_query_log_limit  | <span style="color:#ae81ff">1024</span>                  |
+| server_audit_syslog_facility  | LOG_USER              |
+| server_audit_syslog_ident     | mysql-server_auditing |
+| server_audit_syslog_info      |                       |
+| server_audit_syslog_priority  | LOG_INFO              |
++-------------------------------+-----------------------+
+
+-- 定制化配置
+mysql&gt; set global server_audit_events<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;CONNECT,TABLE,QUERY_DDL,QUERY_DCL,QUERY_DML_NO_SELECT&#39;</span>;
+mysql&gt; set global server_audit_file_rotations<span style="color:#f92672">=</span>64;
+mysql&gt; set global server_audit_file_rotate_size<span style="color:#f92672">=</span>268435456;
+mysql&gt; set global server_audit_logging<span style="color:#f92672">=</span>ON;
+
+-- 查看修改后的配置
+mysql&gt; show variables like <span style="color:#e6db74">&#39;%server_audit%&#39;</span>;
++-------------------------------+-------------------------------------------------------+
+| Variable_name                 | Value                                                 |
++-------------------------------+-------------------------------------------------------+
+| server_audit_events           | CONNECT,TABLE,QUERY_DDL,QUERY_DCL,QUERY_DML_NO_SELECT |
+| server_audit_excl_users       |                                                       |
+| server_audit_file_path        | server_audit.log                                      |
+| server_audit_file_rotate_now  | OFF                                                   |
+| server_audit_file_rotate_size | <span style="color:#ae81ff">67108864</span>                                              |
+| server_audit_file_rotations   | <span style="color:#ae81ff">128</span>                                                   |
+| server_audit_incl_users       |                                                       |
+| server_audit_loc_info         |                                                       |
+| server_audit_logging          | ON                                                    |
+| server_audit_mode             | <span style="color:#ae81ff">1</span>                                                     |
+| server_audit_output_type      | file                                                  |
+| server_audit_query_log_limit  | <span style="color:#ae81ff">1024</span>                                                  |
+| server_audit_syslog_facility  | LOG_USER                                              |
+| server_audit_syslog_ident     | mysql-server_auditing                                 |
+| server_audit_syslog_info      |                                                       |
+| server_audit_syslog_priority  | LOG_INFO                                              |
++-------------------------------+-------------------------------------------------------+
+</code></pre></div><p>审计参数说明:</p>
+<ul>
+<li>server_audit_logging 这参数默认为 OFF，把这个参数设置为 ON 才能启动审计功能。</li>
+<li>server_audit_events 决定记录的事件，这里我们记录 CONNECT,TABLE,QUERY_DDL,QUERY_DCL,QUERY_DML_NO_SELECT，默认为空代表审计所有事件。</li>
+<li>server_audit_file_rotate_size 日志文件大小，单位为byte。</li>
+<li>server_audit_file_rotations 日志文件的数量，到这个阀值时会覆盖第一个审计记录文件，默认为 9。</li>
+<li>server_audit_output_type 设置为 file 时，记录成文件，默认目录是 MySQL 的 datadir 目录，默认文件名是 server_audit.log。当设置为 syslog 时，审计记录会通过标准 &lt;syslog.h&gt; API 发送给本地的 syslogd daemon。</li>
+</ul>
+<p>审计日志格式如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>timestamp<span style="color:#f92672">]</span>,<span style="color:#f92672">[</span>serverhost<span style="color:#f92672">]</span>,<span style="color:#f92672">[</span>username<span style="color:#f92672">]</span>,<span style="color:#f92672">[</span>host<span style="color:#f92672">]</span>,<span style="color:#f92672">[</span>connectionid<span style="color:#f92672">]</span>,<span style="color:#f92672">[</span>queryid<span style="color:#f92672">]</span>,<span style="color:#f92672">[</span>operation<span style="color:#f92672">]</span>,<span style="color:#f92672">[</span>database<span style="color:#f92672">]</span>,<span style="color:#f92672">[</span>object<span style="color:#f92672">]</span>,<span style="color:#f92672">[</span>retcode<span style="color:#f92672">]</span>
+</code></pre></div><p>审计日志示例如下:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#ae81ff">20210608</span> 09:47:13,localhost,dev,127.0.0.1,429930,0,CONNECT,,,0
+<span style="color:#ae81ff">20210608</span> 09:47:13,localhost,dev,127.0.0.1,429930,0,DISCONNECT,,,0
+</code></pre></div>
+  
+  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
+<ul class="share-buttons">
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2fMySQL-plugin-Audit%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2fMySQL-plugin-Audit%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2fMySQL-plugin-Audit%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2fMySQL-plugin-Audit%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2fMySQL-plugin-Audit%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	</li>&nbsp;&nbsp;&nbsp;
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2fMySQL-plugin-Audit%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	</li>
+</ul>
+
+
+<style>
+	ul.share-buttons{
+	  list-style: none;
+	  padding: 0;
+	}
+
+	ul.share-buttons li{
+	  display: inline;
+	}
+
+	ul.share-buttons .sr-only{
+	  position: absolute;
+	  clip: rect(1px 1px 1px 1px);
+	  clip: rect(1px, 1px, 1px, 1px);
+	  padding: 0;
+	  border: 0;
+	  height: 1px;
+	  width: 1px;
+	  overflow: hidden;
+	}
+</style>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://ops.m114.org/post/MySQL-plugin-validate-password/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://ops.m114.org/post/MySQL-plugin-validate-password/">MySQL插件之密码复杂性</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+  </div>
+</div>
+
+
+  
+  
+  
+  
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost")
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = 'vinsoncou';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="https://ops.m114.org/js/ui.js"></script>
+<script src="https://ops.m114.org/js/menus.js"></script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+

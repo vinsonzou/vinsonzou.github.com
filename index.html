@@ -225,6 +225,66 @@
   
     <article>
   <header>
+    <h2><a href="https://ops.m114.org/post/MySQL-plugin-Audit/">MySQL插件之审计</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2021/06/08, 14:10</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/MySQL">MySQL</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/MySQL">MySQL</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/%E7%AD%89%E4%BF%9D">等保</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  目录  等保需求 背景 插件安装 插件配置  等保需求  审计功能：记录时间、来源IP、用户、行为、数据库、SQL。  背景 Oracle 的 MySQL 社区版不带审计插件（Audit Plugin），要想使用审计功能，你可以用企业版，不过这需要银子。业界还有一些 GPL 协议的审计插件，这里我们选择 MariaDB 的审计插件。
+ 系统版本: CentOS 7.4 MySQL版本: 5.7.23 社区版 MariaDB审计插件版本: 1.4.7  备注:
+ MariaDB审计插件一直在更新，不同版本的审计插件功能也不同，每个版本的功能见：https://mariadb.com/kb/en/mariadb-audit-plugin-options-and-system-variables/#server_audit_events 我们在给MySQL数据库安装审计插件时，需要从MariaDB里面拷贝审计插件。MariaDB版本与审计插件版本关系如下：https://mariadb.com/kb/en/mariadb-audit-plugin-versions/  插件安装 MariaDB 的 10.1 版本对应与 Oracle 的 MySQL 5.7，我们到它的官网上下载 Linux 的通用版本。
+找到我们需要的审计插件：
+./mariadb-10.1.48-linux-x86_64/lib/plugin/server_audit.so 把这个 so 结尾的文件拷贝到 MySQL 的插件目录，例如：/usr/local/mysql/lib/plugin/
+-- 配置文件增加以下配置 [mysqld] plugin_load_add = server_audit server_audit = FORCE_PLUS_PERMANENT # 防止审计插件被卸载 server_audit_logging = on server_audit_events = CONNECT,TABLE,QUERY_DDL,QUERY_DCL,QUERY_DML_NO_SELECT server_audit_file_rotate_size = 268435456 server_audit_file_rotations = 64 -- 插件动态安装启用 mysql&gt; install plugin server_audit SONAME &#39;server_audit.
+  </p>
+
+  
+  <footer>
+    <a href="https://ops.m114.org/post/MySQL-plugin-Audit/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="https://ops.m114.org/post/MySQL-plugin-validate-password/">MySQL插件之密码复杂性</a></h2>
 
     <div class="post-meta">
@@ -742,57 +802,6 @@ location ~ ^/(images|static)/ { rewrite_by_lua_file &#34;/data/nginx/lua/webp.
   <footer>
     <a href="https://ops.m114.org/post/nginx-support-webp/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
   </footer>
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/openresty-case/">本人OpenResty实践集合</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2021/06/01, 10:08</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Nginx">Nginx</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-   优化  支持Brotli Upstream主动健康检查 动态证书 OCSP缓存 ssl分布式session mTLS支持   命令行执行  Nginx支持WebP gogs/gitea webhook   灰度发布  基于IP（动态IP） 自定义变量   微信机器人 安全相关  授权下载 简易CC防护 SSO认证 安全token   API服务  IP查询服务 MQ解耦，对接阿里云RocketMQ   缓存服务  主动缓存 SDK缓存   特权进程实践  ipset操作   代理相关  http代理 SNI代理    
-  </p>
-
   
 </article>
 

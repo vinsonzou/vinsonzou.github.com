@@ -7,7 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2021. All rights reserved.</copyright>
-    <lastBuildDate>Tue, 08 Jun 2021 13:30:08 +0800</lastBuildDate><atom:link href="https://ops.m114.org/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 08 Jun 2021 14:10:08 +0800</lastBuildDate><atom:link href="https://ops.m114.org/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MySQL插件之审计</title>
+      <link>https://ops.m114.org/post/MySQL-plugin-Audit/</link>
+      <pubDate>Tue, 08 Jun 2021 14:10:08 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/MySQL-plugin-Audit/</guid>
+      <description>目录  等保需求 背景 插件安装 插件配置  等保需求  审计功能：记录时间、来源IP、用户、行为、数据库、SQL。  背景 Oracle 的 MySQL 社区版不带审计插件（Audit Plugin），要想使用审计功能，你可以用企业版，不过这需要银子。业界还有一些 GPL 协议的审计插件，这里我们选择 MariaDB 的审计插件。
+ 系统版本: CentOS 7.4 MySQL版本: 5.7.23 社区版 MariaDB审计插件版本: 1.4.7  备注:
+ MariaDB审计插件一直在更新，不同版本的审计插件功能也不同，每个版本的功能见：https://mariadb.com/kb/en/mariadb-audit-plugin-options-and-system-variables/#server_audit_events 我们在给MySQL数据库安装审计插件时，需要从MariaDB里面拷贝审计插件。MariaDB版本与审计插件版本关系如下：https://mariadb.com/kb/en/mariadb-audit-plugin-versions/  插件安装 MariaDB 的 10.1 版本对应与 Oracle 的 MySQL 5.7，我们到它的官网上下载 Linux 的通用版本。
+找到我们需要的审计插件：
+./mariadb-10.1.48-linux-x86_64/lib/plugin/server_audit.so 把这个 so 结尾的文件拷贝到 MySQL 的插件目录，例如：/usr/local/mysql/lib/plugin/
+-- 配置文件增加以下配置 [mysqld] plugin_load_add = server_audit server_audit = FORCE_PLUS_PERMANENT # 防止审计插件被卸载 server_audit_logging = on server_audit_events = CONNECT,TABLE,QUERY_DDL,QUERY_DCL,QUERY_DML_NO_SELECT server_audit_file_rotate_size = 268435456 server_audit_file_rotations = 64 -- 插件动态安装启用 mysql&amp;gt; install plugin server_audit SONAME &amp;#39;server_audit.</description>
+    </item>
+    
     <item>
       <title>MySQL插件之密码复杂性</title>
       <link>https://ops.m114.org/post/MySQL-plugin-validate-password/</link>
