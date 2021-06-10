@@ -225,6 +225,67 @@
   
     <article>
   <header>
+    <h2><a href="https://ops.m114.org/post/nginx-support-webp/">Nginx支持WebP</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2021/06/02, 10:08</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/WebP">WebP</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  WebP格式，Google开发的一种旨在加快图片加载速度的图片格式。图片压缩体积大约只有JPEG的2/3，并能节省大量的服务器带宽资源和数据空间。国外的有 Google（自家的东西肯定要用啦，Chrome Store 甚至已全站使用 WebP）、Facebook 和 ebay，国内的有淘宝、腾讯和美团等。
+客户端支持情况:
+ Google Chrome 23 起开始支持 WebP（最初发布于2012年11月） Google 的安卓浏览器从 4.2 版本起开始官方支持 WebP（最初发布于2012年11月），4 版本起开始部分支持 Google Chrome安卓版从 Chrome 50 起开始支持 Webp Opera 12.1 开始支持 WebP（最初发布于2012年11月） Edge 18 开始支持 (发布于2018年10月) Firefox 65 支持 (发布于2019年1月)  nginx无缝切换至WebP思路就是：用户访问一张图片(主要为png/jpg格式)，nginx收到请求判断浏览器是否支持WebP，如果支持则返回WebP，不支持则返回原图，达到减少带宽资源的目的。
+环境  CentOS 7 libwebp-1.2.0 Nginx  ngx_lua lua-resty-shell    安装部署 cwebp依赖lib
+yum -y install libGL libX11 libXi 配置 mime.types新增webp格式支持
+image/webp webp; 图片对应nginx location配置
+location ~ ^/(images|static)/ { rewrite_by_lua_file &#34;/data/nginx/lua/webp.
+  </p>
+
+  
+  <footer>
+    <a href="https://ops.m114.org/post/nginx-support-webp/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="https://ops.m114.org/post/openresty-case/">本人OpenResty实践集合</a></h2>
 
     <div class="post-meta">
@@ -701,49 +762,6 @@ import MySQLdb conn= MySQLdb.connect(host=&#39;127.0.0.1&#39;,user=&#39;root&#39
 import MySQLdb from DBUtils.PooledDB import PooledDB pool = PooledDB(MySQLdb,5,host=&#39;127.0.0.1&#39;,user=&#39;root&#39;,passwd=&#39;password&#39;,db=&#39;DB_test&#39;,port=3306) #5为连接池里的最少连接数 conn = pool.connection() #以后每次需要数据库连接就是用connection()函数获取连接就好了 cur=conn.cursor() SQL=&#34;select * from table_test&#34; cur.execute(SQL) r=cur.fetchall() cur.close() conn.close() PooledDB的参数
  mincached: 最少的空闲连接数，如果空闲连接数小于这个数，pool会创建一个新的连接 maxcached: 最大的空闲连接数，如果空闲连接数大于这个数，pool会关闭空闲连接 maxconnections: 最大的连接数， blocking: 当连接数达到最大的连接数时，在请求连接的时候，如果这个值是True，请求连接的程序会一直等待，直到当前连接数小于最大连接数，如果这个值是False，会报错， maxshared: 当连接数达到这个数，新请求的连接会分享已经分配出去的连接  连接池对性能的提升表现在
  在程序创建连接的时候，可以从一个空闲的连接中获取，不需要重新初始化连接，提升获取连接的速度 关闭连接的时候，把连接放回连接池，而不是真正的关闭，所以可以减少频繁地打开和关闭连接 避免mysql连接数耗尽  DBUtils下载地址：https://pypi.python.org/pypi/DBUtils/
-  </p>
-
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/request-https-server-in-custom-ip-with-curl/">使用curl请求https时指定IP</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2018/06/06, 10:00</time>
-  </div>
-
-  
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/curl">curl</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  一般使用curl请求自定义IP地址并且指定HOST的话可以这样。
-curl -H &#39;Host: ops.m114.org&#39; http://127.0.0.1 但是如果你需要请求的地址是HTTPS就不行了
-$ curl -H &#39;Host: ops.m114.org&#39; https://127.0.0.1/ curl: (51) Unable to communicate securely with peer: requested domain name does not match the server&#39;s certificate. 因为IP绝大多数情况下无法通过域名证书验证，还好curl中有--resolv参数可以让我们方便的指定域名的解析
-# --resolv参数形式 --resolv host:port:address # 示例 curl --resolv ops.m114.org:443:127.0.0.1 https://ops.m114.org Ps:
-小编经常使用的CentOS6的自带curl就不支持此参数，幸运的是CentOS7已经支持。
   </p>
 
   

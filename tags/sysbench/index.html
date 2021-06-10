@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.83.1" />
 
-  <title>Tags &middot; ops</title>
+  <title>sysbench &middot; ops</title>
 
     
 
@@ -44,7 +44,7 @@
  
   
   <link rel="alternate" type="application/rss+xml" title="ops"
-    href='https://ops.m114.org/tags/index.xml' />
+    href='https://ops.m114.org/tags/sysbench/index.xml' />
   
 
   
@@ -117,7 +117,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href='https://ops.m114.org/tags/index.xml'><i
+      <a class="pure-menu-link" href='https://ops.m114.org/tags/sysbench/index.xml'><i
           class="fas fa-rss fa-fw"></i>RSS</a>
     </li>
     
@@ -217,198 +217,67 @@
 
 
 <div class="header">
-  <h1>Tags</h1>
+  <h1>sysbench</h1>
 </div>
+
 <div class="content">
-  <ul>
+  
+    <article>
+  <header>
+    <h2><a href="https://ops.m114.org/post/sysbench-trial/">sysbench试用</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2021/06/08, 10:10</time>
+  </div>
+
+  
+
   
   
-    <li>
-      <a href="MySQL">MySQL</a>
-      <span>&#40;8&#41;</span>
-    </li>
   
-    <li>
-      <a href="OpenResty">OpenResty</a>
-      <span>&#40;7&#41;</span>
-    </li>
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/MySQL">MySQL</a>
+    
+  </div>
   
-    <li>
-      <a href="golang">golang</a>
-      <span>&#40;6&#41;</span>
-    </li>
   
-    <li>
-      <a href="Nginx">Nginx</a>
-      <span>&#40;5&#41;</span>
-    </li>
+
   
-    <li>
-      <a href="Python">Python</a>
-      <span>&#40;4&#41;</span>
-    </li>
   
-    <li>
-      <a href="%E7%AD%89%E4%BF%9D">等保</a>
-      <span>&#40;3&#41;</span>
-    </li>
   
-    <li>
-      <a href="ceph">ceph</a>
-      <span>&#40;2&#41;</span>
-    </li>
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/MySQL">MySQL</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/sysbench">sysbench</a>
+    
+  </div>
   
-    <li>
-      <a href="%E8%BD%AC%E8%BD%BD">转载</a>
-      <span>&#40;2&#41;</span>
-    </li>
   
-    <li>
-      <a href="centos8">centos8</a>
-      <span>&#40;1&#41;</span>
-    </li>
+
+</div>
+
+  </header>
+
+  <p>
+  目录  背景 环境 安装 测试  背景 主要测试开启审计插件OLTP性能损失多大，安装和测试方法如下
+环境  CentOS 7.4 MySQL: 5.7.23  innodb_buffer_pool_size: 8G innodb_buffer_pool_instances: 8【默认】 innodb_buffer_pool_chunk_size: 134217728【即128M，默认值】    安装 yum install gcc gcc-c++ autoconf automake make libtool bzr mysql-devel mysql wget https://github.com/akopytov/sysbench/archive/refs/tags/1.0.20.tar.gz tar zxf 1.0.20.tar.gz cd sysbench-1.0.20 ./autogen.sh ./configure --prefix=/usr/local/sysbench make make install 测试  创建测试库  mysql&gt; create database sbtest;  测试只读性能，整个过程将持续10分钟  #准备数据 sysbench --db-driver=mysql --mysql-host=XXX --mysql-port=XXX --mysql-user=XXX --mysql-password=XXX --mysql-db=sbtest --table_size=25000 --tables=250 --events=0 --time=600 oltp_read_only prepare #运行workload sysbench --db-driver=mysql --mysql-host=XXX --mysql-port=XXX --mysql-user=XXX --mysql-password=XXX --mysql-db=sbtest --table_size=25000 --tables=250 --events=0 --time=600 --threads=XXX --percentile=95 --range_selects=0 --skip-trx=1 --report-interval=1 oltp_read_only run #清理 sysbench --db-driver=mysql --mysql-host=XXX --mysql-port=XXX --mysql-user=XXX --mysql-password=XXX --mysql-db=sbtest --table_size=25000 --tables=250 --events=0 --time=600 --threads=XXX --percentile=95 --range_selects=0 oltp_read_only cleanup  测试写入性能，整个过程将持续10分钟  #准备数据 sysbench --db-driver=mysql --mysql-host=XXX --mysql-port=XXX --mysql-user=XXX --mysql-password=XXX --mysql-db=sbtest --table_size=25000 --tables=250 --events=0 --time=600 oltp_write_only prepare #运行workload sysbench --db-driver=mysql --mysql-host=XXX --mysql-port=XXX --mysql-user=XXX --mysql-password=XXX --mysql-db=sbtest --mysql-ignore-errors=1062 --table_size=25000 --tables=250 --events=0 --time=600 --threads=XXX --percentile=95 --report-interval=1 oltp_write_only run #清理 sysbench --db-driver=mysql --mysql-host=XXX --mysql-port=XXX --mysql-user=XXX --mysql-password=XXX --mysql-db=sbtest --table_size=25000 --tables=250 --events=0 --time=600 --threads=XXX --percentile=95 oltp_write_only cleanup  测试混合读写性能，整个过程将持续10分钟  #准备数据 sysbench --db-driver=mysql --mysql-host=XXX --mysql-port=XXX --mysql-user=XXX --mysql-password=XXX --mysql-db=sbtest --table_size=25000 --tables=250 --events=0 --time=600 oltp_read_write prepare #运行workload sysbench --db-driver=mysql --mysql-host=XXX --mysql-port=XXX --mysql-user=XXX --mysql-password=XXX --mysql-db=sbtest --mysql-ignore-errors=1062 --table_size=25000 --tables=250 --events=0 --time=600 --threads=XXX --percentile=95 --report-interval=1 oltp_read_write run #清理 sysbench --db-driver=mysql --mysql-host=XXX --mysql-port=XXX --mysql-user=XXX --mysql-password=XXX --mysql-db=sbtest --table_size=25000 --tables=250 --events=0 --time=600 --threads=XXX --percentile=95 oltp_read_write cleanup FAQ Q: 128线程只读测试时，报错如下:
+  </p>
+
   
-    <li>
-      <a href="cloudflare">cloudflare</a>
-      <span>&#40;1&#41;</span>
-    </li>
+  <footer>
+    <a href="https://ops.m114.org/post/sysbench-trial/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
   
-    <li>
-      <a href="curl">curl</a>
-      <span>&#40;1&#41;</span>
-    </li>
+</article>
+
   
-    <li>
-      <a href="Docker">Docker</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="git">git</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="Gitea">Gitea</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="go-mmproxy">go-mmproxy</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="Gogs">Gogs</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="hugo">hugo</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="idrac">idrac</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="igb">igb</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="java">java</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="kvm">kvm</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="libvirt">libvirt</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="openssl">openssl</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="proxy_protocol">proxy_protocol</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="RocketMQ">RocketMQ</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="SNI">SNI</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="subjectAltName">subjectAltName</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="sysbench">sysbench</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="systemd">systemd</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="Telegram">Telegram</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="tomcat">tomcat</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="TsunamiUDP">TsunamiUDP</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="vsftpd">vsftpd</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="webauthn">webauthn</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="WebP">WebP</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="Zabbix">Zabbix</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="zabbix">zabbix</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-  </ul>
 </div>
 
 </div>

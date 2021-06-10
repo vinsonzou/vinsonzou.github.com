@@ -396,6 +396,62 @@
   
     <article>
   <header>
+    <h2><a href="https://ops.m114.org/post/sysbench-trial/">sysbench试用</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2021/06/08, 10:10</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/MySQL">MySQL</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/MySQL">MySQL</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/sysbench">sysbench</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  目录  背景 环境 安装 测试  背景 主要测试开启审计插件OLTP性能损失多大，安装和测试方法如下
+环境  CentOS 7.4 MySQL: 5.7.23  innodb_buffer_pool_size: 8G innodb_buffer_pool_instances: 8【默认】 innodb_buffer_pool_chunk_size: 134217728【即128M，默认值】    安装 yum install gcc gcc-c++ autoconf automake make libtool bzr mysql-devel mysql wget https://github.com/akopytov/sysbench/archive/refs/tags/1.0.20.tar.gz tar zxf 1.0.20.tar.gz cd sysbench-1.0.20 ./autogen.sh ./configure --prefix=/usr/local/sysbench make make install 测试  创建测试库  mysql&gt; create database sbtest;  测试只读性能，整个过程将持续10分钟  #准备数据 sysbench --db-driver=mysql --mysql-host=XXX --mysql-port=XXX --mysql-user=XXX --mysql-password=XXX --mysql-db=sbtest --table_size=25000 --tables=250 --events=0 --time=600 oltp_read_only prepare #运行workload sysbench --db-driver=mysql --mysql-host=XXX --mysql-port=XXX --mysql-user=XXX --mysql-password=XXX --mysql-db=sbtest --table_size=25000 --tables=250 --events=0 --time=600 --threads=XXX --percentile=95 --range_selects=0 --skip-trx=1 --report-interval=1 oltp_read_only run #清理 sysbench --db-driver=mysql --mysql-host=XXX --mysql-port=XXX --mysql-user=XXX --mysql-password=XXX --mysql-db=sbtest --table_size=25000 --tables=250 --events=0 --time=600 --threads=XXX --percentile=95 --range_selects=0 oltp_read_only cleanup  测试写入性能，整个过程将持续10分钟  #准备数据 sysbench --db-driver=mysql --mysql-host=XXX --mysql-port=XXX --mysql-user=XXX --mysql-password=XXX --mysql-db=sbtest --table_size=25000 --tables=250 --events=0 --time=600 oltp_write_only prepare #运行workload sysbench --db-driver=mysql --mysql-host=XXX --mysql-port=XXX --mysql-user=XXX --mysql-password=XXX --mysql-db=sbtest --mysql-ignore-errors=1062 --table_size=25000 --tables=250 --events=0 --time=600 --threads=XXX --percentile=95 --report-interval=1 oltp_write_only run #清理 sysbench --db-driver=mysql --mysql-host=XXX --mysql-port=XXX --mysql-user=XXX --mysql-password=XXX --mysql-db=sbtest --table_size=25000 --tables=250 --events=0 --time=600 --threads=XXX --percentile=95 oltp_write_only cleanup  测试混合读写性能，整个过程将持续10分钟  #准备数据 sysbench --db-driver=mysql --mysql-host=XXX --mysql-port=XXX --mysql-user=XXX --mysql-password=XXX --mysql-db=sbtest --table_size=25000 --tables=250 --events=0 --time=600 oltp_read_write prepare #运行workload sysbench --db-driver=mysql --mysql-host=XXX --mysql-port=XXX --mysql-user=XXX --mysql-password=XXX --mysql-db=sbtest --mysql-ignore-errors=1062 --table_size=25000 --tables=250 --events=0 --time=600 --threads=XXX --percentile=95 --report-interval=1 oltp_read_write run #清理 sysbench --db-driver=mysql --mysql-host=XXX --mysql-port=XXX --mysql-user=XXX --mysql-password=XXX --mysql-db=sbtest --table_size=25000 --tables=250 --events=0 --time=600 --threads=XXX --percentile=95 oltp_read_write cleanup FAQ Q: 128线程只读测试时，报错如下:
+  </p>
+
+  
+  <footer>
+    <a href="https://ops.m114.org/post/sysbench-trial/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="https://ops.m114.org/post/centos8-build-mysql5.7.30/">CentOS8编译安装MySQL 5.7.30</a></h2>
 
     <div class="post-meta">

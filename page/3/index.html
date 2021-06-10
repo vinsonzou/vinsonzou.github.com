@@ -225,6 +225,49 @@
   
     <article>
   <header>
+    <h2><a href="https://ops.m114.org/post/request-https-server-in-custom-ip-with-curl/">使用curl请求https时指定IP</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2018/06/06, 10:00</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/curl">curl</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  一般使用curl请求自定义IP地址并且指定HOST的话可以这样。
+curl -H &#39;Host: ops.m114.org&#39; http://127.0.0.1 但是如果你需要请求的地址是HTTPS就不行了
+$ curl -H &#39;Host: ops.m114.org&#39; https://127.0.0.1/ curl: (51) Unable to communicate securely with peer: requested domain name does not match the server&#39;s certificate. 因为IP绝大多数情况下无法通过域名证书验证，还好curl中有--resolv参数可以让我们方便的指定域名的解析
+# --resolv参数形式 --resolv host:port:address # 示例 curl --resolv ops.m114.org:443:127.0.0.1 https://ops.m114.org Ps:
+小编经常使用的CentOS6的自带curl就不支持此参数，幸运的是CentOS7已经支持。
+  </p>
+
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="https://ops.m114.org/post/go-build-small-exec/">go如何编译出更小的执行文件?</a></h2>
 
     <div class="post-meta">
@@ -679,54 +722,6 @@ return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;#%]+$]], &#34;o&#34;) 好，�
   
   <footer>
     <a href="https://ops.m114.org/post/use-regular-expressions-in-OpenResty/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/python-count-duplicate-values-of-list/">[python]统计列表中重复项的出现次数</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2016/10/30, 10:27</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/Python">Python</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  列表项由数字、字符串组成，统计重复项
-&gt;&gt;&gt; from collections import defaultdict &gt;&gt;&gt; d = defaultdict(int) &gt;&gt;&gt; for x in [1, 2, 3, 1, 2, 3, 1]: ... d[x] += 1 ... &gt;&gt;&gt; dict(d) {1: 3, 2: 2, 3: 2} &gt;&gt;&gt; &gt;&gt;&gt; c = defaultdict(int) &gt;&gt;&gt; for y in [&#39;a&#39;, &#39;b&#39;, &#39;a&#39;, &#39;c&#39;, &#39;c&#39;]: ... c[y] += 1 ... &gt;&gt;&gt; dict(c) {&#39;a&#39;: 2, &#39;c&#39;: 2, &#39;b&#39;: 1} 列表项由字典组成，统计某一键值的重复数
-&gt;&gt;&gt; e = defaultdict(int) &gt;&gt;&gt; for x in [{&#39;a&#39;: 1, &#39;b&#39;: 1}, {&#39;a&#39;: 2, &#39;b&#39;:1}, {&#39;a&#39;: 1, &#39;c&#39;: 3}]: .
-  </p>
-
-  
-  <footer>
-    <a href="https://ops.m114.org/post/python-count-duplicate-values-of-list/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
   </footer>
   
 </article>
