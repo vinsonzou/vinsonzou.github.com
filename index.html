@@ -225,6 +225,64 @@
   
     <article>
   <header>
+    <h2><a href="https://ops.m114.org/post/nginx-authorized-download/">使用Nginx实现授权下载</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2021/06/11, 11:18</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  使用Nginx实现授权下载有两种方式，一种是nginx自带 --with-http_secure_link_module，另外一种是lua自定义实现。
+方法一 1.1 安装
+编译时添加此参数 --with-http_secure_link_module
+1.2 配置
+server { listen 80; server_name download.test.com; root /data/wwwroot; access_log logs/download.access.log main; location / { secure_link $arg_st,$arg_e; secure_link_md5 FIJaVSEV23$uri$arg_e; if ($secure_link = &#34;&#34;) { return 403; } if ($secure_link = &#34;0&#34;) { return 410; } } } 1.3 使用
+# shell脚本示例如下 secret=&#34;FIJaVSEV23&#34; # 见前面secure_link_md5配置 uri=&#34;/待下载文件路径&#34; datetime=$(date -d&#39;1day&#39; +&#39;%Y-%m-%d %H:%M:%S&#39;) etime=$(date +%s -d&#34;${datetime}&#34;) token=$(echo -n &#34;${secret}${uri}${etime}&#34; | openssl md5 -binary | openssl base64 | tr +/ -_ | tr -d =) # 下载链接 dlurl=&#34;dowload.
+  </p>
+
+  
+  <footer>
+    <a href="https://ops.m114.org/post/nginx-authorized-download/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="https://ops.m114.org/post/nginx-wechat-ops/">lua实现微信机器人</a></h2>
 
     <div class="post-meta">
@@ -734,68 +792,6 @@ local require = require local ngx = ngx local resolver = require &#34;resty.dns.
 </article>
 
   
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/gitea-webhook/">Gogs/Gitea webhook支持</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2021/06/03, 10:08</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Nginx">Nginx</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Gogs">Gogs</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Gitea">Gitea</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  实现需求为git提交后，自动同步至webhook所在机器的指定目录。也可以支持github的webhook，也能根据不同条件触发不同的webhook，如CI/CD。
-环境  CentOS 7 Nginx  ngx_lua lua-resty-shell lua-resty-hmac    配置 对应nginx location配置
-location = /webhook/deploy { content_by_lua_file &#39;lua/webhook/deploy.lua&#39;; } deploy.lua
--- Gogs Version: &gt;= v0.10 local require = require local ngx = ngx local cjson = require(&#34;cjson.safe&#34;) local shell = require(&#34;resty.shell&#34;) local hmac = require(&#34;resty.hmac&#34;) local json_encode = cjson.encode local json_decode = cjson.decode -- deploy config local config = { timeout = 30 * 1000, -- 30s socket = &#34;unix:/data/nginx/utils/shell.
-  </p>
-
-  
-  <footer>
-    <a href="https://ops.m114.org/post/gitea-webhook/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
-
-  
 
   
 
@@ -804,7 +800,7 @@ location = /webhook/deploy { content_by_lua_file &#39;lua/webhook/deploy.lua&#39
   
   <i class="fa fa-chevron-left"></i>
   
-  <span>&nbsp;1 / 5&nbsp;</span>
+  <span>&nbsp;1 / 6&nbsp;</span>
   
   <a href="https://ops.m114.org/page/2/"><i class="fa fa-chevron-right"></i></a>
   
