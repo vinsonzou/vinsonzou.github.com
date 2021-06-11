@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.83.1" />
 
-  <title>本人OpenResty实践集合 &middot; ops</title>
+  <title>lua实现微信机器人 &middot; ops</title>
 
     
 
@@ -209,7 +209,7 @@
 
 
 <div class="header">
-  <h1>本人OpenResty实践集合</h1>
+  <h1>lua实现微信机器人</h1>
   <h2></h2>
 </div>
 <div class="content">
@@ -218,7 +218,7 @@
 
   <div>
     <i class="fa fa-calendar fa-fw"></i>
-    <time>2021/06/01, 10:08</time>
+    <time>2021/06/11, 10:08</time>
   </div>
 
   
@@ -241,9 +241,7 @@
   <div>
     <i class="fa fa-tags fa-fw"></i>
     
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Nginx">Nginx</a>
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>
     
   </div>
   
@@ -251,77 +249,66 @@
 
 </div>
 
-  <ul>
-<li><strong>优化</strong>
+  <p>使用企业微信调整值班人员信息，示例为联系人tag调整，可以自定义任何想实现功能。</p>
+<h2 id="环境">环境</h2>
 <ul>
-<li>支持Brotli</li>
-<li>Upstream主动健康检查</li>
-<li>动态证书</li>
-<li>OCSP缓存</li>
-<li>ssl分布式session</li>
-<li>mTLS支持</li>
+<li>CentOS 7</li>
+<li>Nginx
+<ul>
+<li>lua-nginx-module</li>
+<li><a href="https://github.com/ledgetech/lua-resty-http">lua-resty-http</a></li>
+<li><a href="https://github.com/vinsonzou/WXBizMsgCrypt">lua实现微信加密库</a></li>
+<li><a href="https://github.com/manoelcampos/xml2lua">xml2lua</a></li>
 </ul>
 </li>
-<li><strong>命令行执行</strong>
+<li>依赖服务
 <ul>
-<li><a href="https://ops.m114.org/post/nginx-support-webp/">Nginx支持WebP</a></li>
-<li><a href="https://ops.m114.org/post/gitea-webhook/">gogs/gitea webhook</a></li>
-</ul>
-</li>
-<li><strong>灰度发布</strong>
-<ul>
-<li>基于IP（动态IP）</li>
-<li>自定义变量</li>
-</ul>
-</li>
-<li><a href="https://ops.m114.org/post/nginx-wechat-ops/">微信机器人</a></li>
-<li><strong>安全相关</strong>
-<ul>
-<li>授权下载</li>
-<li>简易CC防护</li>
-<li>SSO认证</li>
-<li>安全token</li>
-</ul>
-</li>
-<li><strong>API服务</strong>
-<ul>
-<li><a href="https://ops.m114.org/post/nginx-ipip-service/">IP查询服务</a></li>
-<li><a href="https://ops.m114.org/post/nginx-use-mq/">MQ解耦，对接阿里云RocketMQ</a></li>
-</ul>
-</li>
-<li><strong>缓存服务</strong>
-<ul>
-<li>主动缓存</li>
-<li>SDK缓存</li>
-</ul>
-</li>
-<li><strong>特权进程实践</strong>
-<ul>
-<li>ipset操作</li>
-</ul>
-</li>
-<li><strong>代理相关</strong>
-<ul>
-<li><a href="https://ops.m114.org/post/dynamic-http-proxy/">http代理</a></li>
-<li><a href="https://ops.m114.org/post/nginx-sniproxy/">SNI代理</a></li>
+<li>企业微信</li>
 </ul>
 </li>
 </ul>
+<h2 id="配置">配置</h2>
+<p><strong>对应nginx配置</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">server <span style="color:#f92672">{</span>
+    listen <span style="color:#ae81ff">443</span> ssl http2;
+    ssl_certificate     test.crt;
+    ssl_certificate_key test.key;
+    ssl_protocols             TLSv1 TLSv1.1 TLSv1.2;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers EECDH+CHACHA20:EECDH+CHACHA20-draft:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5;
+    ssl_session_timeout       1d;
+    ssl_session_cache         shared:SSL:20m;
+    add_header Strict-Transport-Security max-age<span style="color:#f92672">=</span>31536000;
+    server_name wx-ops.test.com;
+    access_log logs/wechat-ops.access.log main;
+    error_log logs/wechat-ops.info;
+
+    location /api/ <span style="color:#f92672">{</span>
+        resolver local<span style="color:#f92672">=</span>on ipv6<span style="color:#f92672">=</span>off;
+        resolver_timeout 2s;
+        lua_ssl_verify_depth 1;
+        lua_ssl_trusted_certificate /etc/pki/tls/certs/ca-bundle.crt;
+        content_by_lua_file lua/wechat-ops.lua;
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p><strong>wechat_ops.lua</strong></p>
+<script type="application/javascript" src="https://gist.github.com/vinsonzou/fa6ea86de40dd36bce5eaa4c4e936942.js"></script>
+
 
   
   <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
 <ul class="share-buttons">
-	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2fopenresty-case%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2fnginx-wechat-ops%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2fopenresty-case%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2fnginx-wechat-ops%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2fopenresty-case%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2fnginx-wechat-ops%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2fopenresty-case%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2fnginx-wechat-ops%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2fopenresty-case%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2fnginx-wechat-ops%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2fopenresty-case%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2fnginx-wechat-ops%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
 	</li>
 </ul>
 
@@ -353,13 +340,13 @@
 <div class="prev-next-post pure-g">
   <div class="pure-u-1-24" style="text-align: left;">
     
-    <a href="https://ops.m114.org/post/golang-aes-crypt/"><i class="fa fa-chevron-left"></i></a>
+    <a href="https://ops.m114.org/post/MySQL-plugin-Audit/"><i class="fa fa-chevron-left"></i></a>
     
   </div>
   <div class="pure-u-10-24">
     
     <nav class="prev">
-      <a href="https://ops.m114.org/post/golang-aes-crypt/">golang encrypt/decrypt by MacOS keychain</a>
+      <a href="https://ops.m114.org/post/MySQL-plugin-Audit/">MySQL插件之审计</a>
     </nav>
     
   </div>
@@ -368,14 +355,8 @@
   </div>
   <div class="pure-u-10-24">
     
-    <nav class="next">
-      <a href="https://ops.m114.org/post/nginx-support-webp/">Nginx支持WebP</a>
-    </nav>
-    
   </div>
   <div class="pure-u-1-24" style="text-align: right;">
-    
-    <a href="https://ops.m114.org/post/nginx-support-webp/"><i class="fa fa-chevron-right"></i></a>
     
   </div>
 </div>

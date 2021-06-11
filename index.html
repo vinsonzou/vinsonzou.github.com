@@ -225,6 +225,61 @@
   
     <article>
   <header>
+    <h2><a href="https://ops.m114.org/post/nginx-wechat-ops/">lua实现微信机器人</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2021/06/11, 10:08</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  使用企业微信调整值班人员信息，示例为联系人tag调整，可以自定义任何想实现功能。
+环境  CentOS 7 Nginx  lua-nginx-module lua-resty-http lua实现微信加密库 xml2lua   依赖服务  企业微信    配置 对应nginx配置
+server { listen 443 ssl http2; ssl_certificate test.crt; ssl_certificate_key test.key; ssl_protocols TLSv1 TLSv1.1 TLSv1.2; ssl_prefer_server_ciphers on; ssl_ciphers EECDH+CHACHA20:EECDH+CHACHA20-draft:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5; ssl_session_timeout 1d; ssl_session_cache shared:SSL:20m; add_header Strict-Transport-Security max-age=31536000; server_name wx-ops.test.com; access_log logs/wechat-ops.access.log main; error_log logs/wechat-ops.info; location /api/ { resolver local=on ipv6=off; resolver_timeout 2s; lua_ssl_verify_depth 1; lua_ssl_trusted_certificate /etc/pki/tls/certs/ca-bundle.crt; content_by_lua_file lua/wechat-ops.lua; } } wechat_ops.lua
+  </p>
+
+  
+  <footer>
+    <a href="https://ops.m114.org/post/nginx-wechat-ops/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="https://ops.m114.org/post/MySQL-plugin-Audit/">MySQL插件之审计</a></h2>
 
     <div class="post-meta">
@@ -736,66 +791,6 @@ location = /webhook/deploy { content_by_lua_file &#39;lua/webhook/deploy.lua&#39
   
   <footer>
     <a href="https://ops.m114.org/post/gitea-webhook/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/nginx-sniproxy/">使用Nginx做SNI反向代理</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2021/06/02, 10:18</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/SNI">SNI</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  从 Nginx 1.11.5 版本开始支持用做 SNI 反代，使用 Nginx 做 SNI 反代比用 SNI Proxy 配置起来更简单、更稳定。Nginx stream流程处理见官方文档，此功能可用来加速国外https业务，如苹果订单确认接口。
-安装 编译时添加如下参数
- &ndash;with-stream &ndash;with-stream_ssl_preread_module &ndash;with-stream_ssl_module
- 配置 基础版
-stream { server { listen 443; ssl_preread on; resolver local=on ipv6=off valid=60s; # local=on需要OpenResty补丁 proxy_pass $ssl_preread_server_name:$server_port; } } 优化版
- 解决原有无法过滤域名的风险  log_format proxy &#39;$remote_addr [$time_local] $sniproxy_upstream &#39; &#39;$protocol $status $bytes_sent $bytes_received &#39; &#39;$session_time &#34;$upstream_addr&#34; &#39; &#39;&#34;$upstream_bytes_sent&#34; &#34;$upstream_bytes_received&#34; &#34;$upstream_connect_time&#34;&#39;; init_by_lua_block { local sni = require(&#34;resty.sniproxy&#34;) sni.rules = { {&#34;buy.
-  </p>
-
-  
-  <footer>
-    <a href="https://ops.m114.org/post/nginx-sniproxy/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
   </footer>
   
 </article>
