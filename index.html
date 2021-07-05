@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.84.0" />
+  <meta name="generator" content="Hugo 0.84.4" />
 
   <title>ops</title>
 
@@ -222,6 +222,59 @@
 </div>
 
 <div class="content">
+  
+    <article>
+  <header>
+    <h2><a href="https://ops.m114.org/post/use-ssl_reject_handshake/">防止SNI信息泄露</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2021/07/04, 10:08</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/Nginx">Nginx</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Nginx">Nginx</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  有了 ssl_reject_handshake (Nginx ≥ 1.19.4)这个参数，再也不需要strict-sni.patch了。
+本质需求就是为了当机器人或者奇怪的人类通过HTTPS访问你的IP时不暴露证书，也就不会暴露域名。
+官方文档给了个例子如下，在以下配置中，除example.com以外，其他域名的SSL握手将被拒绝。（返回UNRECOGNIZED NAME，Chrome提示ERR_SSL_UNRECOGNIZED_NAME_ALERT）
+server { listen 443 ssl default_server; ssl_reject_handshake on; } server { listen 443 ssl; server_name example.com; ssl_certificate example.com.crt; ssl_certificate_key example.com.key; } 注意事项
+ nginx无法启用tls1.3的握手失败解决办法，openssl 1.1.1h bug，详细见传送门。  升级至openssl ≥ 1.1.1j 修复此问题    
+  </p>
+
+  
+</article>
+
   
     <article>
   <header>
@@ -733,64 +786,6 @@ local require = require local ngx = ngx local config = require(&#34;custom.mq.co
   
   <footer>
     <a href="https://ops.m114.org/post/nginx-use-mq/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/dynamic-http-proxy/">使用动态 DNS 来完成 HTTP 请求</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2021/06/03, 14:38</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Nginx">Nginx</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  内部访问外部http请求，通过拦截内部请求至此统一访问外部业务。
-环境  CentOS 7 Nginx  lua-nginx-module lua-resty-dns lua-resty-lock lua-resty-http    配置 对应nginx配置
-lua_shared_dict dns_cache 5m; lua_shared_dict my_locks 1m; server { listen 80; server_name *.test.com; access_log logs/dyn_http.access.log default; location / { content_by_lua_file &#39;lua/dyn_http.lua&#39;; } } dyn_http.lua
-local require = require local ngx = ngx local resolver = require &#34;resty.dns.resolver&#34; local resty_lock = require &#34;resty.lock&#34; local http = require &#34;resty.http&#34; local cache = ngx.shared.dns_cache local function fail(msg, err) ngx.
-  </p>
-
-  
-  <footer>
-    <a href="https://ops.m114.org/post/dynamic-http-proxy/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
   </footer>
   
 </article>

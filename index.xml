@@ -7,7 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2021. All rights reserved.</copyright>
-    <lastBuildDate>Mon, 14 Jun 2021 11:18:08 +0800</lastBuildDate><atom:link href="https://ops.m114.org/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 04 Jul 2021 10:08:08 +0800</lastBuildDate><atom:link href="https://ops.m114.org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>防止SNI信息泄露</title>
+      <link>https://ops.m114.org/post/use-ssl_reject_handshake/</link>
+      <pubDate>Sun, 04 Jul 2021 10:08:08 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/use-ssl_reject_handshake/</guid>
+      <description>有了 ssl_reject_handshake (Nginx ≥ 1.19.4)这个参数，再也不需要strict-sni.patch了。
+本质需求就是为了当机器人或者奇怪的人类通过HTTPS访问你的IP时不暴露证书，也就不会暴露域名。
+官方文档给了个例子如下，在以下配置中，除example.com以外，其他域名的SSL握手将被拒绝。（返回UNRECOGNIZED NAME，Chrome提示ERR_SSL_UNRECOGNIZED_NAME_ALERT）
+server { listen 443 ssl default_server; ssl_reject_handshake on; } server { listen 443 ssl; server_name example.com; ssl_certificate example.com.crt; ssl_certificate_key example.com.key; } 注意事项
+ nginx无法启用tls1.3的握手失败解决办法，openssl 1.1.1h bug，详细见传送门。  升级至openssl ≥ 1.1.1j 修复此问题    </description>
+    </item>
+    
     <item>
       <title>巧用 cache-control: s-maxage 优化CDN和浏览器缓存同步</title>
       <link>https://ops.m114.org/post/use-s-maxage-for-cdn/</link>
@@ -184,7 +197,7 @@ location ~ ^/(images|static)/ { rewrite_by_lua_file &amp;#34;/data/nginx/lua/web
       <pubDate>Tue, 01 Jun 2021 10:08:08 +0800</pubDate>
       
       <guid>https://ops.m114.org/post/openresty-case/</guid>
-      <description> 优化  支持Brotli Upstream主动健康检查 动态证书 OCSP缓存 ssl分布式session mTLS支持   命令行执行  Nginx支持WebP gogs/gitea webhook   灰度发布  基于IP（动态IP） 自定义变量   微信机器人 安全相关  授权下载 简易CC防护 SSO认证 安全token   API服务  IP查询服务 MQ解耦，对接阿里云RocketMQ   缓存服务  主动缓存 SDK缓存   特权进程实践  ipset操作   代理相关  http代理 SNI代理    </description>
+      <description> 优化  支持Brotli Upstream主动健康检查 动态证书 OCSP缓存 ssl分布式session mTLS支持   命令行执行  Nginx支持WebP gogs/gitea webhook   灰度发布  基于IP（动态IP） 自定义变量   微信机器人 安全相关  授权下载 简易CC防护 SSO认证 安全token 防止SNI信息泄露   API服务  IP查询服务 MQ解耦，对接阿里云RocketMQ   缓存服务  主动缓存 SDK缓存   特权进程实践  ipset操作   代理相关  http代理 SNI代理    </description>
     </item>
     
     <item>
@@ -430,7 +443,7 @@ return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;amp;#%]+$]], &amp;#34;o&amp;#3
       <pubDate>Sat, 22 Oct 2016 00:00:00 +0000</pubDate>
       
       <guid>https://ops.m114.org/about/</guid>
-      <description>收藏站点  OpenResty最佳实践 Jerry Qu HTTPS最佳实践 IP黑名单  Python常用模块  ⭐️requests requests-html records tablib yapf keyring ahocorasick esmre EasyOCR U-2-Net Excel ⭐️httpx ⭐️parsel  Python Web开发  Flask Flask-Orator Sanic  ngx_lua常用模块   OpenResty官方库
+      <description>收藏站点  OpenResty最佳实践 Jerry Qu HTTPS最佳实践 IP黑名单  Python常用模块  ⭐️requests requests-html records tablib yapf keyring ahocorasick esmre EasyOCR U-2-Net Excel ⭐️httpx ⭐️parsel flashtext  Python Web开发  Flask Flask-Orator Sanic  ngx_lua常用模块   OpenResty官方库
  lua-resty-core lua-resty-string lua-resty-mysql lua-resty-redis lua-resty-upload srcache-nginx-module echo-nginx-module set-misc-nginx-module headers-more-nginx-module lua-resty-dns lua-resty-lock lua-resty-limit-traffic lua-upstream-nginx-module lua-resty-upstream-healthcheck lua-resty-balancer lua-resty-shell    第三方库
  lua-resty-logger-socket lua-aho-corasick nginx-google-oauth lua-resty-http lua-resty-shell lua-resty-template lua-resty-checkups lua-resty-jit-uuid lua-resty-mlcache lua-resty-iputils(遍历) lua-resty-rsa lua-resty-hmac jxwaf lua-resty-mail lua-resty-resolver apisix lua-resty-etcd lua-resty-ipmatcher(hash实现) jsonschema lua-resty-acme skywalking-nginx-lua xml2lua 微信对接解密/加密 lua-resty-multiplexer lua-resty-sniproxy    ngx_lua Web开发  Lor Learn Lua in 15 Minutes  Go Web开发  Gin fiber  Go常用模块  otp viper 屏蔽字过滤服务 屏蔽字过滤模块 gjson gendry ⭐️json-iterator ⭐️sio cloudflare Go程序平滑重启 adiantum加密库 ants freecache go jsonschema go-attr ⭐️gopacket gin-cache Go Kafka客户端  Tools  Go BitTorrent Tracker, Facebook/CoreOS used Go BitTorrent Tracker Go Full-featured BitTorrent client package and utilities 跨平台生成工具 go火焰图 QingCloud MySQL Plus开源版(GTID + Raft + Semi-Sync-Replication) MQ: meq Go爬虫框架: colly coredns ⭐️A native go client for HDFS redis压测工具 Netflix bpftoolkit mkcert ping动态图形化 敏感文件发现工具 gops go-xss go-keyring rust cp  </description>
     </item>

@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.84.4" />
 
-  <title>Error: 500 OOPS: priv_sock_get_cmd [SOLVED] &middot; ops</title>
+  <title>防止SNI信息泄露 &middot; ops</title>
 
     
 
@@ -209,7 +209,7 @@
 
 
 <div class="header">
-  <h1>Error: 500 OOPS: priv_sock_get_cmd [SOLVED]</h1>
+  <h1>防止SNI信息泄露</h1>
   <h2></h2>
 </div>
 <div class="content">
@@ -218,7 +218,7 @@
 
   <div>
     <i class="fa fa-calendar fa-fw"></i>
-    <time>2017/07/23, 16:21</time>
+    <time>2021/07/04, 10:08</time>
   </div>
 
   
@@ -229,7 +229,7 @@
   <div>
     <i class="fa fa-folder fa-fw"></i>
     
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/Troubleshooting">Troubleshooting</a>
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/Nginx">Nginx</a>
     
   </div>
   
@@ -241,7 +241,7 @@
   <div>
     <i class="fa fa-tags fa-fw"></i>
     
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/vsftpd">vsftpd</a>
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Nginx">Nginx</a>
     
   </div>
   
@@ -249,29 +249,43 @@
 
 </div>
 
-  <h2 id="troubleshooting">Troubleshooting</h2>
-<p><strong>seccomp filter sanboxing with vsftpd 3.0.x</strong></p>
-<p>The following error may occur on ftp clients with vsftpd 3.0.x:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#ae81ff">500</span> OOPS: priv_sock_get_cmd
-</code></pre></div><p>This is caused by <a href="http://en.wikipedia.org/wiki/Seccomp">seccomp filter sanboxing</a>, which is enabled by default on <code>amd64</code>. To workaround this issue, disable seccomp filter sanboxing:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">echo <span style="color:#e6db74">&#39;seccomp_sandbox=NO&#39;</span> &gt;&gt; vsftpd.conf
-service vsftpd restart
-</code></pre></div><p>For further information, refer to <a href="https://bugzilla.redhat.com/show_bug.cgi?id=845980">Red Hat bug #845980</a>.</p>
+  <p>有了 <code>ssl_reject_handshake</code> (Nginx ≥ 1.19.4)这个参数，再也不需要strict-sni.patch了。</p>
+<p>本质需求就是为了当机器人或者奇怪的人类通过HTTPS访问你的IP时不暴露证书，也就不会暴露域名。</p>
+<p>官方文档给了个例子如下，在以下配置中，除example.com以外，其他域名的SSL握手将被拒绝。（返回UNRECOGNIZED NAME，Chrome提示ERR_SSL_UNRECOGNIZED_NAME_ALERT）</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">server <span style="color:#f92672">{</span>
+    listen <span style="color:#ae81ff">443</span> ssl default_server;
+    ssl_reject_handshake on;
+<span style="color:#f92672">}</span>
+
+server <span style="color:#f92672">{</span>
+    listen              <span style="color:#ae81ff">443</span> ssl;
+    server_name         example.com;
+    ssl_certificate     example.com.crt;
+    ssl_certificate_key example.com.key;
+<span style="color:#f92672">}</span>
+</code></pre></div><p><strong>注意事项</strong></p>
+<ul>
+<li>nginx无法启用tls1.3的握手失败解决办法，openssl 1.1.1h bug，详细见<a href="https://trac.nginx.org/nginx/ticket/2071">传送门</a>。
+<ul>
+<li>升级至openssl ≥ 1.1.1j 修复此问题</li>
+</ul>
+</li>
+</ul>
 
   
   <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
 <ul class="share-buttons">
-	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2ferror-500-oops-priv_sock_get_cmd-solved%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
+	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2fuse-ssl_reject_handshake%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2ferror-500-oops-priv_sock_get_cmd-solved%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
+	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2fuse-ssl_reject_handshake%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2ferror-500-oops-priv_sock_get_cmd-solved%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
+	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2fuse-ssl_reject_handshake%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2ferror-500-oops-priv_sock_get_cmd-solved%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
+	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2fuse-ssl_reject_handshake%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2ferror-500-oops-priv_sock_get_cmd-solved%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
+	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2fuse-ssl_reject_handshake%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
 	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2ferror-500-oops-priv_sock_get_cmd-solved%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
+	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2fuse-ssl_reject_handshake%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
 	</li>
 </ul>
 
@@ -303,13 +317,13 @@ service vsftpd restart
 <div class="prev-next-post pure-g">
   <div class="pure-u-1-24" style="text-align: left;">
     
-    <a href="https://ops.m114.org/post/python-version-cmp/"><i class="fa fa-chevron-left"></i></a>
+    <a href="https://ops.m114.org/post/use-s-maxage-for-cdn/"><i class="fa fa-chevron-left"></i></a>
     
   </div>
   <div class="pure-u-10-24">
     
     <nav class="prev">
-      <a href="https://ops.m114.org/post/python-version-cmp/">Python版本号比较</a>
+      <a href="https://ops.m114.org/post/use-s-maxage-for-cdn/">巧用 cache-control: s-maxage 优化CDN和浏览器缓存同步</a>
     </nav>
     
   </div>
@@ -318,14 +332,8 @@ service vsftpd restart
   </div>
   <div class="pure-u-10-24">
     
-    <nav class="next">
-      <a href="https://ops.m114.org/post/analysing-java-core-dump/">analysing java core dump</a>
-    </nav>
-    
   </div>
   <div class="pure-u-1-24" style="text-align: right;">
-    
-    <a href="https://ops.m114.org/post/analysing-java-core-dump/"><i class="fa fa-chevron-right"></i></a>
     
   </div>
 </div>

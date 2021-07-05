@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.84.0" />
+  <meta name="generator" content="Hugo 0.84.4" />
 
   <title>Nginx &middot; ops</title>
 
@@ -221,6 +221,59 @@
 </div>
 
 <div class="content">
+  
+    <article>
+  <header>
+    <h2><a href="https://ops.m114.org/post/use-ssl_reject_handshake/">防止SNI信息泄露</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2021/07/04, 10:08</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/Nginx">Nginx</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Nginx">Nginx</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  有了 ssl_reject_handshake (Nginx ≥ 1.19.4)这个参数，再也不需要strict-sni.patch了。
+本质需求就是为了当机器人或者奇怪的人类通过HTTPS访问你的IP时不暴露证书，也就不会暴露域名。
+官方文档给了个例子如下，在以下配置中，除example.com以外，其他域名的SSL握手将被拒绝。（返回UNRECOGNIZED NAME，Chrome提示ERR_SSL_UNRECOGNIZED_NAME_ALERT）
+server { listen 443 ssl default_server; ssl_reject_handshake on; } server { listen 443 ssl; server_name example.com; ssl_certificate example.com.crt; ssl_certificate_key example.com.key; } 注意事项
+ nginx无法启用tls1.3的握手失败解决办法，openssl 1.1.1h bug，详细见传送门。  升级至openssl ≥ 1.1.1j 修复此问题    
+  </p>
+
+  
+</article>
+
   
     <article>
   <header>
@@ -503,7 +556,7 @@ location = /webhook/deploy { content_by_lua_file &#39;lua/webhook/deploy.lua&#39
   </header>
 
   <p>
-   优化  支持Brotli Upstream主动健康检查 动态证书 OCSP缓存 ssl分布式session mTLS支持   命令行执行  Nginx支持WebP gogs/gitea webhook   灰度发布  基于IP（动态IP） 自定义变量   微信机器人 安全相关  授权下载 简易CC防护 SSO认证 安全token   API服务  IP查询服务 MQ解耦，对接阿里云RocketMQ   缓存服务  主动缓存 SDK缓存   特权进程实践  ipset操作   代理相关  http代理 SNI代理    
+   优化  支持Brotli Upstream主动健康检查 动态证书 OCSP缓存 ssl分布式session mTLS支持   命令行执行  Nginx支持WebP gogs/gitea webhook   灰度发布  基于IP（动态IP） 自定义变量   微信机器人 安全相关  授权下载 简易CC防护 SSO认证 安全token 防止SNI信息泄露   API服务  IP查询服务 MQ解耦，对接阿里云RocketMQ   缓存服务  主动缓存 SDK缓存   特权进程实践  ipset操作   代理相关  http代理 SNI代理    
   </p>
 
   
