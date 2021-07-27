@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.85.0" />
+  <meta name="generator" content="Hugo 0.86.0" />
 
   <title>CentOS8编译安装MySQL 5.7.30 &middot; ops</title>
 
@@ -258,17 +258,17 @@
 </ul>
 <h2 id="报错信息">报错信息</h2>
 <h3 id="1-编译报错">1. 编译报错</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">CMake Error at plugin<span style="color:#f92672">/</span>group_replication<span style="color:#f92672">/</span>libmysqlgcs<span style="color:#f92672">/</span>rpcgen.cmake:<span style="color:#ae81ff">100</span> (MESSAGE)<span style="color:#f92672">:</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">CMake Error at plugin<span style="color:#f92672">/</span>group_replication<span style="color:#f92672">/</span>libmysqlgcs<span style="color:#f92672">/</span>rpcgen.cmake:<span style="color:#ae81ff">100</span> (MESSAGE)<span style="color:#f92672">:</span>
   Could not find rpcgen
 Call Stack (most recent call first)<span style="color:#f92672">:</span>
   plugin<span style="color:#f92672">/</span>group_replication<span style="color:#f92672">/</span>libmysqlgcs<span style="color:#f92672">/</span>CMakeLists.txt:<span style="color:#ae81ff">38</span> (INCLUDE)
 </code></pre></div><p><strong>解决方法</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">yum --enablerepo<span style="color:#f92672">=</span>PowerTools install rpcgen
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">yum --enablerepo<span style="color:#f92672">=</span>PowerTools install rpcgen
 </code></pre></div><h3 id="2-systemctl-start-mysqldservice报错无法启动问题">2. systemctl start mysqld.service报错无法启动问题</h3>
 <p><strong>报错信息如下</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>ERROR<span style="color:#f92672">]</span> Can<span style="color:#e6db74">&#39;t start server: can&#39;</span>t check PID filepath: No such file or directory
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>ERROR<span style="color:#f92672">]</span> Can<span style="color:#e6db74">&#39;t start server: can&#39;</span>t check PID filepath: No such file or directory
 </code></pre></div><p>/usr/lib/systemd/system/mysqld.service 默认配置如下</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># Copyright (c) 2015, 2016, Oracle and/or its affiliates. All rights reserved.</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># Copyright (c) 2015, 2016, Oracle and/or its affiliates. All rights reserved.</span>
 <span style="color:#75715e">#</span>
 <span style="color:#75715e"># This program is free software; you can redistribute it and/or modify</span>
 <span style="color:#75715e"># it under the terms of the GNU General Public License, version 2.0,</span>
@@ -338,11 +338,11 @@ PrivateTmp<span style="color:#f92672">=</span>false
 <ul>
 <li>默认mysqld.service中的pid存在/var/run/mysqld，此目录必须存在且mysql用户有权限</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">echo -e <span style="color:#e6db74">&#39;d /run/mysqld 0755 mysql mysql -&#39;</span> &gt; /usr/lib/tmpfiles.d/mysqld
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">echo -e <span style="color:#e6db74">&#39;d /run/mysqld 0755 mysql mysql -&#39;</span> &gt; /usr/lib/tmpfiles.d/mysqld
 </code></pre></div><h3 id="3-启动警告信息">3. 启动警告信息</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>Warning<span style="color:#f92672">]</span> Could not increase number of max_open_files to more than <span style="color:#ae81ff">5000</span> <span style="color:#f92672">(</span>request: 10000<span style="color:#f92672">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>Warning<span style="color:#f92672">]</span> Could not increase number of max_open_files to more than <span style="color:#ae81ff">5000</span> <span style="color:#f92672">(</span>request: 10000<span style="color:#f92672">)</span>
 </code></pre></div><p><strong>解决方法</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># 调整systemd mysqld.service配置(即/usr/lib/systemd/system/mysqld.service)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># 调整systemd mysqld.service配置(即/usr/lib/systemd/system/mysqld.service)</span>
 LimitNOFILE <span style="color:#f92672">=</span> <span style="color:#ae81ff">5000</span> 调整为 LimitNOFILE <span style="color:#f92672">=</span> <span style="color:#ae81ff">10000</span>
 systemctl daemon-reload
 systemctl restart mysqld

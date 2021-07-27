@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.85.0" />
+  <meta name="generator" content="Hugo 0.86.0" />
 
   <title>lua发布消息至RocketMQ解耦 &middot; ops</title>
 
@@ -272,18 +272,18 @@
 </ul>
 <h2 id="配置">配置</h2>
 <p><strong>对应nginx location配置</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">location / <span style="color:#f92672">{</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">location / <span style="color:#f92672">{</span>
     access_by_lua_file lua/mq/mq.lua;
 <span style="color:#f92672">}</span>
 </code></pre></div><p><strong>custom/mq.lua</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lua" data-lang="lua"><span style="color:#66d9ef">return</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lua" data-lang="lua"><span style="color:#66d9ef">return</span> {
     AKId <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;xxx&#34;</span>,          <span style="color:#75715e">-- RocketMQ的AccessKeyId</span>
     AKSecret <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;xxx&#34;</span>,      <span style="color:#75715e">-- RocketMQ的AccessKeySecret</span>
     topic_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;xxx&#34;</span>,    <span style="color:#75715e">-- RocketMQ的topic</span>
     instance_id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;xxx&#34;</span>    <span style="color:#75715e">-- RocketMQ的instance_id</span>
 }
 </code></pre></div><p><strong>mq.lua</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lua" data-lang="lua"><span style="color:#66d9ef">local</span> require <span style="color:#f92672">=</span> require
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lua" data-lang="lua"><span style="color:#66d9ef">local</span> require <span style="color:#f92672">=</span> require
 <span style="color:#66d9ef">local</span> ngx <span style="color:#f92672">=</span> ngx
 <span style="color:#66d9ef">local</span> config <span style="color:#f92672">=</span> require(<span style="color:#e6db74">&#34;custom.mq.config&#34;</span>)
 <span style="color:#66d9ef">local</span> http <span style="color:#f92672">=</span> require <span style="color:#e6db74">&#34;resty.http&#34;</span>

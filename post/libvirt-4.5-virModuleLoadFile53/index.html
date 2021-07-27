@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.85.0" />
+  <meta name="generator" content="Hugo 0.86.0" />
 
   <title>libvirt 4.5 virModuleLoadFile:53 &middot; ops</title>
 
@@ -247,7 +247,7 @@
 <p>error : virModuleLoadFile:53 : internal error: Failed to load module &lsquo;/usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so&rsquo;: /usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so: undefined symbol: rbd_diff_iterate2</p>
 </blockquote>
 <p><strong>详细报错如下:</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e"># libvirtd -v</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e"># libvirtd -v</span>
 2019-01-15 08:56:53.433+0000: 34181: info : libvirt version: 4.5.0, package: 10.el7_6.3 <span style="color:#f92672">(</span>CentOS BuildSystem &lt;http://bugs.centos.org&gt;, 2018-11-28-20:51:39, x86-01.bsys.centos.org<span style="color:#f92672">)</span>
 2019-01-15 08:56:53.433+0000: 34181: info : hostname: localhost.localdomain
 2019-01-15 08:56:53.433+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj<span style="color:#f92672">=</span>0x56166f5da690 classname<span style="color:#f92672">=</span>virAccessManager
@@ -261,7 +261,7 @@
 2019-01-15 08:56:53.462+0000: 34181: error : virModuleLoadFile:53 : internal error: Failed to load module <span style="color:#e6db74">&#39;/usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so&#39;</span>: /usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so: undefined symbol: rbd_diff_iterate2
 </code></pre></div><p><strong>解决方法:</strong></p>
 <p><code>libvirt_storage_backend_rbd.so</code>应该是连接ceph块设备（rbd）的一个模块，这里暂时不用连接ceph，最简单粗暴的做法就是移除该模块，重启libvirtd。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e"># cd /usr/lib64/libvirt/storage-backend</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e"># cd /usr/lib64/libvirt/storage-backend</span>
 <span style="color:#f92672">[</span>root@localhost storage-backend<span style="color:#f92672">]</span><span style="color:#75715e"># mv libvirt_storage_backend_rbd.so libvirt_storage_backend_rbd.so.bak</span>
 <span style="color:#f92672">[</span>root@localhost ~<span style="color:#f92672">]</span><span style="color:#75715e"># systemctl restart libvirtd</span>
 </code></pre></div>

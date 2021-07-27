@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.85.0" />
+  <meta name="generator" content="Hugo 0.86.0" />
 
   <title>Tomcat 7.0.76 Invalid character found in the request target &middot; ops</title>
 
@@ -244,7 +244,7 @@
 
   <p><strong>故障现象</strong></p>
 <p>升级tomcat至7.0.76后，GET请求的参数中含有中文时tomcat返回400错误，tomcat错误日志如下</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">java<span style="color:#f92672">.</span><span style="color:#a6e22e">lang</span><span style="color:#f92672">.</span><span style="color:#a6e22e">IllegalArgumentException</span><span style="color:#f92672">:</span> Invalid character found in the request target<span style="color:#f92672">.</span> The valid characters are defined in RFC 7230 and RFC 3986
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">java<span style="color:#f92672">.</span><span style="color:#a6e22e">lang</span><span style="color:#f92672">.</span><span style="color:#a6e22e">IllegalArgumentException</span><span style="color:#f92672">:</span> Invalid character found in the request target<span style="color:#f92672">.</span> The valid characters are defined in RFC 7230 and RFC 3986
 	at org<span style="color:#f92672">.</span><span style="color:#a6e22e">apache</span><span style="color:#f92672">.</span><span style="color:#a6e22e">coyote</span><span style="color:#f92672">.</span><span style="color:#a6e22e">http11</span><span style="color:#f92672">.</span><span style="color:#a6e22e">InternalNioInputBuffer</span><span style="color:#f92672">.</span><span style="color:#a6e22e">parseRequestLine</span><span style="color:#f92672">(</span>InternalNioInputBuffer<span style="color:#f92672">.</span><span style="color:#a6e22e">java</span><span style="color:#f92672">:</span>317<span style="color:#f92672">)</span>
 	at org<span style="color:#f92672">.</span><span style="color:#a6e22e">apache</span><span style="color:#f92672">.</span><span style="color:#a6e22e">coyote</span><span style="color:#f92672">.</span><span style="color:#a6e22e">http11</span><span style="color:#f92672">.</span><span style="color:#a6e22e">AbstractHttp11Processor</span><span style="color:#f92672">.</span><span style="color:#a6e22e">process</span><span style="color:#f92672">(</span>AbstractHttp11Processor<span style="color:#f92672">.</span><span style="color:#a6e22e">java</span><span style="color:#f92672">:</span>1000<span style="color:#f92672">)</span>
 	at org<span style="color:#f92672">.</span><span style="color:#a6e22e">apache</span><span style="color:#f92672">.</span><span style="color:#a6e22e">coyote</span><span style="color:#f92672">.</span><span style="color:#a6e22e">AbstractProtocol$AbstractConnectionHandler</span><span style="color:#f92672">.</span><span style="color:#a6e22e">process</span><span style="color:#f92672">(</span>AbstractProtocol<span style="color:#f92672">.</span><span style="color:#a6e22e">java</span><span style="color:#f92672">:</span>637<span style="color:#f92672">)</span>

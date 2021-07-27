@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.85.0" />
+  <meta name="generator" content="Hugo 0.86.0" />
 
   <title>4层TCP转发后获得真实IP之proxy_protocol &middot; ops</title>
 
@@ -273,20 +273,20 @@
 <li>go &gt; 1.11</li>
 <li>as root or with <code>CAP_NET_RAW</code> capability to be able to set <code>IP_TRANSPARENT</code> socket opt.</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">go get github.com/path-network/go-mmproxy
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">go get github.com/path-network/go-mmproxy
 sudo setcap cap_net_raw<span style="color:#f92672">=</span>+ep <span style="color:#66d9ef">$(</span>readlink -f <span style="color:#66d9ef">$(</span>which go-mmproxy<span style="color:#66d9ef">))</span>
 </code></pre></div><h2 id="测试">测试</h2>
 <ul>
 <li>启动</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># go-mmproxy监听端口为25577，TCP后端端口为25578</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># go-mmproxy监听端口为25577，TCP后端端口为25578</span>
 ip rule add from 127.0.0.1/8 iif lo table <span style="color:#ae81ff">123</span>
 ip route add local 0.0.0.0/0 dev lo table <span style="color:#ae81ff">123</span>
 go-mmproxy -l 0.0.0.0:25577 -4 127.0.0.1:25578 -6 <span style="color:#e6db74">&#34;[::1]:25578&#34;</span> -allowed-subnets ./path-prefixes.txt
 </code></pre></div><ul>
 <li>停止</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># 清理路由</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># 清理路由</span>
 ip rule del from 127.0.0.1/8 iif lo table <span style="color:#ae81ff">123</span>
 ip route del local 0.0.0.0/0 dev lo table <span style="color:#ae81ff">123</span>
 </code></pre></div><h2 id="faq">FAQ</h2>

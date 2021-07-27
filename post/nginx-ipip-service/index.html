@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.85.0" />
+  <meta name="generator" content="Hugo 0.86.0" />
 
   <title>Nginx实现ip查询服务 &middot; ops</title>
 
@@ -276,7 +276,7 @@
 </li>
 </ul>
 <h2 id="配置">配置</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lua" data-lang="lua">lua_shared_dict ip_data <span style="color:#ae81ff">10</span>m;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lua" data-lang="lua">lua_shared_dict ip_data <span style="color:#ae81ff">10</span>m;
 
 server {
     server_name ip.test.com;
@@ -365,7 +365,7 @@ server {
     }
 }
 </code></pre></div><h2 id="使用示例">使用示例</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ curl ip.test.com
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ curl ip.test.com
 180.167.11.11
 
 $ curl ip.test.com/ip

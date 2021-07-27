@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.85.0" />
+  <meta name="generator" content="Hugo 0.86.0" />
 
   <title>ceph集群jewel版本部署osd激活权限报错 &middot; ops</title>
 
@@ -253,9 +253,9 @@
 <p>ceph version 10.2.2 (45107e21c568dd033c2f0a3107dec8f0b0e58374)<!-- raw HTML omitted -->
 ceph-deploy 1.5.34</p>
 <p>ceph集群jewel版本部署过程中执行osd激活操作如下</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2
 </code></pre></div><p>报错内容如下</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>2016-07-29 00:05:19,106<span style="color:#f92672">][</span>ceph_deploy.conf<span style="color:#f92672">][</span>DEBUG <span style="color:#f92672">]</span> found configuration file at: /root/.cephdeploy.conf
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>2016-07-29 00:05:19,106<span style="color:#f92672">][</span>ceph_deploy.conf<span style="color:#f92672">][</span>DEBUG <span style="color:#f92672">]</span> found configuration file at: /root/.cephdeploy.conf
 <span style="color:#f92672">[</span>2016-07-29 00:05:19,107<span style="color:#f92672">][</span>ceph_deploy.cli<span style="color:#f92672">][</span>INFO  <span style="color:#f92672">]</span> Invoked <span style="color:#f92672">(</span>1.5.34<span style="color:#f92672">)</span>: /bin/ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2
 <span style="color:#f92672">[</span>2016-07-29 00:05:19,107<span style="color:#f92672">][</span>ceph_deploy.cli<span style="color:#f92672">][</span>INFO  <span style="color:#f92672">]</span> ceph-deploy options:
 <span style="color:#f92672">[</span>2016-07-29 00:05:19,108<span style="color:#f92672">][</span>ceph_deploy.cli<span style="color:#f92672">][</span>INFO  <span style="color:#f92672">]</span>  username                      : None
@@ -325,7 +325,7 @@ ceph-deploy 1.5.34</p>
 <span style="color:#f92672">[</span>2016-07-29 00:05:21,057<span style="color:#f92672">][</span>ceph_deploy<span style="color:#f92672">][</span>ERROR <span style="color:#f92672">]</span> RuntimeError: Failed to execute command: /usr/sbin/ceph-disk -v activate --mark-init systemd --mount /dev/sdb1
 </code></pre></div><p><strong>解决办法:</strong></p>
 <p>将ceph集群需要使用的所有磁盘权限，所属用户、用户组改给ceph</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">chown ceph:ceph /dev/sdb1
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">chown ceph:ceph /dev/sdb1
 </code></pre></div><p><strong>问题延伸:</strong></p>
 <p>此问题本次修复后，系统重启磁盘权限会被修改回，导致osd服务无法正常启动，这个权限问题很坑，每次系统启动自动修改磁盘权限。</p>
 <p>查找ceph资料，发现这其实是一个bug，社区暂未解决。</p>

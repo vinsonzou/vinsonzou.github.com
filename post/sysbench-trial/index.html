@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.85.0" />
+  <meta name="generator" content="Hugo 0.86.0" />
 
   <title>sysbench试用 &middot; ops</title>
 
@@ -272,7 +272,7 @@
 </li>
 </ul>
 <h2 id="安装">安装</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">yum install gcc gcc-c++ autoconf automake make libtool bzr mysql-devel mysql
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">yum install gcc gcc-c++ autoconf automake make libtool bzr mysql-devel mysql
 
 wget https://github.com/akopytov/sysbench/archive/refs/tags/1.0.20.tar.gz
 tar zxf 1.0.20.tar.gz
@@ -285,11 +285,11 @@ make install
 <ul>
 <li>创建测试库</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mysql&gt; create database sbtest;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mysql&gt; create database sbtest;
 </code></pre></div><ul>
 <li>测试只读性能，整个过程将持续10分钟</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#准备数据</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#准备数据</span>
 sysbench --db-driver<span style="color:#f92672">=</span>mysql --mysql-host<span style="color:#f92672">=</span>XXX --mysql-port<span style="color:#f92672">=</span>XXX --mysql-user<span style="color:#f92672">=</span>XXX --mysql-password<span style="color:#f92672">=</span>XXX --mysql-db<span style="color:#f92672">=</span>sbtest --table_size<span style="color:#f92672">=</span><span style="color:#ae81ff">25000</span> --tables<span style="color:#f92672">=</span><span style="color:#ae81ff">250</span> --events<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> --time<span style="color:#f92672">=</span><span style="color:#ae81ff">600</span> oltp_read_only prepare
 
 <span style="color:#75715e">#运行workload</span>
@@ -300,7 +300,7 @@ sysbench --db-driver<span style="color:#f92672">=</span>mysql --mysql-host<span 
 </code></pre></div><ul>
 <li>测试写入性能，整个过程将持续10分钟</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#准备数据</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#准备数据</span>
 sysbench --db-driver<span style="color:#f92672">=</span>mysql --mysql-host<span style="color:#f92672">=</span>XXX --mysql-port<span style="color:#f92672">=</span>XXX --mysql-user<span style="color:#f92672">=</span>XXX --mysql-password<span style="color:#f92672">=</span>XXX --mysql-db<span style="color:#f92672">=</span>sbtest --table_size<span style="color:#f92672">=</span><span style="color:#ae81ff">25000</span> --tables<span style="color:#f92672">=</span><span style="color:#ae81ff">250</span> --events<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> --time<span style="color:#f92672">=</span><span style="color:#ae81ff">600</span> oltp_write_only prepare
 
 <span style="color:#75715e">#运行workload</span>
@@ -311,7 +311,7 @@ sysbench --db-driver<span style="color:#f92672">=</span>mysql --mysql-host<span 
 </code></pre></div><ul>
 <li>测试混合读写性能，整个过程将持续10分钟</li>
 </ul>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#准备数据</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#准备数据</span>
 sysbench --db-driver<span style="color:#f92672">=</span>mysql --mysql-host<span style="color:#f92672">=</span>XXX --mysql-port<span style="color:#f92672">=</span>XXX --mysql-user<span style="color:#f92672">=</span>XXX --mysql-password<span style="color:#f92672">=</span>XXX --mysql-db<span style="color:#f92672">=</span>sbtest --table_size<span style="color:#f92672">=</span><span style="color:#ae81ff">25000</span> --tables<span style="color:#f92672">=</span><span style="color:#ae81ff">250</span> --events<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> --time<span style="color:#f92672">=</span><span style="color:#ae81ff">600</span> oltp_read_write prepare
 
 <span style="color:#75715e">#运行workload</span>
@@ -321,7 +321,7 @@ sysbench --db-driver<span style="color:#f92672">=</span>mysql --mysql-host<span 
 sysbench --db-driver<span style="color:#f92672">=</span>mysql --mysql-host<span style="color:#f92672">=</span>XXX --mysql-port<span style="color:#f92672">=</span>XXX --mysql-user<span style="color:#f92672">=</span>XXX --mysql-password<span style="color:#f92672">=</span>XXX --mysql-db<span style="color:#f92672">=</span>sbtest --table_size<span style="color:#f92672">=</span><span style="color:#ae81ff">25000</span> --tables<span style="color:#f92672">=</span><span style="color:#ae81ff">250</span> --events<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> --time<span style="color:#f92672">=</span><span style="color:#ae81ff">600</span> --threads<span style="color:#f92672">=</span>XXX --percentile<span style="color:#f92672">=</span><span style="color:#ae81ff">95</span> oltp_read_write cleanup
 </code></pre></div><h2 id="faq">FAQ</h2>
 <p><strong>Q: 128线程只读测试时，报错如下:</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">FATAL: mysql_stmt_prepare<span style="color:#f92672">()</span> failed
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">FATAL: mysql_stmt_prepare<span style="color:#f92672">()</span> failed
 <span style="color:#f92672">(</span>last message repeated <span style="color:#ae81ff">1</span> times<span style="color:#f92672">)</span>
 FATAL: MySQL error: <span style="color:#ae81ff">1461</span> <span style="color:#e6db74">&#34;Can&#39;t create more than max_prepared_stmt_count statements (current value: 16382)&#34;</span>
 </code></pre></div><blockquote>

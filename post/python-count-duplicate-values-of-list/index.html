@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.85.0" />
+  <meta name="generator" content="Hugo 0.86.0" />
 
   <title>[python]统计列表中重复项的出现次数 &middot; ops</title>
 
@@ -243,7 +243,7 @@
 </div>
 
   <p>列表项由数字、字符串组成，统计重复项</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">from</span> collections <span style="color:#f92672">import</span> defaultdict
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">from</span> collections <span style="color:#f92672">import</span> defaultdict
 <span style="color:#f92672">&gt;&gt;&gt;</span> d <span style="color:#f92672">=</span> defaultdict(int)
 <span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>]:
 <span style="color:#f92672">...</span>     d[x] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
@@ -258,7 +258,7 @@
 <span style="color:#f92672">&gt;&gt;&gt;</span> dict(c)
 {<span style="color:#e6db74">&#39;a&#39;</span>: <span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#39;c&#39;</span>: <span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#39;b&#39;</span>: <span style="color:#ae81ff">1</span>}
 </code></pre></div><p>列表项由字典组成，统计某一键值的重复数</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">&gt;&gt;&gt;</span> e <span style="color:#f92672">=</span> defaultdict(int)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">&gt;&gt;&gt;</span> e <span style="color:#f92672">=</span> defaultdict(int)
 <span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> [{<span style="color:#e6db74">&#39;a&#39;</span>: <span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#39;b&#39;</span>: <span style="color:#ae81ff">1</span>}, {<span style="color:#e6db74">&#39;a&#39;</span>: <span style="color:#ae81ff">2</span>, <span style="color:#e6db74">&#39;b&#39;</span>:<span style="color:#ae81ff">1</span>}, {<span style="color:#e6db74">&#39;a&#39;</span>: <span style="color:#ae81ff">1</span>, <span style="color:#e6db74">&#39;c&#39;</span>: <span style="color:#ae81ff">3</span>}]:
 <span style="color:#f92672">...</span>     e[x[<span style="color:#e6db74">&#39;a&#39;</span>]] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
 <span style="color:#f92672">...</span>

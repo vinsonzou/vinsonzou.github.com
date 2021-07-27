@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.85.0" />
+  <meta name="generator" content="Hugo 0.86.0" />
 
   <title>Python数据库连接池实例--PooledDB &middot; ops</title>
 
@@ -254,7 +254,7 @@
 </div>
 
   <p><strong>不用连接池的MySQL连接方法</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">import</span> MySQLdb
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">import</span> MySQLdb
 conn<span style="color:#f92672">=</span> MySQLdb<span style="color:#f92672">.</span>connect(host<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;127.0.0.1&#39;</span>,user<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;root&#39;</span>,passwd<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;password&#39;</span>,db<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;DB_test&#39;</span>,port<span style="color:#f92672">=</span><span style="color:#ae81ff">3306</span>)
 cur<span style="color:#f92672">=</span>conn<span style="color:#f92672">.</span>cursor()
 SQL<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;select * from table_test&#34;</span>
@@ -263,7 +263,7 @@ r<span style="color:#f92672">=</span>cur<span style="color:#f92672">.</span>fetc
 cur<span style="color:#f92672">.</span>close()
 conn<span style="color:#f92672">.</span>close()
 </code></pre></div><p><strong>用连接池后的连接方法</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">import</span> MySQLdb
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">import</span> MySQLdb
 <span style="color:#f92672">from</span> DBUtils.PooledDB <span style="color:#f92672">import</span> PooledDB
 pool <span style="color:#f92672">=</span> PooledDB(MySQLdb,<span style="color:#ae81ff">5</span>,host<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;127.0.0.1&#39;</span>,user<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;root&#39;</span>,passwd<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;password&#39;</span>,db<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;DB_test&#39;</span>,port<span style="color:#f92672">=</span><span style="color:#ae81ff">3306</span>)    <span style="color:#75715e">#5为连接池里的最少连接数</span>
 

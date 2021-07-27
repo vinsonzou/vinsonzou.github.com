@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.85.0" />
+  <meta name="generator" content="Hugo 0.86.0" />
 
   <title>MySQL插件之审计 &middot; ops</title>
 
@@ -277,9 +277,9 @@
 <h2 id="插件安装">插件安装</h2>
 <p>MariaDB 的 10.1 版本对应与 Oracle 的 MySQL 5.7，我们到它的官网上下载 Linux 的通用版本。</p>
 <p>找到我们需要的审计插件：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">./mariadb-10.1.48-linux-x86_64/lib/plugin/server_audit.so
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">./mariadb-10.1.48-linux-x86_64/lib/plugin/server_audit.so
 </code></pre></div><p>把这个 so 结尾的文件拷贝到 MySQL 的插件目录，例如：/usr/local/mysql/lib/plugin/</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">-- 配置文件增加以下配置
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">-- 配置文件增加以下配置
 <span style="color:#f92672">[</span>mysqld<span style="color:#f92672">]</span>
 plugin_load_add                <span style="color:#f92672">=</span> server_audit
 server_audit                   <span style="color:#f92672">=</span> FORCE_PLUS_PERMANENT  <span style="color:#75715e"># 防止审计插件被卸载</span>
@@ -298,7 +298,7 @@ WHERE PLUGIN_LIBRARY <span style="color:#f92672">=</span> <span style="color:#e6
 
 mysql&gt; SHOW PLUGINS;
 </code></pre></div><h2 id="插件配置">插件配置</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">-- 查看默认相关变量
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">-- 查看默认相关变量
 mysql&gt; show variables like <span style="color:#e6db74">&#39;%server_audit%&#39;</span>;
 +-------------------------------+-----------------------+
 | Variable_name                 | Value                 |
@@ -358,9 +358,9 @@ mysql&gt; show variables like <span style="color:#e6db74">&#39;%server_audit%&#3
 <li>server_audit_output_type 设置为 file 时，记录成文件，默认目录是 MySQL 的 datadir 目录，默认文件名是 server_audit.log。当设置为 syslog 时，审计记录会通过标准 &lt;syslog.h&gt; API 发送给本地的 syslogd daemon。</li>
 </ul>
 <p>审计日志格式如下：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>timestamp<span style="color:#f92672">]</span>,<span style="color:#f92672">[</span>serverhost<span style="color:#f92672">]</span>,<span style="color:#f92672">[</span>username<span style="color:#f92672">]</span>,<span style="color:#f92672">[</span>host<span style="color:#f92672">]</span>,<span style="color:#f92672">[</span>connectionid<span style="color:#f92672">]</span>,<span style="color:#f92672">[</span>queryid<span style="color:#f92672">]</span>,<span style="color:#f92672">[</span>operation<span style="color:#f92672">]</span>,<span style="color:#f92672">[</span>database<span style="color:#f92672">]</span>,<span style="color:#f92672">[</span>object<span style="color:#f92672">]</span>,<span style="color:#f92672">[</span>retcode<span style="color:#f92672">]</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>timestamp<span style="color:#f92672">]</span>,<span style="color:#f92672">[</span>serverhost<span style="color:#f92672">]</span>,<span style="color:#f92672">[</span>username<span style="color:#f92672">]</span>,<span style="color:#f92672">[</span>host<span style="color:#f92672">]</span>,<span style="color:#f92672">[</span>connectionid<span style="color:#f92672">]</span>,<span style="color:#f92672">[</span>queryid<span style="color:#f92672">]</span>,<span style="color:#f92672">[</span>operation<span style="color:#f92672">]</span>,<span style="color:#f92672">[</span>database<span style="color:#f92672">]</span>,<span style="color:#f92672">[</span>object<span style="color:#f92672">]</span>,<span style="color:#f92672">[</span>retcode<span style="color:#f92672">]</span>
 </code></pre></div><p>审计日志示例如下:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#ae81ff">20210608</span> 09:47:13,localhost,dev,127.0.0.1,429930,0,CONNECT,,,0
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#ae81ff">20210608</span> 09:47:13,localhost,dev,127.0.0.1,429930,0,CONNECT,,,0
 <span style="color:#ae81ff">20210608</span> 09:47:13,localhost,dev,127.0.0.1,429930,0,DISCONNECT,,,0
 </code></pre></div>
   

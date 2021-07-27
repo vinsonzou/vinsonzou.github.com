@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.85.0" />
+  <meta name="generator" content="Hugo 0.86.0" />
 
   <title>Zabbix使用Telegram发送报警 &middot; ops</title>
 
@@ -254,7 +254,7 @@
   <h3 id="环境">环境</h3>
 <p>CentOS 6.X x86_64</p>
 <h3 id="编译telegram">编译Telegram</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">yum -y install lua-devel openssl-devel libconfig-devel readline-devel libevent-devel
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">yum -y install lua-devel openssl-devel libconfig-devel readline-devel libevent-devel
 
 git clone --recursive https://github.com/vysheng/tg.git
 cd tg
@@ -265,7 +265,7 @@ mkdir /usr/local/tg
 cp tg-server.pub /usr/local/tg
 cp bin/telegram-cli /usr/local/tg
 </code></pre></div><p>zabbix报警脚本/usr/local/tg/telegram.sh:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/sh
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/sh
 </span><span style="color:#75715e"></span>
 cd <span style="color:#e6db74">`</span>dirname $0<span style="color:#e6db74">`</span>
 ./telegram-cli -k tg-server.pub -WDCRE -P <span style="color:#ae81ff">8890</span> -d &amp;&gt;/dev/null &amp;
@@ -273,7 +273,7 @@ cd <span style="color:#e6db74">`</span>dirname $0<span style="color:#e6db74">`</
 <p>将如下Zabbix Server配置注释并修改如下
 AlertScriptsPath=/usr/local/zabbix/alertscripts</p>
 <p><code>/usr/local/zabbix/alertscripts/tg.sh</code>内容如下:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/sh
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/sh
 </span><span style="color:#75715e"></span>
 export to<span style="color:#f92672">=</span>$1;
 export subject<span style="color:#f92672">=</span>$2;

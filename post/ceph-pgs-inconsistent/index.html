@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.85.0" />
+  <meta name="generator" content="Hugo 0.86.0" />
 
   <title>ceph pgs inconsistent &middot; ops</title>
 
@@ -244,13 +244,13 @@
 
   <p>OSD扩容后出现如下错误</p>
 <p><code>HEALTH_ERR 2 pgs inconsistent; 320 scrub errors</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>root@ceph01 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ceph health detail</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>root@ceph01 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ceph health detail</span>
 HEALTH_ERR <span style="color:#ae81ff">2</span> pgs inconsistent; <span style="color:#ae81ff">320</span> scrub errors
 pg 10.9 is active+clean+inconsistent, acting <span style="color:#f92672">[</span>6,0,9<span style="color:#f92672">]</span>
 pg 10.10 is active+clean+scrubbing+deep+inconsistent, acting <span style="color:#f92672">[</span>2,6,4<span style="color:#f92672">]</span>
 <span style="color:#ae81ff">320</span> scrub errors
 </code></pre></div><p>修复处于不一致状态的pgs</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>root@ceph01 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ceph pg repair 10.9</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#f92672">[</span>root@ceph01 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ceph pg repair 10.9</span>
 instructing pg 10.9 on osd.6 to repair
 
 <span style="color:#f92672">[</span>root@ceph01 ~<span style="color:#f92672">]</span><span style="color:#75715e"># ceph pg repair 10.10</span>

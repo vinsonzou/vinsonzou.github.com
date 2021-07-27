@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.85.0" />
+  <meta name="generator" content="Hugo 0.86.0" />
 
   <title>防止SNI信息泄露 &middot; ops</title>
 
@@ -252,7 +252,7 @@
   <p>有了 <code>ssl_reject_handshake</code> (Nginx ≥ 1.19.4)这个参数，再也不需要strict-sni.patch了。</p>
 <p>本质需求就是为了当机器人或者奇怪的人类通过HTTPS访问你的IP时不暴露证书，也就不会暴露域名。</p>
 <p>官方文档给了个例子如下，在以下配置中，除example.com以外，其他域名的SSL握手将被拒绝。（返回UNRECOGNIZED NAME，Chrome提示ERR_SSL_UNRECOGNIZED_NAME_ALERT）</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">server <span style="color:#f92672">{</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">server <span style="color:#f92672">{</span>
     listen <span style="color:#ae81ff">443</span> ssl default_server;
     ssl_reject_handshake on;
 <span style="color:#f92672">}</span>

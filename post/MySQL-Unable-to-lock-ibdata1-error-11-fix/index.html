@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.85.0" />
+  <meta name="generator" content="Hugo 0.86.0" />
 
   <title>MySQL Unable to lock ibdata1 error 11 fix &middot; ops</title>
 
@@ -250,12 +250,12 @@
 </div>
 
   <p>A bad shutdown can cause such erros on MySQL.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">InnoDB: Unable to lock ./ibdata1, error: <span style="color:#ae81ff">11</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">InnoDB: Unable to lock ./ibdata1, error: <span style="color:#ae81ff">11</span>
 InnoDB: Check that you <span style="color:#66d9ef">do</span> not already have another mysqld process
 InnoDB: using the same InnoDB data or log files.
 InnoDB: Error in opening ./ibdata1
 </code></pre></div><h2 id="for-solution">For solution</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mv ibdata1 ibdata1.bak
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mv ibdata1 ibdata1.bak
 cp -a ibdata1.bak ibdata1
 service mysqld restart
 </code></pre></div>

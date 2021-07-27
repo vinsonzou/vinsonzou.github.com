@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.85.0" />
+  <meta name="generator" content="Hugo 0.86.0" />
 
   <title>CentOS7上如何支持安装CentOS8 VM &middot; ops</title>
 
@@ -259,7 +259,7 @@
 <h2 id="查看支持os">查看支持os</h2>
 <p>osinfo-query os</p>
 <p>当前环境默认不支持CentOS8/RHEL8，需做如下操作:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># osinfo-db 需更新至osinfo-db-20190805-2</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># osinfo-db 需更新至osinfo-db-20190805-2</span>
 yum install osinfo-db-tools osinfo-db
 </code></pre></div><h2 id="报错处理">报错处理</h2>
 <p><strong>ERROR &lsquo;virConnect&rsquo; object has no attribute &lsquo;baselineHypervisorCPU&rsquo;</strong></p>

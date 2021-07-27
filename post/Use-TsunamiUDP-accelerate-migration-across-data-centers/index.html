@@ -5,7 +5,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.85.0" />
+  <meta name="generator" content="Hugo 0.86.0" />
 
   <title>利用TsunamiUDP加速跨机房迁移 &middot; ops</title>
 
@@ -240,7 +240,7 @@
 </div>
 
   <h2 id="部署">部署</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">yum -y install automake autoconf
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">yum -y install automake autoconf
 
 git clone git://github.com/rriley/tsunami-udp.git
 cd tsunami-udp
@@ -254,7 +254,7 @@ cd tsunami-udp-v11-b42
 ./recompile.sh
 cp server/tsunamid client/tsunami /usr/bin
 </code></pre></div><h2 id="使用">使用</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#1、防火墙调整</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#1、防火墙调整</span>
 <span style="color:#75715e">#服务端：开启TCP 46224(默认端口)</span>
 <span style="color:#75715e">#客户端：开启UDP 46224(默认端口)</span>
 
