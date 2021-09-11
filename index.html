@@ -225,6 +225,57 @@
   
     <article>
   <header>
+    <h2><a href="https://ops.m114.org/post/openresty-anticc/">使用OpenResty实现简易CC防护</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2021/09/11, 11:08</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  环境  CentOS 7 OpenResty 1.19.9.1  lua-resty-ipmatcher lua-var-nginx-module    功能  支持IP白名单 支持IP黑名单 计数key为：ip + &ldquo;.&rdquo; + md5(host + request_uri + useragent)，可自定义 60秒内请求超过60次就封禁3600秒  配置 对应nginx配置
+lua_shared_dict cc_counter 100m; server { listen 80; server_name demo.test.com; location / { access_by_lua_file lua/anticc.lua; } } anticc.lua
+ 
+  </p>
+
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="https://ops.m114.org/post/use-ssl_reject_handshake/">防止SNI信息泄露</a></h2>
 
     <div class="post-meta">
@@ -725,67 +776,6 @@ server { listen 443 ssl http2; ssl_certificate test.crt; ssl_certificate_key tes
   
   <footer>
     <a href="https://ops.m114.org/post/python-3.9.5-build-error/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/nginx-use-mq/">lua发布消息至RocketMQ解耦</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2021/06/03, 15:08</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Nginx">Nginx</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/RocketMQ">RocketMQ</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  广告点击回传数据入消息队列，避免后端处理不过来，先存入消息队列削峰。
-环境  CentOS 7 Nginx  lua-nginx-module lua-resty-core lua-resty-http   依赖服务  阿里云RocketMQ    配置 对应nginx location配置
-location / { access_by_lua_file lua/mq/mq.lua; } custom/mq.lua
-return { AKId = &#34;xxx&#34;, -- RocketMQ的AccessKeyId AKSecret = &#34;xxx&#34;, -- RocketMQ的AccessKeySecret topic_name = &#34;xxx&#34;, -- RocketMQ的topic instance_id = &#34;xxx&#34; -- RocketMQ的instance_id } mq.lua
-local require = require local ngx = ngx local config = require(&#34;custom.mq.config&#34;) local http = require &#34;resty.http&#34; local cjson = require &#34;cjson.
-  </p>
-
-  
-  <footer>
-    <a href="https://ops.m114.org/post/nginx-use-mq/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
   </footer>
   
 </article>

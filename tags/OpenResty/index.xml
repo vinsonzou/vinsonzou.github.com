@@ -7,7 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2021. All rights reserved.</copyright>
-    <lastBuildDate>Fri, 11 Jun 2021 11:18:08 +0800</lastBuildDate><atom:link href="https://ops.m114.org/tags/OpenResty/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 11 Sep 2021 11:08:08 +0800</lastBuildDate><atom:link href="https://ops.m114.org/tags/OpenResty/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用OpenResty实现简易CC防护</title>
+      <link>https://ops.m114.org/post/openresty-anticc/</link>
+      <pubDate>Sat, 11 Sep 2021 11:08:08 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/openresty-anticc/</guid>
+      <description>环境  CentOS 7 OpenResty 1.19.9.1  lua-resty-ipmatcher lua-var-nginx-module    功能  支持IP白名单 支持IP黑名单 计数key为：ip + &amp;ldquo;.&amp;rdquo; + md5(host + request_uri + useragent)，可自定义 60秒内请求超过60次就封禁3600秒  配置 对应nginx配置
+lua_shared_dict cc_counter 100m; server { listen 80; server_name demo.test.com; location / { access_by_lua_file lua/anticc.lua; } } anticc.lua
+ </description>
+    </item>
+    
     <item>
       <title>使用Nginx实现授权下载</title>
       <link>https://ops.m114.org/post/nginx-authorized-download/</link>
