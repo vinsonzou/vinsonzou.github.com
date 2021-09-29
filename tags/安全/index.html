@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.88.1" />
 
-  <title>Tags &middot; ops</title>
+  <title>安全 &middot; ops</title>
 
     
 
@@ -44,7 +44,7 @@
  
   
   <link rel="alternate" type="application/rss+xml" title="ops"
-    href='https://ops.m114.org/tags/index.xml' />
+    href='https://ops.m114.org/tags/%E5%AE%89%E5%85%A8/index.xml' />
   
 
   
@@ -117,7 +117,7 @@
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href='https://ops.m114.org/tags/index.xml'><i
+      <a class="pure-menu-link" href='https://ops.m114.org/tags/%E5%AE%89%E5%85%A8/index.xml'><i
           class="fas fa-rss fa-fw"></i>RSS</a>
     </li>
     
@@ -217,208 +217,66 @@
 
 
 <div class="header">
-  <h1>Tags</h1>
+  <h1>安全</h1>
 </div>
+
 <div class="content">
-  <ul>
+  
+    <article>
+  <header>
+    <h2><a href="https://ops.m114.org/post/cfssl/">CFSSL使用</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2021/09/28, 09:08</time>
+  </div>
+
+  
+
   
   
-    <li>
-      <a href="OpenResty">OpenResty</a>
-      <span>&#40;10&#41;</span>
-    </li>
   
-    <li>
-      <a href="MySQL">MySQL</a>
-      <span>&#40;8&#41;</span>
-    </li>
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/"></a>
+    
+  </div>
   
-    <li>
-      <a href="golang">golang</a>
-      <span>&#40;6&#41;</span>
-    </li>
   
-    <li>
-      <a href="Nginx">Nginx</a>
-      <span>&#40;6&#41;</span>
-    </li>
+
   
-    <li>
-      <a href="Python">Python</a>
-      <span>&#40;4&#41;</span>
-    </li>
   
-    <li>
-      <a href="%E7%AD%89%E4%BF%9D">等保</a>
-      <span>&#40;3&#41;</span>
-    </li>
   
-    <li>
-      <a href="ceph">ceph</a>
-      <span>&#40;2&#41;</span>
-    </li>
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/%E5%AE%89%E5%85%A8">安全</a>
+    
+  </div>
   
-    <li>
-      <a href="%E8%BD%AC%E8%BD%BD">转载</a>
-      <span>&#40;2&#41;</span>
-    </li>
   
-    <li>
-      <a href="cdn">cdn</a>
-      <span>&#40;1&#41;</span>
-    </li>
+
+</div>
+
+  </header>
+
+  <p>
+  简介 1. cfssl安装 2. cfssl常用命令 3. 创建CA证书  3.1 CA证书配置 3.2 CA CSR请求 3.3 生成CA证书和私钥 3.4 其他   4. 签发Server证书 5. 签发Client证书 6. 签发peer证书 7. 校验证书  简介 在工作中，我们经常会遇到各种证书问题，如k8s,etcd等服务时，我们往往都要使用证书，本文将使用CFSSL工具快速简单的配置证书。这里将生成三种证书包含客户端证书、服务端证书、双向证书。
+ client certificate: 用于服务端认证客户端，例如etcdctl、etcd proxy、fleetctl、docker客户端 server certificate: 服务端使用，客户端以此验证服务端身份，例如docker服务端、kube-apiserver peer certificate: 双向证书，用于etcd集群成员间通信  1. cfssl安装 项目地址: https://github.com/cloudflare/cfssl
+wget https://github.com/cloudflare/cfssl/releases/download/v1.6.1/cfssl_1.6.1_linux_amd64 -O /usr/local/bin/cfssl wget https://github.com/cloudflare/cfssl/releases/download/v1.6.1/cfssljson_1.6.1_linux_amd64 -O /usr/local/bin/cfssljson chmod +x /usr/local/bin/{cfssl,cfssljson} 2. cfssl常用命令 # 初始化CA cfssl gencert -initca ca-csr.json | cfssljson -bare ca # 查看cert(证书信息) cfssl certinfo -cert ca.
+  </p>
+
   
-    <li>
-      <a href="centos8">centos8</a>
-      <span>&#40;1&#41;</span>
-    </li>
+  <footer>
+    <a href="https://ops.m114.org/post/cfssl/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
   
-    <li>
-      <a href="cloudflare">cloudflare</a>
-      <span>&#40;1&#41;</span>
-    </li>
+</article>
+
   
-    <li>
-      <a href="curl">curl</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="Docker">Docker</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="git">git</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="Gitea">Gitea</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="go-mmproxy">go-mmproxy</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="Gogs">Gogs</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="hugo">hugo</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="idrac">idrac</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="igb">igb</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="java">java</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="kvm">kvm</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="libvirt">libvirt</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="openssl">openssl</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="proxy_protocol">proxy_protocol</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="RocketMQ">RocketMQ</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="SNI">SNI</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="subjectAltName">subjectAltName</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="sysbench">sysbench</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="systemd">systemd</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="Telegram">Telegram</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="tomcat">tomcat</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="TsunamiUDP">TsunamiUDP</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="vsftpd">vsftpd</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="webauthn">webauthn</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="WebP">WebP</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="Zabbix">Zabbix</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="zabbix">zabbix</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-    <li>
-      <a href="%E5%AE%89%E5%85%A8">安全</a>
-      <span>&#40;1&#41;</span>
-    </li>
-  
-  </ul>
 </div>
 
 </div>

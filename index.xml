@@ -7,7 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&amp;copy; 2014-2021. All rights reserved.</copyright>
-    <lastBuildDate>Sat, 11 Sep 2021 11:08:08 +0800</lastBuildDate><atom:link href="https://ops.m114.org/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 28 Sep 2021 09:08:08 +0800</lastBuildDate><atom:link href="https://ops.m114.org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CFSSL使用</title>
+      <link>https://ops.m114.org/post/cfssl/</link>
+      <pubDate>Tue, 28 Sep 2021 09:08:08 +0800</pubDate>
+      
+      <guid>https://ops.m114.org/post/cfssl/</guid>
+      <description>简介 1. cfssl安装 2. cfssl常用命令 3. 创建CA证书  3.1 CA证书配置 3.2 CA CSR请求 3.3 生成CA证书和私钥 3.4 其他   4. 签发Server证书 5. 签发Client证书 6. 签发peer证书 7. 校验证书  简介 在工作中，我们经常会遇到各种证书问题，如k8s,etcd等服务时，我们往往都要使用证书，本文将使用CFSSL工具快速简单的配置证书。这里将生成三种证书包含客户端证书、服务端证书、双向证书。
+ client certificate: 用于服务端认证客户端，例如etcdctl、etcd proxy、fleetctl、docker客户端 server certificate: 服务端使用，客户端以此验证服务端身份，例如docker服务端、kube-apiserver peer certificate: 双向证书，用于etcd集群成员间通信  1. cfssl安装 项目地址: https://github.com/cloudflare/cfssl
+wget https://github.com/cloudflare/cfssl/releases/download/v1.6.1/cfssl_1.6.1_linux_amd64 -O /usr/local/bin/cfssl wget https://github.com/cloudflare/cfssl/releases/download/v1.6.1/cfssljson_1.6.1_linux_amd64 -O /usr/local/bin/cfssljson chmod +x /usr/local/bin/{cfssl,cfssljson} 2. cfssl常用命令 # 初始化CA cfssl gencert -initca ca-csr.json | cfssljson -bare ca # 查看cert(证书信息) cfssl certinfo -cert ca.</description>
+    </item>
+    
     <item>
       <title>使用OpenResty实现简易CC防护</title>
       <link>https://ops.m114.org/post/openresty-anticc/</link>
@@ -455,8 +466,8 @@ return ngx.re.find(s, [[^https?://[\w-_?.:/+=&amp;amp;#%]+$]], &amp;#34;o&amp;#3
       
       <guid>https://ops.m114.org/about/</guid>
       <description>收藏站点  OpenResty最佳实践 Jerry Qu HTTPS最佳实践 IP黑名单  Python常用模块  ⭐️requests requests-html records tablib yapf keyring ahocorasick esmre EasyOCR U-2-Net Excel ⭐️httpx ⭐️parsel flashtext pyinotify  Python Web开发  Flask Flask-Orator Sanic  ngx_lua常用模块   OpenResty官方库
- lua-resty-core lua-resty-string lua-resty-mysql lua-resty-redis lua-resty-upload srcache-nginx-module echo-nginx-module set-misc-nginx-module headers-more-nginx-module lua-resty-dns lua-resty-lock lua-resty-limit-traffic lua-upstream-nginx-module lua-resty-upstream-healthcheck lua-resty-balancer lua-resty-shell    第三方库
- lua-resty-logger-socket lua-aho-corasick nginx-google-oauth lua-resty-http lua-resty-shell lua-resty-template lua-resty-checkups lua-resty-jit-uuid lua-resty-mlcache lua-resty-iputils(遍历) lua-resty-rsa lua-resty-hmac jxwaf lua-resty-mail lua-resty-resolver apisix lua-resty-etcd lua-resty-ipmatcher(hash实现) jsonschema lua-resty-acme skywalking-nginx-lua xml2lua 微信对接解密/加密 lua-resty-multiplexer lua-resty-sniproxy lua-casbin    ngx_lua Web开发  Lor Learn Lua in 15 Minutes  Go Web开发  Gin fiber  Go常用模块  otp viper 屏蔽字过滤服务 屏蔽字过滤模块 gjson gendry ⭐️json-iterator ⭐️sio ⭐️age cloudflare Go程序平滑重启 adiantum加密库 ants freecache go jsonschema go-attr ⭐️gopacket gin-cache Go Kafka客户端 速度最快的 base64 库  Tools  Go BitTorrent Tracker, Facebook/CoreOS used Go BitTorrent Tracker Go Full-featured BitTorrent client package and utilities 跨平台生成工具 go火焰图 QingCloud MySQL Plus开源版(GTID + Raft + Semi-Sync-Replication) MQ: meq Go爬虫框架: colly coredns redis压测工具 Netflix bpftoolkit mkcert ping动态图形化 敏感文件发现工具 gops go-xss go-keyring Zadig CI/CD clickhouse管理工具ckman google udp proxy Convert your ascii diagram scribbles into happy little SVG 制作小巧 Docker 镜像的终极奥义，或许是使用基于 Google Bazel 构建出的 Docker 通用镜像作为镜像基础，最小的镜像比 Alpine 还要小的多，你可以在项目网站找到 Java、Python、Node、Go、Rust 的示例。 Element UI表单设计及代码生成器  安全工具  trivy  命令行工具集  ⭐️zstd ⭐️A native go client for HDFS rust cp BLAKE3 b3sum  </description>
+ lua-resty-core lua-resty-string lua-resty-mysql lua-resty-redis lua-resty-upload srcache-nginx-module echo-nginx-module set-misc-nginx-module headers-more-nginx-module lua-resty-dns lua-resty-lock lua-resty-limit-traffic lua-upstream-nginx-module lua-resty-upstream-healthcheck lua-resty-balancer lua-resty-shell    APISIX维护库
+ apisix lua-resty-http lua-resty-etcd lua-resty-ipmatcher(hash实现) jsonschema lua-resty-prometheus lua-snowflake lua-var-nginx-module    第三方库</description>
     </item>
     
     <item>

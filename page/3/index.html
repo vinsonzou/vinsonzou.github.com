@@ -225,6 +225,64 @@
   
     <article>
   <header>
+    <h2><a href="https://ops.m114.org/post/centos8-build-mysql5.7.30/">CentOS8编译安装MySQL 5.7.30</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2020/06/18, 13:41</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/MySQL">MySQL</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/MySQL">MySQL</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/centos8">centos8</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  环境  OS: CentOS 8.2 MySQL: 5.7.30  报错信息 1. 编译报错 CMake Error at plugin/group_replication/libmysqlgcs/rpcgen.cmake:100 (MESSAGE): Could not find rpcgen Call Stack (most recent call first): plugin/group_replication/libmysqlgcs/CMakeLists.txt:38 (INCLUDE) 解决方法
+yum --enablerepo=PowerTools install rpcgen 2. systemctl start mysqld.service报错无法启动问题 报错信息如下
+[ERROR] Can&#39;t start server: can&#39;t check PID filepath: No such file or directory /usr/lib/systemd/system/mysqld.service 默认配置如下
+# Copyright (c) 2015, 2016, Oracle and/or its affiliates. All rights reserved. # # This program is free software; you can redistribute it and/or modify # it under the terms of the GNU General Public License, version 2.
+  </p>
+
+  
+  <footer>
+    <a href="https://ops.m114.org/post/centos8-build-mysql5.7.30/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="https://ops.m114.org/post/centos8-install-on-centos7-kvm/">CentOS7上如何支持安装CentOS8 VM</a></h2>
 
     <div class="post-meta">
@@ -671,58 +729,6 @@ When a fatal error occurs in the JVM, it produces an error log file called hs_er
   <footer>
     <a href="https://ops.m114.org/post/analysing-java-core-dump/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
   </footer>
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/error-500-oops-priv_sock_get_cmd-solved/">Error: 500 OOPS: priv_sock_get_cmd [SOLVED]</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2017/07/23, 16:21</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/Troubleshooting">Troubleshooting</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/vsftpd">vsftpd</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  Troubleshooting seccomp filter sanboxing with vsftpd 3.0.x
-The following error may occur on ftp clients with vsftpd 3.0.x:
-500 OOPS: priv_sock_get_cmd This is caused by seccomp filter sanboxing, which is enabled by default on amd64. To workaround this issue, disable seccomp filter sanboxing:
-echo &#39;seccomp_sandbox=NO&#39; &gt;&gt; vsftpd.conf service vsftpd restart For further information, refer to Red Hat bug #845980.
-  </p>
-
   
 </article>
 
