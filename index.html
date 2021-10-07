@@ -225,6 +225,61 @@
   
     <article>
   <header>
+    <h2><a href="https://ops.m114.org/post/openresty-mtls/">使用OpenResty mTLS认证</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2021/09/29, 13:08</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  环境  CentOS 7 OpenResty 1.19.9.1  cosocket-mtls patch  ngx_lua-0.10.20_01-cosocket-mtls.patch lua-resty-core-0.1.22_01-cosocket-mtls.patch   lua-resty-http    为了支持mTLS功能，折腾的够呛，OpenResty官方又没支持，基于OpenResty的APISIX和Kong都有补丁，但两家公司的补丁又有点细微的差别。APISIX的定制OpenResty版本目前仅支持到1.19.3，而Kong的定制OpenResty跟官方版本是同步的。此处的方案就是用Kong的patch和APISIX的lua-resty-http(我稍微改了一丢丢兼容Kong的patch)。
+功能  OpenResty作为客户端调用外部HTTP接口, 使用mTLS认证  Server配置 对应nginx配置
+server { listen 443 ssl; server_name ssl.test.com; ssl_certificate ssl/mtls_server.crt; #server公钥 ssl_certificate_key ssl/mtls_server.key; #server私钥 ssl_client_certificate ssl/mtls_ca.crt; #根级证书公钥，用于验证各个二级client ssl_verify_client on; } 请求验证  curl命令行验证  curl --resolve ssl.test.com:443:127.0.0.1 --cacert ssl/mtls_ca.crt --cert ssl/mtls_client.crt --key mtls_client.key https://ssl.test.com  lua-resty-http验证  location /t { resolver local=on ipv6=off; resolver_timeout 5s; lua_ssl_verify_depth 1; lua_ssl_trusted_certificate /data/nginx/mtls/ca.
+  </p>
+
+  
+  <footer>
+    <a href="https://ops.m114.org/post/openresty-mtls/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="https://ops.m114.org/post/cfssl/">CFSSL使用</a></h2>
 
     <div class="post-meta">
@@ -722,62 +777,6 @@ server { listen 443 ssl http2; ssl_certificate test.crt; ssl_certificate_key tes
   
   <footer>
     <a href="https://ops.m114.org/post/MySQL-plugin-Connection-Control/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/sysbench-trial/">sysbench试用</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2021/06/08, 10:10</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/MySQL">MySQL</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/MySQL">MySQL</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/sysbench">sysbench</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  目录  背景 环境 安装 测试  背景 主要测试开启审计插件OLTP性能损失多大，安装和测试方法如下
-环境  CentOS 7.4 MySQL: 5.7.23  innodb_buffer_pool_size: 8G innodb_buffer_pool_instances: 8【默认】 innodb_buffer_pool_chunk_size: 134217728【即128M，默认值】    安装 yum install gcc gcc-c++ autoconf automake make libtool bzr mysql-devel mysql wget https://github.com/akopytov/sysbench/archive/refs/tags/1.0.20.tar.gz tar zxf 1.0.20.tar.gz cd sysbench-1.0.20 ./autogen.sh ./configure --prefix=/usr/local/sysbench make make install 测试  创建测试库  mysql&gt; create database sbtest;  测试只读性能，整个过程将持续10分钟  #准备数据 sysbench --db-driver=mysql --mysql-host=XXX --mysql-port=XXX --mysql-user=XXX --mysql-password=XXX --mysql-db=sbtest --table_size=25000 --tables=250 --events=0 --time=600 oltp_read_only prepare #运行workload sysbench --db-driver=mysql --mysql-host=XXX --mysql-port=XXX --mysql-user=XXX --mysql-password=XXX --mysql-db=sbtest --table_size=25000 --tables=250 --events=0 --time=600 --threads=XXX --percentile=95 --range_selects=0 --skip-trx=1 --report-interval=1 oltp_read_only run #清理 sysbench --db-driver=mysql --mysql-host=XXX --mysql-port=XXX --mysql-user=XXX --mysql-password=XXX --mysql-db=sbtest --table_size=25000 --tables=250 --events=0 --time=600 --threads=XXX --percentile=95 --range_selects=0 oltp_read_only cleanup  测试写入性能，整个过程将持续10分钟  #准备数据 sysbench --db-driver=mysql --mysql-host=XXX --mysql-port=XXX --mysql-user=XXX --mysql-password=XXX --mysql-db=sbtest --table_size=25000 --tables=250 --events=0 --time=600 oltp_write_only prepare #运行workload sysbench --db-driver=mysql --mysql-host=XXX --mysql-port=XXX --mysql-user=XXX --mysql-password=XXX --mysql-db=sbtest --mysql-ignore-errors=1062 --table_size=25000 --tables=250 --events=0 --time=600 --threads=XXX --percentile=95 --report-interval=1 oltp_write_only run #清理 sysbench --db-driver=mysql --mysql-host=XXX --mysql-port=XXX --mysql-user=XXX --mysql-password=XXX --mysql-db=sbtest --table_size=25000 --tables=250 --events=0 --time=600 --threads=XXX --percentile=95 oltp_write_only cleanup  测试混合读写性能，整个过程将持续10分钟  #准备数据 sysbench --db-driver=mysql --mysql-host=XXX --mysql-port=XXX --mysql-user=XXX --mysql-password=XXX --mysql-db=sbtest --table_size=25000 --tables=250 --events=0 --time=600 oltp_read_write prepare #运行workload sysbench --db-driver=mysql --mysql-host=XXX --mysql-port=XXX --mysql-user=XXX --mysql-password=XXX --mysql-db=sbtest --mysql-ignore-errors=1062 --table_size=25000 --tables=250 --events=0 --time=600 --threads=XXX --percentile=95 --report-interval=1 oltp_read_write run #清理 sysbench --db-driver=mysql --mysql-host=XXX --mysql-port=XXX --mysql-user=XXX --mysql-password=XXX --mysql-db=sbtest --table_size=25000 --tables=250 --events=0 --time=600 --threads=XXX --percentile=95 oltp_read_write cleanup FAQ Q: 128线程只读测试时，报错如下:
-  </p>
-
-  
-  <footer>
-    <a href="https://ops.m114.org/post/sysbench-trial/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
   </footer>
   
 </article>
