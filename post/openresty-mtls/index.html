@@ -314,6 +314,63 @@
 <blockquote>
 <p>一个location下同时使用系统CA和自签名CA时，将CA合并成1个文件即可，参考系统的 <code>/etc/pki/tls/certs/ca-bundle.crt</code></p>
 </blockquote>
+<p><strong>2. client证书兼容性测试结果</strong></p>
+<p>CA证书和Server证书都是ecdsa 256类型</p>
+<table>
+<thead>
+<tr>
+<th>系统版本</th>
+<th>客户端</th>
+<th>版本</th>
+<th>client证书类型</th>
+<th>能否使用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CentOS 7</td>
+<td>curl</td>
+<td>7.29.0</td>
+<td>ecdsa 256</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>CentOS 8</td>
+<td>curl</td>
+<td>7.61.1</td>
+<td>ecdsa 256</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>CentOS 7</td>
+<td>curl</td>
+<td>7.29.0</td>
+<td>rsa 2048</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>CentOS 8</td>
+<td>curl</td>
+<td>7.61.1</td>
+<td>rsa 2048</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>-</td>
+<td>lua-resty-http</td>
+<td>0.2.0</td>
+<td>ecdsa 256</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>-</td>
+<td>lua-resty-http</td>
+<td>0.2.0</td>
+<td>rsa 2048</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
 
   
   <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
