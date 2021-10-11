@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=52976&amp;path=livereload" data-no-instant defer></script>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
@@ -688,7 +688,7 @@ $ curl -H &#39;Host: ops.m114.org&#39; https://127.0.0.1/ curl: (51) Unable to c
 加-ldflags参数 在程序编译的时候可以加上-ldflags &quot;-s -w&quot; 参数来优化编译程序, 其实通过去除部分连接和调试等信息来使得编译之后的执行程序更小,具体参数如下:
  -a 强制编译所有依赖包 -s 去掉符号表信息, panic时候的stack trace就没有任何文件名/行号信息了 -w 去掉DWARF调试信息，得到的程序就不能用gdb调试了  测试代码如下
 package main import &#34;fmt&#34; func main() { fmt.Println(&#34;Hello, 世界&#34;) } 编译方式及文件大小对比结果如下
-   编译参数 大小     go build(默认) 1.6M   go build -ldflags -s 1.6M   go build -ldflags &ldquo;-s -w&rdquo; 1.1M   go build -ldflags -w 1.1M     测试环境: go 1.
+ 编译参数   大小     go build(默认)   1.6M    go build -ldflags -s   1.6M    go build -ldflags &#34;-s -w&#34;   1.1M    go build -ldflags -w   1.
   </p>
 
   

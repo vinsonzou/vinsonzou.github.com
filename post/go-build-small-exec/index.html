@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=52976&amp;path=livereload" data-no-instant defer></script>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
@@ -260,31 +260,56 @@
     <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Hello, 世界&#34;</span>)
 }
 </code></pre></div><p>编译方式及文件大小对比结果如下</p>
-<table>
-<thead>
-<tr>
-<th>编译参数</th>
-<th>大小</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>go build(默认)</td>
-<td>1.6M</td>
-</tr>
-<tr>
-<td>go build -ldflags -s</td>
-<td>1.6M</td>
-</tr>
-<tr>
-<td>go build -ldflags &ldquo;-s -w&rdquo;</td>
-<td>1.1M</td>
-</tr>
-<tr>
-<td>go build -ldflags -w</td>
-<td>1.1M</td>
-</tr>
-</tbody>
+
+
+
+<table class="pure-table pure-table-striped">
+  <thead><tr>
+    
+      <th>编译参数                      </th>
+    
+      <th> 大小   </th>
+    
+  </thead></tr>
+  <tbody>
+  
+    <tr>
+      
+      
+        <td>go build(默认)              </td>
+      
+        <td> 1.6M </td>
+      
+    </tr>
+  
+    <tr>
+      
+      
+        <td>go build -ldflags -s      </td>
+      
+        <td> 1.6M </td>
+      
+    </tr>
+  
+    <tr>
+      
+      
+        <td>go build -ldflags &#34;-s -w&#34; </td>
+      
+        <td> 1.1M </td>
+      
+    </tr>
+  
+    <tr>
+      
+      
+        <td>go build -ldflags -w      </td>
+      
+        <td> 1.1M </td>
+      
+    </tr>
+  
+  </tbody>
 </table>
 <blockquote>
 <p>测试环境: go 1.8.3 on macOS 10.12.6
