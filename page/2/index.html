@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=52976&amp;path=livereload" data-no-instant defer></script>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
@@ -222,6 +222,62 @@
 </div>
 
 <div class="content">
+  
+    <article>
+  <header>
+    <h2><a href="https://ops.m114.org/post/MySQL-plugin-Connection-Control/">MySQL插件之Connection-Control</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>2021/06/08, 13:10</time>
+  </div>
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-folder fa-fw"></i>
+    
+      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/MySQL">MySQL</a>
+    
+  </div>
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/MySQL">MySQL</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/%E7%AD%89%E4%BF%9D">等保</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  目录  等保需求 插件介绍 插件安装 插件配置  等保需求  登录失败策略：登录失败5次锁定10分钟，使用 Connection-Control 插件实现。  插件介绍 MySQL 5.7.17 以后提供了 Connection-Control 插件用来控制客户端在登录操作连续失败一定次数后的响应的延迟。该插件可有效的防止客户端暴力登录的风险(攻击)。该插件包含以下2个组件:
+ CONNECTION_CONTROL：用来控制登录失败的次数及延迟响应时间 CONNECTION_CONTROL_FAILED_LOGIN_ATTEMPTS：该表将登录失败的操作记录至IS库中  插件安装 -- 配置文件增加以下配置 [mysqld] plugin-load-add	= connection_control.so connection-control = FORCE_PLUS_PERMANENT // 防止运行时卸载 connection-control-failed-login-attempts = FORCE_PLUS_PERMANENT // 防止运行时卸载 connection_control_min_connection_delay	= 600000 connection_control_max_connection_delay	= 2147483647 connection_control_failed_connections_threshold	= 5 -- 插件动态安装启用 mysql&gt; INSTALL PLUGIN CONNECTION_CONTROL SONAME &#39;connection_control.so&#39;; mysql&gt; INSTALL PLUGIN CONNECTION_CONTROL_FAILED_LOGIN_ATTEMPTS SONAME &#39;connection_control.so&#39;; -- 验证是否正常安装 mysql&gt; SELECT PLUGIN_NAME, PLUGIN_STATUS FROM INFORMATION_SCHEMA.
+  </p>
+
+  
+  <footer>
+    <a href="https://ops.m114.org/post/MySQL-plugin-Connection-Control/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
   
     <article>
   <header>
@@ -734,57 +790,7 @@ location ~ ^/(images|static)/ { rewrite_by_lua_file &#34;/data/nginx/lua/webp.
   </header>
 
   <p>
-   优化  支持Brotli Upstream主动健康检查 动态证书 OCSP缓存 ssl分布式session mTLS支持   命令行执行  Nginx支持WebP gogs/gitea webhook   灰度发布  基于IP（动态IP） 自定义变量   微信机器人 安全相关  授权下载 简易CC防护 Gitea通过飞书SSO认证 安全token 防止SNI信息泄露   API服务  IP查询服务 MQ解耦，对接阿里云RocketMQ 对接Kafka 对接Pulsar   缓存服务  主动缓存 SDK缓存   特权进程实践  ipset操作   代理相关  http代理 SNI代理    
-  </p>
-
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/golang-aes-crypt/">golang encrypt/decrypt by MacOS keychain</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2021/05/18, 10:08</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/golang">golang</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/golang">golang</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  功能如下:
- AES加密/解密 AES秘钥从MacOS keychain读取 支持Data At Rest Encryption (DARE)，加密文件内存占用小于100K，参考 sio   
+   优化  支持Brotli Upstream主动健康检查 动态证书 OCSP缓存 ssl分布式session mTLS支持   命令行执行  Nginx支持WebP gogs/gitea webhook   灰度发布  基于IP（动态IP） 自定义变量   微信机器人 安全相关  授权下载 简易CC防护 Gitea通过飞书SSO认证 安全token 防止SNI信息泄露   API服务  IP查询服务 MQ解耦，对接阿里云RocketMQ 对接Kafka 对接Pulsar   缓存服务  主动缓存 SDK缓存   特权进程实践  ipsec操作   代理相关  http代理 SNI代理    
   </p>
 
   

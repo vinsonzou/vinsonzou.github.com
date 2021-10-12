@@ -3,16 +3,19 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://ops.m114.org/tags/OpenResty/</loc>
-    <lastmod>2021-09-29T13:08:08+08:00</lastmod>
+    <lastmod>2021-10-08T11:13:08+08:00</lastmod>
   </url><url>
     <loc>https://ops.m114.org/</loc>
-    <lastmod>2021-09-29T13:08:08+08:00</lastmod>
+    <lastmod>2021-10-08T11:13:08+08:00</lastmod>
   </url><url>
     <loc>https://ops.m114.org/post/</loc>
-    <lastmod>2021-09-29T13:08:08+08:00</lastmod>
+    <lastmod>2021-10-08T11:13:08+08:00</lastmod>
   </url><url>
     <loc>https://ops.m114.org/tags/</loc>
-    <lastmod>2021-09-29T13:08:08+08:00</lastmod>
+    <lastmod>2021-10-08T11:13:08+08:00</lastmod>
+  </url><url>
+    <loc>https://ops.m114.org/post/openresty-privileged-agent/</loc>
+    <lastmod>2021-10-08T11:13:08+08:00</lastmod>
   </url><url>
     <loc>https://ops.m114.org/post/openresty-mtls/</loc>
     <lastmod>2021-09-29T13:08:08+08:00</lastmod>
