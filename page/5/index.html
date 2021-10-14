@@ -70,6 +70,30 @@
 <div class=content>
 <article>
 <header>
+<h2><a href=https://ops.m114.org/post/ceph-key-concepts-backup/>Ceph核心概念备忘录</a></h2>
+<div class=post-meta>
+<div>
+<i class="fa fa-calendar fa-fw"></i>
+<time>2016/08/26, 14:38</time>
+</div>
+</div>
+</header>
+<p>
+scrub ceph-osd会定义启动scrub线程，扫描部分对象（哪些对象？），和其他副本比较，发现是否一致。如果发现不一致，ceph会抛出这个异常给用户解决。以PG为粒度，触发scrub。用户手动修复，使用：
+ceph pg repair &lt;pg_id> # 全量复制master节点数据到副本节点。 scrub分为light scrubbing和Deep scrubbing，前者是频率多直接检查hash值，后者是频率少直接读取内容计算checksum比较。
+backfill 当加入或者减少一个新的osd时，所有remapped之后的PG都要迁移到该osd上，此时就叫做backfill。
+recovery 当一个osd或者多个osd崩溃之后，再次上线，该osd的状态已经严重滞后了（此时crushmap中还保持该osd）,这个时候就会进行recovery过程。如果是多个osd recovery, 那么这个时候会占用非常多的服务器资源。
+peering 故障恢复时，对比各个副本的PGlog, 根据PGlog差异构造missing列表，恢复阶段根据missing列表来恢复。peering以PG为单位进行，peering过程中，改PG的IO会被挂起，进入recovery阶段，则可以接受IO，但hit到missing列表项的，也会挂起，直到恢复完成后。因为PGlog的记录是有限的，当peering时发现，PGlog差异太大，则会触发backfill。
+active + clean PG的status，active的意思是说该PG可以接受读写请求，clean的意思是说PG的副本数达到了要求。
+degrade PG的副本数没有达到要求，但是满足最小副本数要求。
+incomplete PG的副本数连最小副本数都没有达到。
+inconsistent scrub或者deep scrub的时候发现PG内容不一致。
+down 关键数据丢失。进入这个状态的一种方法，比如一个PG有两个副本，先down掉其中的一个osd，再down掉第二个osd，最后把第一个osd起起来，这样这个PG就处于down状态。
+PGlog和日志文件系统 PGlog相当于undo log, journal相当于redo log。一个是在某个操作执行完成之后，做log记录，如果操作成功，则可以undo；另一个是在某个操作执行之前，做log记录，如果操作失败，下次可以redo。
+</p>
+</article>
+<article>
+<header>
 <h2><a href=https://ops.m114.org/post/ceph-pgs-inconsistent/>ceph pgs inconsistent</a></h2>
 <div class=post-meta>
 <div>
@@ -258,29 +282,6 @@ Fix for issues that cause iDRAC7 sluggish responsiveness after a prolonged perio
 </p>
 <footer>
 <a href=https://ops.m114.org/post/git-common-command/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-</footer>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/docker-for-mac-beta/>Docker for Mac Beta尝鲜</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2016/05/20, 00:05</time>
-</div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/Docker>Docker</a>
-</div>
-</div>
-</header>
-<p>
-Docker for Mac Docker for Mac 是一个原生的苹果应用程序，被安装到 /Application 目录。安装时会创建 /usr/local/bin 目录下的 docker、docker-compose、docker-machine 符号链接，这些符号链接指向 ~/Library/Group Containers/group.com.docker/bin 目录下的各类文件，而 ~/Library/Group Containers/group.com.docker/bin 的文件实际上也是符号链接，他们指向 /Applications/Docker.app/Contents/Resources/bin 目录下的实际二进制文件。
-Docker for Mac 使用通过 Hypervisor.framework 提供的轻量级的 xhyve 虚拟化技术 Docker for Mac 不使用 docker-machine 管理虚拟机 Docker for Mac 不通过 TCP 端口通信，反而使用 /var/tmp/docker.sock 套接字文件通信（实际上是将 /var/tmp 目录挂载到了虚拟机中，虚拟机在其中生成套接字文件） 由于使用了 xhyve 虚拟机，所以可以模拟不同架构的处理器，这样开发者就直接能在 Mac 上使用 Docker 使用诸多平台的镜像文件，比如 arm 等。 为了能主机虚拟机共享文件，Docker 使用 osxfs 作为全新的文件共享方案，在很多方面都有全新的特性，比如在文件权限、命名空间、文件所有者、文件系统事件、挂载点、符号链接、文件类型、扩展属性等方面都有了全新的内容，并且，所有产生的日志都能通过 syslog 查询，非常方便。不过现在依旧存在许多问题，比如没有设置 docker daemon 各项参数的接口。
-如何为Docker Engine设置代理 screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty 敲一下回车，登录，用户名root，没有密码，直接回车。编辑/etc/init.d/docker文件，如下添加代理：
-</p>
-<footer>
-<a href=https://ops.m114.org/post/docker-for-mac-beta/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
 </footer>
 </article>
 <nav class=pagination role=pagination>

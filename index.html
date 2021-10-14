@@ -70,6 +70,31 @@
 <div class=content>
 <article>
 <header>
+<h2><a href=https://ops.m114.org/post/deploy-to-ghpages-with-github-action/>Hugo使用Github Action自动部署到Github Pages</a></h2>
+<div class=post-meta>
+<div>
+<i class="fa fa-calendar fa-fw"></i>
+<time>2021/10/14, 16:35</time>
+</div>
+<div>
+<i class="fa fa-tags fa-fw"></i>
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/Hugo>Hugo</a>
+</div>
+</div>
+</header>
+<p>
+目的 hugo手动部署到github pages流程:
+使用hugo或hugo &ndash;minify生成静态网页 将静态网页push到建好的github pages repo中，一般是/.github.io 本文的目的就是使用github action自动部署github pages。
+流程及原理 本地新建文章，push到Github仓库的master分支。master分支存放博客文章的源码。 push 操作自动触发预先配置的Actions。 GitHub Action自动执行yml文件中的"action"，构建打包，推送至gh-pages repo。 详细步骤 首先点击github头像在下拉栏里进入Settings - Developer Settings - Personal access tokens 选择Generate new token 在上方填入名字，并勾选repo和action选项，如下图 然后执行以下几步：
+在源码repo里
+在repo根目录新建嵌套的两个文件夹.github/workflows 在workflows里新建一个后缀为.yml的配置文件，名字自取 写进去以下配置（从hugo官方文档修改而来） name: github pages # 名字自取 on: push: branches: - master # 这里的意思是当 main分支发生push的时候，运行下面的jobs，这里先改为github-actions jobs: build-deploy: # 任务名自取 runs-on: ubuntu-latest # 在什么环境运行任务 steps: - uses: actions/checkout@v2 # 引用actions/checkout这个action，与所在的github仓库同名 - name: Setup Hugo # 步骤名自取 uses: peaceiris/actions-hugo@v2 # hugo官方提供的action，用于在任务环境中获取hugo with: hugo-version: 'latest' # 获取最新版本的hugo - name: Build run: hugo --minify # 使用hugo构建静态网页 - name: Deploy uses: peaceiris/actions-gh-pages@v3 # 一个自动发布github pages的action with: # github_token: ${{ secrets.
+</p>
+<footer>
+<a href=https://ops.m114.org/post/deploy-to-ghpages-with-github-action/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+</footer>
+</article>
+<article>
+<header>
 <h2><a href=https://ops.m114.org/post/openresty-privileged-agent/>使用OpenResty reload ipsec服务</a></h2>
 <div class=post-meta>
 <div>
@@ -280,29 +305,6 @@ MariaDB审计插件一直在更新，不同版本的审计插件功能也不同�
 </p>
 <footer>
 <a href=https://ops.m114.org/post/MySQL-plugin-Audit/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-</footer>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/MySQL-plugin-validate-password/>MySQL插件之密码复杂性</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2021/06/08, 13:30</time>
-</div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/MySQL>MySQL</a>&nbsp;/
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/%E7%AD%89%E4%BF%9D>等保</a>
-</div>
-</div>
-</header>
-<p>
-目录 等保需求 插件介绍 插件安装 插件配置 等保需求 用户密码复杂度：3种字符以上，至少8位长度。使用 validate_password 插件实现。 插件介绍 MySQL 5.6/5.7 上密码复杂度策略实现, MySQL 8.0有组件实现方式，同时也支持插件方式。
-插件安装 -- 配置文件增加以下配置 [mysqld] plugin-load-add = validate_password.so validate-password = FORCE_PLUS_PERMANENT -- 插件动态安装启用 mysql> INSTALL PLUGIN validate_password soname 'validate_password.so'; -- 验证是否正常安装 mysql> SELECT PLUGIN_NAME, PLUGIN_LIBRARY, PLUGIN_STATUS, LOAD_OPTION FROM INFORMATION_SCHEMA.PLUGINS WHERE PLUGIN_NAME = 'validate_password'; mysql> SHOW PLUGINS; 注意：参数FORCE_PLUS_PERMANENT是为了防止插件在MySQL运行的时候被卸载，如下所示，当你卸载插件时就会报错： mysql> UNINSTALL PLUGIN validate_password; ERROR 1702 (HY000): Plugin 'validate_password' is force_plus_permanent and can not be unloaded 插件配置 -- 查看默认相关变量 mysql> show variables like 'validate_password%'; +--------------------------------------+--------+ | Variable_name | Value | +--------------------------------------+--------+ | validate_password_check_user_name | OFF | | validate_password_dictionary_file | | | validate_password_length | 8 | | validate_password_mixed_case_count | 1 | | validate_password_number_count | 1 | | validate_password_policy | MEDIUM | | validate_password_special_char_count | 1 | +--------------------------------------+--------+ mysql> select password('abc'); ERROR 1819 (HY000): Your password does not satisfy the current policy requirements mysql> select password('abc123'); ERROR 1819 (HY000): Your password does not satisfy the current policy requirements mysql> select password('abc123ABC'); ERROR 1819 (HY000): Your password does not satisfy the current policy requirements mysql> select password('abc123@A'); 所以你更改密码必须满足：数字、小写字母、大写字母 、特殊字符、长度至少8位 参数说明:
-</p>
-<footer>
-<a href=https://ops.m114.org/post/MySQL-plugin-validate-password/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
 </footer>
 </article>
 <nav class=pagination role=pagination>
