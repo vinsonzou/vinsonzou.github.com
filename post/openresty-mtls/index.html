@@ -141,56 +141,58 @@
 </blockquote>
 <p><strong>2. client证书兼容性测试结果</strong></p>
 <p>CA证书和Server证书都是ecdsa 256类型</p>
-<table class="pure-table pure-table-striped">
-<thead><tr>
-<th>系统版本</th>
-<th>客户端</th>
-<th>版本</th>
-<th>client证书类型</th>
-<th> 能否使用</th>
-</thead></tr>
+<table>
+<thead>
+<tr>
+<th style=text-align:center>系统版本</th>
+<th style=text-align:center>客户端</th>
+<th style=text-align:center>版本</th>
+<th style=text-align:center>client证书类型</th>
+<th style=text-align:center>能否使用</th>
+</tr>
+</thead>
 <tbody>
 <tr>
-<td>CentOS 7 </td>
-<td> curl </td>
-<td> 7.29.0 </td>
-<td> ecdsa 256 </td>
-<td> ❌ </td>
+<td style=text-align:center>CentOS 7</td>
+<td style=text-align:center>curl</td>
+<td style=text-align:center>7.29.0</td>
+<td style=text-align:center>ecdsa 256</td>
+<td style=text-align:center>❌</td>
 </tr>
 <tr>
-<td>CentOS 8 </td>
-<td> curl </td>
-<td> 7.61.1 </td>
-<td> ecdsa 256 </td>
-<td> ✅ </td>
+<td style=text-align:center>CentOS 8</td>
+<td style=text-align:center>curl</td>
+<td style=text-align:center>7.61.1</td>
+<td style=text-align:center>ecdsa 256</td>
+<td style=text-align:center>✅</td>
 </tr>
 <tr>
-<td>CentOS 7 </td>
-<td> curl </td>
-<td> 7.29.0 </td>
-<td> rsa 2048 </td>
-<td> ✅ </td>
+<td style=text-align:center>CentOS 7</td>
+<td style=text-align:center>curl</td>
+<td style=text-align:center>7.29.0</td>
+<td style=text-align:center>rsa 2048</td>
+<td style=text-align:center>✅</td>
 </tr>
 <tr>
-<td>CentOS 8 </td>
-<td> curl </td>
-<td> 7.61.1 </td>
-<td> rsa 2048 </td>
-<td> ✅ </td>
+<td style=text-align:center>CentOS 8</td>
+<td style=text-align:center>curl</td>
+<td style=text-align:center>7.61.1</td>
+<td style=text-align:center>rsa 2048</td>
+<td style=text-align:center>✅</td>
 </tr>
 <tr>
-<td>- </td>
-<td> lua-resty-http </td>
-<td> 0.2.0 </td>
-<td> ecdsa 256 </td>
-<td> ✅ </td>
+<td style=text-align:center>-</td>
+<td style=text-align:center>lua-resty-http</td>
+<td style=text-align:center>0.2.0</td>
+<td style=text-align:center>ecdsa 256</td>
+<td style=text-align:center>✅</td>
 </tr>
 <tr>
-<td>- </td>
-<td> lua-resty-http </td>
-<td> 0.2.0 </td>
-<td> rsa 2048 </td>
-<td> ✅ </td>
+<td style=text-align:center>-</td>
+<td style=text-align:center>lua-resty-http</td>
+<td style=text-align:center>0.2.0</td>
+<td style=text-align:center>rsa 2048</td>
+<td style=text-align:center>✅</td>
 </tr>
 </tbody>
 </table>

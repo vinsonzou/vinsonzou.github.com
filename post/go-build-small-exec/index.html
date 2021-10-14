@@ -92,27 +92,29 @@
     <span style=color:#a6e22e>fmt</span>.<span style=color:#a6e22e>Println</span>(<span style=color:#e6db74>&#34;Hello, 世界&#34;</span>)
 }
 </code></pre></div><p>编译方式及文件大小对比结果如下</p>
-<table class="pure-table pure-table-striped">
-<thead><tr>
-<th>编译参数 </th>
-<th> 大小 </th>
-</thead></tr>
+<table>
+<thead>
+<tr>
+<th>编译参数</th>
+<th>大小</th>
+</tr>
+</thead>
 <tbody>
 <tr>
-<td>go build(默认) </td>
-<td> 1.6M </td>
+<td>go build(默认)</td>
+<td>1.6M</td>
 </tr>
 <tr>
-<td>go build -ldflags -s </td>
-<td> 1.6M </td>
+<td>go build -ldflags -s</td>
+<td>1.6M</td>
 </tr>
 <tr>
-<td>go build -ldflags "-s -w" </td>
-<td> 1.1M </td>
+<td>go build -ldflags &ldquo;-s -w&rdquo;</td>
+<td>1.1M</td>
 </tr>
 <tr>
-<td>go build -ldflags -w </td>
-<td> 1.1M </td>
+<td>go build -ldflags -w</td>
+<td>1.1M</td>
 </tr>
 </tbody>
 </table>

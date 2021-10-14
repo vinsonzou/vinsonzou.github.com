@@ -132,7 +132,7 @@ go > 1.11 as root or with CAP_NET_RAW capability to be able to set IP_TRANSPAREN
 加-ldflags参数 在程序编译的时候可以加上-ldflags "-s -w" 参数来优化编译程序, 其实通过去除部分连接和调试等信息来使得编译之后的执行程序更小,具体参数如下:
 -a 强制编译所有依赖包 -s 去掉符号表信息, panic时候的stack trace就没有任何文件名/行号信息了 -w 去掉DWARF调试信息，得到的程序就不能用gdb调试了 测试代码如下
 package main import "fmt" func main() { fmt.Println("Hello, 世界") } 编译方式及文件大小对比结果如下
-编译参数 大小 go build(默认) 1.6M go build -ldflags -s 1.6M go build -ldflags "-s -w" 1.1M go build -ldflags -w 1.
+编译参数 大小 go build(默认) 1.6M go build -ldflags -s 1.6M go build -ldflags &ldquo;-s -w&rdquo; 1.1M go build -ldflags -w 1.1M 测试环境: go 1.
 </p>
 <footer>
 <a href=https://ops.m114.org/post/go-build-small-exec/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
