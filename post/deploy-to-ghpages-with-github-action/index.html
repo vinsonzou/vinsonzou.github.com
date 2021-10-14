@@ -88,24 +88,22 @@
 <li>GitHub Action自动执行yml文件中的"action"，构建打包，推送至gh-pages repo。</li>
 </ul>
 <h2 id=详细步骤>详细步骤</h2>
-<p>首先点击github头像在下拉栏里进入<code>Settings - Developer Settings - Personal access tokens</code>
-选择<code>Generate new token</code>
-<img src=https://ops.m114.org/img/github-action-01.png alt=action-01></p>
-<p>在上方填入名字，并勾选repo和action选项，如下图
-<img src=https://ops.m114.org/img/github-action-02.png alt=action-02></p>
-<p>然后执行以下几步：</p>
-<p>在源码repo里</p>
+<p>1、首先点击github头像在下拉栏里进入<code>Settings - Developer Settings - Personal access tokens</code>
+选择<code>Generate new token</code></p>
+<p>2、填入名字，并勾选repo和workflow选项，如下图
+<img src=https://ops.m114.org/img/github-action-01.png alt></p>
+<p>3、在源码repo配置中添加Secret
+<img src=https://ops.m114.org/img/github-action-02.png alt></p>
+<p>4、在源码repo里添加如下配置</p>
 <ul>
-<li>在repo根目录新建嵌套的两个文件夹.github/workflows</li>
-<li>在workflows里新建一个后缀为.yml的配置文件，名字自取</li>
-<li>写进去以下配置（从hugo官方文档修改而来）</li>
+<li>.github/workflows/gh-pages.yml</li>
 </ul>
 <div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yml data-lang=yml><span style=color:#f92672>name</span>: <span style=color:#ae81ff>github pages</span> <span style=color:#75715e># 名字自取</span>
 
 <span style=color:#f92672>on</span>:
   <span style=color:#f92672>push</span>:
     <span style=color:#f92672>branches</span>:
-      - <span style=color:#ae81ff>master </span> <span style=color:#75715e># 这里的意思是当 main分支发生push的时候，运行下面的jobs，这里先改为github-actions</span>
+      - <span style=color:#ae81ff>master </span> <span style=color:#75715e># 这里的意思是当 master 分支发生push的时候，运行下面的jobs</span>
 
 <span style=color:#f92672>jobs</span>:
   <span style=color:#f92672>build-deploy</span>: <span style=color:#75715e># 任务名自取</span>
