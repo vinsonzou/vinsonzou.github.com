@@ -1,547 +1,251 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.88.1" />
-
-  <title>使用OpenResty mTLS认证 &middot; ops</title>
-
-    
-
-  
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
-
-  <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
-  <![endif]-->
-  <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
-  <!--<![endif]-->
-
-  <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://ops.m114.org/css/side-menu-old-ie.css">
-  <![endif]-->
-  <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://ops.m114.org/css/side-menu.css">
-  <!--<![endif]-->
-
-  <link rel="stylesheet" href="https://ops.m114.org/css/blackburn.css">
-
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
-
-  
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
-
-  
-  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
- 
-  
-
-  
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
-  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
-  
-  <script>hljs.initHighlightingOnLoad();</script>
-  
-
-  <link rel="shortcut icon" href="https://ops.m114.org/img/favicon.ico" type="image/x-icon" />
-
-  
-  
-
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content>
+<meta name=generator content="Hugo 0.88.1">
+<title>使用OpenResty mTLS认证 &#183; ops</title>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css><!--[if lte IE 8]><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css><![endif]--><!--[if gt IE 8]><!-->
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css><!--<![endif]--><!--[if lte IE 8]><link rel=stylesheet href=https://ops.m114.org/css/side-menu-old-ie.css><![endif]--><!--[if gt IE 8]><!-->
+<link rel=stylesheet href=https://ops.m114.org/css/side-menu.css><!--<![endif]-->
+<link rel=stylesheet href=https://ops.m114.org/css/blackburn.css>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css>
+<link rel=preconnect href=https://fonts.gstatic.com>
+<link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel=stylesheet type=text/css>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<link rel=stylesheet href=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css>
+<script async src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<link rel="shortcut icon" href=https://ops.m114.org/img/favicon.ico type=image/x-icon>
 </head>
-
-
 <body>
-<div id="layout">
-
-  
-<a href="#menu" id="menuLink" class="menu-link">
-  
-  <span></span>
+<div id=layout>
+<a href=#menu id=menuLink class=menu-link>
+<span></span>
 </a>
-<div id="menu">
-
-  
-  <a class="pure-menu-heading brand" href="https://ops.m114.org/">Ops</a>
-
-
-  <div class="pure-menu">
-    <ul class="pure-menu-list">
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/about/"><i class='fa fa-user fa-fw'></i>About</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/topics/"><i class='fa fa-folder fa-fw'></i>Topics</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/tags/"><i class='fa fa-tags fa-fw'></i>Tags</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/"><i class='fa fa-home fa-fw'></i>Home</a>
-      
-        </li>
-      
-    </ul>
-  </div>
-
-  <div class="pure-menu social">
-  <ul class="pure-menu-list">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://github.com/vinsonzou" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
-    </li>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-  </ul>
+<div id=menu>
+<a class="pure-menu-heading brand" href=https://ops.m114.org/>Ops</a>
+<div class=pure-menu>
+<ul class=pure-menu-list>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/about/><i class="fa fa-user fa-fw"></i>About</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/post/><i class="fa fa-list fa-fw"></i>Posts</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/topics/><i class="fa fa-folder fa-fw"></i>Topics</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/tags/><i class="fa fa-tags fa-fw"></i>Tags</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/><i class="fa fa-home fa-fw"></i>Home</a>
+</li>
+</ul>
 </div>
-
-
-  <div>
-  <div class="small-print">
-    <small>&copy; 2014-2021. All rights reserved.</small>
-  </div>
-  <div class="small-print">
-    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
-    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
-  </div>
+<div class="pure-menu social">
+<ul class=pure-menu-list>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://github.com/vinsonzou rel=me target=_blank><i class="fab fa-github-square fa-fw"></i>GitHub</a>
+</li>
+</ul>
 </div>
-
+<div>
+<div class=small-print>
+<small>&copy; 2014-2021. All rights reserved.</small>
 </div>
-
-
-  <div id="main">
-
-
-<div class="header">
-  <h1>使用OpenResty mTLS认证</h1>
-  <h2></h2>
+<div class=small-print>
+<small>Built with&nbsp;<a href=https://gohugo.io/ target=_blank>Hugo</a></small>
+<small>Theme&nbsp;<a href=https://github.com/yoshiharuyamashita/blackburn target=_blank>Blackburn</a></small>
 </div>
-<div class="content">
-
-  <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2021/09/29, 13:08</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>
-    
-  </div>
-  
-  
-
 </div>
-
-  <h2 id="环境">环境</h2>
+</div>
+<div id=main>
+<div class=header>
+<h1>使用OpenResty mTLS认证</h1>
+<h2></h2>
+</div>
+<div class=content>
+<div class=post-meta>
+<div>
+<i class="fa fa-calendar fa-fw"></i>
+<time>2021/09/29, 13:08</time>
+</div>
+<div>
+<i class="fa fa-folder fa-fw"></i>
+<a class=post-taxonomy-topic href=https://ops.m114.org/topics/OpenResty>OpenResty</a>
+</div>
+<div>
+<i class="fa fa-tags fa-fw"></i>
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/OpenResty>OpenResty</a>
+</div>
+</div>
+<h2 id=环境>环境</h2>
 <ul>
 <li>CentOS 7</li>
 <li>OpenResty 1.19.9.1
 <ul>
 <li>cosocket-mtls patch
 <ul>
-<li><a href="https://github.com/Kong/kong-build-tools/blob/master/openresty-patches/patches/1.19.9.1/ngx_lua-0.10.20_01-cosocket-mtls.patch">ngx_lua-0.10.20_01-cosocket-mtls.patch</a></li>
-<li><a href="https://github.com/Kong/kong-build-tools/blob/master/openresty-patches/patches/1.19.9.1/lua-resty-core-0.1.22_01-cosocket-mtls.patch">lua-resty-core-0.1.22_01-cosocket-mtls.patch</a></li>
+<li><a href=https://github.com/Kong/kong-build-tools/blob/master/openresty-patches/patches/1.19.9.1/ngx_lua-0.10.20_01-cosocket-mtls.patch>ngx_lua-0.10.20_01-cosocket-mtls.patch</a></li>
+<li><a href=https://github.com/Kong/kong-build-tools/blob/master/openresty-patches/patches/1.19.9.1/lua-resty-core-0.1.22_01-cosocket-mtls.patch>lua-resty-core-0.1.22_01-cosocket-mtls.patch</a></li>
 </ul>
 </li>
-<li><a href="https://github.com/vinsonzou/lua-resty-http">lua-resty-http</a></li>
+<li><a href=https://github.com/vinsonzou/lua-resty-http>lua-resty-http</a></li>
 </ul>
 </li>
 </ul>
 <p>为了支持mTLS功能，折腾的够呛，OpenResty官方又没支持，基于OpenResty的APISIX和Kong都有补丁，但两家公司的补丁又有点细微的差别。APISIX的定制OpenResty版本目前仅支持到1.19.3，而Kong的定制OpenResty跟官方版本是同步的。此处的方案就是用Kong的patch和APISIX的lua-resty-http(我稍微改了一丢丢兼容Kong的patch)。</p>
-<h2 id="功能">功能</h2>
+<h2 id=功能>功能</h2>
 <ul>
 <li>OpenResty作为客户端调用外部HTTP接口, 使用mTLS认证</li>
 </ul>
-<h2 id="server配置">Server配置</h2>
+<h2 id=server配置>Server配置</h2>
 <p><strong>对应nginx配置</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">server <span style="color:#f92672">{</span>
-　　listen <span style="color:#ae81ff">443</span> ssl;
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>server <span style=color:#f92672>{</span>
+　　listen <span style=color:#ae81ff>443</span> ssl;
     server_name ssl.test.com;
-　　ssl_certificate ssl/mtls_server.crt;      <span style="color:#75715e">#server公钥</span>
-　　ssl_certificate_key ssl/mtls_server.key;  <span style="color:#75715e">#server私钥</span>
-　　ssl_client_certificate ssl/mtls_ca.crt;   <span style="color:#75715e">#根级证书公钥，用于验证各个二级client</span>
+　　ssl_certificate ssl/mtls_server.crt;      <span style=color:#75715e>#server公钥</span>
+　　ssl_certificate_key ssl/mtls_server.key;  <span style=color:#75715e>#server私钥</span>
+　　ssl_client_certificate ssl/mtls_ca.crt;   <span style=color:#75715e>#根级证书公钥，用于验证各个二级client</span>
 　　ssl_verify_client on;
-<span style="color:#f92672">}</span>
-</code></pre></div><h2 id="请求验证">请求验证</h2>
+<span style=color:#f92672>}</span>
+</code></pre></div><h2 id=请求验证>请求验证</h2>
 <ul>
 <li>curl命令行验证</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">curl --resolve ssl.test.com:443:127.0.0.1 --cacert ssl/mtls_ca.crt --cert ssl/mtls_client.crt --key mtls_client.key https://ssl.test.com
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>curl --resolve ssl.test.com:443:127.0.0.1 --cacert ssl/mtls_ca.crt --cert ssl/mtls_client.crt --key mtls_client.key https://ssl.test.com
 </code></pre></div><ul>
 <li>lua-resty-http验证</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lua" data-lang="lua">location <span style="color:#f92672">/</span>t {
-    resolver <span style="color:#66d9ef">local</span><span style="color:#f92672">=</span>on ipv6<span style="color:#f92672">=</span>off;
-    resolver_timeout <span style="color:#ae81ff">5</span>s;
-    lua_ssl_verify_depth <span style="color:#ae81ff">1</span>;
-    lua_ssl_trusted_certificate <span style="color:#f92672">/</span>data<span style="color:#f92672">/</span>nginx<span style="color:#f92672">/</span>mtls<span style="color:#f92672">/</span>ca.pem;
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-lua data-lang=lua>location <span style=color:#f92672>/</span>t {
+    resolver <span style=color:#66d9ef>local</span><span style=color:#f92672>=</span>on ipv6<span style=color:#f92672>=</span>off;
+    resolver_timeout <span style=color:#ae81ff>5</span>s;
+    lua_ssl_verify_depth <span style=color:#ae81ff>1</span>;
+    lua_ssl_trusted_certificate <span style=color:#f92672>/</span>data<span style=color:#f92672>/</span>nginx<span style=color:#f92672>/</span>mtls<span style=color:#f92672>/</span>ca.pem;
 
     content_by_lua_block {
-        <span style="color:#66d9ef">local</span> http <span style="color:#f92672">=</span> require <span style="color:#e6db74">&#34;resty.http&#34;</span>
-        <span style="color:#66d9ef">local</span> httpc <span style="color:#f92672">=</span> http.new()
+        <span style=color:#66d9ef>local</span> http <span style=color:#f92672>=</span> require <span style=color:#e6db74>&#34;resty.http&#34;</span>
+        <span style=color:#66d9ef>local</span> httpc <span style=color:#f92672>=</span> http.new()
 
-        <span style="color:#66d9ef">local</span> res, err <span style="color:#f92672">=</span> httpc:request_uri(<span style="color:#e6db74">&#34;https://ssl.test.com/&#34;</span>, {
-            ssl_cert_path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/data/nginx/mtls/client.pem&#34;</span>,
-            ssl_key_path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/data/nginx/mtls/client.key&#34;</span>,
+        <span style=color:#66d9ef>local</span> res, err <span style=color:#f92672>=</span> httpc:request_uri(<span style=color:#e6db74>&#34;https://ssl.test.com/&#34;</span>, {
+            ssl_cert_path <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/data/nginx/mtls/client.pem&#34;</span>,
+            ssl_key_path <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/data/nginx/mtls/client.key&#34;</span>,
         })
-        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> res <span style="color:#66d9ef">then</span>
+        <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> res <span style=color:#66d9ef>then</span>
             ngx.log(ngx.ERR, err)
-        <span style="color:#66d9ef">else</span>
+        <span style=color:#66d9ef>else</span>
             ngx.say(res.body)
             ngx.exit(res.status)
-        <span style="color:#66d9ef">end</span>
+        <span style=color:#66d9ef>end</span>
     }
 }
-</code></pre></div><h2 id="faq">FAQ</h2>
+</code></pre></div><h2 id=faq>FAQ</h2>
 <p><strong>1. 多CA证书如何使用</strong></p>
 <blockquote>
 <p>一个location下同时使用系统CA和自签名CA时，将CA合并成1个文件即可，参考系统的 <code>/etc/pki/tls/certs/ca-bundle.crt</code></p>
 </blockquote>
 <p><strong>2. client证书兼容性测试结果</strong></p>
 <p>CA证书和Server证书都是ecdsa 256类型</p>
-
-
-
 <table class="pure-table pure-table-striped">
-  <thead><tr>
-    
-      <th>系统版本</th>
-    
-      <th>客户端</th>
-    
-      <th>版本</th>
-    
-      <th>client证书类型</th>
-    
-      <th> 能否使用</th>
-    
-  </thead></tr>
-  <tbody>
-  
-    <tr>
-      
-      
-        <td>CentOS 7 </td>
-      
-        <td> curl           </td>
-      
-        <td> 7.29.0 </td>
-      
-        <td> ecdsa 256      </td>
-      
-        <td> ❌        </td>
-      
-    </tr>
-  
-    <tr>
-      
-      
-        <td>CentOS 8 </td>
-      
-        <td> curl           </td>
-      
-        <td> 7.61.1 </td>
-      
-        <td> ecdsa 256      </td>
-      
-        <td> ✅        </td>
-      
-    </tr>
-  
-    <tr>
-      
-      
-        <td>CentOS 7 </td>
-      
-        <td> curl           </td>
-      
-        <td> 7.29.0 </td>
-      
-        <td> rsa 2048       </td>
-      
-        <td> ✅        </td>
-      
-    </tr>
-  
-    <tr>
-      
-      
-        <td>CentOS 8 </td>
-      
-        <td> curl           </td>
-      
-        <td> 7.61.1 </td>
-      
-        <td> rsa 2048       </td>
-      
-        <td> ✅        </td>
-      
-    </tr>
-  
-    <tr>
-      
-      
-        <td>-        </td>
-      
-        <td> lua-resty-http </td>
-      
-        <td> 0.2.0  </td>
-      
-        <td> ecdsa 256      </td>
-      
-        <td> ✅        </td>
-      
-    </tr>
-  
-    <tr>
-      
-      
-        <td>-        </td>
-      
-        <td> lua-resty-http </td>
-      
-        <td> 0.2.0  </td>
-      
-        <td> rsa 2048       </td>
-      
-        <td> ✅        </td>
-      
-    </tr>
-  
-  </tbody>
+<thead><tr>
+<th>系统版本</th>
+<th>客户端</th>
+<th>版本</th>
+<th>client证书类型</th>
+<th> 能否使用</th>
+</thead></tr>
+<tbody>
+<tr>
+<td>CentOS 7 </td>
+<td> curl </td>
+<td> 7.29.0 </td>
+<td> ecdsa 256 </td>
+<td> ❌ </td>
+</tr>
+<tr>
+<td>CentOS 8 </td>
+<td> curl </td>
+<td> 7.61.1 </td>
+<td> ecdsa 256 </td>
+<td> ✅ </td>
+</tr>
+<tr>
+<td>CentOS 7 </td>
+<td> curl </td>
+<td> 7.29.0 </td>
+<td> rsa 2048 </td>
+<td> ✅ </td>
+</tr>
+<tr>
+<td>CentOS 8 </td>
+<td> curl </td>
+<td> 7.61.1 </td>
+<td> rsa 2048 </td>
+<td> ✅ </td>
+</tr>
+<tr>
+<td>- </td>
+<td> lua-resty-http </td>
+<td> 0.2.0 </td>
+<td> ecdsa 256 </td>
+<td> ✅ </td>
+</tr>
+<tr>
+<td>- </td>
+<td> lua-resty-http </td>
+<td> 0.2.0 </td>
+<td> rsa 2048 </td>
+<td> ✅ </td>
+</tr>
+</tbody>
 </table>
-
-  
-  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
-<ul class="share-buttons">
-	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2fopenresty-mtls%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2fopenresty-mtls%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2fopenresty-mtls%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2fopenresty-mtls%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2fopenresty-mtls%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2fopenresty-mtls%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
-	</li>
+<h4><i class="fas fa-share-alt" aria-hidden=true></i>&nbsp;Share!</h4>
+<ul class=share-buttons>
+<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2fopenresty-mtls%2f" target=_blank title="Share on Facebook"><i class="fab fa-facebook" aria-hidden=true></i><span class=sr-only>Share on Facebook</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2fopenresty-mtls%2f" target=_blank title=Tweet><i class="fab fa-twitter" aria-hidden=true></i><span class=sr-only>Tweet</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2fopenresty-mtls%2f" target=_blank title="Share on Google+"><i class="fab fa-google-plus" aria-hidden=true></i><span class=sr-only>Share on Google+</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2fopenresty-mtls%2f" target=_blank title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden=true></i><span class=sr-only>Post to Tumblr</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2fopenresty-mtls%2f" target=_blank title="Pin it"><i class="fab fa-pinterest-p" aria-hidden=true></i><span class=sr-only>Pin it</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2fopenresty-mtls%2f" target=_blank title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden=true></i><span class=sr-only>Submit to Reddit</span></a>
+</li>
 </ul>
-
-
-<style>
-	ul.share-buttons{
-	  list-style: none;
-	  padding: 0;
-	}
-
-	ul.share-buttons li{
-	  display: inline;
-	}
-
-	ul.share-buttons .sr-only{
-	  position: absolute;
-	  clip: rect(1px 1px 1px 1px);
-	  clip: rect(1px, 1px, 1px, 1px);
-	  padding: 0;
-	  border: 0;
-	  height: 1px;
-	  width: 1px;
-	  overflow: hidden;
-	}
-</style>
-
-
-  
+<style>ul.share-buttons{list-style:none;padding:0}ul.share-buttons li{display:inline}ul.share-buttons .sr-only{position:absolute;clip:rect(1px 1px 1px 1px);clip:rect(1px,1px,1px,1px);padding:0;border:0;height:1px;width:1px;overflow:hidden}</style>
 <div class="prev-next-post pure-g">
-  <div class="pure-u-1-24" style="text-align: left;">
-    
-    <a href="https://ops.m114.org/post/cfssl/"><i class="fa fa-chevron-left"></i></a>
-    
-  </div>
-  <div class="pure-u-10-24">
-    
-    <nav class="prev">
-      <a href="https://ops.m114.org/post/cfssl/">CFSSL使用</a>
-    </nav>
-    
-  </div>
-  <div class="pure-u-2-24">
-    &nbsp;
-  </div>
-  <div class="pure-u-10-24">
-    
-    <nav class="next">
-      <a href="https://ops.m114.org/post/openresty-privileged-agent/">使用OpenResty reload ipsec服务</a>
-    </nav>
-    
-  </div>
-  <div class="pure-u-1-24" style="text-align: right;">
-    
-    <a href="https://ops.m114.org/post/openresty-privileged-agent/"><i class="fa fa-chevron-right"></i></a>
-    
-  </div>
+<div class=pure-u-1-24 style=text-align:left>
+<a href=https://ops.m114.org/post/cfssl/><i class="fa fa-chevron-left"></i></a>
 </div>
-
-
-  
-  
-  
-  
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-
-(function() {
-    
-    
-    if (window.location.hostname == "localhost")
-        return;
-
-    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    var disqus_shortname = 'vinsoncou';
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-
-  
-
+<div class=pure-u-10-24>
+<nav class=prev>
+<a href=https://ops.m114.org/post/cfssl/>CFSSL使用</a>
+</nav>
 </div>
-
+<div class=pure-u-2-24>
+&nbsp;
+</div>
+<div class=pure-u-10-24>
+<nav class=next>
+<a href=https://ops.m114.org/post/openresty-privileged-agent/>使用OpenResty reload ipsec服务</a>
+</nav>
+</div>
+<div class=pure-u-1-24 style=text-align:right>
+<a href=https://ops.m114.org/post/openresty-privileged-agent/><i class="fa fa-chevron-right"></i></a>
 </div>
 </div>
-<script src="https://ops.m114.org/js/ui.js"></script>
-<script src="https://ops.m114.org/js/menus.js"></script>
-
-
-
-
-
-
-
-
-
-
+<div id=disqus_thread></div>
+<script type=text/javascript>(function(){var a,b;if(window.location.hostname=="localhost")return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='vinsoncou',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=http://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+</div>
+</div>
+<script src=https://ops.m114.org/js/ui.js></script>
+<script src=https://ops.m114.org/js/menus.js></script>
 </body>
 </html>
-

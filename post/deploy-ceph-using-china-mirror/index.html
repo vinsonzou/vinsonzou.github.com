@@ -1,256 +1,88 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.88.1" />
-
-  <title>使用国内源部署Ceph &middot; ops</title>
-
-    
-
-  
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
-
-  <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
-  <![endif]-->
-  <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
-  <!--<![endif]-->
-
-  <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://ops.m114.org/css/side-menu-old-ie.css">
-  <![endif]-->
-  <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://ops.m114.org/css/side-menu.css">
-  <!--<![endif]-->
-
-  <link rel="stylesheet" href="https://ops.m114.org/css/blackburn.css">
-
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
-
-  
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
-
-  
-  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
- 
-  
-
-  
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
-  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
-  
-  <script>hljs.initHighlightingOnLoad();</script>
-  
-
-  <link rel="shortcut icon" href="https://ops.m114.org/img/favicon.ico" type="image/x-icon" />
-
-  
-  
-
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content>
+<meta name=generator content="Hugo 0.88.1">
+<title>使用国内源部署Ceph &#183; ops</title>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css><!--[if lte IE 8]><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css><![endif]--><!--[if gt IE 8]><!-->
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css><!--<![endif]--><!--[if lte IE 8]><link rel=stylesheet href=https://ops.m114.org/css/side-menu-old-ie.css><![endif]--><!--[if gt IE 8]><!-->
+<link rel=stylesheet href=https://ops.m114.org/css/side-menu.css><!--<![endif]-->
+<link rel=stylesheet href=https://ops.m114.org/css/blackburn.css>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css>
+<link rel=preconnect href=https://fonts.gstatic.com>
+<link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel=stylesheet type=text/css>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<link rel=stylesheet href=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css>
+<script async src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<link rel="shortcut icon" href=https://ops.m114.org/img/favicon.ico type=image/x-icon>
 </head>
-
-
 <body>
-<div id="layout">
-
-  
-<a href="#menu" id="menuLink" class="menu-link">
-  
-  <span></span>
+<div id=layout>
+<a href=#menu id=menuLink class=menu-link>
+<span></span>
 </a>
-<div id="menu">
-
-  
-  <a class="pure-menu-heading brand" href="https://ops.m114.org/">Ops</a>
-
-
-  <div class="pure-menu">
-    <ul class="pure-menu-list">
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/about/"><i class='fa fa-user fa-fw'></i>About</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/topics/"><i class='fa fa-folder fa-fw'></i>Topics</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/tags/"><i class='fa fa-tags fa-fw'></i>Tags</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/"><i class='fa fa-home fa-fw'></i>Home</a>
-      
-        </li>
-      
-    </ul>
-  </div>
-
-  <div class="pure-menu social">
-  <ul class="pure-menu-list">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://github.com/vinsonzou" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
-    </li>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-  </ul>
+<div id=menu>
+<a class="pure-menu-heading brand" href=https://ops.m114.org/>Ops</a>
+<div class=pure-menu>
+<ul class=pure-menu-list>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/about/><i class="fa fa-user fa-fw"></i>About</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/post/><i class="fa fa-list fa-fw"></i>Posts</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/topics/><i class="fa fa-folder fa-fw"></i>Topics</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/tags/><i class="fa fa-tags fa-fw"></i>Tags</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/><i class="fa fa-home fa-fw"></i>Home</a>
+</li>
+</ul>
 </div>
-
-
-  <div>
-  <div class="small-print">
-    <small>&copy; 2014-2021. All rights reserved.</small>
-  </div>
-  <div class="small-print">
-    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
-    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
-  </div>
+<div class="pure-menu social">
+<ul class=pure-menu-list>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://github.com/vinsonzou rel=me target=_blank><i class="fab fa-github-square fa-fw"></i>GitHub</a>
+</li>
+</ul>
 </div>
-
+<div>
+<div class=small-print>
+<small>&copy; 2014-2021. All rights reserved.</small>
 </div>
-
-
-  <div id="main">
-
-
-<div class="header">
-  <h1>使用国内源部署Ceph</h1>
-  <h2></h2>
+<div class=small-print>
+<small>Built with&nbsp;<a href=https://gohugo.io/ target=_blank>Hugo</a></small>
+<small>Theme&nbsp;<a href=https://github.com/yoshiharuyamashita/blackburn target=_blank>Blackburn</a></small>
 </div>
-<div class="content">
-
-  <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2016/07/28, 13:17</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/Ceph">Ceph</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/ceph">ceph</a>
-    
-  </div>
-  
-  
-
 </div>
-
-  <p>由于网络方面的原因，Ceph的部署经常受到干扰，通常为了加速部署，基本上大家都是将Ceph的源同步到本地进行安装。根据Ceph中国社区的统计，当前已经有国内的网站定期将Ceph安装源同步，极大的方便了我们的测试。本文就是介绍如何使用国内源，加速ceph-deploy部署Ceph集群。</p>
-<h1 id="关于国内源">关于国内源</h1>
+</div>
+<div id=main>
+<div class=header>
+<h1>使用国内源部署Ceph</h1>
+<h2></h2>
+</div>
+<div class=content>
+<div class=post-meta>
+<div>
+<i class="fa fa-calendar fa-fw"></i>
+<time>2016/07/28, 13:17</time>
+</div>
+<div>
+<i class="fa fa-folder fa-fw"></i>
+<a class=post-taxonomy-topic href=https://ops.m114.org/topics/Ceph>Ceph</a>
+</div>
+<div>
+<i class="fa fa-tags fa-fw"></i>
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/ceph>ceph</a>
+</div>
+</div>
+<p>由于网络方面的原因，Ceph的部署经常受到干扰，通常为了加速部署，基本上大家都是将Ceph的源同步到本地进行安装。根据Ceph中国社区的统计，当前已经有国内的网站定期将Ceph安装源同步，极大的方便了我们的测试。本文就是介绍如何使用国内源，加速ceph-deploy部署Ceph集群。</p>
+<h1 id=关于国内源>关于国内源</h1>
 <p>根据Ceph中国社区的统计，国内已经有四家网站开始同步Ceph源，分别是：</p>
 <ul>
 <li>网易镜像源http://mirrors.163.com/ceph</li>
@@ -258,149 +90,78 @@
 <li>中科大镜像源http://mirrors.ustc.edu.cn/ceph</li>
 <li>宝德镜像源http://mirrors.plcloud.com/ceph</li>
 </ul>
-<h1 id="安装cephjewel版">安装Ceph(Jewel版)</h1>
+<h1 id=安装cephjewel版>安装Ceph(Jewel版)</h1>
 <p>由于Jewel版本中已经不提供el6的镜像源，所以只能使用CentOS 7以上版本进行安装。我们并不需要在repos里增加相应的源，只需要设置环境变量，即可让ceph-deploy使用国内源，具体过程如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">export CEPH_DEPLOY_REPO_URL<span style="color:#f92672">=</span>http://mirrors.aliyun.com/ceph/rpm-jewel/el7
-export CEPH_DEPLOY_GPG_URL<span style="color:#f92672">=</span>http://mirrors.aliyun.com/ceph/keys/release.asc
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>export CEPH_DEPLOY_REPO_URL<span style=color:#f92672>=</span>http://mirrors.aliyun.com/ceph/rpm-jewel/el7
+export CEPH_DEPLOY_GPG_URL<span style=color:#f92672>=</span>http://mirrors.aliyun.com/ceph/keys/release.asc
 </code></pre></div><p>之后的过程就没任何区别了</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># Create monitor node</span>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#75715e># Create monitor node</span>
 ceph-deploy new node1 node2 node3
 
-<span style="color:#75715e"># Software Installation</span>
+<span style=color:#75715e># Software Installation</span>
 ceph-deploy install deploy node1 node2 node3
 
-<span style="color:#75715e"># Gather keys</span>
+<span style=color:#75715e># Gather keys</span>
 ceph-deploy mon create-initial
 
-<span style="color:#75715e"># Ceph deploy osd create disk</span>
+<span style=color:#75715e># Ceph deploy osd create disk</span>
 ceph-deploy osd create node1:sdb:/dev/sdc
 ceph-deploy osd create node2:sdb:/dev/sdc
 ceph-deploy osd create node3:sdb:/dev/sdc
 
-<span style="color:#75715e"># Make 3 copies by default</span>
-echo <span style="color:#e6db74">&#34;osd pool default size = 3&#34;</span> | tee -a $HOME/ceph.conf
+<span style=color:#75715e># Make 3 copies by default</span>
+echo <span style=color:#e6db74>&#34;osd pool default size = 3&#34;</span> | tee -a $HOME/ceph.conf
 
-<span style="color:#75715e"># Copy admin keys and configuration files</span>
+<span style=color:#75715e># Copy admin keys and configuration files</span>
 ceph-deploy --overwrite-conf admin deploy node1 node2 node3
 </code></pre></div><p>这样就可以很快速的使用国内源创建出Ceph集群，希望能对大家日常的使用提供便捷。</p>
-
-  
-  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
-<ul class="share-buttons">
-	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2fdeploy-ceph-using-china-mirror%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2fdeploy-ceph-using-china-mirror%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2fdeploy-ceph-using-china-mirror%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2fdeploy-ceph-using-china-mirror%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2fdeploy-ceph-using-china-mirror%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2fdeploy-ceph-using-china-mirror%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
-	</li>
+<h4><i class="fas fa-share-alt" aria-hidden=true></i>&nbsp;Share!</h4>
+<ul class=share-buttons>
+<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2fdeploy-ceph-using-china-mirror%2f" target=_blank title="Share on Facebook"><i class="fab fa-facebook" aria-hidden=true></i><span class=sr-only>Share on Facebook</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2fdeploy-ceph-using-china-mirror%2f" target=_blank title=Tweet><i class="fab fa-twitter" aria-hidden=true></i><span class=sr-only>Tweet</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2fdeploy-ceph-using-china-mirror%2f" target=_blank title="Share on Google+"><i class="fab fa-google-plus" aria-hidden=true></i><span class=sr-only>Share on Google+</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2fdeploy-ceph-using-china-mirror%2f" target=_blank title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden=true></i><span class=sr-only>Post to Tumblr</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2fdeploy-ceph-using-china-mirror%2f" target=_blank title="Pin it"><i class="fab fa-pinterest-p" aria-hidden=true></i><span class=sr-only>Pin it</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2fdeploy-ceph-using-china-mirror%2f" target=_blank title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden=true></i><span class=sr-only>Submit to Reddit</span></a>
+</li>
 </ul>
-
-
-<style>
-	ul.share-buttons{
-	  list-style: none;
-	  padding: 0;
-	}
-
-	ul.share-buttons li{
-	  display: inline;
-	}
-
-	ul.share-buttons .sr-only{
-	  position: absolute;
-	  clip: rect(1px 1px 1px 1px);
-	  clip: rect(1px, 1px, 1px, 1px);
-	  padding: 0;
-	  border: 0;
-	  height: 1px;
-	  width: 1px;
-	  overflow: hidden;
-	}
-</style>
-
-
-  
+<style>ul.share-buttons{list-style:none;padding:0}ul.share-buttons li{display:inline}ul.share-buttons .sr-only{position:absolute;clip:rect(1px 1px 1px 1px);clip:rect(1px,1px,1px,1px);padding:0;border:0;height:1px;width:1px;overflow:hidden}</style>
 <div class="prev-next-post pure-g">
-  <div class="pure-u-1-24" style="text-align: left;">
-    
-    <a href="https://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/"><i class="fa fa-chevron-left"></i></a>
-    
-  </div>
-  <div class="pure-u-10-24">
-    
-    <nav class="prev">
-      <a href="https://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/">R420服务器idrac连接用户数超限制</a>
-    </nav>
-    
-  </div>
-  <div class="pure-u-2-24">
-    &nbsp;
-  </div>
-  <div class="pure-u-10-24">
-    
-    <nav class="next">
-      <a href="https://ops.m114.org/post/ceph-jewel-osd-activate-bug/">ceph集群jewel版本部署osd激活权限报错</a>
-    </nav>
-    
-  </div>
-  <div class="pure-u-1-24" style="text-align: right;">
-    
-    <a href="https://ops.m114.org/post/ceph-jewel-osd-activate-bug/"><i class="fa fa-chevron-right"></i></a>
-    
-  </div>
+<div class=pure-u-1-24 style=text-align:left>
+<a href=https://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/><i class="fa fa-chevron-left"></i></a>
 </div>
-
-
-  
-  
-  
-  
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-
-(function() {
-    
-    
-    if (window.location.hostname == "localhost")
-        return;
-
-    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    var disqus_shortname = 'vinsoncou';
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-
-  
-
+<div class=pure-u-10-24>
+<nav class=prev>
+<a href=https://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/>R420服务器idrac连接用户数超限制</a>
+</nav>
 </div>
-
+<div class=pure-u-2-24>
+&nbsp;
+</div>
+<div class=pure-u-10-24>
+<nav class=next>
+<a href=https://ops.m114.org/post/ceph-jewel-osd-activate-bug/>ceph集群jewel版本部署osd激活权限报错</a>
+</nav>
+</div>
+<div class=pure-u-1-24 style=text-align:right>
+<a href=https://ops.m114.org/post/ceph-jewel-osd-activate-bug/><i class="fa fa-chevron-right"></i></a>
 </div>
 </div>
-<script src="https://ops.m114.org/js/ui.js"></script>
-<script src="https://ops.m114.org/js/menus.js"></script>
-
-
-
-
-
-
-
-
-<script src="https://ops.m114.org/js/math-code.js"></script>
-  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-  
-
-
+<div id=disqus_thread></div>
+<script type=text/javascript>(function(){var a,b;if(window.location.hostname=="localhost")return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='vinsoncou',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=http://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+</div>
+</div>
+<script src=https://ops.m114.org/js/ui.js></script>
+<script src=https://ops.m114.org/js/menus.js></script>
+<script src=https://ops.m114.org/js/math-code.js></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>
-

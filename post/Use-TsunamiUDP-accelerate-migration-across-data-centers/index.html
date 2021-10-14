@@ -1,416 +1,183 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.88.1" />
-
-  <title>利用TsunamiUDP加速跨机房迁移 &middot; ops</title>
-
-    
-
-  
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
-
-  <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
-  <![endif]-->
-  <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
-  <!--<![endif]-->
-
-  <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://ops.m114.org/css/side-menu-old-ie.css">
-  <![endif]-->
-  <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://ops.m114.org/css/side-menu.css">
-  <!--<![endif]-->
-
-  <link rel="stylesheet" href="https://ops.m114.org/css/blackburn.css">
-
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
-
-  
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
-
-  
-  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
- 
-  
-
-  
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
-  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
-  
-  <script>hljs.initHighlightingOnLoad();</script>
-  
-
-  <link rel="shortcut icon" href="https://ops.m114.org/img/favicon.ico" type="image/x-icon" />
-
-  
-  
-
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content>
+<meta name=generator content="Hugo 0.88.1">
+<title>利用TsunamiUDP加速跨机房迁移 &#183; ops</title>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css><!--[if lte IE 8]><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css><![endif]--><!--[if gt IE 8]><!-->
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css><!--<![endif]--><!--[if lte IE 8]><link rel=stylesheet href=https://ops.m114.org/css/side-menu-old-ie.css><![endif]--><!--[if gt IE 8]><!-->
+<link rel=stylesheet href=https://ops.m114.org/css/side-menu.css><!--<![endif]-->
+<link rel=stylesheet href=https://ops.m114.org/css/blackburn.css>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css>
+<link rel=preconnect href=https://fonts.gstatic.com>
+<link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel=stylesheet type=text/css>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<link rel=stylesheet href=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css>
+<script async src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<link rel="shortcut icon" href=https://ops.m114.org/img/favicon.ico type=image/x-icon>
 </head>
-
-
 <body>
-<div id="layout">
-
-  
-<a href="#menu" id="menuLink" class="menu-link">
-  
-  <span></span>
+<div id=layout>
+<a href=#menu id=menuLink class=menu-link>
+<span></span>
 </a>
-<div id="menu">
-
-  
-  <a class="pure-menu-heading brand" href="https://ops.m114.org/">Ops</a>
-
-
-  <div class="pure-menu">
-    <ul class="pure-menu-list">
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/about/"><i class='fa fa-user fa-fw'></i>About</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/topics/"><i class='fa fa-folder fa-fw'></i>Topics</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/tags/"><i class='fa fa-tags fa-fw'></i>Tags</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/"><i class='fa fa-home fa-fw'></i>Home</a>
-      
-        </li>
-      
-    </ul>
-  </div>
-
-  <div class="pure-menu social">
-  <ul class="pure-menu-list">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://github.com/vinsonzou" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
-    </li>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-  </ul>
+<div id=menu>
+<a class="pure-menu-heading brand" href=https://ops.m114.org/>Ops</a>
+<div class=pure-menu>
+<ul class=pure-menu-list>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/about/><i class="fa fa-user fa-fw"></i>About</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/post/><i class="fa fa-list fa-fw"></i>Posts</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/topics/><i class="fa fa-folder fa-fw"></i>Topics</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/tags/><i class="fa fa-tags fa-fw"></i>Tags</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/><i class="fa fa-home fa-fw"></i>Home</a>
+</li>
+</ul>
 </div>
-
-
-  <div>
-  <div class="small-print">
-    <small>&copy; 2014-2021. All rights reserved.</small>
-  </div>
-  <div class="small-print">
-    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
-    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
-  </div>
+<div class="pure-menu social">
+<ul class=pure-menu-list>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://github.com/vinsonzou rel=me target=_blank><i class="fab fa-github-square fa-fw"></i>GitHub</a>
+</li>
+</ul>
 </div>
-
+<div>
+<div class=small-print>
+<small>&copy; 2014-2021. All rights reserved.</small>
 </div>
-
-
-  <div id="main">
-
-
-<div class="header">
-  <h1>利用TsunamiUDP加速跨机房迁移</h1>
-  <h2></h2>
+<div class=small-print>
+<small>Built with&nbsp;<a href=https://gohugo.io/ target=_blank>Hugo</a></small>
+<small>Theme&nbsp;<a href=https://github.com/yoshiharuyamashita/blackburn target=_blank>Blackburn</a></small>
 </div>
-<div class="content">
-
-  <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2015/04/26, 16:00</time>
-  </div>
-
-  
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/TsunamiUDP">TsunamiUDP</a>
-    
-  </div>
-  
-  
-
 </div>
-
-  <h2 id="部署">部署</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">yum -y install automake autoconf
+</div>
+<div id=main>
+<div class=header>
+<h1>利用TsunamiUDP加速跨机房迁移</h1>
+<h2></h2>
+</div>
+<div class=content>
+<div class=post-meta>
+<div>
+<i class="fa fa-calendar fa-fw"></i>
+<time>2015/04/26, 16:00</time>
+</div>
+<div>
+<i class="fa fa-tags fa-fw"></i>
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/TsunamiUDP>TsunamiUDP</a>
+</div>
+</div>
+<h2 id=部署>部署</h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>yum -y install automake autoconf
 
 git clone git://github.com/rriley/tsunami-udp.git
 cd tsunami-udp
 ./recompile.sh
 cp server/tsunamid client/tsunami /usr/bin
 
-<span style="color:#75715e">#或者从sf.net下载</span>
+<span style=color:#75715e>#或者从sf.net下载</span>
 wget http://iweb.dl.sourceforge.net/project/tsunami-udp/tsunami-udp/tsunami-v1.1-cvsbuild42/tsunami-v1.1-cvsbuild42.tar.gz
 tar zxf tsunami-v1.1-cvsbuild42.tar.gz
 cd tsunami-udp-v11-b42
 ./recompile.sh
 cp server/tsunamid client/tsunami /usr/bin
-</code></pre></div><h2 id="使用">使用</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#1、防火墙调整</span>
-<span style="color:#75715e">#服务端：开启TCP 46224(默认端口)</span>
-<span style="color:#75715e">#客户端：开启UDP 46224(默认端口)</span>
+</code></pre></div><h2 id=使用>使用</h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#75715e>#1、防火墙调整</span>
+<span style=color:#75715e>#服务端：开启TCP 46224(默认端口)</span>
+<span style=color:#75715e>#客户端：开启UDP 46224(默认端口)</span>
 
-<span style="color:#75715e">#2、开启服务端</span>
-<span style="color:#75715e">#待迁移文件都放在/app/game_data目录下(也可指定单文件传输)</span>
+<span style=color:#75715e>#2、开启服务端</span>
+<span style=color:#75715e>#待迁移文件都放在/app/game_data目录下(也可指定单文件传输)</span>
 
-tsunamid --hbtimeout <span style="color:#ae81ff">60</span> /app/game_data/*
+tsunamid --hbtimeout <span style=color:#ae81ff>60</span> /app/game_data/*
 
-<span style="color:#75715e">#PS：这里设定心跳包超时时间为60秒，默认为15秒，在使用中很容易中断导致传输失败</span>
+<span style=color:#75715e>#PS：这里设定心跳包超时时间为60秒，默认为15秒，在使用中很容易中断导致传输失败</span>
 
-<span style="color:#75715e">#3、开启客户端</span>
-<span style="color:#75715e"># 拉取服务端(122.225.100.100)的game_db.lz4文件，并限速100M(建议限制下，不然机房带宽就满了哦)</span>
+<span style=color:#75715e>#3、开启客户端</span>
+<span style=color:#75715e># 拉取服务端(122.225.100.100)的game_db.lz4文件，并限速100M(建议限制下，不然机房带宽就满了哦)</span>
 tsunami set rate 100M connect 122.225.100.100 get gcmob_db.lz4
 
-<span style="color:#75715e"># 拉取目录下所有文件</span>
-tsunami set rate 100M connect 122.225.100.100 get <span style="color:#ae81ff">\*</span>
+<span style=color:#75715e># 拉取目录下所有文件</span>
+tsunami set rate 100M connect 122.225.100.100 get <span style=color:#ae81ff>\*</span>
 
-<span style="color:#75715e">#文档：http://tsunami-udp.cvs.sourceforge.net/viewvc/tsunami-udp/docs/USAGE.txt</span>
+<span style=color:#75715e>#文档：http://tsunami-udp.cvs.sourceforge.net/viewvc/tsunami-udp/docs/USAGE.txt</span>
 
 PS：未避免泄密，IP是随机填的
-</code></pre></div><h2 id="跨机房迁移示例">跨机房迁移示例</h2>
+</code></pre></div><h2 id=跨机房迁移示例>跨机房迁移示例</h2>
 <p>场景：
 将14G文件从杭州机房迁移至北京机房</p>
 <ul>
 <li>
 <p>方法1：使用wget下载
-<img src="https://ops.m114.org/img/wget.png" alt="wget下载"></p>
+<img src=https://ops.m114.org/img/wget.png alt=wget下载></p>
 </li>
 <li>
 <p>方法2：使用TsunamiUDP工具
-<img src="https://ops.m114.org/img/TsunamiUDP.jpg" alt="TsunamiUDP下载"></p>
+<img src=https://ops.m114.org/img/TsunamiUDP.jpg alt=TsunamiUDP下载></p>
 </li>
 </ul>
 <p>总结:</p>
 <p>TsunamiUDP相比wget优势太明显了，TsunamiUDP把带宽能跑满，而wget的速度不敢恭维。</p>
-<h2 id="参考">参考</h2>
-<p><a href="http://sysadminandnetworking.blogspot.com/2013/06/tsunami-udp-faster-than-rsync.html">http://sysadminandnetworking.blogspot.com/2013/06/tsunami-udp-faster-than-rsync.html</a>
-<a href="http://blog.csdn.net/awschina/article/details/38661889">http://blog.csdn.net/awschina/article/details/38661889</a></p>
-
-  
-  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
-<ul class="share-buttons">
-	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2fUse-TsunamiUDP-accelerate-migration-across-data-centers%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2fUse-TsunamiUDP-accelerate-migration-across-data-centers%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2fUse-TsunamiUDP-accelerate-migration-across-data-centers%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2fUse-TsunamiUDP-accelerate-migration-across-data-centers%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2fUse-TsunamiUDP-accelerate-migration-across-data-centers%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2fUse-TsunamiUDP-accelerate-migration-across-data-centers%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
-	</li>
+<h2 id=参考>参考</h2>
+<p><a href=http://sysadminandnetworking.blogspot.com/2013/06/tsunami-udp-faster-than-rsync.html>http://sysadminandnetworking.blogspot.com/2013/06/tsunami-udp-faster-than-rsync.html</a>
+<a href=http://blog.csdn.net/awschina/article/details/38661889>http://blog.csdn.net/awschina/article/details/38661889</a></p>
+<h4><i class="fas fa-share-alt" aria-hidden=true></i>&nbsp;Share!</h4>
+<ul class=share-buttons>
+<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2fUse-TsunamiUDP-accelerate-migration-across-data-centers%2f" target=_blank title="Share on Facebook"><i class="fab fa-facebook" aria-hidden=true></i><span class=sr-only>Share on Facebook</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2fUse-TsunamiUDP-accelerate-migration-across-data-centers%2f" target=_blank title=Tweet><i class="fab fa-twitter" aria-hidden=true></i><span class=sr-only>Tweet</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2fUse-TsunamiUDP-accelerate-migration-across-data-centers%2f" target=_blank title="Share on Google+"><i class="fab fa-google-plus" aria-hidden=true></i><span class=sr-only>Share on Google+</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2fUse-TsunamiUDP-accelerate-migration-across-data-centers%2f" target=_blank title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden=true></i><span class=sr-only>Post to Tumblr</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2fUse-TsunamiUDP-accelerate-migration-across-data-centers%2f" target=_blank title="Pin it"><i class="fab fa-pinterest-p" aria-hidden=true></i><span class=sr-only>Pin it</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2fUse-TsunamiUDP-accelerate-migration-across-data-centers%2f" target=_blank title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden=true></i><span class=sr-only>Submit to Reddit</span></a>
+</li>
 </ul>
-
-
-<style>
-	ul.share-buttons{
-	  list-style: none;
-	  padding: 0;
-	}
-
-	ul.share-buttons li{
-	  display: inline;
-	}
-
-	ul.share-buttons .sr-only{
-	  position: absolute;
-	  clip: rect(1px 1px 1px 1px);
-	  clip: rect(1px, 1px, 1px, 1px);
-	  padding: 0;
-	  border: 0;
-	  height: 1px;
-	  width: 1px;
-	  overflow: hidden;
-	}
-</style>
-
-
-  
+<style>ul.share-buttons{list-style:none;padding:0}ul.share-buttons li{display:inline}ul.share-buttons .sr-only{position:absolute;clip:rect(1px 1px 1px 1px);clip:rect(1px,1px,1px,1px);padding:0;border:0;height:1px;width:1px;overflow:hidden}</style>
 <div class="prev-next-post pure-g">
-  <div class="pure-u-1-24" style="text-align: left;">
-    
-    <a href="https://ops.m114.org/post/zabbix-alerts-use-telegram/"><i class="fa fa-chevron-left"></i></a>
-    
-  </div>
-  <div class="pure-u-10-24">
-    
-    <nav class="prev">
-      <a href="https://ops.m114.org/post/zabbix-alerts-use-telegram/">Zabbix使用Telegram发送报警</a>
-    </nav>
-    
-  </div>
-  <div class="pure-u-2-24">
-    &nbsp;
-  </div>
-  <div class="pure-u-10-24">
-    
-    <nav class="next">
-      <a href="https://ops.m114.org/post/russia-permanent-winter-time/">俄罗斯永久冬令时的坑</a>
-    </nav>
-    
-  </div>
-  <div class="pure-u-1-24" style="text-align: right;">
-    
-    <a href="https://ops.m114.org/post/russia-permanent-winter-time/"><i class="fa fa-chevron-right"></i></a>
-    
-  </div>
+<div class=pure-u-1-24 style=text-align:left>
+<a href=https://ops.m114.org/post/zabbix-alerts-use-telegram/><i class="fa fa-chevron-left"></i></a>
 </div>
-
-
-  
-  
-  
-  
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-
-(function() {
-    
-    
-    if (window.location.hostname == "localhost")
-        return;
-
-    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    var disqus_shortname = 'vinsoncou';
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-
-  
-
+<div class=pure-u-10-24>
+<nav class=prev>
+<a href=https://ops.m114.org/post/zabbix-alerts-use-telegram/>Zabbix使用Telegram发送报警</a>
+</nav>
 </div>
-
+<div class=pure-u-2-24>
+&nbsp;
+</div>
+<div class=pure-u-10-24>
+<nav class=next>
+<a href=https://ops.m114.org/post/russia-permanent-winter-time/>俄罗斯永久冬令时的坑</a>
+</nav>
+</div>
+<div class=pure-u-1-24 style=text-align:right>
+<a href=https://ops.m114.org/post/russia-permanent-winter-time/><i class="fa fa-chevron-right"></i></a>
 </div>
 </div>
-<script src="https://ops.m114.org/js/ui.js"></script>
-<script src="https://ops.m114.org/js/menus.js"></script>
-
-
-
-
-
-
-
-
-<script src="https://ops.m114.org/js/math-code.js"></script>
-  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-  
-
-
+<div id=disqus_thread></div>
+<script type=text/javascript>(function(){var a,b;if(window.location.hostname=="localhost")return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='vinsoncou',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=http://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+</div>
+</div>
+<script src=https://ops.m114.org/js/ui.js></script>
+<script src=https://ops.m114.org/js/menus.js></script>
+<script src=https://ops.m114.org/js/math-code.js></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>
-

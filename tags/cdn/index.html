@@ -1,302 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.88.1" />
-
-  <title>cdn &middot; ops</title>
-
-    
-
-  
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
-
-  <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
-  <![endif]-->
-  <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
-  <!--<![endif]-->
-
-  <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://ops.m114.org/css/side-menu-old-ie.css">
-  <![endif]-->
-  <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://ops.m114.org/css/side-menu.css">
-  <!--<![endif]-->
-
-  <link rel="stylesheet" href="https://ops.m114.org/css/blackburn.css">
-
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
-
-  
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
-
-  
-  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
- 
-  
-  <link rel="alternate" type="application/rss+xml" title="ops"
-    href='https://ops.m114.org/tags/cdn/index.xml' />
-  
-
-  
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
-  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
-  
-  <script>hljs.initHighlightingOnLoad();</script>
-  
-
-  <link rel="shortcut icon" href="https://ops.m114.org/img/favicon.ico" type="image/x-icon" />
-
-  
-  
-
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content>
+<meta name=generator content="Hugo 0.88.1">
+<title>cdn &#183; ops</title>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css><!--[if lte IE 8]><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css><![endif]--><!--[if gt IE 8]><!-->
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css><!--<![endif]--><!--[if lte IE 8]><link rel=stylesheet href=https://ops.m114.org/css/side-menu-old-ie.css><![endif]--><!--[if gt IE 8]><!-->
+<link rel=stylesheet href=https://ops.m114.org/css/side-menu.css><!--<![endif]-->
+<link rel=stylesheet href=https://ops.m114.org/css/blackburn.css>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css>
+<link rel=preconnect href=https://fonts.gstatic.com>
+<link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel=stylesheet type=text/css>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<link rel=alternate type=application/rss+xml title=ops href=https://ops.m114.org/tags/cdn/index.xml>
+<link rel=stylesheet href=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css>
+<script async src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<link rel="shortcut icon" href=https://ops.m114.org/img/favicon.ico type=image/x-icon>
 </head>
-
-
 <body>
-<div id="layout">
-
-  
-<a href="#menu" id="menuLink" class="menu-link">
-  
-  <span></span>
+<div id=layout>
+<a href=#menu id=menuLink class=menu-link>
+<span></span>
 </a>
-<div id="menu">
-
-  
-  <a class="pure-menu-heading brand" href="https://ops.m114.org/">Ops</a>
-
-
-  <div class="pure-menu">
-    <ul class="pure-menu-list">
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/about/"><i class='fa fa-user fa-fw'></i>About</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/topics/"><i class='fa fa-folder fa-fw'></i>Topics</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/tags/"><i class='fa fa-tags fa-fw'></i>Tags</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/"><i class='fa fa-home fa-fw'></i>Home</a>
-      
-        </li>
-      
-    </ul>
-  </div>
-
-  <div class="pure-menu social">
-  <ul class="pure-menu-list">
-
-    
-    <li class="pure-menu-item">
-      <a class="pure-menu-link" href='https://ops.m114.org/tags/cdn/index.xml'><i
-          class="fas fa-rss fa-fw"></i>RSS</a>
-    </li>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://github.com/vinsonzou" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
-    </li>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-  </ul>
+<div id=menu>
+<a class="pure-menu-heading brand" href=https://ops.m114.org/>Ops</a>
+<div class=pure-menu>
+<ul class=pure-menu-list>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/about/><i class="fa fa-user fa-fw"></i>About</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/post/><i class="fa fa-list fa-fw"></i>Posts</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/topics/><i class="fa fa-folder fa-fw"></i>Topics</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/tags/><i class="fa fa-tags fa-fw"></i>Tags</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/><i class="fa fa-home fa-fw"></i>Home</a>
+</li>
+</ul>
 </div>
-
-
-  <div>
-  <div class="small-print">
-    <small>&copy; 2014-2021. All rights reserved.</small>
-  </div>
-  <div class="small-print">
-    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
-    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
-  </div>
+<div class="pure-menu social">
+<ul class=pure-menu-list>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/tags/cdn/index.xml><i class="fas fa-rss fa-fw"></i>RSS</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://github.com/vinsonzou rel=me target=_blank><i class="fab fa-github-square fa-fw"></i>GitHub</a>
+</li>
+</ul>
 </div>
-
+<div>
+<div class=small-print>
+<small>&copy; 2014-2021. All rights reserved.</small>
 </div>
-
-
-  <div id="main">
-
-
-<div class="header">
-  <h1>cdn</h1>
+<div class=small-print>
+<small>Built with&nbsp;<a href=https://gohugo.io/ target=_blank>Hugo</a></small>
+<small>Theme&nbsp;<a href=https://github.com/yoshiharuyamashita/blackburn target=_blank>Blackburn</a></small>
 </div>
-
-<div class="content">
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/use-s-maxage-for-cdn/">巧用 cache-control: s-maxage 优化CDN和浏览器缓存同步</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2021/06/14, 11:18</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/"></a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/cdn">cdn</a>
-    
-  </div>
-  
-  
-
 </div>
-
-  </header>
-
-  <p>
-  在实际使用中会发现，通常源站资源发生变化后，我们会尝试刷新CDN。但是由于用户浏览器依旧保留旧资源，造成访问不一致的问题。解决思路如下:
+</div>
+<div id=main>
+<div class=header>
+<h1>cdn</h1>
+</div>
+<div class=content>
+<article>
+<header>
+<h2><a href=https://ops.m114.org/post/use-s-maxage-for-cdn/>巧用 cache-control: s-maxage 优化CDN和浏览器缓存同步</a></h2>
+<div class=post-meta>
+<div>
+<i class="fa fa-calendar fa-fw"></i>
+<time>2021/06/14, 11:18</time>
+</div>
+<div>
+<i class="fa fa-folder fa-fw"></i>
+<a class=post-taxonomy-topic href=https://ops.m114.org/topics/></a>
+</div>
+<div>
+<i class="fa fa-tags fa-fw"></i>
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/cdn>cdn</a>
+</div>
+</div>
+</header>
+<p>
+在实际使用中会发现，通常源站资源发生变化后，我们会尝试刷新CDN。但是由于用户浏览器依旧保留旧资源，造成访问不一致的问题。解决思路如下:
 在源站添加如下header:
- cache-control: max-age=0,s-maxage=604800
- 解释说明
+cache-control: max-age=0,s-maxage=604800
+解释说明
 CDN 通常会遵循这个头，如果仅仅设置cache-control: max-age=0，固然每次浏览器会向 CDN 请求验证资源新鲜度，但是也会造成 CDN 每次都回源验证，会引起缓存击穿的问题。而静态资源通常更新并不频繁，我们可能会期望浏览器仅仅找 CDN 验证新鲜度就够了，CDN 不需要回源。对于这种场景，在cache-control头中添加s-maxage参数就够了。这个参数 CDN 通常会处理，优先级比max-age高。这样就实现了我们的需求。
 Ps: 最理想的方案仍然是cache busting。此方案仅适用于实在无法做到的静态资源。对于一些不需要太重视新鲜度问题的资源，仅仅max-age参数就够了，这样可能尽可能在浏览器段缓存资源，减少 CDN 的请求流量。
 CDN厂商 s-maxage 支持情况
- 阿里云CDN【支持】 腾讯云CDN【不支持】 华为云CDN【不支持】 Akamai CDN【支持】 Google cloud CDN【支持】 AWS cloudfront CDN【支持】  Cache-Control 示例说明  Cache-Control: public max-age=3600 //本地缓存和 CDN 缓存均缓存 1 小时； Cache-Control: private immutable //不能缓存在 CDN，只能缓存在本地。并且一旦被缓存了，则不能被更新； Cache-Control: no-cache //不能缓存。如果一定要缓存的话，确保对其进行了二次验证； Cache-Control: public max-age=3600 s-maxage=7200 //本地缓存 1 小时，CDN 上缓存 2 小时； Cache-Control: public max-age=3600 proxy-revalidate //本地和 CDN 均缓存 1 小时。但是如果 CDN 收到请求，则尽管已经缓存了 1 小时，还是要检查源中文档是否已经被改变。  参考  https://blog.
-  </p>
-
-  
-  <footer>
-    <a href="https://ops.m114.org/post/use-s-maxage-for-cdn/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
+阿里云CDN【支持】 腾讯云CDN【不支持】 华为云CDN【不支持】 Akamai CDN【支持】 Google cloud CDN【支持】 AWS cloudfront CDN【支持】 Cache-Control 示例说明 Cache-Control: public max-age=3600 //本地缓存和 CDN 缓存均缓存 1 小时； Cache-Control: private immutable //不能缓存在 CDN，只能缓存在本地。并且一旦被缓存了，则不能被更新； Cache-Control: no-cache //不能缓存。如果一定要缓存的话，确保对其进行了二次验证； Cache-Control: public max-age=3600 s-maxage=7200 //本地缓存 1 小时，CDN 上缓存 2 小时； Cache-Control: public max-age=3600 proxy-revalidate //本地和 CDN 均缓存 1 小时。但是如果 CDN 收到请求，则尽管已经缓存了 1 小时，还是要检查源中文档是否已经被改变。 参考 https://blog.
+</p>
+<footer>
+<a href=https://ops.m114.org/post/use-s-maxage-for-cdn/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+</footer>
 </article>
-
-  
-</div>
-
 </div>
 </div>
-<script src="https://ops.m114.org/js/ui.js"></script>
-<script src="https://ops.m114.org/js/menus.js"></script>
-
-
-
-
-
-
-
-
-
-
+</div>
+<script src=https://ops.m114.org/js/ui.js></script>
+<script src=https://ops.m114.org/js/menus.js></script>
 </body>
 </html>

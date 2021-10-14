@@ -1,247 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.88.1" />
-
-  <title>Monitor SSL certificate expiry &middot; ops</title>
-
-    
-
-  
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
-
-  <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
-  <![endif]-->
-  <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
-  <!--<![endif]-->
-
-  <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://ops.m114.org/css/side-menu-old-ie.css">
-  <![endif]-->
-  <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://ops.m114.org/css/side-menu.css">
-  <!--<![endif]-->
-
-  <link rel="stylesheet" href="https://ops.m114.org/css/blackburn.css">
-
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
-
-  
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
-
-  
-  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
- 
-  
-
-  
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
-  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
-  
-  <script>hljs.initHighlightingOnLoad();</script>
-  
-
-  <link rel="shortcut icon" href="https://ops.m114.org/img/favicon.ico" type="image/x-icon" />
-
-  
-  
-
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content>
+<meta name=generator content="Hugo 0.88.1">
+<title>Monitor SSL certificate expiry &#183; ops</title>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css><!--[if lte IE 8]><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css><![endif]--><!--[if gt IE 8]><!-->
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css><!--<![endif]--><!--[if lte IE 8]><link rel=stylesheet href=https://ops.m114.org/css/side-menu-old-ie.css><![endif]--><!--[if gt IE 8]><!-->
+<link rel=stylesheet href=https://ops.m114.org/css/side-menu.css><!--<![endif]-->
+<link rel=stylesheet href=https://ops.m114.org/css/blackburn.css>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css>
+<link rel=preconnect href=https://fonts.gstatic.com>
+<link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel=stylesheet type=text/css>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<link rel=stylesheet href=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css>
+<script async src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<link rel="shortcut icon" href=https://ops.m114.org/img/favicon.ico type=image/x-icon>
 </head>
-
-
 <body>
-<div id="layout">
-
-  
-<a href="#menu" id="menuLink" class="menu-link">
-  
-  <span></span>
+<div id=layout>
+<a href=#menu id=menuLink class=menu-link>
+<span></span>
 </a>
-<div id="menu">
-
-  
-  <a class="pure-menu-heading brand" href="https://ops.m114.org/">Ops</a>
-
-
-  <div class="pure-menu">
-    <ul class="pure-menu-list">
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/about/"><i class='fa fa-user fa-fw'></i>About</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/topics/"><i class='fa fa-folder fa-fw'></i>Topics</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/tags/"><i class='fa fa-tags fa-fw'></i>Tags</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/"><i class='fa fa-home fa-fw'></i>Home</a>
-      
-        </li>
-      
-    </ul>
-  </div>
-
-  <div class="pure-menu social">
-  <ul class="pure-menu-list">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://github.com/vinsonzou" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
-    </li>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-  </ul>
+<div id=menu>
+<a class="pure-menu-heading brand" href=https://ops.m114.org/>Ops</a>
+<div class=pure-menu>
+<ul class=pure-menu-list>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/about/><i class="fa fa-user fa-fw"></i>About</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/post/><i class="fa fa-list fa-fw"></i>Posts</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/topics/><i class="fa fa-folder fa-fw"></i>Topics</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/tags/><i class="fa fa-tags fa-fw"></i>Tags</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/><i class="fa fa-home fa-fw"></i>Home</a>
+</li>
+</ul>
 </div>
-
-
-  <div>
-  <div class="small-print">
-    <small>&copy; 2014-2021. All rights reserved.</small>
-  </div>
-  <div class="small-print">
-    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
-    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
-  </div>
+<div class="pure-menu social">
+<ul class=pure-menu-list>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://github.com/vinsonzou rel=me target=_blank><i class="fab fa-github-square fa-fw"></i>GitHub</a>
+</li>
+</ul>
 </div>
-
+<div>
+<div class=small-print>
+<small>&copy; 2014-2021. All rights reserved.</small>
 </div>
-
-
-  <div id="main">
-
-
-<div class="header">
-  <h1>Monitor SSL certificate expiry</h1>
-  <h2></h2>
+<div class=small-print>
+<small>Built with&nbsp;<a href=https://gohugo.io/ target=_blank>Hugo</a></small>
+<small>Theme&nbsp;<a href=https://github.com/yoshiharuyamashita/blackburn target=_blank>Blackburn</a></small>
 </div>
-<div class="content">
-
-  <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2015/04/25, 16:31</time>
-  </div>
-
-  
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/zabbix">zabbix</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/openssl">openssl</a>
-    
-  </div>
-  
-  
-
 </div>
-
-  <p>看到网上弄了个zabbix监控SSL证书过期时间的,给咱业务也加了个此监控。</p>
+</div>
+<div id=main>
+<div class=header>
+<h1>Monitor SSL certificate expiry</h1>
+<h2></h2>
+</div>
+<div class=content>
+<div class=post-meta>
+<div>
+<i class="fa fa-calendar fa-fw"></i>
+<time>2015/04/25, 16:31</time>
+</div>
+<div>
+<i class="fa fa-tags fa-fw"></i>
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/zabbix>zabbix</a>&nbsp;/
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/openssl>openssl</a>
+</div>
+</div>
+<p>看到网上弄了个zabbix监控SSL证书过期时间的,给咱业务也加了个此监控。</p>
 <p>改进如下：</p>
 <blockquote>
 <ul>
@@ -249,144 +86,74 @@
 </ul>
 </blockquote>
 <p>当前使用的shell脚本如下</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e">#!/bin/sh
-</span><span style="color:#75715e"></span>
-host<span style="color:#f92672">=</span>$1
-port<span style="color:#f92672">=</span><span style="color:#ae81ff">443</span>
-end_date<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>openssl s_client -servername $host -host $host -port $port -showcerts &lt;/dev/null 2&gt;/dev/null |
-  sed -n <span style="color:#e6db74">&#39;/BEGIN CERTIFICATE/,/END CERT/p&#39;</span> |
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#75715e>#!/bin/sh
+</span><span style=color:#75715e></span>
+host<span style=color:#f92672>=</span>$1
+port<span style=color:#f92672>=</span><span style=color:#ae81ff>443</span>
+end_date<span style=color:#f92672>=</span><span style=color:#e6db74>`</span>openssl s_client -servername $host -host $host -port $port -showcerts &lt;/dev/null 2&gt;/dev/null |
+  sed -n <span style=color:#e6db74>&#39;/BEGIN CERTIFICATE/,/END CERT/p&#39;</span> |
   openssl x509 -text 2&gt;/dev/null |
-  sed -n <span style="color:#e6db74">&#39;s/ *Not After : *//p&#39;</span><span style="color:#e6db74">`</span>
-<span style="color:#75715e"># openssl 检验和验证SSL证书。</span>
-<span style="color:#75715e"># -servername $host 因一台主机存在多个证书，利用SNI特性检查</span>
-<span style="color:#75715e"># &lt;/dev/null 定向标准输入，防止交互式程序Hang。从/dev/null 读时，直接读出0 。</span>
-<span style="color:#75715e"># sed -n 和p 一起使用，仅显示匹配到的部分。 //,// 区间匹配。</span>
-<span style="color:#75715e"># openssl x509 -text 解码证书信息，包含证书的有效期。</span>
+  sed -n <span style=color:#e6db74>&#39;s/ *Not After : *//p&#39;</span><span style=color:#e6db74>`</span>
+<span style=color:#75715e># openssl 检验和验证SSL证书。</span>
+<span style=color:#75715e># -servername $host 因一台主机存在多个证书，利用SNI特性检查</span>
+<span style=color:#75715e># &lt;/dev/null 定向标准输入，防止交互式程序Hang。从/dev/null 读时，直接读出0 。</span>
+<span style=color:#75715e># sed -n 和p 一起使用，仅显示匹配到的部分。 //,// 区间匹配。</span>
+<span style=color:#75715e># openssl x509 -text 解码证书信息，包含证书的有效期。</span>
 
-<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -n <span style="color:#e6db74">&#34;</span>$end_date<span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span>
-<span style="color:#66d9ef">then</span>
-    end_date_seconds<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>date <span style="color:#e6db74">&#39;+%s&#39;</span> --date <span style="color:#e6db74">&#34;</span>$end_date<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">`</span>
-    now_seconds<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>date <span style="color:#e6db74">&#39;+%s&#39;</span><span style="color:#e6db74">`</span>
-    echo <span style="color:#e6db74">&#34;(</span>$end_date_seconds<span style="color:#e6db74">-</span>$now_seconds<span style="color:#e6db74">)/24/3600&#34;</span> | bc
-<span style="color:#66d9ef">fi</span>
+<span style=color:#66d9ef>if</span> <span style=color:#f92672>[</span> -n <span style=color:#e6db74>&#34;</span>$end_date<span style=color:#e6db74>&#34;</span> <span style=color:#f92672>]</span>
+<span style=color:#66d9ef>then</span>
+    end_date_seconds<span style=color:#f92672>=</span><span style=color:#e6db74>`</span>date <span style=color:#e6db74>&#39;+%s&#39;</span> --date <span style=color:#e6db74>&#34;</span>$end_date<span style=color:#e6db74>&#34;</span><span style=color:#e6db74>`</span>
+    now_seconds<span style=color:#f92672>=</span><span style=color:#e6db74>`</span>date <span style=color:#e6db74>&#39;+%s&#39;</span><span style=color:#e6db74>`</span>
+    echo <span style=color:#e6db74>&#34;(</span>$end_date_seconds<span style=color:#e6db74>-</span>$now_seconds<span style=color:#e6db74>)/24/3600&#34;</span> | bc
+<span style=color:#66d9ef>fi</span>
 </code></pre></div>
-  
-  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
-<ul class="share-buttons">
-	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2fmonitor-ssl-certificate-expiry%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2fmonitor-ssl-certificate-expiry%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2fmonitor-ssl-certificate-expiry%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2fmonitor-ssl-certificate-expiry%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2fmonitor-ssl-certificate-expiry%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2fmonitor-ssl-certificate-expiry%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
-	</li>
+<h4><i class="fas fa-share-alt" aria-hidden=true></i>&nbsp;Share!</h4>
+<ul class=share-buttons>
+<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2fmonitor-ssl-certificate-expiry%2f" target=_blank title="Share on Facebook"><i class="fab fa-facebook" aria-hidden=true></i><span class=sr-only>Share on Facebook</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2fmonitor-ssl-certificate-expiry%2f" target=_blank title=Tweet><i class="fab fa-twitter" aria-hidden=true></i><span class=sr-only>Tweet</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2fmonitor-ssl-certificate-expiry%2f" target=_blank title="Share on Google+"><i class="fab fa-google-plus" aria-hidden=true></i><span class=sr-only>Share on Google+</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2fmonitor-ssl-certificate-expiry%2f" target=_blank title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden=true></i><span class=sr-only>Post to Tumblr</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2fmonitor-ssl-certificate-expiry%2f" target=_blank title="Pin it"><i class="fab fa-pinterest-p" aria-hidden=true></i><span class=sr-only>Pin it</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2fmonitor-ssl-certificate-expiry%2f" target=_blank title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden=true></i><span class=sr-only>Submit to Reddit</span></a>
+</li>
 </ul>
-
-
-<style>
-	ul.share-buttons{
-	  list-style: none;
-	  padding: 0;
-	}
-
-	ul.share-buttons li{
-	  display: inline;
-	}
-
-	ul.share-buttons .sr-only{
-	  position: absolute;
-	  clip: rect(1px 1px 1px 1px);
-	  clip: rect(1px, 1px, 1px, 1px);
-	  padding: 0;
-	  border: 0;
-	  height: 1px;
-	  width: 1px;
-	  overflow: hidden;
-	}
-</style>
-
-
-  
+<style>ul.share-buttons{list-style:none;padding:0}ul.share-buttons li{display:inline}ul.share-buttons .sr-only{position:absolute;clip:rect(1px 1px 1px 1px);clip:rect(1px,1px,1px,1px);padding:0;border:0;height:1px;width:1px;overflow:hidden}</style>
 <div class="prev-next-post pure-g">
-  <div class="pure-u-1-24" style="text-align: left;">
-    
-    <a href="https://ops.m114.org/post/how-to-use-hugo/"><i class="fa fa-chevron-left"></i></a>
-    
-  </div>
-  <div class="pure-u-10-24">
-    
-    <nav class="prev">
-      <a href="https://ops.m114.org/post/how-to-use-hugo/">使用Hugo搭建免费个人Blog</a>
-    </nav>
-    
-  </div>
-  <div class="pure-u-2-24">
-    &nbsp;
-  </div>
-  <div class="pure-u-10-24">
-    
-    <nav class="next">
-      <a href="https://ops.m114.org/post/zabbix-alerts-use-telegram/">Zabbix使用Telegram发送报警</a>
-    </nav>
-    
-  </div>
-  <div class="pure-u-1-24" style="text-align: right;">
-    
-    <a href="https://ops.m114.org/post/zabbix-alerts-use-telegram/"><i class="fa fa-chevron-right"></i></a>
-    
-  </div>
+<div class=pure-u-1-24 style=text-align:left>
+<a href=https://ops.m114.org/post/how-to-use-hugo/><i class="fa fa-chevron-left"></i></a>
 </div>
-
-
-  
-  
-  
-  
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-
-(function() {
-    
-    
-    if (window.location.hostname == "localhost")
-        return;
-
-    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    var disqus_shortname = 'vinsoncou';
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-
-  
-
+<div class=pure-u-10-24>
+<nav class=prev>
+<a href=https://ops.m114.org/post/how-to-use-hugo/>使用Hugo搭建免费个人Blog</a>
+</nav>
 </div>
-
+<div class=pure-u-2-24>
+&nbsp;
+</div>
+<div class=pure-u-10-24>
+<nav class=next>
+<a href=https://ops.m114.org/post/zabbix-alerts-use-telegram/>Zabbix使用Telegram发送报警</a>
+</nav>
+</div>
+<div class=pure-u-1-24 style=text-align:right>
+<a href=https://ops.m114.org/post/zabbix-alerts-use-telegram/><i class="fa fa-chevron-right"></i></a>
 </div>
 </div>
-<script src="https://ops.m114.org/js/ui.js"></script>
-<script src="https://ops.m114.org/js/menus.js"></script>
-
-
-
-
-
-
-
-
-<script src="https://ops.m114.org/js/math-code.js"></script>
-  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-  
-
-
+<div id=disqus_thread></div>
+<script type=text/javascript>(function(){var a,b;if(window.location.hostname=="localhost")return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='vinsoncou',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=http://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+</div>
+</div>
+<script src=https://ops.m114.org/js/ui.js></script>
+<script src=https://ops.m114.org/js/menus.js></script>
+<script src=https://ops.m114.org/js/math-code.js></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>
-

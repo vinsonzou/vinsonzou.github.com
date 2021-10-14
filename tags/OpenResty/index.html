@@ -1,925 +1,417 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.88.1" />
-
-  <title>OpenResty &middot; ops</title>
-
-    
-
-  
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
-
-  <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
-  <![endif]-->
-  <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
-  <!--<![endif]-->
-
-  <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://ops.m114.org/css/side-menu-old-ie.css">
-  <![endif]-->
-  <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://ops.m114.org/css/side-menu.css">
-  <!--<![endif]-->
-
-  <link rel="stylesheet" href="https://ops.m114.org/css/blackburn.css">
-
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
-
-  
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
-
-  
-  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
- 
-  
-  <link rel="alternate" type="application/rss+xml" title="ops"
-    href='https://ops.m114.org/tags/OpenResty/index.xml' />
-  
-
-  
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
-  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
-  
-  <script>hljs.initHighlightingOnLoad();</script>
-  
-
-  <link rel="shortcut icon" href="https://ops.m114.org/img/favicon.ico" type="image/x-icon" />
-
-  
-  
-
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content>
+<meta name=generator content="Hugo 0.88.1">
+<title>OpenResty &#183; ops</title>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css><!--[if lte IE 8]><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css><![endif]--><!--[if gt IE 8]><!-->
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css><!--<![endif]--><!--[if lte IE 8]><link rel=stylesheet href=https://ops.m114.org/css/side-menu-old-ie.css><![endif]--><!--[if gt IE 8]><!-->
+<link rel=stylesheet href=https://ops.m114.org/css/side-menu.css><!--<![endif]-->
+<link rel=stylesheet href=https://ops.m114.org/css/blackburn.css>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css>
+<link rel=preconnect href=https://fonts.gstatic.com>
+<link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel=stylesheet type=text/css>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<link rel=alternate type=application/rss+xml title=ops href=https://ops.m114.org/tags/OpenResty/index.xml>
+<link rel=stylesheet href=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css>
+<script async src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<link rel="shortcut icon" href=https://ops.m114.org/img/favicon.ico type=image/x-icon>
 </head>
-
-
 <body>
-<div id="layout">
-
-  
-<a href="#menu" id="menuLink" class="menu-link">
-  
-  <span></span>
+<div id=layout>
+<a href=#menu id=menuLink class=menu-link>
+<span></span>
 </a>
-<div id="menu">
-
-  
-  <a class="pure-menu-heading brand" href="https://ops.m114.org/">Ops</a>
-
-
-  <div class="pure-menu">
-    <ul class="pure-menu-list">
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/about/"><i class='fa fa-user fa-fw'></i>About</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/topics/"><i class='fa fa-folder fa-fw'></i>Topics</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/tags/"><i class='fa fa-tags fa-fw'></i>Tags</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/"><i class='fa fa-home fa-fw'></i>Home</a>
-      
-        </li>
-      
-    </ul>
-  </div>
-
-  <div class="pure-menu social">
-  <ul class="pure-menu-list">
-
-    
-    <li class="pure-menu-item">
-      <a class="pure-menu-link" href='https://ops.m114.org/tags/OpenResty/index.xml'><i
-          class="fas fa-rss fa-fw"></i>RSS</a>
-    </li>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://github.com/vinsonzou" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
-    </li>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-  </ul>
+<div id=menu>
+<a class="pure-menu-heading brand" href=https://ops.m114.org/>Ops</a>
+<div class=pure-menu>
+<ul class=pure-menu-list>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/about/><i class="fa fa-user fa-fw"></i>About</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/post/><i class="fa fa-list fa-fw"></i>Posts</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/topics/><i class="fa fa-folder fa-fw"></i>Topics</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/tags/><i class="fa fa-tags fa-fw"></i>Tags</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/><i class="fa fa-home fa-fw"></i>Home</a>
+</li>
+</ul>
 </div>
-
-
-  <div>
-  <div class="small-print">
-    <small>&copy; 2014-2021. All rights reserved.</small>
-  </div>
-  <div class="small-print">
-    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
-    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
-  </div>
+<div class="pure-menu social">
+<ul class=pure-menu-list>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/tags/OpenResty/index.xml><i class="fas fa-rss fa-fw"></i>RSS</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://github.com/vinsonzou rel=me target=_blank><i class="fab fa-github-square fa-fw"></i>GitHub</a>
+</li>
+</ul>
 </div>
-
+<div>
+<div class=small-print>
+<small>&copy; 2014-2021. All rights reserved.</small>
 </div>
-
-
-  <div id="main">
-
-
-<div class="header">
-  <h1>OpenResty</h1>
+<div class=small-print>
+<small>Built with&nbsp;<a href=https://gohugo.io/ target=_blank>Hugo</a></small>
+<small>Theme&nbsp;<a href=https://github.com/yoshiharuyamashita/blackburn target=_blank>Blackburn</a></small>
 </div>
-
-<div class="content">
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/openresty-privileged-agent/">使用OpenResty reload ipsec服务</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2021/10/08, 11:13</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>
-    
-  </div>
-  
-  
-
 </div>
-
-  </header>
-
-  <p>
-  背景介绍  Debian 11 OpenResty 1.19.9.1  默认情况下，Nginx/OpenResty会启动一个root权限运行的master进程，之后再用指定的普通用户权限启动对应的worker，因要root权限才能操作ipsec服务，为了解决普通worker的提权问题，OpenResty提供了一个privileged agent来对这些提权操作进行处理，本文就是利用privileged agent来实现ipsec服务的重启操作。
+</div>
+<div id=main>
+<div class=header>
+<h1>OpenResty</h1>
+</div>
+<div class=content>
+<article>
+<header>
+<h2><a href=https://ops.m114.org/post/openresty-privileged-agent/>使用OpenResty reload ipsec服务</a></h2>
+<div class=post-meta>
+<div>
+<i class="fa fa-calendar fa-fw"></i>
+<time>2021/10/08, 11:13</time>
+</div>
+<div>
+<i class="fa fa-folder fa-fw"></i>
+<a class=post-taxonomy-topic href=https://ops.m114.org/topics/OpenResty>OpenResty</a>
+</div>
+<div>
+<i class="fa fa-tags fa-fw"></i>
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/OpenResty>OpenResty</a>
+</div>
+</div>
+</header>
+<p>
+背景介绍 Debian 11 OpenResty 1.19.9.1 默认情况下，Nginx/OpenResty会启动一个root权限运行的master进程，之后再用指定的普通用户权限启动对应的worker，因要root权限才能操作ipsec服务，为了解决普通worker的提权问题，OpenResty提供了一个privileged agent来对这些提权操作进行处理，本文就是利用privileged agent来实现ipsec服务的重启操作。
 基本思路 在OpenResty的 init_by_lua_block 阶段启动privileged agent，之后在 init_worker_by_lua_block 阶段针对privileged agent设置其具体需要执行的操作，最终在 content_by_lua_block 中通过改变共享内存的 lua_shared_dict 字段的内容触发对应的reload操作。
-对应配置 root@debian:~# cat /etc/openresty/nginx.conf ... user app; #普通用户启动worker ... http { ... lua_shared_dict reload_status 1m; #共享内存dict init_by_lua_block { local process = require &#34;ngx.process&#34; -- enables privileged agent process local ok, err = process.enable_privileged_agent() if not ok then ngx.log(ngx.ERR, &#34;enables privileged agent failed error:&#34;, err) end -- output process type ngx.
-  </p>
-
-  
-  <footer>
-    <a href="https://ops.m114.org/post/openresty-privileged-agent/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
+对应配置 root@debian:~# cat /etc/openresty/nginx.conf ... user app; #普通用户启动worker ... http { ... lua_shared_dict reload_status 1m; #共享内存dict init_by_lua_block { local process = require "ngx.process" -- enables privileged agent process local ok, err = process.enable_privileged_agent() if not ok then ngx.log(ngx.ERR, "enables privileged agent failed error:", err) end -- output process type ngx.
+</p>
+<footer>
+<a href=https://ops.m114.org/post/openresty-privileged-agent/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+</footer>
 </article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/openresty-mtls/">使用OpenResty mTLS认证</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2021/09/29, 13:08</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>
-    
-  </div>
-  
-  
-
+<article>
+<header>
+<h2><a href=https://ops.m114.org/post/openresty-mtls/>使用OpenResty mTLS认证</a></h2>
+<div class=post-meta>
+<div>
+<i class="fa fa-calendar fa-fw"></i>
+<time>2021/09/29, 13:08</time>
 </div>
-
-  </header>
-
-  <p>
-  环境  CentOS 7 OpenResty 1.19.9.1  cosocket-mtls patch  ngx_lua-0.10.20_01-cosocket-mtls.patch lua-resty-core-0.1.22_01-cosocket-mtls.patch   lua-resty-http    为了支持mTLS功能，折腾的够呛，OpenResty官方又没支持，基于OpenResty的APISIX和Kong都有补丁，但两家公司的补丁又有点细微的差别。APISIX的定制OpenResty版本目前仅支持到1.19.3，而Kong的定制OpenResty跟官方版本是同步的。此处的方案就是用Kong的patch和APISIX的lua-resty-http(我稍微改了一丢丢兼容Kong的patch)。
-功能  OpenResty作为客户端调用外部HTTP接口, 使用mTLS认证  Server配置 对应nginx配置
-server { listen 443 ssl; server_name ssl.test.com; ssl_certificate ssl/mtls_server.crt; #server公钥 ssl_certificate_key ssl/mtls_server.key; #server私钥 ssl_client_certificate ssl/mtls_ca.crt; #根级证书公钥，用于验证各个二级client ssl_verify_client on; } 请求验证  curl命令行验证  curl --resolve ssl.test.com:443:127.0.0.1 --cacert ssl/mtls_ca.crt --cert ssl/mtls_client.crt --key mtls_client.key https://ssl.test.com  lua-resty-http验证  location /t { resolver local=on ipv6=off; resolver_timeout 5s; lua_ssl_verify_depth 1; lua_ssl_trusted_certificate /data/nginx/mtls/ca.
-  </p>
-
-  
-  <footer>
-    <a href="https://ops.m114.org/post/openresty-mtls/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
+<div>
+<i class="fa fa-folder fa-fw"></i>
+<a class=post-taxonomy-topic href=https://ops.m114.org/topics/OpenResty>OpenResty</a>
+</div>
+<div>
+<i class="fa fa-tags fa-fw"></i>
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/OpenResty>OpenResty</a>
+</div>
+</div>
+</header>
+<p>
+环境 CentOS 7 OpenResty 1.19.9.1 cosocket-mtls patch ngx_lua-0.10.20_01-cosocket-mtls.patch lua-resty-core-0.1.22_01-cosocket-mtls.patch lua-resty-http 为了支持mTLS功能，折腾的够呛，OpenResty官方又没支持，基于OpenResty的APISIX和Kong都有补丁，但两家公司的补丁又有点细微的差别。APISIX的定制OpenResty版本目前仅支持到1.19.3，而Kong的定制OpenResty跟官方版本是同步的。此处的方案就是用Kong的patch和APISIX的lua-resty-http(我稍微改了一丢丢兼容Kong的patch)。
+功能 OpenResty作为客户端调用外部HTTP接口, 使用mTLS认证 Server配置 对应nginx配置
+server { listen 443 ssl; server_name ssl.test.com; ssl_certificate ssl/mtls_server.crt; #server公钥 ssl_certificate_key ssl/mtls_server.key; #server私钥 ssl_client_certificate ssl/mtls_ca.crt; #根级证书公钥，用于验证各个二级client ssl_verify_client on; } 请求验证 curl命令行验证 curl --resolve ssl.test.com:443:127.0.0.1 --cacert ssl/mtls_ca.crt --cert ssl/mtls_client.crt --key mtls_client.key https://ssl.test.com lua-resty-http验证 location /t { resolver local=on ipv6=off; resolver_timeout 5s; lua_ssl_verify_depth 1; lua_ssl_trusted_certificate /data/nginx/mtls/ca.
+</p>
+<footer>
+<a href=https://ops.m114.org/post/openresty-mtls/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+</footer>
 </article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/openresty-anticc/">使用OpenResty实现简易CC防护</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2021/09/11, 11:08</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>
-    
-  </div>
-  
-  
-
+<article>
+<header>
+<h2><a href=https://ops.m114.org/post/openresty-anticc/>使用OpenResty实现简易CC防护</a></h2>
+<div class=post-meta>
+<div>
+<i class="fa fa-calendar fa-fw"></i>
+<time>2021/09/11, 11:08</time>
 </div>
-
-  </header>
-
-  <p>
-  环境  CentOS 7 OpenResty 1.19.9.1  lua-resty-ipmatcher lua-var-nginx-module    功能  支持IP白名单 支持IP黑名单 计数key为：ip + &ldquo;.&rdquo; + md5(host + request_uri + useragent)，可自定义 60秒内请求超过60次就封禁3600秒  配置 对应nginx配置
+<div>
+<i class="fa fa-folder fa-fw"></i>
+<a class=post-taxonomy-topic href=https://ops.m114.org/topics/OpenResty>OpenResty</a>
+</div>
+<div>
+<i class="fa fa-tags fa-fw"></i>
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/OpenResty>OpenResty</a>
+</div>
+</div>
+</header>
+<p>
+环境 CentOS 7 OpenResty 1.19.9.1 lua-resty-ipmatcher lua-var-nginx-module 功能 支持IP白名单 支持IP黑名单 计数key为：ip + &ldquo;.&rdquo; + md5(host + request_uri + useragent)，可自定义 60秒内请求超过60次就封禁3600秒 配置 对应nginx配置
 lua_shared_dict cc_counter 100m; server { listen 80; server_name demo.test.com; location / { access_by_lua_file lua/anticc.lua; } } anticc.lua
- 
-  </p>
-
-  
+</p>
 </article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/nginx-authorized-download/">使用Nginx实现授权下载</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2021/06/11, 11:18</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>
-    
-  </div>
-  
-  
-
+<article>
+<header>
+<h2><a href=https://ops.m114.org/post/nginx-authorized-download/>使用Nginx实现授权下载</a></h2>
+<div class=post-meta>
+<div>
+<i class="fa fa-calendar fa-fw"></i>
+<time>2021/06/11, 11:18</time>
 </div>
-
-  </header>
-
-  <p>
-  使用Nginx实现授权下载有两种方式，一种是nginx自带 --with-http_secure_link_module，另外一种是lua自定义实现。
+<div>
+<i class="fa fa-folder fa-fw"></i>
+<a class=post-taxonomy-topic href=https://ops.m114.org/topics/OpenResty>OpenResty</a>
+</div>
+<div>
+<i class="fa fa-tags fa-fw"></i>
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/OpenResty>OpenResty</a>
+</div>
+</div>
+</header>
+<p>
+使用Nginx实现授权下载有两种方式，一种是nginx自带 --with-http_secure_link_module，另外一种是lua自定义实现。
 方法一 1.1 安装
 编译时添加此参数 --with-http_secure_link_module
 1.2 配置
-server { listen 80; server_name download.test.com; root /data/wwwroot; access_log logs/download.access.log main; location / { secure_link $arg_st,$arg_e; secure_link_md5 FIJaVSEV23$uri$arg_e; if ($secure_link = &#34;&#34;) { return 403; } if ($secure_link = &#34;0&#34;) { return 410; } } } 1.3 使用
-# shell脚本示例如下 secret=&#34;FIJaVSEV23&#34; # 见前面secure_link_md5配置 uri=&#34;/待下载文件路径&#34; datetime=$(date -d&#39;1day&#39; +&#39;%Y-%m-%d %H:%M:%S&#39;) etime=$(date +%s -d&#34;${datetime}&#34;) token=$(echo -n &#34;${secret}${uri}${etime}&#34; | openssl md5 -binary | openssl base64 | tr +/ -_ | tr -d =) # 下载链接 dlurl=&#34;dowload.
-  </p>
-
-  
-  <footer>
-    <a href="https://ops.m114.org/post/nginx-authorized-download/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
+server { listen 80; server_name download.test.com; root /data/wwwroot; access_log logs/download.access.log main; location / { secure_link $arg_st,$arg_e; secure_link_md5 FIJaVSEV23$uri$arg_e; if ($secure_link = "") { return 403; } if ($secure_link = "0") { return 410; } } } 1.3 使用
+# shell脚本示例如下 secret="FIJaVSEV23" # 见前面secure_link_md5配置 uri="/待下载文件路径" datetime=$(date -d'1day' +'%Y-%m-%d %H:%M:%S') etime=$(date +%s -d"${datetime}") token=$(echo -n "${secret}${uri}${etime}" | openssl md5 -binary | openssl base64 | tr +/ -_ | tr -d =) # 下载链接 dlurl="dowload.
+</p>
+<footer>
+<a href=https://ops.m114.org/post/nginx-authorized-download/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+</footer>
 </article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/nginx-wechat-ops/">lua实现微信机器人</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2021/06/11, 10:08</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>
-    
-  </div>
-  
-  
-
+<article>
+<header>
+<h2><a href=https://ops.m114.org/post/nginx-wechat-ops/>lua实现微信机器人</a></h2>
+<div class=post-meta>
+<div>
+<i class="fa fa-calendar fa-fw"></i>
+<time>2021/06/11, 10:08</time>
 </div>
-
-  </header>
-
-  <p>
-  使用企业微信调整值班人员信息，示例为联系人tag调整，可以自定义任何想实现功能。
-环境  CentOS 7 Nginx  lua-nginx-module lua-resty-http lua实现微信加密库 xml2lua ≤ v1.4-5   依赖服务  企业微信    配置 对应nginx配置
+<div>
+<i class="fa fa-folder fa-fw"></i>
+<a class=post-taxonomy-topic href=https://ops.m114.org/topics/OpenResty>OpenResty</a>
+</div>
+<div>
+<i class="fa fa-tags fa-fw"></i>
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/OpenResty>OpenResty</a>
+</div>
+</div>
+</header>
+<p>
+使用企业微信调整值班人员信息，示例为联系人tag调整，可以自定义任何想实现功能。
+环境 CentOS 7 Nginx lua-nginx-module lua-resty-http lua实现微信加密库 xml2lua ≤ v1.4-5 依赖服务 企业微信 配置 对应nginx配置
 server { listen 443 ssl http2; ssl_certificate test.crt; ssl_certificate_key test.key; ssl_protocols TLSv1 TLSv1.1 TLSv1.2; ssl_prefer_server_ciphers on; ssl_ciphers EECDH+CHACHA20:EECDH+CHACHA20-draft:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5; ssl_session_timeout 1d; ssl_session_cache shared:SSL:20m; add_header Strict-Transport-Security max-age=31536000; server_name wx-ops.test.com; access_log logs/wechat-ops.access.log main; error_log logs/wechat-ops.info; location /api/ { resolver local=on ipv6=off; resolver_timeout 2s; lua_ssl_verify_depth 1; lua_ssl_trusted_certificate /etc/pki/tls/certs/ca-bundle.crt; content_by_lua_file lua/wechat-ops.lua; } } wechat_ops.
-  </p>
-
-  
-  <footer>
-    <a href="https://ops.m114.org/post/nginx-wechat-ops/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
+</p>
+<footer>
+<a href=https://ops.m114.org/post/nginx-wechat-ops/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+</footer>
 </article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/nginx-use-mq/">lua发布消息至RocketMQ解耦</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2021/06/03, 15:08</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Nginx">Nginx</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/RocketMQ">RocketMQ</a>
-    
-  </div>
-  
-  
-
+<article>
+<header>
+<h2><a href=https://ops.m114.org/post/nginx-use-mq/>lua发布消息至RocketMQ解耦</a></h2>
+<div class=post-meta>
+<div>
+<i class="fa fa-calendar fa-fw"></i>
+<time>2021/06/03, 15:08</time>
 </div>
-
-  </header>
-
-  <p>
-  广告点击回传数据入消息队列，避免后端处理不过来，先存入消息队列削峰。
-环境  CentOS 7 Nginx  lua-nginx-module lua-resty-core lua-resty-http   依赖服务  阿里云RocketMQ    配置 对应nginx location配置
+<div>
+<i class="fa fa-folder fa-fw"></i>
+<a class=post-taxonomy-topic href=https://ops.m114.org/topics/OpenResty>OpenResty</a>
+</div>
+<div>
+<i class="fa fa-tags fa-fw"></i>
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/OpenResty>OpenResty</a>&nbsp;/
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/Nginx>Nginx</a>&nbsp;/
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/RocketMQ>RocketMQ</a>
+</div>
+</div>
+</header>
+<p>
+广告点击回传数据入消息队列，避免后端处理不过来，先存入消息队列削峰。
+环境 CentOS 7 Nginx lua-nginx-module lua-resty-core lua-resty-http 依赖服务 阿里云RocketMQ 配置 对应nginx location配置
 location / { access_by_lua_file lua/mq/mq.lua; } custom/mq.lua
-return { AKId = &#34;xxx&#34;, -- RocketMQ的AccessKeyId AKSecret = &#34;xxx&#34;, -- RocketMQ的AccessKeySecret topic_name = &#34;xxx&#34;, -- RocketMQ的topic instance_id = &#34;xxx&#34; -- RocketMQ的instance_id } mq.lua
-local require = require local ngx = ngx local config = require(&#34;custom.mq.config&#34;) local http = require &#34;resty.http&#34; local cjson = require &#34;cjson.
-  </p>
-
-  
-  <footer>
-    <a href="https://ops.m114.org/post/nginx-use-mq/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
+return { AKId = "xxx", -- RocketMQ的AccessKeyId AKSecret = "xxx", -- RocketMQ的AccessKeySecret topic_name = "xxx", -- RocketMQ的topic instance_id = "xxx" -- RocketMQ的instance_id } mq.lua
+local require = require local ngx = ngx local config = require("custom.mq.config") local http = require "resty.http" local cjson = require "cjson.
+</p>
+<footer>
+<a href=https://ops.m114.org/post/nginx-use-mq/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+</footer>
 </article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/dynamic-http-proxy/">使用动态 DNS 来完成 HTTP 请求</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2021/06/03, 14:38</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Nginx">Nginx</a>
-    
-  </div>
-  
-  
-
+<article>
+<header>
+<h2><a href=https://ops.m114.org/post/dynamic-http-proxy/>使用动态 DNS 来完成 HTTP 请求</a></h2>
+<div class=post-meta>
+<div>
+<i class="fa fa-calendar fa-fw"></i>
+<time>2021/06/03, 14:38</time>
 </div>
-
-  </header>
-
-  <p>
-  内部访问外部http请求，通过拦截内部请求至此统一访问外部业务。
-环境  CentOS 7 Nginx  lua-nginx-module lua-resty-dns lua-resty-lock lua-resty-http    配置 对应nginx配置
-lua_shared_dict dns_cache 5m; lua_shared_dict my_locks 1m; server { listen 80; server_name *.test.com; access_log logs/dyn_http.access.log default; location / { content_by_lua_file &#39;lua/dyn_http.lua&#39;; } } dyn_http.lua
-local require = require local ngx = ngx local resolver = require &#34;resty.dns.resolver&#34; local resty_lock = require &#34;resty.lock&#34; local http = require &#34;resty.http&#34; local cache = ngx.shared.dns_cache local function fail(msg, err) ngx.
-  </p>
-
-  
-  <footer>
-    <a href="https://ops.m114.org/post/dynamic-http-proxy/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
+<div>
+<i class="fa fa-folder fa-fw"></i>
+<a class=post-taxonomy-topic href=https://ops.m114.org/topics/OpenResty>OpenResty</a>
+</div>
+<div>
+<i class="fa fa-tags fa-fw"></i>
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/OpenResty>OpenResty</a>&nbsp;/
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/Nginx>Nginx</a>
+</div>
+</div>
+</header>
+<p>
+内部访问外部http请求，通过拦截内部请求至此统一访问外部业务。
+环境 CentOS 7 Nginx lua-nginx-module lua-resty-dns lua-resty-lock lua-resty-http 配置 对应nginx配置
+lua_shared_dict dns_cache 5m; lua_shared_dict my_locks 1m; server { listen 80; server_name *.test.com; access_log logs/dyn_http.access.log default; location / { content_by_lua_file 'lua/dyn_http.lua'; } } dyn_http.lua
+local require = require local ngx = ngx local resolver = require "resty.dns.resolver" local resty_lock = require "resty.lock" local http = require "resty.http" local cache = ngx.shared.dns_cache local function fail(msg, err) ngx.
+</p>
+<footer>
+<a href=https://ops.m114.org/post/dynamic-http-proxy/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+</footer>
 </article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/nginx-ipip-service/">Nginx实现ip查询服务</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2021/06/03, 13:08</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Nginx">Nginx</a>
-    
-  </div>
-  
-  
-
+<article>
+<header>
+<h2><a href=https://ops.m114.org/post/nginx-ipip-service/>Nginx实现ip查询服务</a></h2>
+<div class=post-meta>
+<div>
+<i class="fa fa-calendar fa-fw"></i>
+<time>2021/06/03, 13:08</time>
 </div>
-
-  </header>
-
-  <p>
-  实现内部IP查询服务
- 查询当前公网IP 查询当前公网IP地理信息，支持IPv4/IPv6 查询指定IP的地理信息，支持IPv4/IPv6  环境  CentOS 7 Nginx  lua-nginx-module lua-resty-ipmatcher lua-resty-ip2region lua-resty-maxminddb   IP库  ip2region ipv4库 maxminddb 免费ipv6库    配置 lua_shared_dict ip_data 10m; server { server_name ip.test.com; access_log logs/ip.access.log main buffer=32k flush=10s; error_log logs/ip.error.log; location / { default_type &#39;text/plain&#39;; access_by_lua_block { local remote_addr = ngx.var.remote_addr ngx.print(remote_addr) } } location = /ip { default_type application/json; content_by_lua_block { local require = require local ngx = ngx local cjson = require &#34;cjson.
-  </p>
-
-  
-  <footer>
-    <a href="https://ops.m114.org/post/nginx-ipip-service/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
+<div>
+<i class="fa fa-folder fa-fw"></i>
+<a class=post-taxonomy-topic href=https://ops.m114.org/topics/OpenResty>OpenResty</a>
+</div>
+<div>
+<i class="fa fa-tags fa-fw"></i>
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/OpenResty>OpenResty</a>&nbsp;/
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/Nginx>Nginx</a>
+</div>
+</div>
+</header>
+<p>
+实现内部IP查询服务
+查询当前公网IP 查询当前公网IP地理信息，支持IPv4/IPv6 查询指定IP的地理信息，支持IPv4/IPv6 环境 CentOS 7 Nginx lua-nginx-module lua-resty-ipmatcher lua-resty-ip2region lua-resty-maxminddb IP库 ip2region ipv4库 maxminddb 免费ipv6库 配置 lua_shared_dict ip_data 10m; server { server_name ip.test.com; access_log logs/ip.access.log main buffer=32k flush=10s; error_log logs/ip.error.log; location / { default_type 'text/plain'; access_by_lua_block { local remote_addr = ngx.var.remote_addr ngx.print(remote_addr) } } location = /ip { default_type application/json; content_by_lua_block { local require = require local ngx = ngx local cjson = require "cjson.
+</p>
+<footer>
+<a href=https://ops.m114.org/post/nginx-ipip-service/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+</footer>
 </article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/gitea-webhook/">Gogs/Gitea webhook支持</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2021/06/03, 10:08</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Nginx">Nginx</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Gogs">Gogs</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Gitea">Gitea</a>
-    
-  </div>
-  
-  
-
+<article>
+<header>
+<h2><a href=https://ops.m114.org/post/gitea-webhook/>Gogs/Gitea webhook支持</a></h2>
+<div class=post-meta>
+<div>
+<i class="fa fa-calendar fa-fw"></i>
+<time>2021/06/03, 10:08</time>
 </div>
-
-  </header>
-
-  <p>
-  实现需求为git提交后，自动同步至webhook所在机器的指定目录。也可以支持github的webhook，也能根据不同条件触发不同的webhook，如CI/CD。
-环境  CentOS 7 Nginx  ngx_lua lua-resty-shell lua-resty-hmac    配置 对应nginx location配置
-location = /webhook/deploy { content_by_lua_file &#39;lua/webhook/deploy.lua&#39;; } deploy.lua
--- Gogs Version: &gt;= v0.10 local require = require local ngx = ngx local cjson = require(&#34;cjson.safe&#34;) local shell = require(&#34;resty.shell&#34;) local hmac = require(&#34;resty.hmac&#34;) local json_encode = cjson.encode local json_decode = cjson.decode -- deploy config local config = { timeout = 30 * 1000, -- 30s socket = &#34;unix:/data/nginx/utils/shell.
-  </p>
-
-  
-  <footer>
-    <a href="https://ops.m114.org/post/gitea-webhook/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
+<div>
+<i class="fa fa-folder fa-fw"></i>
+<a class=post-taxonomy-topic href=https://ops.m114.org/topics/OpenResty>OpenResty</a>
+</div>
+<div>
+<i class="fa fa-tags fa-fw"></i>
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/OpenResty>OpenResty</a>&nbsp;/
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/Nginx>Nginx</a>&nbsp;/
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/Gogs>Gogs</a>&nbsp;/
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/Gitea>Gitea</a>
+</div>
+</div>
+</header>
+<p>
+实现需求为git提交后，自动同步至webhook所在机器的指定目录。也可以支持github的webhook，也能根据不同条件触发不同的webhook，如CI/CD。
+环境 CentOS 7 Nginx ngx_lua lua-resty-shell lua-resty-hmac 配置 对应nginx location配置
+location = /webhook/deploy { content_by_lua_file 'lua/webhook/deploy.lua'; } deploy.lua
+-- Gogs Version: >= v0.10 local require = require local ngx = ngx local cjson = require("cjson.safe") local shell = require("resty.shell") local hmac = require("resty.hmac") local json_encode = cjson.encode local json_decode = cjson.decode -- deploy config local config = { timeout = 30 * 1000, -- 30s socket = "unix:/data/nginx/utils/shell.
+</p>
+<footer>
+<a href=https://ops.m114.org/post/gitea-webhook/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+</footer>
 </article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/nginx-sniproxy/">使用Nginx做SNI反向代理</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2021/06/02, 10:18</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/SNI">SNI</a>
-    
-  </div>
-  
-  
-
+<article>
+<header>
+<h2><a href=https://ops.m114.org/post/nginx-sniproxy/>使用Nginx做SNI反向代理</a></h2>
+<div class=post-meta>
+<div>
+<i class="fa fa-calendar fa-fw"></i>
+<time>2021/06/02, 10:18</time>
 </div>
-
-  </header>
-
-  <p>
-  从 Nginx 1.11.5 版本开始支持用做 SNI 反代，使用 Nginx 做 SNI 反代比用 SNI Proxy 配置起来更简单、更稳定。Nginx stream流程处理见官方文档，此功能可用来加速国外https业务，如苹果订单确认接口。
+<div>
+<i class="fa fa-folder fa-fw"></i>
+<a class=post-taxonomy-topic href=https://ops.m114.org/topics/OpenResty>OpenResty</a>
+</div>
+<div>
+<i class="fa fa-tags fa-fw"></i>
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/OpenResty>OpenResty</a>&nbsp;/
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/SNI>SNI</a>
+</div>
+</div>
+</header>
+<p>
+从 Nginx 1.11.5 版本开始支持用做 SNI 反代，使用 Nginx 做 SNI 反代比用 SNI Proxy 配置起来更简单、更稳定。Nginx stream流程处理见官方文档，此功能可用来加速国外https业务，如苹果订单确认接口。
 安装 编译时添加如下参数
- &ndash;with-stream &ndash;with-stream_ssl_preread_module &ndash;with-stream_ssl_module
- 配置 基础版
+&ndash;with-stream &ndash;with-stream_ssl_preread_module &ndash;with-stream_ssl_module
+配置 基础版
 stream { server { listen 443; ssl_preread on; resolver local=on ipv6=off valid=60s; # local=on需要OpenResty补丁 proxy_pass $ssl_preread_server_name:$server_port; } } 优化版
- 解决原有无法过滤域名的风险  log_format proxy &#39;$remote_addr [$time_local] $sniproxy_upstream &#39; &#39;$protocol $status $bytes_sent $bytes_received &#39; &#39;$session_time &#34;$upstream_addr&#34; &#39; &#39;&#34;$upstream_bytes_sent&#34; &#34;$upstream_bytes_received&#34; &#34;$upstream_connect_time&#34;&#39;; init_by_lua_block { local sni = require(&#34;resty.sniproxy&#34;) sni.rules = { {&#34;buy.
-  </p>
-
-  
-  <footer>
-    <a href="https://ops.m114.org/post/nginx-sniproxy/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
+解决原有无法过滤域名的风险 log_format proxy '$remote_addr [$time_local] $sniproxy_upstream ' '$protocol $status $bytes_sent $bytes_received ' '$session_time "$upstream_addr" ' '"$upstream_bytes_sent" "$upstream_bytes_received" "$upstream_connect_time"'; init_by_lua_block { local sni = require("resty.sniproxy") sni.rules = { {"buy.
+</p>
+<footer>
+<a href=https://ops.m114.org/post/nginx-sniproxy/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+</footer>
 </article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/nginx-support-webp/">Nginx支持WebP</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2021/06/02, 10:08</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/WebP">WebP</a>
-    
-  </div>
-  
-  
-
+<article>
+<header>
+<h2><a href=https://ops.m114.org/post/nginx-support-webp/>Nginx支持WebP</a></h2>
+<div class=post-meta>
+<div>
+<i class="fa fa-calendar fa-fw"></i>
+<time>2021/06/02, 10:08</time>
 </div>
-
-  </header>
-
-  <p>
-  WebP格式，Google开发的一种旨在加快图片加载速度的图片格式。图片压缩体积大约只有JPEG的2/3，并能节省大量的服务器带宽资源和数据空间。国外的有 Google（自家的东西肯定要用啦，Chrome Store 甚至已全站使用 WebP）、Facebook 和 ebay，国内的有淘宝、腾讯和美团等。
+<div>
+<i class="fa fa-folder fa-fw"></i>
+<a class=post-taxonomy-topic href=https://ops.m114.org/topics/OpenResty>OpenResty</a>
+</div>
+<div>
+<i class="fa fa-tags fa-fw"></i>
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/OpenResty>OpenResty</a>&nbsp;/
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/WebP>WebP</a>
+</div>
+</div>
+</header>
+<p>
+WebP格式，Google开发的一种旨在加快图片加载速度的图片格式。图片压缩体积大约只有JPEG的2/3，并能节省大量的服务器带宽资源和数据空间。国外的有 Google（自家的东西肯定要用啦，Chrome Store 甚至已全站使用 WebP）、Facebook 和 ebay，国内的有淘宝、腾讯和美团等。
 客户端支持情况:
- Google Chrome 23 起开始支持 WebP（最初发布于2012年11月） Google 的安卓浏览器从 4.2 版本起开始官方支持 WebP（最初发布于2012年11月），4 版本起开始部分支持 Google Chrome安卓版从 Chrome 50 起开始支持 Webp Opera 12.1 开始支持 WebP（最初发布于2012年11月） Edge 18 开始支持 (发布于2018年10月) Firefox 65 支持 (发布于2019年1月)  nginx无缝切换至WebP思路就是：用户访问一张图片(主要为png/jpg格式)，nginx收到请求判断浏览器是否支持WebP，如果支持则返回WebP，不支持则返回原图，达到减少带宽资源的目的。
-环境  CentOS 7 libwebp-1.2.0 Nginx  ngx_lua lua-resty-shell    安装部署 cwebp依赖lib
+Google Chrome 23 起开始支持 WebP（最初发布于2012年11月） Google 的安卓浏览器从 4.2 版本起开始官方支持 WebP（最初发布于2012年11月），4 版本起开始部分支持 Google Chrome安卓版从 Chrome 50 起开始支持 Webp Opera 12.1 开始支持 WebP（最初发布于2012年11月） Edge 18 开始支持 (发布于2018年10月) Firefox 65 支持 (发布于2019年1月) nginx无缝切换至WebP思路就是：用户访问一张图片(主要为png/jpg格式)，nginx收到请求判断浏览器是否支持WebP，如果支持则返回WebP，不支持则返回原图，达到减少带宽资源的目的。
+环境 CentOS 7 libwebp-1.2.0 Nginx ngx_lua lua-resty-shell 安装部署 cwebp依赖lib
 yum -y install libGL libX11 libXi 配置 mime.types新增webp格式支持
 image/webp webp; 图片对应nginx location配置
-location ~ ^/(images|static)/ { rewrite_by_lua_file &#34;/data/nginx/lua/webp.
-  </p>
-
-  
-  <footer>
-    <a href="https://ops.m114.org/post/nginx-support-webp/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
+location ~ ^/(images|static)/ { rewrite_by_lua_file "/data/nginx/lua/webp.
+</p>
+<footer>
+<a href=https://ops.m114.org/post/nginx-support-webp/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+</footer>
 </article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://ops.m114.org/post/openresty-case/">本人OpenResty实践集合</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2021/06/01, 10:08</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Nginx">Nginx</a>
-    
-  </div>
-  
-  
-
+<article>
+<header>
+<h2><a href=https://ops.m114.org/post/openresty-case/>本人OpenResty实践集合</a></h2>
+<div class=post-meta>
+<div>
+<i class="fa fa-calendar fa-fw"></i>
+<time>2021/06/01, 10:08</time>
 </div>
-
-  </header>
-
-  <p>
-   优化  支持Brotli Upstream主动健康检查 动态证书 OCSP缓存 ssl分布式session mTLS支持   命令行执行  Nginx支持WebP gogs/gitea webhook   灰度发布  基于IP（动态IP） 自定义变量   微信机器人 安全相关  授权下载 简易CC防护 Gitea通过飞书SSO认证 安全token 防止SNI信息泄露   API服务  IP查询服务 MQ解耦，对接阿里云RocketMQ 对接Kafka 对接Pulsar   缓存服务  主动缓存 SDK缓存   特权进程实践  ipsec操作   代理相关  http代理 SNI代理    
-  </p>
-
-  
+<div>
+<i class="fa fa-folder fa-fw"></i>
+<a class=post-taxonomy-topic href=https://ops.m114.org/topics/OpenResty>OpenResty</a>
+</div>
+<div>
+<i class="fa fa-tags fa-fw"></i>
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/OpenResty>OpenResty</a>&nbsp;/
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/Nginx>Nginx</a>
+</div>
+</div>
+</header>
+<p>
+优化 支持Brotli Upstream主动健康检查 动态证书 OCSP缓存 ssl分布式session mTLS支持 命令行执行 Nginx支持WebP gogs/gitea webhook 灰度发布 基于IP（动态IP） 自定义变量 微信机器人 安全相关 授权下载 简易CC防护 Gitea通过飞书SSO认证 安全token 防止SNI信息泄露 API服务 IP查询服务 MQ解耦，对接阿里云RocketMQ 对接Kafka 对接Pulsar 缓存服务 主动缓存 SDK缓存 特权进程实践 ipsec操作 代理相关 http代理 SNI代理
+</p>
 </article>
-
-  
-</div>
-
 </div>
 </div>
-<script src="https://ops.m114.org/js/ui.js"></script>
-<script src="https://ops.m114.org/js/menus.js"></script>
-
-
-
-
-
-
-
-
-
-
+</div>
+<script src=https://ops.m114.org/js/ui.js></script>
+<script src=https://ops.m114.org/js/menus.js></script>
 </body>
 </html>

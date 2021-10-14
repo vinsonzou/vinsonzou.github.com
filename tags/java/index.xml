@@ -1,28 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>java on ops</title>
-    <link>https://ops.m114.org/tags/java/</link>
-    <description>Recent content in java on ops</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <copyright>&amp;copy; 2014-2021. All rights reserved.</copyright>
-    <lastBuildDate>Sun, 26 Apr 2015 16:59:30 +0800</lastBuildDate><atom:link href="https://ops.m114.org/tags/java/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>俄罗斯永久冬令时的坑</title>
-      <link>https://ops.m114.org/post/russia-permanent-winter-time/</link>
-      <pubDate>Sun, 26 Apr 2015 16:59:30 +0800</pubDate>
-      
-      <guid>https://ops.m114.org/post/russia-permanent-winter-time/</guid>
-      <description>本文更新说明  2017.03.17: 修复java时区更新方法  系统环境 OS: CentOS 6.X
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>java on ops</title><link>https://ops.m114.org/tags/java/</link><description>Recent content in java on ops</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>&amp;copy; 2014-2021. All rights reserved.</copyright><lastBuildDate>Sun, 26 Apr 2015 16:59:30 +0800</lastBuildDate><atom:link href="https://ops.m114.org/tags/java/index.xml" rel="self" type="application/rss+xml"/><item><title>俄罗斯永久冬令时的坑</title><link>https://ops.m114.org/post/russia-permanent-winter-time/</link><pubDate>Sun, 26 Apr 2015 16:59:30 +0800</pubDate><guid>https://ops.m114.org/post/russia-permanent-winter-time/</guid><description>本文更新说明 2017.03.17: 修复java时区更新方法 系统环境 OS: CentOS 6.X
 JDK: 6
 背景 因游戏在俄罗斯运营，采用了莫斯科时间，俄罗斯宣布2014年10月26日开始永久冬令时。
 过程 更新了系统时区文件，保证系统时间不会切换至夏令时，执行yum update tzdata即可。
 但在莫斯科时间的2015年3月29日凌晨2点，java游戏进程的日志时间跳到了凌晨3点(比系统时间快了1个小时)
 解决方法 使用Oracle TZUpdater进行更新即可
 java -jar tzupdater.jar -l http://www.iana.org/time-zones/repository/tzdata-latest.tar.gz 工具地址：http://www.oracle.com/technetwork/java/javase/downloads/tzupdater-download-513681.html
-参考：http://www.jvmhost.com/articles/java-and-timezones/</description>
-    </item>
-    
-  </channel>
-</rss>
+参考：http://www.jvmhost.com/articles/java-and-timezones/</description></item></channel></rss>

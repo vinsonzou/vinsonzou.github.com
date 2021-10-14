@@ -1,405 +1,172 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.88.1" />
-
-  <title>DNSPOD API SSL证书调整(subjectAltName)引起的报错 &middot; ops</title>
-
-    
-
-  
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
-
-  <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
-  <![endif]-->
-  <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
-  <!--<![endif]-->
-
-  <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://ops.m114.org/css/side-menu-old-ie.css">
-  <![endif]-->
-  <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://ops.m114.org/css/side-menu.css">
-  <!--<![endif]-->
-
-  <link rel="stylesheet" href="https://ops.m114.org/css/blackburn.css">
-
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
-
-  
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
-
-  
-  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
- 
-  
-
-  
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
-  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
-  
-  <script>hljs.initHighlightingOnLoad();</script>
-  
-
-  <link rel="shortcut icon" href="https://ops.m114.org/img/favicon.ico" type="image/x-icon" />
-
-  
-  
-
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content>
+<meta name=generator content="Hugo 0.88.1">
+<title>DNSPOD API SSL证书调整(subjectAltName)引起的报错 &#183; ops</title>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css><!--[if lte IE 8]><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css><![endif]--><!--[if gt IE 8]><!-->
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css><!--<![endif]--><!--[if lte IE 8]><link rel=stylesheet href=https://ops.m114.org/css/side-menu-old-ie.css><![endif]--><!--[if gt IE 8]><!-->
+<link rel=stylesheet href=https://ops.m114.org/css/side-menu.css><!--<![endif]-->
+<link rel=stylesheet href=https://ops.m114.org/css/blackburn.css>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css>
+<link rel=preconnect href=https://fonts.gstatic.com>
+<link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel=stylesheet type=text/css>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<link rel=stylesheet href=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css>
+<script async src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<link rel="shortcut icon" href=https://ops.m114.org/img/favicon.ico type=image/x-icon>
 </head>
-
-
 <body>
-<div id="layout">
-
-  
-<a href="#menu" id="menuLink" class="menu-link">
-  
-  <span></span>
+<div id=layout>
+<a href=#menu id=menuLink class=menu-link>
+<span></span>
 </a>
-<div id="menu">
-
-  
-  <a class="pure-menu-heading brand" href="https://ops.m114.org/">Ops</a>
-
-
-  <div class="pure-menu">
-    <ul class="pure-menu-list">
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/about/"><i class='fa fa-user fa-fw'></i>About</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/topics/"><i class='fa fa-folder fa-fw'></i>Topics</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/tags/"><i class='fa fa-tags fa-fw'></i>Tags</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/"><i class='fa fa-home fa-fw'></i>Home</a>
-      
-        </li>
-      
-    </ul>
-  </div>
-
-  <div class="pure-menu social">
-  <ul class="pure-menu-list">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://github.com/vinsonzou" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
-    </li>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-  </ul>
+<div id=menu>
+<a class="pure-menu-heading brand" href=https://ops.m114.org/>Ops</a>
+<div class=pure-menu>
+<ul class=pure-menu-list>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/about/><i class="fa fa-user fa-fw"></i>About</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/post/><i class="fa fa-list fa-fw"></i>Posts</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/topics/><i class="fa fa-folder fa-fw"></i>Topics</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/tags/><i class="fa fa-tags fa-fw"></i>Tags</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/><i class="fa fa-home fa-fw"></i>Home</a>
+</li>
+</ul>
 </div>
-
-
-  <div>
-  <div class="small-print">
-    <small>&copy; 2014-2021. All rights reserved.</small>
-  </div>
-  <div class="small-print">
-    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
-    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
-  </div>
+<div class="pure-menu social">
+<ul class=pure-menu-list>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://github.com/vinsonzou rel=me target=_blank><i class="fab fa-github-square fa-fw"></i>GitHub</a>
+</li>
+</ul>
 </div>
-
+<div>
+<div class=small-print>
+<small>&copy; 2014-2021. All rights reserved.</small>
 </div>
-
-
-  <div id="main">
-
-
-<div class="header">
-  <h1>DNSPOD API SSL证书调整(subjectAltName)引起的报错</h1>
-  <h2></h2>
+<div class=small-print>
+<small>Built with&nbsp;<a href=https://gohugo.io/ target=_blank>Hugo</a></small>
+<small>Theme&nbsp;<a href=https://github.com/yoshiharuyamashita/blackburn target=_blank>Blackburn</a></small>
 </div>
-<div class="content">
-
-  <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2015/05/10, 23:44</time>
-  </div>
-
-  
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/subjectAltName">subjectAltName</a>
-    
-  </div>
-  
-  
-
 </div>
-
-  <p>报错信息如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">Python <span style="color:#ae81ff">2.7</span> (r27:<span style="color:#ae81ff">82500</span>, Jan  <span style="color:#ae81ff">7</span> <span style="color:#ae81ff">2014</span>, <span style="color:#ae81ff">23</span>:<span style="color:#ae81ff">14</span>:<span style="color:#ae81ff">35</span>)
-[GCC <span style="color:#ae81ff">4.1.2</span> <span style="color:#ae81ff">20080704</span> (Red Hat <span style="color:#ae81ff">4.1.2</span><span style="color:#f92672">-</span><span style="color:#ae81ff">50</span>)] on linux2
-Type <span style="color:#e6db74">&#34;help&#34;</span>, <span style="color:#e6db74">&#34;copyright&#34;</span>, <span style="color:#e6db74">&#34;credits&#34;</span> <span style="color:#f92672">or</span> <span style="color:#e6db74">&#34;license&#34;</span> <span style="color:#66d9ef">for</span> more information<span style="color:#f92672">.</span>
-<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> requests
-<span style="color:#f92672">&gt;&gt;&gt;</span> r <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;https://dnsapi.cn&#34;</span>)
+</div>
+<div id=main>
+<div class=header>
+<h1>DNSPOD API SSL证书调整(subjectAltName)引起的报错</h1>
+<h2></h2>
+</div>
+<div class=content>
+<div class=post-meta>
+<div>
+<i class="fa fa-calendar fa-fw"></i>
+<time>2015/05/10, 23:44</time>
+</div>
+<div>
+<i class="fa fa-tags fa-fw"></i>
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/subjectAltName>subjectAltName</a>
+</div>
+</div>
+<p>报错信息如下：</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-py data-lang=py>Python <span style=color:#ae81ff>2.7</span> (r27:<span style=color:#ae81ff>82500</span>, Jan  <span style=color:#ae81ff>7</span> <span style=color:#ae81ff>2014</span>, <span style=color:#ae81ff>23</span>:<span style=color:#ae81ff>14</span>:<span style=color:#ae81ff>35</span>)
+[GCC <span style=color:#ae81ff>4.1.2</span> <span style=color:#ae81ff>20080704</span> (Red Hat <span style=color:#ae81ff>4.1.2</span><span style=color:#f92672>-</span><span style=color:#ae81ff>50</span>)] on linux2
+Type <span style=color:#e6db74>&#34;help&#34;</span>, <span style=color:#e6db74>&#34;copyright&#34;</span>, <span style=color:#e6db74>&#34;credits&#34;</span> <span style=color:#f92672>or</span> <span style=color:#e6db74>&#34;license&#34;</span> <span style=color:#66d9ef>for</span> more information<span style=color:#f92672>.</span>
+<span style=color:#f92672>&gt;&gt;&gt;</span> <span style=color:#f92672>import</span> requests
+<span style=color:#f92672>&gt;&gt;&gt;</span> r <span style=color:#f92672>=</span> requests<span style=color:#f92672>.</span>get(<span style=color:#e6db74>&#34;https://dnsapi.cn&#34;</span>)
 Traceback (most recent call last):
-	File <span style="color:#e6db74">&#34;&lt;stdin&gt;&#34;</span>, line <span style="color:#ae81ff">1</span>, <span style="color:#f92672">in</span> <span style="color:#f92672">&lt;</span>module<span style="color:#f92672">&gt;</span>
-	File <span style="color:#e6db74">&#34;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&#34;</span>, line <span style="color:#ae81ff">55</span>, <span style="color:#f92672">in</span> get
-		<span style="color:#66d9ef">return</span> request(<span style="color:#e6db74">&#39;get&#39;</span>, url, <span style="color:#f92672">**</span>kwargs)
-	File <span style="color:#e6db74">&#34;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&#34;</span>, line <span style="color:#ae81ff">44</span>, <span style="color:#f92672">in</span> request
-		<span style="color:#66d9ef">return</span> session<span style="color:#f92672">.</span>request(method<span style="color:#f92672">=</span>method, url<span style="color:#f92672">=</span>url, <span style="color:#f92672">**</span>kwargs)
-	File <span style="color:#e6db74">&#34;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/sessions.py&#34;</span>, line <span style="color:#ae81ff">361</span>, <span style="color:#f92672">in</span> request
-		resp <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>send(prep, <span style="color:#f92672">**</span>send_kwargs)
-	File <span style="color:#e6db74">&#34;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/sessions.py&#34;</span>, line <span style="color:#ae81ff">464</span>, <span style="color:#f92672">in</span> send
-		r <span style="color:#f92672">=</span> adapter<span style="color:#f92672">.</span>send(request, <span style="color:#f92672">**</span>kwargs)
-	File <span style="color:#e6db74">&#34;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/adapters.py&#34;</span>, line <span style="color:#ae81ff">363</span>, <span style="color:#f92672">in</span> send
-		<span style="color:#66d9ef">raise</span> SSLError(e)
-requests<span style="color:#f92672">.</span>exceptions<span style="color:#f92672">.</span>SSLError: hostname <span style="color:#e6db74">&#39;dnsapi.cn&#39;</span> doesn<span style="color:#e6db74">&#39;t match u&#39;</span>www<span style="color:#f92672">.</span>dnspod<span style="color:#f92672">.</span>cn<span style="color:#e6db74">&#39;</span>
+	File <span style=color:#e6db74>&#34;&lt;stdin&gt;&#34;</span>, line <span style=color:#ae81ff>1</span>, <span style=color:#f92672>in</span> <span style=color:#f92672>&lt;</span>module<span style=color:#f92672>&gt;</span>
+	File <span style=color:#e6db74>&#34;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&#34;</span>, line <span style=color:#ae81ff>55</span>, <span style=color:#f92672>in</span> get
+		<span style=color:#66d9ef>return</span> request(<span style=color:#e6db74>&#39;get&#39;</span>, url, <span style=color:#f92672>**</span>kwargs)
+	File <span style=color:#e6db74>&#34;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/api.py&#34;</span>, line <span style=color:#ae81ff>44</span>, <span style=color:#f92672>in</span> request
+		<span style=color:#66d9ef>return</span> session<span style=color:#f92672>.</span>request(method<span style=color:#f92672>=</span>method, url<span style=color:#f92672>=</span>url, <span style=color:#f92672>**</span>kwargs)
+	File <span style=color:#e6db74>&#34;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/sessions.py&#34;</span>, line <span style=color:#ae81ff>361</span>, <span style=color:#f92672>in</span> request
+		resp <span style=color:#f92672>=</span> self<span style=color:#f92672>.</span>send(prep, <span style=color:#f92672>**</span>send_kwargs)
+	File <span style=color:#e6db74>&#34;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/sessions.py&#34;</span>, line <span style=color:#ae81ff>464</span>, <span style=color:#f92672>in</span> send
+		r <span style=color:#f92672>=</span> adapter<span style=color:#f92672>.</span>send(request, <span style=color:#f92672>**</span>kwargs)
+	File <span style=color:#e6db74>&#34;/usr/local/lib/python2.7/site-packages/requests-2.0.0-py2.7.egg/requests/adapters.py&#34;</span>, line <span style=color:#ae81ff>363</span>, <span style=color:#f92672>in</span> send
+		<span style=color:#66d9ef>raise</span> SSLError(e)
+requests<span style=color:#f92672>.</span>exceptions<span style=color:#f92672>.</span>SSLError: hostname <span style=color:#e6db74>&#39;dnsapi.cn&#39;</span> doesn<span style=color:#e6db74>&#39;t match u&#39;</span>www<span style=color:#f92672>.</span>dnspod<span style=color:#f92672>.</span>cn<span style=color:#e6db74>&#39;</span>
 </code></pre></div><p>DNSPOD当前证书截图：
-<img src="https://ops.m114.org/img/dnspod_cert.png" alt="dnspod"></p>
+<img src=https://ops.m114.org/img/dnspod_cert.png alt=dnspod></p>
 <p>证书信息查看</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">openssl s_client -connect dnsapi.cn:443 | tee dnsapi.cert
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>openssl s_client -connect dnsapi.cn:443 | tee dnsapi.cert
 openssl x509 -inform PEM -in dnsapi.cert -text
 </code></pre></div><p>Python SSL验证</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">Python <span style="color:#ae81ff">2.7</span> (r27:<span style="color:#ae81ff">82500</span>, Jan  <span style="color:#ae81ff">7</span> <span style="color:#ae81ff">2014</span>, <span style="color:#ae81ff">23</span>:<span style="color:#ae81ff">14</span>:<span style="color:#ae81ff">35</span>)
-[GCC <span style="color:#ae81ff">4.1.2</span> <span style="color:#ae81ff">20080704</span> (Red Hat <span style="color:#ae81ff">4.1.2</span><span style="color:#f92672">-</span><span style="color:#ae81ff">50</span>)] on linux2
-Type <span style="color:#e6db74">&#34;help&#34;</span>, <span style="color:#e6db74">&#34;copyright&#34;</span>, <span style="color:#e6db74">&#34;credits&#34;</span> <span style="color:#f92672">or</span> <span style="color:#e6db74">&#34;license&#34;</span> <span style="color:#66d9ef">for</span> more information<span style="color:#f92672">.</span>
-<span style="color:#f92672">&gt;&gt;&gt;</span>  <span style="color:#f92672">import</span> _ssl
-<span style="color:#f92672">&gt;&gt;&gt;</span> _ssl<span style="color:#f92672">.</span>_test_decode_cert(<span style="color:#e6db74">&#39;dnsapi.cert&#39;</span>)
-{<span style="color:#e6db74">&#39;notBefore&#39;</span>: <span style="color:#e6db74">&#39;Mar 24 00:00:00 2015 GMT&#39;</span>, <span style="color:#e6db74">&#39;serialNumber&#39;</span>: <span style="color:#e6db74">&#39;3E4F6D495C407163586D0B900A007555&#39;</span>, <span style="color:#e6db74">&#39;notAfter&#39;</span>: <span style="color:#e6db74">&#39;May 12 23:59:59 2015 GMT&#39;</span>, <span style="color:#e6db74">&#39;version&#39;</span>: <span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#39;subject&#39;</span>: (((<span style="color:#e6db74">&#39;1.3.6.1.4.1.311.60.2.1.3&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;CN&#39;</span>),), ((<span style="color:#e6db74">&#39;1.3.6.1.4.1.311.60.2.1.2&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;ShanDong&#39;</span>),), ((<span style="color:#e6db74">&#39;1.3.6.1.4.1.311.60.2.1.1&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;YanTai&#39;</span>),), ((<span style="color:#e6db74">&#39;2.5.4.15&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;Private Organization&#39;</span>),), ((<span style="color:#e6db74">&#39;serialNumber&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;370635200013814&#39;</span>),), ((<span style="color:#e6db74">&#39;countryName&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;CN&#39;</span>),), ((<span style="color:#e6db74">&#39;stateOrProvinceName&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\u5c71\u4e1c\u7701</span><span style="color:#e6db74">&#39;</span>),), ((<span style="color:#e6db74">&#39;localityName&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\u70df\u53f0\u5e02</span><span style="color:#e6db74">&#39;</span>),), ((<span style="color:#e6db74">&#39;organizationName&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;DNSPod, Inc.&#39;</span>),), ((<span style="color:#e6db74">&#39;organizationalUnitName&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;IT&#39;</span>),), ((<span style="color:#e6db74">&#39;commonName&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;www.dnspod.cn&#39;</span>),)), <span style="color:#e6db74">&#39;issuer&#39;</span>: (((<span style="color:#e6db74">&#39;countryName&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;US&#39;</span>),), ((<span style="color:#e6db74">&#39;organizationName&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;GeoTrust Inc.&#39;</span>),), ((<span style="color:#e6db74">&#39;commonName&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;GeoTrust Extended Validation SSL CA - G2&#39;</span>),))}
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-py data-lang=py>Python <span style=color:#ae81ff>2.7</span> (r27:<span style=color:#ae81ff>82500</span>, Jan  <span style=color:#ae81ff>7</span> <span style=color:#ae81ff>2014</span>, <span style=color:#ae81ff>23</span>:<span style=color:#ae81ff>14</span>:<span style=color:#ae81ff>35</span>)
+[GCC <span style=color:#ae81ff>4.1.2</span> <span style=color:#ae81ff>20080704</span> (Red Hat <span style=color:#ae81ff>4.1.2</span><span style=color:#f92672>-</span><span style=color:#ae81ff>50</span>)] on linux2
+Type <span style=color:#e6db74>&#34;help&#34;</span>, <span style=color:#e6db74>&#34;copyright&#34;</span>, <span style=color:#e6db74>&#34;credits&#34;</span> <span style=color:#f92672>or</span> <span style=color:#e6db74>&#34;license&#34;</span> <span style=color:#66d9ef>for</span> more information<span style=color:#f92672>.</span>
+<span style=color:#f92672>&gt;&gt;&gt;</span>  <span style=color:#f92672>import</span> _ssl
+<span style=color:#f92672>&gt;&gt;&gt;</span> _ssl<span style=color:#f92672>.</span>_test_decode_cert(<span style=color:#e6db74>&#39;dnsapi.cert&#39;</span>)
+{<span style=color:#e6db74>&#39;notBefore&#39;</span>: <span style=color:#e6db74>&#39;Mar 24 00:00:00 2015 GMT&#39;</span>, <span style=color:#e6db74>&#39;serialNumber&#39;</span>: <span style=color:#e6db74>&#39;3E4F6D495C407163586D0B900A007555&#39;</span>, <span style=color:#e6db74>&#39;notAfter&#39;</span>: <span style=color:#e6db74>&#39;May 12 23:59:59 2015 GMT&#39;</span>, <span style=color:#e6db74>&#39;version&#39;</span>: <span style=color:#ae81ff>3</span>, <span style=color:#e6db74>&#39;subject&#39;</span>: (((<span style=color:#e6db74>&#39;1.3.6.1.4.1.311.60.2.1.3&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;CN&#39;</span>),), ((<span style=color:#e6db74>&#39;1.3.6.1.4.1.311.60.2.1.2&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;ShanDong&#39;</span>),), ((<span style=color:#e6db74>&#39;1.3.6.1.4.1.311.60.2.1.1&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;YanTai&#39;</span>),), ((<span style=color:#e6db74>&#39;2.5.4.15&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;Private Organization&#39;</span>),), ((<span style=color:#e6db74>&#39;serialNumber&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;370635200013814&#39;</span>),), ((<span style=color:#e6db74>&#39;countryName&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;CN&#39;</span>),), ((<span style=color:#e6db74>&#39;stateOrProvinceName&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\u5c71\u4e1c\u7701</span><span style=color:#e6db74>&#39;</span>),), ((<span style=color:#e6db74>&#39;localityName&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\u70df\u53f0\u5e02</span><span style=color:#e6db74>&#39;</span>),), ((<span style=color:#e6db74>&#39;organizationName&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;DNSPod, Inc.&#39;</span>),), ((<span style=color:#e6db74>&#39;organizationalUnitName&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;IT&#39;</span>),), ((<span style=color:#e6db74>&#39;commonName&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;www.dnspod.cn&#39;</span>),)), <span style=color:#e6db74>&#39;issuer&#39;</span>: (((<span style=color:#e6db74>&#39;countryName&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;US&#39;</span>),), ((<span style=color:#e6db74>&#39;organizationName&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;GeoTrust Inc.&#39;</span>),), ((<span style=color:#e6db74>&#39;commonName&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;GeoTrust Extended Validation SSL CA - G2&#39;</span>),))}
 
 
-Python <span style="color:#ae81ff">2.7.6</span> (default, Sep  <span style="color:#ae81ff">9</span> <span style="color:#ae81ff">2014</span>, <span style="color:#ae81ff">15</span>:<span style="color:#ae81ff">04</span>:<span style="color:#ae81ff">36</span>)
-[GCC <span style="color:#ae81ff">4.2.1</span> Compatible Apple LLVM <span style="color:#ae81ff">6.0</span> (clang<span style="color:#f92672">-</span><span style="color:#ae81ff">600.0.39</span>)] on darwin
-Type <span style="color:#e6db74">&#34;help&#34;</span>, <span style="color:#e6db74">&#34;copyright&#34;</span>, <span style="color:#e6db74">&#34;credits&#34;</span> <span style="color:#f92672">or</span> <span style="color:#e6db74">&#34;license&#34;</span> <span style="color:#66d9ef">for</span> more information<span style="color:#f92672">.</span>
-<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">import</span> _ssl
-<span style="color:#f92672">&gt;&gt;&gt;</span> _ssl<span style="color:#f92672">.</span>_test_decode_cert(<span style="color:#e6db74">&#39;dnsapi.cert&#39;</span>)
-{<span style="color:#e6db74">&#39;subjectAltName&#39;</span>: ((<span style="color:#e6db74">&#39;DNS&#39;</span>, <span style="color:#e6db74">&#39;www.dnsapi.cn&#39;</span>), (<span style="color:#e6db74">&#39;DNS&#39;</span>, <span style="color:#e6db74">&#39;monitor.dnspod.cn&#39;</span>), (<span style="color:#e6db74">&#39;DNS&#39;</span>, <span style="color:#e6db74">&#39;api.dnspod.com&#39;</span>), (<span style="color:#e6db74">&#39;DNS&#39;</span>, <span style="color:#e6db74">&#39;tickets.dnspod.com&#39;</span>), (<span style="color:#e6db74">&#39;DNS&#39;</span>, <span style="color:#e6db74">&#39;ec.dnspod.cn&#39;</span>), (<span style="color:#e6db74">&#39;DNS&#39;</span>, <span style="color:#e6db74">&#39;domains.dnspod.cn&#39;</span>), (<span style="color:#e6db74">&#39;DNS&#39;</span>, <span style="color:#e6db74">&#39;support.dnspod.cn&#39;</span>), (<span style="color:#e6db74">&#39;DNS&#39;</span>, <span style="color:#e6db74">&#39;m.dnspod.cn&#39;</span>), (<span style="color:#e6db74">&#39;DNS&#39;</span>, <span style="color:#e6db74">&#39;ssl.ptlogin2.dnspod.cn&#39;</span>), (<span style="color:#e6db74">&#39;DNS&#39;</span>, <span style="color:#e6db74">&#39;monitor.dnspod.com&#39;</span>), (<span style="color:#e6db74">&#39;DNS&#39;</span>, <span style="color:#e6db74">&#39;support.dnspod.com&#39;</span>), (<span style="color:#e6db74">&#39;DNS&#39;</span>, <span style="color:#e6db74">&#39;tickets.dnspod.cn&#39;</span>), (<span style="color:#e6db74">&#39;DNS&#39;</span>, <span style="color:#e6db74">&#39;statics.dnspod.cn&#39;</span>), (<span style="color:#e6db74">&#39;DNS&#39;</span>, <span style="color:#e6db74">&#39;stat.dnspod.cn&#39;</span>), (<span style="color:#e6db74">&#39;DNS&#39;</span>, <span style="color:#e6db74">&#39;www.dnspod.com&#39;</span>), (<span style="color:#e6db74">&#39;DNS&#39;</span>, <span style="color:#e6db74">&#39;dnspod.com&#39;</span>), (<span style="color:#e6db74">&#39;DNS&#39;</span>, <span style="color:#e6db74">&#39;static.dnspod.com&#39;</span>), (<span style="color:#e6db74">&#39;DNS&#39;</span>, <span style="color:#e6db74">&#39;libs.dnspod.cn&#39;</span>), (<span style="color:#e6db74">&#39;DNS&#39;</span>, <span style="color:#e6db74">&#39;blog.dnspod.cn&#39;</span>), (<span style="color:#e6db74">&#39;DNS&#39;</span>, <span style="color:#e6db74">&#39;dnsapi.cn&#39;</span>), (<span style="color:#e6db74">&#39;DNS&#39;</span>, <span style="color:#e6db74">&#39;www.dnspod.cn&#39;</span>), (<span style="color:#e6db74">&#39;DNS&#39;</span>, <span style="color:#e6db74">&#39;dnspod.cn&#39;</span>)), <span style="color:#e6db74">&#39;notBefore&#39;</span>: <span style="color:#e6db74">&#39;Mar 24 00:00:00 2015 GMT&#39;</span>, <span style="color:#e6db74">&#39;serialNumber&#39;</span>: <span style="color:#e6db74">&#39;3E4F6D495C407163586D0B900A007555&#39;</span>, <span style="color:#e6db74">&#39;notAfter&#39;</span>: <span style="color:#e6db74">&#39;May 12 23:59:59 2015 GMT&#39;</span>, <span style="color:#e6db74">&#39;version&#39;</span>: <span style="color:#ae81ff">3</span>, <span style="color:#e6db74">&#39;subject&#39;</span>: (((<span style="color:#e6db74">&#39;1.3.6.1.4.1.311.60.2.1.3&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;CN&#39;</span>),), ((<span style="color:#e6db74">&#39;1.3.6.1.4.1.311.60.2.1.2&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;ShanDong&#39;</span>),), ((<span style="color:#e6db74">&#39;1.3.6.1.4.1.311.60.2.1.1&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;YanTai&#39;</span>),), ((<span style="color:#e6db74">&#39;businessCategory&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;Private Organization&#39;</span>),), ((<span style="color:#e6db74">&#39;serialNumber&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;370635200013814&#39;</span>),), ((<span style="color:#e6db74">&#39;countryName&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;CN&#39;</span>),), ((<span style="color:#e6db74">&#39;stateOrProvinceName&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\u5c71\u4e1c\u7701</span><span style="color:#e6db74">&#39;</span>),), ((<span style="color:#e6db74">&#39;localityName&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\u70df\u53f0\u5e02</span><span style="color:#e6db74">&#39;</span>),), ((<span style="color:#e6db74">&#39;organizationName&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;DNSPod, Inc.&#39;</span>),), ((<span style="color:#e6db74">&#39;organizationalUnitName&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;IT&#39;</span>),), ((<span style="color:#e6db74">&#39;commonName&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;www.dnspod.cn&#39;</span>),)), <span style="color:#e6db74">&#39;issuer&#39;</span>: (((<span style="color:#e6db74">&#39;countryName&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;US&#39;</span>),), ((<span style="color:#e6db74">&#39;organizationName&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;GeoTrust Inc.&#39;</span>),), ((<span style="color:#e6db74">&#39;commonName&#39;</span>, <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;GeoTrust Extended Validation SSL CA - G2&#39;</span>),))}
+Python <span style=color:#ae81ff>2.7.6</span> (default, Sep  <span style=color:#ae81ff>9</span> <span style=color:#ae81ff>2014</span>, <span style=color:#ae81ff>15</span>:<span style=color:#ae81ff>04</span>:<span style=color:#ae81ff>36</span>)
+[GCC <span style=color:#ae81ff>4.2.1</span> Compatible Apple LLVM <span style=color:#ae81ff>6.0</span> (clang<span style=color:#f92672>-</span><span style=color:#ae81ff>600.0.39</span>)] on darwin
+Type <span style=color:#e6db74>&#34;help&#34;</span>, <span style=color:#e6db74>&#34;copyright&#34;</span>, <span style=color:#e6db74>&#34;credits&#34;</span> <span style=color:#f92672>or</span> <span style=color:#e6db74>&#34;license&#34;</span> <span style=color:#66d9ef>for</span> more information<span style=color:#f92672>.</span>
+<span style=color:#f92672>&gt;&gt;&gt;</span> <span style=color:#f92672>import</span> _ssl
+<span style=color:#f92672>&gt;&gt;&gt;</span> _ssl<span style=color:#f92672>.</span>_test_decode_cert(<span style=color:#e6db74>&#39;dnsapi.cert&#39;</span>)
+{<span style=color:#e6db74>&#39;subjectAltName&#39;</span>: ((<span style=color:#e6db74>&#39;DNS&#39;</span>, <span style=color:#e6db74>&#39;www.dnsapi.cn&#39;</span>), (<span style=color:#e6db74>&#39;DNS&#39;</span>, <span style=color:#e6db74>&#39;monitor.dnspod.cn&#39;</span>), (<span style=color:#e6db74>&#39;DNS&#39;</span>, <span style=color:#e6db74>&#39;api.dnspod.com&#39;</span>), (<span style=color:#e6db74>&#39;DNS&#39;</span>, <span style=color:#e6db74>&#39;tickets.dnspod.com&#39;</span>), (<span style=color:#e6db74>&#39;DNS&#39;</span>, <span style=color:#e6db74>&#39;ec.dnspod.cn&#39;</span>), (<span style=color:#e6db74>&#39;DNS&#39;</span>, <span style=color:#e6db74>&#39;domains.dnspod.cn&#39;</span>), (<span style=color:#e6db74>&#39;DNS&#39;</span>, <span style=color:#e6db74>&#39;support.dnspod.cn&#39;</span>), (<span style=color:#e6db74>&#39;DNS&#39;</span>, <span style=color:#e6db74>&#39;m.dnspod.cn&#39;</span>), (<span style=color:#e6db74>&#39;DNS&#39;</span>, <span style=color:#e6db74>&#39;ssl.ptlogin2.dnspod.cn&#39;</span>), (<span style=color:#e6db74>&#39;DNS&#39;</span>, <span style=color:#e6db74>&#39;monitor.dnspod.com&#39;</span>), (<span style=color:#e6db74>&#39;DNS&#39;</span>, <span style=color:#e6db74>&#39;support.dnspod.com&#39;</span>), (<span style=color:#e6db74>&#39;DNS&#39;</span>, <span style=color:#e6db74>&#39;tickets.dnspod.cn&#39;</span>), (<span style=color:#e6db74>&#39;DNS&#39;</span>, <span style=color:#e6db74>&#39;statics.dnspod.cn&#39;</span>), (<span style=color:#e6db74>&#39;DNS&#39;</span>, <span style=color:#e6db74>&#39;stat.dnspod.cn&#39;</span>), (<span style=color:#e6db74>&#39;DNS&#39;</span>, <span style=color:#e6db74>&#39;www.dnspod.com&#39;</span>), (<span style=color:#e6db74>&#39;DNS&#39;</span>, <span style=color:#e6db74>&#39;dnspod.com&#39;</span>), (<span style=color:#e6db74>&#39;DNS&#39;</span>, <span style=color:#e6db74>&#39;static.dnspod.com&#39;</span>), (<span style=color:#e6db74>&#39;DNS&#39;</span>, <span style=color:#e6db74>&#39;libs.dnspod.cn&#39;</span>), (<span style=color:#e6db74>&#39;DNS&#39;</span>, <span style=color:#e6db74>&#39;blog.dnspod.cn&#39;</span>), (<span style=color:#e6db74>&#39;DNS&#39;</span>, <span style=color:#e6db74>&#39;dnsapi.cn&#39;</span>), (<span style=color:#e6db74>&#39;DNS&#39;</span>, <span style=color:#e6db74>&#39;www.dnspod.cn&#39;</span>), (<span style=color:#e6db74>&#39;DNS&#39;</span>, <span style=color:#e6db74>&#39;dnspod.cn&#39;</span>)), <span style=color:#e6db74>&#39;notBefore&#39;</span>: <span style=color:#e6db74>&#39;Mar 24 00:00:00 2015 GMT&#39;</span>, <span style=color:#e6db74>&#39;serialNumber&#39;</span>: <span style=color:#e6db74>&#39;3E4F6D495C407163586D0B900A007555&#39;</span>, <span style=color:#e6db74>&#39;notAfter&#39;</span>: <span style=color:#e6db74>&#39;May 12 23:59:59 2015 GMT&#39;</span>, <span style=color:#e6db74>&#39;version&#39;</span>: <span style=color:#ae81ff>3</span>, <span style=color:#e6db74>&#39;subject&#39;</span>: (((<span style=color:#e6db74>&#39;1.3.6.1.4.1.311.60.2.1.3&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;CN&#39;</span>),), ((<span style=color:#e6db74>&#39;1.3.6.1.4.1.311.60.2.1.2&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;ShanDong&#39;</span>),), ((<span style=color:#e6db74>&#39;1.3.6.1.4.1.311.60.2.1.1&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;YanTai&#39;</span>),), ((<span style=color:#e6db74>&#39;businessCategory&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;Private Organization&#39;</span>),), ((<span style=color:#e6db74>&#39;serialNumber&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;370635200013814&#39;</span>),), ((<span style=color:#e6db74>&#39;countryName&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;CN&#39;</span>),), ((<span style=color:#e6db74>&#39;stateOrProvinceName&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\u5c71\u4e1c\u7701</span><span style=color:#e6db74>&#39;</span>),), ((<span style=color:#e6db74>&#39;localityName&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\u70df\u53f0\u5e02</span><span style=color:#e6db74>&#39;</span>),), ((<span style=color:#e6db74>&#39;organizationName&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;DNSPod, Inc.&#39;</span>),), ((<span style=color:#e6db74>&#39;organizationalUnitName&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;IT&#39;</span>),), ((<span style=color:#e6db74>&#39;commonName&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;www.dnspod.cn&#39;</span>),)), <span style=color:#e6db74>&#39;issuer&#39;</span>: (((<span style=color:#e6db74>&#39;countryName&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;US&#39;</span>),), ((<span style=color:#e6db74>&#39;organizationName&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;GeoTrust Inc.&#39;</span>),), ((<span style=color:#e6db74>&#39;commonName&#39;</span>, <span style=color:#e6db74>u</span><span style=color:#e6db74>&#39;GeoTrust Extended Validation SSL CA - G2&#39;</span>),))}
 </code></pre></div><p>解决方法：</p>
 <p><strong><code>升级Python至2.7.3以上版本,低版本不支持ssl的subjectAltName特性</code></strong></p>
 <p>来源参考:</p>
-<p><a href="https://github.com/shazow/urllib3/issues/523">https://github.com/shazow/urllib3/issues/523</a></p>
-
-  
-  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
-<ul class="share-buttons">
-	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2fDNSPOD-API-SSL-subjectAltName%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2fDNSPOD-API-SSL-subjectAltName%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2fDNSPOD-API-SSL-subjectAltName%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2fDNSPOD-API-SSL-subjectAltName%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2fDNSPOD-API-SSL-subjectAltName%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2fDNSPOD-API-SSL-subjectAltName%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
-	</li>
+<p><a href=https://github.com/shazow/urllib3/issues/523>https://github.com/shazow/urllib3/issues/523</a></p>
+<h4><i class="fas fa-share-alt" aria-hidden=true></i>&nbsp;Share!</h4>
+<ul class=share-buttons>
+<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2fDNSPOD-API-SSL-subjectAltName%2f" target=_blank title="Share on Facebook"><i class="fab fa-facebook" aria-hidden=true></i><span class=sr-only>Share on Facebook</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2fDNSPOD-API-SSL-subjectAltName%2f" target=_blank title=Tweet><i class="fab fa-twitter" aria-hidden=true></i><span class=sr-only>Tweet</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2fDNSPOD-API-SSL-subjectAltName%2f" target=_blank title="Share on Google+"><i class="fab fa-google-plus" aria-hidden=true></i><span class=sr-only>Share on Google+</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2fDNSPOD-API-SSL-subjectAltName%2f" target=_blank title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden=true></i><span class=sr-only>Post to Tumblr</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2fDNSPOD-API-SSL-subjectAltName%2f" target=_blank title="Pin it"><i class="fab fa-pinterest-p" aria-hidden=true></i><span class=sr-only>Pin it</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2fDNSPOD-API-SSL-subjectAltName%2f" target=_blank title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden=true></i><span class=sr-only>Submit to Reddit</span></a>
+</li>
 </ul>
-
-
-<style>
-	ul.share-buttons{
-	  list-style: none;
-	  padding: 0;
-	}
-
-	ul.share-buttons li{
-	  display: inline;
-	}
-
-	ul.share-buttons .sr-only{
-	  position: absolute;
-	  clip: rect(1px 1px 1px 1px);
-	  clip: rect(1px, 1px, 1px, 1px);
-	  padding: 0;
-	  border: 0;
-	  height: 1px;
-	  width: 1px;
-	  overflow: hidden;
-	}
-</style>
-
-
-  
+<style>ul.share-buttons{list-style:none;padding:0}ul.share-buttons li{display:inline}ul.share-buttons .sr-only{position:absolute;clip:rect(1px 1px 1px 1px);clip:rect(1px,1px,1px,1px);padding:0;border:0;height:1px;width:1px;overflow:hidden}</style>
 <div class="prev-next-post pure-g">
-  <div class="pure-u-1-24" style="text-align: left;">
-    
-    <a href="https://ops.m114.org/post/russia-permanent-winter-time/"><i class="fa fa-chevron-left"></i></a>
-    
-  </div>
-  <div class="pure-u-10-24">
-    
-    <nav class="prev">
-      <a href="https://ops.m114.org/post/russia-permanent-winter-time/">俄罗斯永久冬令时的坑</a>
-    </nav>
-    
-  </div>
-  <div class="pure-u-2-24">
-    &nbsp;
-  </div>
-  <div class="pure-u-10-24">
-    
-    <nav class="next">
-      <a href="https://ops.m114.org/post/kernel-igb-00000100-0-eth0-reset-adapter/">kernel igb 00000500 0 eth0 reset adapter</a>
-    </nav>
-    
-  </div>
-  <div class="pure-u-1-24" style="text-align: right;">
-    
-    <a href="https://ops.m114.org/post/kernel-igb-00000100-0-eth0-reset-adapter/"><i class="fa fa-chevron-right"></i></a>
-    
-  </div>
+<div class=pure-u-1-24 style=text-align:left>
+<a href=https://ops.m114.org/post/russia-permanent-winter-time/><i class="fa fa-chevron-left"></i></a>
 </div>
-
-
-  
-  
-  
-  
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-
-(function() {
-    
-    
-    if (window.location.hostname == "localhost")
-        return;
-
-    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    var disqus_shortname = 'vinsoncou';
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-
-  
-
+<div class=pure-u-10-24>
+<nav class=prev>
+<a href=https://ops.m114.org/post/russia-permanent-winter-time/>俄罗斯永久冬令时的坑</a>
+</nav>
 </div>
-
+<div class=pure-u-2-24>
+&nbsp;
+</div>
+<div class=pure-u-10-24>
+<nav class=next>
+<a href=https://ops.m114.org/post/kernel-igb-00000100-0-eth0-reset-adapter/>kernel igb 00000500 0 eth0 reset adapter</a>
+</nav>
+</div>
+<div class=pure-u-1-24 style=text-align:right>
+<a href=https://ops.m114.org/post/kernel-igb-00000100-0-eth0-reset-adapter/><i class="fa fa-chevron-right"></i></a>
 </div>
 </div>
-<script src="https://ops.m114.org/js/ui.js"></script>
-<script src="https://ops.m114.org/js/menus.js"></script>
-
-
-
-
-
-
-
-
-<script src="https://ops.m114.org/js/math-code.js"></script>
-  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-  
-
-
+<div id=disqus_thread></div>
+<script type=text/javascript>(function(){var a,b;if(window.location.hostname=="localhost")return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='vinsoncou',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=http://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+</div>
+</div>
+<script src=https://ops.m114.org/js/ui.js></script>
+<script src=https://ops.m114.org/js/menus.js></script>
+<script src=https://ops.m114.org/js/math-code.js></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>
-

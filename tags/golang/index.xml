@@ -1,82 +1,21 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>golang on ops</title>
-    <link>https://ops.m114.org/tags/golang/</link>
-    <description>Recent content in golang on ops</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language>
-    <copyright>&amp;copy; 2014-2021. All rights reserved.</copyright>
-    <lastBuildDate>Tue, 18 May 2021 10:08:00 +0800</lastBuildDate><atom:link href="https://ops.m114.org/tags/golang/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>golang encrypt/decrypt by MacOS keychain</title>
-      <link>https://ops.m114.org/post/golang-aes-crypt/</link>
-      <pubDate>Tue, 18 May 2021 10:08:00 +0800</pubDate>
-      
-      <guid>https://ops.m114.org/post/golang-aes-crypt/</guid>
-      <description>功能如下:
- AES加密/解密 AES秘钥从MacOS keychain读取 支持Data At Rest Encryption (DARE)，加密文件内存占用小于100K，参考 sio   </description>
-    </item>
-    
-    <item>
-      <title>4层TCP转发后获得真实IP之proxy_protocol</title>
-      <link>https://ops.m114.org/post/tcp-proxy-get-source-ip-by-proxy_protocol/</link>
-      <pubDate>Mon, 19 Apr 2021 17:01:15 +0800</pubDate>
-      
-      <guid>https://ops.m114.org/post/tcp-proxy-get-source-ip-by-proxy_protocol/</guid>
-      <description>需求 后端TCP Server在经过TCP代理(nginx stream模块)后，程序不做任何调整获得用户真实IP。 了解到cloudflare的spectrum产品与我们这个需求一致，刚好有细节和源码分享，参考如下:
- https://blog.cloudflare.com/mmproxy-creative-way-of-preserving-client-ips-in-spectrum/ https://github.com/cloudflare/mmproxy  有公司参考cloudflare的mmproxy，用golang实现了性能更优的版本。
- https://github.com/path-network/go-mmproxy  部署 拓扑与cloudflare spectrum产品一样，示意图如下：
- go &amp;gt; 1.11 as root or with CAP_NET_RAW capability to be able to set IP_TRANSPARENT socket opt.  go get github.com/path-network/go-mmproxy sudo setcap cap_net_raw=+ep $(readlink -f $(which go-mmproxy)) 测试  启动  # go-mmproxy监听端口为25577，TCP后端端口为25578 ip rule add from 127.0.0.1/8 iif lo table 123 ip route add local 0.0.0.0/0 dev lo table 123 go-mmproxy -l 0.</description>
-    </item>
-    
-    <item>
-      <title>go如何编译出更小的执行文件?</title>
-      <link>https://ops.m114.org/post/go-build-small-exec/</link>
-      <pubDate>Wed, 23 Aug 2017 23:38:09 +0800</pubDate>
-      
-      <guid>https://ops.m114.org/post/go-build-small-exec/</guid>
-      <description>前言 本地默认编译出的文件总与官方提供的二进制文件大很多，Google之后得知通过编译参数控制还能编译出更小的可执行文件。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>golang on ops</title><link>https://ops.m114.org/tags/golang/</link><description>Recent content in golang on ops</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><copyright>&amp;copy; 2014-2021. All rights reserved.</copyright><lastBuildDate>Tue, 18 May 2021 10:08:00 +0800</lastBuildDate><atom:link href="https://ops.m114.org/tags/golang/index.xml" rel="self" type="application/rss+xml"/><item><title>golang encrypt/decrypt by MacOS keychain</title><link>https://ops.m114.org/post/golang-aes-crypt/</link><pubDate>Tue, 18 May 2021 10:08:00 +0800</pubDate><guid>https://ops.m114.org/post/golang-aes-crypt/</guid><description>功能如下:
+AES加密/解密 AES秘钥从MacOS keychain读取 支持Data At Rest Encryption (DARE)，加密文件内存占用小于100K，参考 sio</description></item><item><title>4层TCP转发后获得真实IP之proxy_protocol</title><link>https://ops.m114.org/post/tcp-proxy-get-source-ip-by-proxy_protocol/</link><pubDate>Mon, 19 Apr 2021 17:01:15 +0800</pubDate><guid>https://ops.m114.org/post/tcp-proxy-get-source-ip-by-proxy_protocol/</guid><description>需求 后端TCP Server在经过TCP代理(nginx stream模块)后，程序不做任何调整获得用户真实IP。 了解到cloudflare的spectrum产品与我们这个需求一致，刚好有细节和源码分享，参考如下:
+https://blog.cloudflare.com/mmproxy-creative-way-of-preserving-client-ips-in-spectrum/ https://github.com/cloudflare/mmproxy 有公司参考cloudflare的mmproxy，用golang实现了性能更优的版本。
+https://github.com/path-network/go-mmproxy 部署 拓扑与cloudflare spectrum产品一样，示意图如下：
+go &amp;gt; 1.11 as root or with CAP_NET_RAW capability to be able to set IP_TRANSPARENT socket opt. go get github.com/path-network/go-mmproxy sudo setcap cap_net_raw=+ep $(readlink -f $(which go-mmproxy)) 测试 启动 # go-mmproxy监听端口为25577，TCP后端端口为25578 ip rule add from 127.0.0.1/8 iif lo table 123 ip route add local 0.0.0.0/0 dev lo table 123 go-mmproxy -l 0.</description></item><item><title>go如何编译出更小的执行文件?</title><link>https://ops.m114.org/post/go-build-small-exec/</link><pubDate>Wed, 23 Aug 2017 23:38:09 +0800</pubDate><guid>https://ops.m114.org/post/go-build-small-exec/</guid><description>前言 本地默认编译出的文件总与官方提供的二进制文件大很多，Google之后得知通过编译参数控制还能编译出更小的可执行文件。
 加-ldflags参数 在程序编译的时候可以加上-ldflags &amp;quot;-s -w&amp;quot; 参数来优化编译程序, 其实通过去除部分连接和调试等信息来使得编译之后的执行程序更小,具体参数如下:
- -a 强制编译所有依赖包 -s 去掉符号表信息, panic时候的stack trace就没有任何文件名/行号信息了 -w 去掉DWARF调试信息，得到的程序就不能用gdb调试了  测试代码如下
+-a 强制编译所有依赖包 -s 去掉符号表信息, panic时候的stack trace就没有任何文件名/行号信息了 -w 去掉DWARF调试信息，得到的程序就不能用gdb调试了 测试代码如下
 package main import &amp;#34;fmt&amp;#34; func main() { fmt.Println(&amp;#34;Hello, 世界&amp;#34;) } 编译方式及文件大小对比结果如下
- 编译参数   大小     go build(默认)   1.6M    go build -ldflags -s   1.6M    go build -ldflags &amp;#34;-s -w&amp;#34;   1.1M    go build -ldflags -w   1.</description>
-    </item>
-    
-    <item>
-      <title>Golang之command line flag笔记</title>
-      <link>https://ops.m114.org/post/golang-command-line-flags/</link>
-      <pubDate>Wed, 16 Aug 2017 23:28:33 +0800</pubDate>
-      
-      <guid>https://ops.m114.org/post/golang-command-line-flags/</guid>
-      <description>示例代码，仅供参考
-package main import ( &amp;#34;fmt&amp;#34; &amp;#34;flag&amp;#34; ) func main() { // golang的flag包的一些基本使用方法  // 待使用的变量  var id int var name string var male bool // 是否已经解析  fmt.Println(&amp;#34;parsed? = &amp;#34;, flag.Parsed()) // 设置flag参数 (变量指针，参数名，默认值，帮助信息)  // 也可以用以下带返回值的方法代替，不过他们返回的是指针，比较麻烦点  // Int(name string, value int, usage string) *int  // String(name string, value string, usage string) *string  // Bool(name string, value bool, usage string) *bool  flag.IntVar(&amp;amp;id, &amp;#34;id&amp;#34;, 123, &amp;#34;help msg for id&amp;#34;) flag.</description>
-    </item>
-    
-    <item>
-      <title>golang sync.WaitGroup解决goroutine同步</title>
-      <link>https://ops.m114.org/post/sync-WaitGroup/</link>
-      <pubDate>Mon, 03 Jul 2017 16:27:12 +0800</pubDate>
-      
-      <guid>https://ops.m114.org/post/sync-WaitGroup/</guid>
-      <description>**go提供了sync包和channel来解决协程同步和通讯。**新手对channel通道操作起来更容易产生死锁，如果时缓冲的channel还要考虑channel放入和取出数据的速率问题。
+编译参数 大小 go build(默认) 1.6M go build -ldflags -s 1.6M go build -ldflags &amp;#34;-s -w&amp;#34; 1.1M go build -ldflags -w 1.</description></item><item><title>Golang之command line flag笔记</title><link>https://ops.m114.org/post/golang-command-line-flags/</link><pubDate>Wed, 16 Aug 2017 23:28:33 +0800</pubDate><guid>https://ops.m114.org/post/golang-command-line-flags/</guid><description>示例代码，仅供参考
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;flag&amp;#34; ) func main() { // golang的flag包的一些基本使用方法 // 待使用的变量 var id int var name string var male bool // 是否已经解析 fmt.Println(&amp;#34;parsed? = &amp;#34;, flag.Parsed()) // 设置flag参数 (变量指针，参数名，默认值，帮助信息) // 也可以用以下带返回值的方法代替，不过他们返回的是指针，比较麻烦点 // Int(name string, value int, usage string) *int // String(name string, value string, usage string) *string // Bool(name string, value bool, usage string) *bool flag.IntVar(&amp;amp;id, &amp;#34;id&amp;#34;, 123, &amp;#34;help msg for id&amp;#34;) flag.</description></item><item><title>golang sync.WaitGroup解决goroutine同步</title><link>https://ops.m114.org/post/sync-WaitGroup/</link><pubDate>Mon, 03 Jul 2017 16:27:12 +0800</pubDate><guid>https://ops.m114.org/post/sync-WaitGroup/</guid><description>**go提供了sync包和channel来解决协程同步和通讯。**新手对channel通道操作起来更容易产生死锁，如果时缓冲的channel还要考虑channel放入和取出数据的速率问题。
 从字面就可以理解，sync.WaitGroup是等待一组协程结束。它实现了一个类似任务队列的结构，你可以向队列中加入任务，任务完成后就把任务从队列中移除，如果队列中的任务没有全部完成，队列就会触发阻塞以阻止程序继续运行。
 sync.WaitGroup只有3个方法，Add()，Done()，Wait()。 其中Done()是Add(-1)的别名。简单的来说，使用Add()添加计数，Done()减掉一个计数，计数不为0, 阻塞Wait()的运行。
 简单示例如下：
-package main import ( &amp;#34;fmt&amp;#34; &amp;#34;sync&amp;#34; ) var waitgroup sync.WaitGroup func test(shownum int) { fmt.Println(shownum) waitgroup.Done() //任务完成，将任务队列中的任务数量-1，其实.Done就是.Add(-1) } func main() { for i := 0; i &amp;lt; 10; i++ { waitgroup.Add(1) //每创建一个goroutine，就把任务队列中任务的数量+1 	go test(i) } waitgroup.Wait() //.Wait()这里会发生阻塞，直到队列中所有的任务结束就会解除阻塞 	fmt.Println(&amp;#34;done!&amp;#34;) } Ps: 此文为学习记录，如有错误还请多指教。</description>
-    </item>
-    
-    <item>
-      <title>使用Hugo搭建免费个人Blog</title>
-      <link>https://ops.m114.org/post/how-to-use-hugo/</link>
-      <pubDate>Tue, 11 Nov 2014 17:15:00 +0800</pubDate>
-      
-      <guid>https://ops.m114.org/post/how-to-use-hugo/</guid>
-      <description>Hugo是什么 Hugo是一个工具，可以用于搭建静态站点，类似jekyll，不过Hugo是Golang写的，大家应该知道Golang有一个对部署友好的特点，那就是静态编译，所以安装起来非常方便，不像jekyll安装起来比较麻烦。
+package main import ( &amp;#34;fmt&amp;#34; &amp;#34;sync&amp;#34; ) var waitgroup sync.WaitGroup func test(shownum int) { fmt.Println(shownum) waitgroup.Done() //任务完成，将任务队列中的任务数量-1，其实.Done就是.Add(-1) } func main() { for i := 0; i &amp;lt; 10; i++ { waitgroup.Add(1) //每创建一个goroutine，就把任务队列中任务的数量+1 go test(i) } waitgroup.Wait() //.Wait()这里会发生阻塞，直到队列中所有的任务结束就会解除阻塞 fmt.Println(&amp;#34;done!&amp;#34;) } Ps: 此文为学习记录，如有错误还请多指教。</description></item><item><title>使用Hugo搭建免费个人Blog</title><link>https://ops.m114.org/post/how-to-use-hugo/</link><pubDate>Tue, 11 Nov 2014 17:15:00 +0800</pubDate><guid>https://ops.m114.org/post/how-to-use-hugo/</guid><description>Hugo是什么 Hugo是一个工具，可以用于搭建静态站点，类似jekyll，不过Hugo是Golang写的，大家应该知道Golang有一个对部署友好的特点，那就是静态编译，所以安装起来非常方便，不像jekyll安装起来比较麻烦。
 可能有些读者也不知道jekyll是干啥的，我这简单解释一下，这些软件通常可以叫做静态站点生成器，我们可以使用Markdown格式编写一些文本，按照指定的目录结构存放，然后再在指定的目录里放置css等静态文件，jekyll就可以帮你生成一个静态站点。那既然是静态站点，你就可以很方便的部署了，因为只要搭配一个web server即可，甚至可以部署在github pages上，ops.m114.org是部署在gitcafe pages上的，这样国人访问速度快一些。因为github和gitcafe的pages功能是免费的，这也是我标题中“免费”二次的原因
 Hugo的使用 Hugo的官网是gohugo.io，里边有个Docs，大家可以跟着走一遍，主要是里边的quickstart。笔者就不给大家做翻译了，给读者介绍一下如何基于笔者这个Blog来搭建，在这基础上修改就要容易不少了。
 下载Hugo 官网上首页就有下载链接，去Hugo下载即可
-把笔者的这个blog clone下来 git clone https://github.com/vinsonzou/hugo.blog.git cd hugo.blog hugo server -w  上面的代码是Linux、OS X控制台命令，windows用户请自己转换成windows操作方法。看到控制台打印出的内容了么？Hugo已经帮忙生成了一个静态站点，并且监听在本机的1313端口，访问一下试试吧：）
+把笔者的这个blog clone下来 git clone https://github.com/vinsonzou/hugo.blog.git cd hugo.blog hugo server -w 上面的代码是Linux、OS X控制台命令，windows用户请自己转换成windows操作方法。看到控制台打印出的内容了么？Hugo已经帮忙生成了一个静态站点，并且监听在本机的1313端口，访问一下试试吧：）
 修改hugo.blog 一行代码就跑起来了，是不是so easy，接下来笔者大体介绍一下各个目录中的作用，读者可以修改成自己的一些信息
 content目录就是存放你原始markdown文本的地方，content的子目录和markdown文件名组成了url地址，比如这篇文章的url是：http://ops.m114.org/post/how-to-use-hugo/ ，那是因为content目录下有个post/how-to-use-hugo.md
 public目录是刚才运行hugo server -w命令生成的，这里边的内容就是静态站点的内容，之后咱们把这些内容提交到gitcafe pages中
@@ -85,8 +24,4 @@ themes目录是主题目录，我使用了hyde这个主题，在上面做了一�
 themes/hyde/{layouts,static}是我们主要修改的内容。index.html是首页，你修改一下看看，浏览器会自动刷新看到效果；partials目录是存放的一些页面片段，便于复用；_default目录是博文单页和博文列表页面，相信你一看就懂；static目录中有一些css，想怎么个性化就调整它们就成了
 使用gitcafe pages制作站点 上面搞定之后，最好把修改之后的内容push到github上。public目录无需push，这是每次都可以自动生成的。咱们这里要把public也作为一个repo，push到gitcafe，生成静态站点。
 gitcafe有个帮助文档：GitCafe Pages，照着搞一下，把public的内容push上去，绑定域名，O了
-是不是很简单，有明白的地方可以查看Hugo文档或留言。</description>
-    </item>
-    
-  </channel>
-</rss>
+是不是很简单，有明白的地方可以查看Hugo文档或留言。</description></item></channel></rss>

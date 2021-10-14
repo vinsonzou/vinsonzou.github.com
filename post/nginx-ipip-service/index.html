@@ -1,499 +1,260 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.88.1" />
-
-  <title>Nginx实现ip查询服务 &middot; ops</title>
-
-    
-
-  
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css">
-
-  <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css">
-  <![endif]-->
-  <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css">
-  <!--<![endif]-->
-
-  <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://ops.m114.org/css/side-menu-old-ie.css">
-  <![endif]-->
-  <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://ops.m114.org/css/side-menu.css">
-  <!--<![endif]-->
-
-  <link rel="stylesheet" href="https://ops.m114.org/css/blackburn.css">
-
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
-
-  
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
-
-  
-  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
- 
-  
-
-  
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
-  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
-  
-  <script>hljs.initHighlightingOnLoad();</script>
-  
-
-  <link rel="shortcut icon" href="https://ops.m114.org/img/favicon.ico" type="image/x-icon" />
-
-  
-  
-
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content>
+<meta name=generator content="Hugo 0.88.1">
+<title>Nginx实现ip查询服务 &#183; ops</title>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css><!--[if lte IE 8]><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css><![endif]--><!--[if gt IE 8]><!-->
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css><!--<![endif]--><!--[if lte IE 8]><link rel=stylesheet href=https://ops.m114.org/css/side-menu-old-ie.css><![endif]--><!--[if gt IE 8]><!-->
+<link rel=stylesheet href=https://ops.m114.org/css/side-menu.css><!--<![endif]-->
+<link rel=stylesheet href=https://ops.m114.org/css/blackburn.css>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css>
+<link rel=preconnect href=https://fonts.gstatic.com>
+<link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel=stylesheet type=text/css>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<link rel=stylesheet href=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css>
+<script async src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<link rel="shortcut icon" href=https://ops.m114.org/img/favicon.ico type=image/x-icon>
 </head>
-
-
 <body>
-<div id="layout">
-
-  
-<a href="#menu" id="menuLink" class="menu-link">
-  
-  <span></span>
+<div id=layout>
+<a href=#menu id=menuLink class=menu-link>
+<span></span>
 </a>
-<div id="menu">
-
-  
-  <a class="pure-menu-heading brand" href="https://ops.m114.org/">Ops</a>
-
-
-  <div class="pure-menu">
-    <ul class="pure-menu-list">
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/about/"><i class='fa fa-user fa-fw'></i>About</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/topics/"><i class='fa fa-folder fa-fw'></i>Topics</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/tags/"><i class='fa fa-tags fa-fw'></i>Tags</a>
-      
-        </li>
-      
-      
-        <li class="pure-menu-item">
-          <a class="pure-menu-link" href="https://ops.m114.org/"><i class='fa fa-home fa-fw'></i>Home</a>
-      
-        </li>
-      
-    </ul>
-  </div>
-
-  <div class="pure-menu social">
-  <ul class="pure-menu-list">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://github.com/vinsonzou" rel="me" target="_blank"><i class="fab fa-github-square fa-fw"></i>GitHub</a>
-    </li>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-  </ul>
+<div id=menu>
+<a class="pure-menu-heading brand" href=https://ops.m114.org/>Ops</a>
+<div class=pure-menu>
+<ul class=pure-menu-list>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/about/><i class="fa fa-user fa-fw"></i>About</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/post/><i class="fa fa-list fa-fw"></i>Posts</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/topics/><i class="fa fa-folder fa-fw"></i>Topics</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/tags/><i class="fa fa-tags fa-fw"></i>Tags</a>
+</li>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://ops.m114.org/><i class="fa fa-home fa-fw"></i>Home</a>
+</li>
+</ul>
 </div>
-
-
-  <div>
-  <div class="small-print">
-    <small>&copy; 2014-2021. All rights reserved.</small>
-  </div>
-  <div class="small-print">
-    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
-    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
-  </div>
+<div class="pure-menu social">
+<ul class=pure-menu-list>
+<li class=pure-menu-item>
+<a class=pure-menu-link href=https://github.com/vinsonzou rel=me target=_blank><i class="fab fa-github-square fa-fw"></i>GitHub</a>
+</li>
+</ul>
 </div>
-
+<div>
+<div class=small-print>
+<small>&copy; 2014-2021. All rights reserved.</small>
 </div>
-
-
-  <div id="main">
-
-
-<div class="header">
-  <h1>Nginx实现ip查询服务</h1>
-  <h2></h2>
+<div class=small-print>
+<small>Built with&nbsp;<a href=https://gohugo.io/ target=_blank>Hugo</a></small>
+<small>Theme&nbsp;<a href=https://github.com/yoshiharuyamashita/blackburn target=_blank>Blackburn</a></small>
 </div>
-<div class="content">
-
-  <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>2021/06/03, 13:08</time>
-  </div>
-
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-folder fa-fw"></i>
-    
-      <a class="post-taxonomy-topic" href="https://ops.m114.org/topics/OpenResty">OpenResty</a>
-    
-  </div>
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/OpenResty">OpenResty</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://ops.m114.org/tags/Nginx">Nginx</a>
-    
-  </div>
-  
-  
-
 </div>
-
-  <p>实现内部IP查询服务</p>
+</div>
+<div id=main>
+<div class=header>
+<h1>Nginx实现ip查询服务</h1>
+<h2></h2>
+</div>
+<div class=content>
+<div class=post-meta>
+<div>
+<i class="fa fa-calendar fa-fw"></i>
+<time>2021/06/03, 13:08</time>
+</div>
+<div>
+<i class="fa fa-folder fa-fw"></i>
+<a class=post-taxonomy-topic href=https://ops.m114.org/topics/OpenResty>OpenResty</a>
+</div>
+<div>
+<i class="fa fa-tags fa-fw"></i>
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/OpenResty>OpenResty</a>&nbsp;/
+<a class=post-taxonomy-tag href=https://ops.m114.org/tags/Nginx>Nginx</a>
+</div>
+</div>
+<p>实现内部IP查询服务</p>
 <ul>
 <li>查询当前公网IP</li>
 <li>查询当前公网IP地理信息，支持IPv4/IPv6</li>
 <li>查询指定IP的地理信息，支持IPv4/IPv6</li>
 </ul>
-<h2 id="环境">环境</h2>
+<h2 id=环境>环境</h2>
 <ul>
 <li>CentOS 7</li>
 <li>Nginx
 <ul>
 <li>lua-nginx-module</li>
-<li><a href="https://github.com/api7/lua-resty-ipmatcher">lua-resty-ipmatcher</a></li>
-<li><a href="https://github.com/shixinke/lua-resty-ip2region">lua-resty-ip2region</a></li>
-<li><a href="https://github.com/anjia0532/lua-resty-maxminddb">lua-resty-maxminddb</a></li>
+<li><a href=https://github.com/api7/lua-resty-ipmatcher>lua-resty-ipmatcher</a></li>
+<li><a href=https://github.com/shixinke/lua-resty-ip2region>lua-resty-ip2region</a></li>
+<li><a href=https://github.com/anjia0532/lua-resty-maxminddb>lua-resty-maxminddb</a></li>
 </ul>
 </li>
 <li>IP库
 <ul>
-<li><a href="https://github.com/lionsoul2014/ip2region/blob/master/data/ip2region.db">ip2region ipv4库</a></li>
-<li><a href="https://dev.maxmind.com/geoip/geolite2-free-geolocation-data">maxminddb 免费ipv6库</a></li>
+<li><a href=https://github.com/lionsoul2014/ip2region/blob/master/data/ip2region.db>ip2region ipv4库</a></li>
+<li><a href=https://dev.maxmind.com/geoip/geolite2-free-geolocation-data>maxminddb 免费ipv6库</a></li>
 </ul>
 </li>
 </ul>
-<h2 id="配置">配置</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lua" data-lang="lua">lua_shared_dict ip_data <span style="color:#ae81ff">10</span>m;
+<h2 id=配置>配置</h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-lua data-lang=lua>lua_shared_dict ip_data <span style=color:#ae81ff>10</span>m;
 
 server {
     server_name ip.test.com;
-    access_log logs<span style="color:#f92672">/</span>ip.access.log main buffer<span style="color:#f92672">=</span><span style="color:#ae81ff">32</span>k flush<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>s;
-    error_log logs<span style="color:#f92672">/</span>ip.error.log;
+    access_log logs<span style=color:#f92672>/</span>ip.access.log main buffer<span style=color:#f92672>=</span><span style=color:#ae81ff>32</span>k flush<span style=color:#f92672>=</span><span style=color:#ae81ff>10</span>s;
+    error_log logs<span style=color:#f92672>/</span>ip.error.log;
 
-    location <span style="color:#f92672">/</span> {
-        default_type <span style="color:#e6db74">&#39;text/plain&#39;</span>;
+    location <span style=color:#f92672>/</span> {
+        default_type <span style=color:#e6db74>&#39;text/plain&#39;</span>;
         access_by_lua_block {
-            <span style="color:#66d9ef">local</span> remote_addr <span style="color:#f92672">=</span> ngx.var.remote_addr
+            <span style=color:#66d9ef>local</span> remote_addr <span style=color:#f92672>=</span> ngx.var.remote_addr
             ngx.print(remote_addr)
         }
     }
 
-    location <span style="color:#f92672">=</span> <span style="color:#f92672">/</span>ip {
-        default_type application<span style="color:#f92672">/</span>json;
+    location <span style=color:#f92672>=</span> <span style=color:#f92672>/</span>ip {
+        default_type application<span style=color:#f92672>/</span>json;
         content_by_lua_block {
-            <span style="color:#66d9ef">local</span> require <span style="color:#f92672">=</span> require
-            <span style="color:#66d9ef">local</span> ngx <span style="color:#f92672">=</span> ngx
-            <span style="color:#66d9ef">local</span> cjson <span style="color:#f92672">=</span> require <span style="color:#e6db74">&#34;cjson.safe&#34;</span>
-            <span style="color:#66d9ef">local</span> json_encode <span style="color:#f92672">=</span> cjson.encode
-            <span style="color:#66d9ef">local</span> ip2region <span style="color:#f92672">=</span> require <span style="color:#e6db74">&#34;resty.ip2region&#34;</span>
-            <span style="color:#66d9ef">local</span> ipmatcher <span style="color:#f92672">=</span> require <span style="color:#e6db74">&#34;resty.ipmatcher&#34;</span>
-            <span style="color:#66d9ef">local</span> geo <span style="color:#f92672">=</span> require <span style="color:#e6db74">&#34;resty.maxminddb&#34;</span>
-            <span style="color:#66d9ef">local</span> location <span style="color:#f92672">=</span> ip2region.new({
-                file <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/data/nginx/lua/ip/ip2region.db&#34;</span>,
-                dict <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ip_data&#34;</span>,
-                mode <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;memory&#34;</span> <span style="color:#75715e">-- maybe memory,binary or btree</span>
+            <span style=color:#66d9ef>local</span> require <span style=color:#f92672>=</span> require
+            <span style=color:#66d9ef>local</span> ngx <span style=color:#f92672>=</span> ngx
+            <span style=color:#66d9ef>local</span> cjson <span style=color:#f92672>=</span> require <span style=color:#e6db74>&#34;cjson.safe&#34;</span>
+            <span style=color:#66d9ef>local</span> json_encode <span style=color:#f92672>=</span> cjson.encode
+            <span style=color:#66d9ef>local</span> ip2region <span style=color:#f92672>=</span> require <span style=color:#e6db74>&#34;resty.ip2region&#34;</span>
+            <span style=color:#66d9ef>local</span> ipmatcher <span style=color:#f92672>=</span> require <span style=color:#e6db74>&#34;resty.ipmatcher&#34;</span>
+            <span style=color:#66d9ef>local</span> geo <span style=color:#f92672>=</span> require <span style=color:#e6db74>&#34;resty.maxminddb&#34;</span>
+            <span style=color:#66d9ef>local</span> location <span style=color:#f92672>=</span> ip2region.new({
+                file <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/data/nginx/lua/ip/ip2region.db&#34;</span>,
+                dict <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;ip_data&#34;</span>,
+                mode <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;memory&#34;</span> <span style=color:#75715e>-- maybe memory,binary or btree</span>
             })
-            <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> geo.initted() <span style="color:#66d9ef">then</span>
-                geo.init(<span style="color:#e6db74">&#34;/data/nginx/lua/ip/GeoLite2-City.mmdb&#34;</span>)
-            <span style="color:#66d9ef">end</span>
+            <span style=color:#66d9ef>if</span> <span style=color:#f92672>not</span> geo.initted() <span style=color:#66d9ef>then</span>
+                geo.init(<span style=color:#e6db74>&#34;/data/nginx/lua/ip/GeoLite2-City.mmdb&#34;</span>)
+            <span style=color:#66d9ef>end</span>
 
-            <span style="color:#66d9ef">local</span> remote_addr <span style="color:#f92672">=</span> ngx.var.arg_ip <span style="color:#f92672">or</span> ngx.var.remote_addr
+            <span style=color:#66d9ef>local</span> remote_addr <span style=color:#f92672>=</span> ngx.var.arg_ip <span style=color:#f92672>or</span> ngx.var.remote_addr
 
-            <span style="color:#66d9ef">local</span> ip_detail <span style="color:#f92672">=</span> {
-                ip<span style="color:#f92672">=</span>remote_addr,
-                country<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>,
-                province<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>,
-                city<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>,
-                isp<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>,
+            <span style=color:#66d9ef>local</span> ip_detail <span style=color:#f92672>=</span> {
+                ip<span style=color:#f92672>=</span>remote_addr,
+                country<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>,
+                province<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>,
+                city<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>,
+                isp<span style=color:#f92672>=</span><span style=color:#ae81ff>0</span>,
             }
-            <span style="color:#66d9ef">local</span> is_ipv4 <span style="color:#f92672">=</span> ipmatcher.parse_ipv4(remote_addr)
-            <span style="color:#66d9ef">if</span> is_ipv4 <span style="color:#66d9ef">then</span>
-                <span style="color:#66d9ef">local</span> data, err <span style="color:#f92672">=</span> location:search(remote_addr)
-                <span style="color:#66d9ef">if</span> data <span style="color:#66d9ef">then</span>
-                    ip_detail[<span style="color:#e6db74">&#34;country&#34;</span>] <span style="color:#f92672">=</span> data[<span style="color:#e6db74">&#34;country&#34;</span>]
-                    ip_detail[<span style="color:#e6db74">&#34;province&#34;</span>] <span style="color:#f92672">=</span> data[<span style="color:#e6db74">&#34;province&#34;</span>]
-                    ip_detail[<span style="color:#e6db74">&#34;city&#34;</span>] <span style="color:#f92672">=</span> data[<span style="color:#e6db74">&#34;city&#34;</span>]
-                    ip_detail[<span style="color:#e6db74">&#34;isp&#34;</span>] <span style="color:#f92672">=</span> data[<span style="color:#e6db74">&#34;isp&#34;</span>]
+            <span style=color:#66d9ef>local</span> is_ipv4 <span style=color:#f92672>=</span> ipmatcher.parse_ipv4(remote_addr)
+            <span style=color:#66d9ef>if</span> is_ipv4 <span style=color:#66d9ef>then</span>
+                <span style=color:#66d9ef>local</span> data, err <span style=color:#f92672>=</span> location:search(remote_addr)
+                <span style=color:#66d9ef>if</span> data <span style=color:#66d9ef>then</span>
+                    ip_detail[<span style=color:#e6db74>&#34;country&#34;</span>] <span style=color:#f92672>=</span> data[<span style=color:#e6db74>&#34;country&#34;</span>]
+                    ip_detail[<span style=color:#e6db74>&#34;province&#34;</span>] <span style=color:#f92672>=</span> data[<span style=color:#e6db74>&#34;province&#34;</span>]
+                    ip_detail[<span style=color:#e6db74>&#34;city&#34;</span>] <span style=color:#f92672>=</span> data[<span style=color:#e6db74>&#34;city&#34;</span>]
+                    ip_detail[<span style=color:#e6db74>&#34;isp&#34;</span>] <span style=color:#f92672>=</span> data[<span style=color:#e6db74>&#34;isp&#34;</span>]
                     ngx.say(json_encode(ip_detail))
-                <span style="color:#66d9ef">else</span>
+                <span style=color:#66d9ef>else</span>
                     ngx.say(err)
-                <span style="color:#66d9ef">end</span>
-            <span style="color:#66d9ef">else</span>
-                <span style="color:#66d9ef">local</span> is_ipv6 <span style="color:#f92672">=</span> ipmatcher.parse_ipv6(remote_addr)
-                <span style="color:#66d9ef">if</span> is_ipv6 <span style="color:#66d9ef">then</span>
-                    <span style="color:#66d9ef">local</span> data, err <span style="color:#f92672">=</span> geo.lookup(remote_addr)
-                    <span style="color:#66d9ef">if</span> data <span style="color:#66d9ef">then</span>
-                        ip_detail[<span style="color:#e6db74">&#34;country&#34;</span>] <span style="color:#f92672">=</span> data[<span style="color:#e6db74">&#34;country&#34;</span>][<span style="color:#e6db74">&#34;names&#34;</span>][<span style="color:#e6db74">&#34;zh-CN&#34;</span>]
-                        ip_detail[<span style="color:#e6db74">&#34;continent&#34;</span>] <span style="color:#f92672">=</span> data[<span style="color:#e6db74">&#34;continent&#34;</span>][<span style="color:#e6db74">&#34;names&#34;</span>][<span style="color:#e6db74">&#34;zh-CN&#34;</span>]
-                        <span style="color:#66d9ef">if</span> data[<span style="color:#e6db74">&#34;subdivisions&#34;</span>] <span style="color:#66d9ef">then</span>
-                            <span style="color:#66d9ef">local</span> subdivisions <span style="color:#f92672">=</span> data[<span style="color:#e6db74">&#34;subdivisions&#34;</span>][<span style="color:#ae81ff">1</span>][<span style="color:#e6db74">&#34;names&#34;</span>]
-                            <span style="color:#66d9ef">local</span> province_cn <span style="color:#f92672">=</span> subdivisions[<span style="color:#e6db74">&#34;zh-CN&#34;</span>]
-                            <span style="color:#66d9ef">if</span> province_cn <span style="color:#66d9ef">then</span>
-                                ip_detail[<span style="color:#e6db74">&#34;province&#34;</span>] <span style="color:#f92672">=</span> province_cn
-                            <span style="color:#66d9ef">else</span>
-                                ip_detail[<span style="color:#e6db74">&#34;province&#34;</span>] <span style="color:#f92672">=</span> subdivisions[<span style="color:#e6db74">&#34;en&#34;</span>]
-                            <span style="color:#66d9ef">end</span>
-                        <span style="color:#66d9ef">end</span>
+                <span style=color:#66d9ef>end</span>
+            <span style=color:#66d9ef>else</span>
+                <span style=color:#66d9ef>local</span> is_ipv6 <span style=color:#f92672>=</span> ipmatcher.parse_ipv6(remote_addr)
+                <span style=color:#66d9ef>if</span> is_ipv6 <span style=color:#66d9ef>then</span>
+                    <span style=color:#66d9ef>local</span> data, err <span style=color:#f92672>=</span> geo.lookup(remote_addr)
+                    <span style=color:#66d9ef>if</span> data <span style=color:#66d9ef>then</span>
+                        ip_detail[<span style=color:#e6db74>&#34;country&#34;</span>] <span style=color:#f92672>=</span> data[<span style=color:#e6db74>&#34;country&#34;</span>][<span style=color:#e6db74>&#34;names&#34;</span>][<span style=color:#e6db74>&#34;zh-CN&#34;</span>]
+                        ip_detail[<span style=color:#e6db74>&#34;continent&#34;</span>] <span style=color:#f92672>=</span> data[<span style=color:#e6db74>&#34;continent&#34;</span>][<span style=color:#e6db74>&#34;names&#34;</span>][<span style=color:#e6db74>&#34;zh-CN&#34;</span>]
+                        <span style=color:#66d9ef>if</span> data[<span style=color:#e6db74>&#34;subdivisions&#34;</span>] <span style=color:#66d9ef>then</span>
+                            <span style=color:#66d9ef>local</span> subdivisions <span style=color:#f92672>=</span> data[<span style=color:#e6db74>&#34;subdivisions&#34;</span>][<span style=color:#ae81ff>1</span>][<span style=color:#e6db74>&#34;names&#34;</span>]
+                            <span style=color:#66d9ef>local</span> province_cn <span style=color:#f92672>=</span> subdivisions[<span style=color:#e6db74>&#34;zh-CN&#34;</span>]
+                            <span style=color:#66d9ef>if</span> province_cn <span style=color:#66d9ef>then</span>
+                                ip_detail[<span style=color:#e6db74>&#34;province&#34;</span>] <span style=color:#f92672>=</span> province_cn
+                            <span style=color:#66d9ef>else</span>
+                                ip_detail[<span style=color:#e6db74>&#34;province&#34;</span>] <span style=color:#f92672>=</span> subdivisions[<span style=color:#e6db74>&#34;en&#34;</span>]
+                            <span style=color:#66d9ef>end</span>
+                        <span style=color:#66d9ef>end</span>
 
-                        <span style="color:#66d9ef">if</span> data[<span style="color:#e6db74">&#34;city&#34;</span>] <span style="color:#66d9ef">then</span>
-                            <span style="color:#66d9ef">local</span> city <span style="color:#f92672">=</span> data[<span style="color:#e6db74">&#34;city&#34;</span>][<span style="color:#e6db74">&#34;names&#34;</span>]
-                            <span style="color:#66d9ef">local</span> city_cn <span style="color:#f92672">=</span> city[<span style="color:#e6db74">&#34;zh-CN&#34;</span>]
-                            <span style="color:#66d9ef">if</span> city_cn <span style="color:#66d9ef">then</span>
-                                ip_detail[<span style="color:#e6db74">&#34;city&#34;</span>] <span style="color:#f92672">=</span> city_cn
-                            <span style="color:#66d9ef">else</span>
-                                ip_detail[<span style="color:#e6db74">&#34;city&#34;</span>] <span style="color:#f92672">=</span> city[<span style="color:#e6db74">&#34;en&#34;</span>]
-                            <span style="color:#66d9ef">end</span>
-                        <span style="color:#66d9ef">end</span>
+                        <span style=color:#66d9ef>if</span> data[<span style=color:#e6db74>&#34;city&#34;</span>] <span style=color:#66d9ef>then</span>
+                            <span style=color:#66d9ef>local</span> city <span style=color:#f92672>=</span> data[<span style=color:#e6db74>&#34;city&#34;</span>][<span style=color:#e6db74>&#34;names&#34;</span>]
+                            <span style=color:#66d9ef>local</span> city_cn <span style=color:#f92672>=</span> city[<span style=color:#e6db74>&#34;zh-CN&#34;</span>]
+                            <span style=color:#66d9ef>if</span> city_cn <span style=color:#66d9ef>then</span>
+                                ip_detail[<span style=color:#e6db74>&#34;city&#34;</span>] <span style=color:#f92672>=</span> city_cn
+                            <span style=color:#66d9ef>else</span>
+                                ip_detail[<span style=color:#e6db74>&#34;city&#34;</span>] <span style=color:#f92672>=</span> city[<span style=color:#e6db74>&#34;en&#34;</span>]
+                            <span style=color:#66d9ef>end</span>
+                        <span style=color:#66d9ef>end</span>
                         ngx.say(json_encode(ip_detail))
-                    <span style="color:#66d9ef">end</span>
-                <span style="color:#66d9ef">end</span>
-            <span style="color:#66d9ef">end</span>
+                    <span style=color:#66d9ef>end</span>
+                <span style=color:#66d9ef>end</span>
+            <span style=color:#66d9ef>end</span>
         }
     }
 }
-</code></pre></div><h2 id="使用示例">使用示例</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ curl ip.test.com
+</code></pre></div><h2 id=使用示例>使用示例</h2>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>$ curl ip.test.com
 180.167.11.11
 
 $ curl ip.test.com/ip
-<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;ip&#34;</span>:<span style="color:#e6db74">&#34;180.167.11.11&#34;</span>,<span style="color:#e6db74">&#34;country&#34;</span>:<span style="color:#e6db74">&#34;中国&#34;</span>,<span style="color:#e6db74">&#34;province&#34;</span>:<span style="color:#e6db74">&#34;上海&#34;</span>,<span style="color:#e6db74">&#34;city&#34;</span>:<span style="color:#e6db74">&#34;上海&#34;</span>,<span style="color:#e6db74">&#34;isp&#34;</span>:<span style="color:#e6db74">&#34;电信&#34;</span><span style="color:#f92672">}</span>
+<span style=color:#f92672>{</span><span style=color:#e6db74>&#34;ip&#34;</span>:<span style=color:#e6db74>&#34;180.167.11.11&#34;</span>,<span style=color:#e6db74>&#34;country&#34;</span>:<span style=color:#e6db74>&#34;中国&#34;</span>,<span style=color:#e6db74>&#34;province&#34;</span>:<span style=color:#e6db74>&#34;上海&#34;</span>,<span style=color:#e6db74>&#34;city&#34;</span>:<span style=color:#e6db74>&#34;上海&#34;</span>,<span style=color:#e6db74>&#34;isp&#34;</span>:<span style=color:#e6db74>&#34;电信&#34;</span><span style=color:#f92672>}</span>
 
-$ curl <span style="color:#e6db74">&#39;ip.test.com/ip?ip=1.1.1.1&#39;</span>
-<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;isp&#34;</span>:<span style="color:#e6db74">&#34;CloudFlare&#34;</span>,<span style="color:#e6db74">&#34;ip&#34;</span>:<span style="color:#e6db74">&#34;1.1.1.1&#34;</span>,<span style="color:#e6db74">&#34;country&#34;</span>:<span style="color:#e6db74">&#34;澳大利亚&#34;</span>,<span style="color:#e6db74">&#34;province&#34;</span>:<span style="color:#e6db74">&#34;0&#34;</span>,<span style="color:#e6db74">&#34;city&#34;</span>:<span style="color:#e6db74">&#34;0&#34;</span><span style="color:#f92672">}</span>
+$ curl <span style=color:#e6db74>&#39;ip.test.com/ip?ip=1.1.1.1&#39;</span>
+<span style=color:#f92672>{</span><span style=color:#e6db74>&#34;isp&#34;</span>:<span style=color:#e6db74>&#34;CloudFlare&#34;</span>,<span style=color:#e6db74>&#34;ip&#34;</span>:<span style=color:#e6db74>&#34;1.1.1.1&#34;</span>,<span style=color:#e6db74>&#34;country&#34;</span>:<span style=color:#e6db74>&#34;澳大利亚&#34;</span>,<span style=color:#e6db74>&#34;province&#34;</span>:<span style=color:#e6db74>&#34;0&#34;</span>,<span style=color:#e6db74>&#34;city&#34;</span>:<span style=color:#e6db74>&#34;0&#34;</span><span style=color:#f92672>}</span>
 
-$ curl <span style="color:#e6db74">&#39;ipip.test.com/ip?ip=240b:4000:f10::e3&#39;</span>
-<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;ip&#34;</span>:<span style="color:#e6db74">&#34;240b:4000:f10::e3&#34;</span>,<span style="color:#e6db74">&#34;country&#34;</span>:<span style="color:#e6db74">&#34;新加坡&#34;</span>,<span style="color:#e6db74">&#34;province&#34;</span>:0,<span style="color:#e6db74">&#34;city&#34;</span>:0,<span style="color:#e6db74">&#34;isp&#34;</span>:0,<span style="color:#e6db74">&#34;continent&#34;</span>:<span style="color:#e6db74">&#34;亚洲&#34;</span><span style="color:#f92672">}</span>
+$ curl <span style=color:#e6db74>&#39;ipip.test.com/ip?ip=240b:4000:f10::e3&#39;</span>
+<span style=color:#f92672>{</span><span style=color:#e6db74>&#34;ip&#34;</span>:<span style=color:#e6db74>&#34;240b:4000:f10::e3&#34;</span>,<span style=color:#e6db74>&#34;country&#34;</span>:<span style=color:#e6db74>&#34;新加坡&#34;</span>,<span style=color:#e6db74>&#34;province&#34;</span>:0,<span style=color:#e6db74>&#34;city&#34;</span>:0,<span style=color:#e6db74>&#34;isp&#34;</span>:0,<span style=color:#e6db74>&#34;continent&#34;</span>:<span style=color:#e6db74>&#34;亚洲&#34;</span><span style=color:#f92672>}</span>
 </code></pre></div>
-  
-  <h4><i class="fas fa-share-alt" aria-hidden="true"></i>&nbsp;Share!</h4>
-<ul class="share-buttons">
-	<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2fnginx-ipip-service%2f" target="_blank" title="Share on Facebook"><i class="fab fa-facebook" aria-hidden="true"></i><span class="sr-only">Share on Facebook</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2fnginx-ipip-service%2f" target="_blank" title="Tweet"><i class="fab fa-twitter" aria-hidden="true"></i><span class="sr-only">Tweet</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2fnginx-ipip-service%2f" target="_blank" title="Share on Google+"><i class="fab fa-google-plus" aria-hidden="true"></i><span class="sr-only">Share on Google+</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2fnginx-ipip-service%2f" target="_blank" title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden="true"></i><span class="sr-only">Post to Tumblr</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2fnginx-ipip-service%2f" target="_blank" title="Pin it"><i class="fab fa-pinterest-p" aria-hidden="true"></i><span class="sr-only">Pin it</span></a>
-	</li>&nbsp;&nbsp;&nbsp;
-	<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2fnginx-ipip-service%2f" target="_blank" title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden="true"></i><span class="sr-only">Submit to Reddit</span></a>
-	</li>
+<h4><i class="fas fa-share-alt" aria-hidden=true></i>&nbsp;Share!</h4>
+<ul class=share-buttons>
+<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fops.m114.org%2fpost%2fnginx-ipip-service%2f" target=_blank title="Share on Facebook"><i class="fab fa-facebook" aria-hidden=true></i><span class=sr-only>Share on Facebook</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fops.m114.org%2fpost%2fnginx-ipip-service%2f" target=_blank title=Tweet><i class="fab fa-twitter" aria-hidden=true></i><span class=sr-only>Tweet</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="https://plus.google.com/share?url=https%3a%2f%2fops.m114.org%2fpost%2fnginx-ipip-service%2f" target=_blank title="Share on Google+"><i class="fab fa-google-plus" aria-hidden=true></i><span class=sr-only>Share on Google+</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fops.m114.org%2fpost%2fnginx-ipip-service%2f" target=_blank title="Post to Tumblr"><i class="fab fa-tumblr" aria-hidden=true></i><span class=sr-only>Post to Tumblr</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fops.m114.org%2fpost%2fnginx-ipip-service%2f" target=_blank title="Pin it"><i class="fab fa-pinterest-p" aria-hidden=true></i><span class=sr-only>Pin it</span></a>
+</li>&nbsp;&nbsp;&nbsp;
+<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fops.m114.org%2fpost%2fnginx-ipip-service%2f" target=_blank title="Submit to Reddit"><i class="fab fa-reddit-alien" aria-hidden=true></i><span class=sr-only>Submit to Reddit</span></a>
+</li>
 </ul>
-
-
-<style>
-	ul.share-buttons{
-	  list-style: none;
-	  padding: 0;
-	}
-
-	ul.share-buttons li{
-	  display: inline;
-	}
-
-	ul.share-buttons .sr-only{
-	  position: absolute;
-	  clip: rect(1px 1px 1px 1px);
-	  clip: rect(1px, 1px, 1px, 1px);
-	  padding: 0;
-	  border: 0;
-	  height: 1px;
-	  width: 1px;
-	  overflow: hidden;
-	}
-</style>
-
-
-  
+<style>ul.share-buttons{list-style:none;padding:0}ul.share-buttons li{display:inline}ul.share-buttons .sr-only{position:absolute;clip:rect(1px 1px 1px 1px);clip:rect(1px,1px,1px,1px);padding:0;border:0;height:1px;width:1px;overflow:hidden}</style>
 <div class="prev-next-post pure-g">
-  <div class="pure-u-1-24" style="text-align: left;">
-    
-    <a href="https://ops.m114.org/post/gitea-webhook/"><i class="fa fa-chevron-left"></i></a>
-    
-  </div>
-  <div class="pure-u-10-24">
-    
-    <nav class="prev">
-      <a href="https://ops.m114.org/post/gitea-webhook/">Gogs/Gitea webhook支持</a>
-    </nav>
-    
-  </div>
-  <div class="pure-u-2-24">
-    &nbsp;
-  </div>
-  <div class="pure-u-10-24">
-    
-    <nav class="next">
-      <a href="https://ops.m114.org/post/dynamic-http-proxy/">使用动态 DNS 来完成 HTTP 请求</a>
-    </nav>
-    
-  </div>
-  <div class="pure-u-1-24" style="text-align: right;">
-    
-    <a href="https://ops.m114.org/post/dynamic-http-proxy/"><i class="fa fa-chevron-right"></i></a>
-    
-  </div>
+<div class=pure-u-1-24 style=text-align:left>
+<a href=https://ops.m114.org/post/gitea-webhook/><i class="fa fa-chevron-left"></i></a>
 </div>
-
-
-  
-  
-  
-  
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-
-(function() {
-    
-    
-    if (window.location.hostname == "localhost")
-        return;
-
-    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    var disqus_shortname = 'vinsoncou';
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-
-  
-
+<div class=pure-u-10-24>
+<nav class=prev>
+<a href=https://ops.m114.org/post/gitea-webhook/>Gogs/Gitea webhook支持</a>
+</nav>
 </div>
-
+<div class=pure-u-2-24>
+&nbsp;
+</div>
+<div class=pure-u-10-24>
+<nav class=next>
+<a href=https://ops.m114.org/post/dynamic-http-proxy/>使用动态 DNS 来完成 HTTP 请求</a>
+</nav>
+</div>
+<div class=pure-u-1-24 style=text-align:right>
+<a href=https://ops.m114.org/post/dynamic-http-proxy/><i class="fa fa-chevron-right"></i></a>
 </div>
 </div>
-<script src="https://ops.m114.org/js/ui.js"></script>
-<script src="https://ops.m114.org/js/menus.js"></script>
-
-
-
-
-
-
-
-
-<script src="https://ops.m114.org/js/math-code.js"></script>
-  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-  
-
-
+<div id=disqus_thread></div>
+<script type=text/javascript>(function(){var a,b;if(window.location.hostname=="localhost")return;a=document.createElement('script'),a.type='text/javascript',a.async=!0,b='vinsoncou',a.src='//'+b+'.disqus.com/embed.js',(document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(a)})()</script>
+<noscript>Please enable JavaScript to view the <a href=http://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript>
+<a href=http://disqus.com/ class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a>
+</div>
+</div>
+</div>
+<script src=https://ops.m114.org/js/ui.js></script>
+<script src=https://ops.m114.org/js/menus.js></script>
+<script src=https://ops.m114.org/js/math-code.js></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>
-
