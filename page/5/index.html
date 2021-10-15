@@ -54,51 +54,51 @@
 <main class=main>
 <div class=container><div class="page home" posts><div class=home-profile><h1 class=home-title>cloudSky's 小站</h1><h2 class=home-subtitle><div id=id-1 class=typeit></div></h2><div class=links><a href=https://github.com/vinsonzou title=GitHub target=_blank rel="noopener noreffer me"><i class="fab fa-github-alt fa-fw"></i></a><a href=/index.xml title=RSS target=_blank rel="noopener noreffer me"><i class="fas fa-rss fa-fw"></i></a></div></div>
 <article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
-<a href=/ceph-key-concepts-backup/>Ceph核心概念备忘录</a>
+<a href=/post/ceph-key-concepts-backup/>Ceph核心概念备忘录</a>
 </h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2016-08-26>2016-08-26</time></span></div><div class=content>scrub ceph-osd会定义启动scrub线程，扫描部分对象（哪些对象？），和其他副本比较，发现是否一致。如果发现不一致，ceph会抛出这个异常</div><div class=post-footer>
-<a href=/ceph-key-concepts-backup/>阅读全文</a></div>
+<a href=/post/ceph-key-concepts-backup/>阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
-<a href=/ceph-pgs-inconsistent/>ceph pgs inconsistent</a>
+<a href=/post/ceph-pgs-inconsistent/>ceph pgs inconsistent</a>
 </h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2016-08-17>2016-08-17</time></span></div><div class=content>OSD扩容后出现如下错误 HEALTH_ERR 2 pgs inconsistent; 320 scrub errors [root@ceph01 ~]# ceph health detail HEALTH_ERR 2 pgs inconsistent; 320 scrub errors pg 10.9 is active+clean+inconsistent, acting [6,0,9] pg 10.10 is active+clean+scrubbing+deep+inconsistent, acting [2,6,4] 320 scrub errors 修复处于不一致状态的pgs [root@ceph01 ~]# ceph pg repair 10.9 instructing pg 10.9 on osd.6</div><div class=post-footer>
-<a href=/ceph-pgs-inconsistent/>阅读全文</a></div>
+<a href=/post/ceph-pgs-inconsistent/>阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
-<a href=/right-steps-delete-ceph-osd/>删除osd的正确方式</a>
+<a href=/post/right-steps-delete-ceph-osd/>删除osd的正确方式</a>
 </h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2016-08-06>2016-08-06</time></span></div><div class=content>按照官网的步骤走的话，在 标记osd为out 和 从crushmap删除osd 这两步都会触发数据再平衡，如下方式只触发了一次迁移，建议使用。 调整o</div><div class=post-footer>
-<a href=/right-steps-delete-ceph-osd/>阅读全文</a></div>
+<a href=/post/right-steps-delete-ceph-osd/>阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
-<a href=/centos7-systemd-vs-centos6-daemon/>Centos 7.x systemd对比Centos 6.x daemon</a>
+<a href=/post/centos7-systemd-vs-centos6-daemon/>Centos 7.x systemd对比Centos 6.x daemon</a>
 </h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2016-08-06>2016-08-06</time></span></div><div class=content>从CentOS 7.x开始，CentOS开始使用systemd服务来代替daemon，原来管理系统启动和管理系统服务的相关命令全部由syste</div><div class=post-footer>
-<a href=/centos7-systemd-vs-centos6-daemon/>阅读全文</a><div class=post-tags>
+<a href=/post/centos7-systemd-vs-centos6-daemon/>阅读全文</a><div class=post-tags>
 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/systemd/>systemd</a></div></div>
 </article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
-<a href=/mysql-unable-to-lock-ibdata1-error-11-fix/>MySQL Unable to lock ibdata1 error 11 fix</a>
+<a href=/post/mysql-unable-to-lock-ibdata1-error-11-fix/>MySQL Unable to lock ibdata1 error 11 fix</a>
 </h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2016-08-03>2016-08-03</time></span></div><div class=content>A bad shutdown can cause such erros on MySQL.
 InnoDB: Unable to lock ./ibdata1, error: 11 InnoDB: Check that you do not already have another mysqld process InnoDB: using the same InnoDB data or log files. InnoDB: Error in opening ./ibdata1 For solution mv ibdata1 ibdata1.bak cp -a ibdata1.bak ibdata1 service mysqld restart </div><div class=post-footer>
-<a href=/mysql-unable-to-lock-ibdata1-error-11-fix/>阅读全文</a><div class=post-tags>
+<a href=/post/mysql-unable-to-lock-ibdata1-error-11-fix/>阅读全文</a><div class=post-tags>
 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/mysql/>MySQL</a></div></div>
 </article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
-<a href=/ceph-jewel-osd-activate-bug/>ceph集群jewel版本部署osd激活权限报错</a>
+<a href=/post/ceph-jewel-osd-activate-bug/>ceph集群jewel版本部署osd激活权限报错</a>
 </h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2016-07-29>2016-07-29</time></span></div><div class=content>环境 ceph version 10.2.2 (45107e21c568dd033c2f0a3107dec8f0b0e58374)ceph-deploy 1.5.34 ceph集群jewel版本部署过程中执行osd激活操作如下 ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2 报错内容如下 [2016-07-29 00:05:19,106][ceph_deploy.conf][DEBUG ] found configuration file at: /root/.cephdeploy.conf [2016-07-29 00:05:19,107][ceph_deploy.cli][INFO ] Invoked (1.5.34): /bin/ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2 [2016-07-29 00:05:19,107][ceph_deploy.cli][INFO ] ceph-deploy options: [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO</div><div class=post-footer>
-<a href=/ceph-jewel-osd-activate-bug/>阅读全文</a><div class=post-tags>
+<a href=/post/ceph-jewel-osd-activate-bug/>阅读全文</a><div class=post-tags>
 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/ceph/>ceph</a></div></div>
 </article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
-<a href=/deploy-ceph-using-china-mirror/>使用国内源部署Ceph</a>
+<a href=/post/deploy-ceph-using-china-mirror/>使用国内源部署Ceph</a>
 </h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2016-07-28>2016-07-28</time></span></div><div class=content>由于网络方面的原因，Ceph的部署经常受到干扰，通常为了加速部署，基本上大家都是将Ceph的源同步到本地进行安装。根据Ceph中国社区的统计</div><div class=post-footer>
-<a href=/deploy-ceph-using-china-mirror/>阅读全文</a><div class=post-tags>
+<a href=/post/deploy-ceph-using-china-mirror/>阅读全文</a><div class=post-tags>
 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/ceph/>ceph</a></div></div>
 </article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
-<a href=/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/>R420服务器idrac连接用户数超限制</a>
+<a href=/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/>R420服务器idrac连接用户数超限制</a>
 </h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2016-07-12>2016-07-12</time></span></div><div class=content>Dell R420服务器中，比较经常出现idrac无法连接，或者连接用户数超限(RAC0218错误)的问题，升级iDrac卡firmware至1.5</div><div class=post-footer>
-<a href=/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/>阅读全文</a><div class=post-tags>
+<a href=/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/>阅读全文</a><div class=post-tags>
 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/idrac/>idrac</a></div></div>
 </article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
-<a href=/linux-performance-tools/>运维工具汇总之 性能调优，性能监控，性能测试</a>
+<a href=/post/linux-performance-tools/>运维工具汇总之 性能调优，性能监控，性能测试</a>
 </h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2016-07-03>2016-07-03</time></span></div><div class=content>性能调优 性能监控 性能测试</div><div class=post-footer>
-<a href=/linux-performance-tools/>阅读全文</a></div>
+<a href=/post/linux-performance-tools/>阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
-<a href=/git-common-command/>Git常用命令备忘</a>
+<a href=/post/git-common-command/>Git常用命令备忘</a>
 </h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2016-06-16>2016-06-16</time></span></div><div class=content>配置 Git的设置文件为.gitconfig，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。 # 显示当前的Git配置 $ git config --list</div><div class=post-footer>
-<a href=/git-common-command/>阅读全文</a><div class=post-tags>
+<a href=/post/git-common-command/>阅读全文</a><div class=post-tags>
 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/git/>git</a></div></div>
 </article><ul class=pagination><li class=page-item>
 <span class=page-link>

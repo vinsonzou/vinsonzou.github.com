@@ -1,0 +1,237 @@
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=robots content="noodp">
+<meta http-equiv=x-ua-compatible content="IE=edge, chrome=1">
+<title>Nginx实现ip查询服务 - cloudSky's 小站</title><meta name=Description content="Linux运维"><meta property="og:title" content="Nginx实现ip查询服务">
+<meta property="og:description" content="实现内部IP查询服务 查询当前公网IP 查询当前公网IP地理信息，支持IPv4/IPv6 查询指定IP的地理信息，支持IPv4/IPv6 环境 CentOS 7 Nginx">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ops.m114.org/post/nginx-ipip-service/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2021-06-03T13:08:08+08:00">
+<meta property="article:modified_time" content="2021-06-03T13:08:08+08:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Nginx实现ip查询服务">
+<meta name=twitter:description content="实现内部IP查询服务 查询当前公网IP 查询当前公网IP地理信息，支持IPv4/IPv6 查询指定IP的地理信息，支持IPv4/IPv6 环境 CentOS 7 Nginx">
+<meta name=application-name content="cloudSky's 小站">
+<meta name=apple-mobile-web-app-title content="cloudSky's 小站"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://ops.m114.org/post/nginx-ipip-service/><link rel=prev href=https://ops.m114.org/post/gitea-webhook/><link rel=next href=https://ops.m114.org/post/dynamic-http-proxy/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Nginx实现ip查询服务","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/ops.m114.org\/post\/nginx-ipip-service\/"},"genre":"posts","keywords":"OpenResty, Nginx","wordcount":800,"url":"https:\/\/ops.m114.org\/post\/nginx-ipip-service\/","datePublished":"2021-06-03T13:08:08+08:00","dateModified":"2021-06-03T13:08:08+08:00","publisher":{"@type":"Organization","name":"CloudSky"},"author":{"@type":"Person","name":"CloudSky"},"description":""}</script></head>
+<body header-desktop header-mobile><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script>
+<div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="cloudSky's 小站">cloudSky's 小站</a>
+</div>
+<div class=menu>
+<div class=menu-inner><a class=menu-item href=/posts/><i class="fa fa-list fa-fw"></i> 所有文章 </a><a class=menu-item href=/tags/><i class="fa fa-tags fa-fw"></i> 标签 </a><a class=menu-item href=/categories/> 分类 </a><a class=menu-item href=/links/><i class="fa fa-link fa-fw"></i> </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
+</a>
+</div>
+</div>
+</div>
+</header><header class=mobile id=header-mobile>
+<div class=header-container>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="cloudSky's 小站">cloudSky's 小站</a>
+</div>
+<div class=menu-toggle id=menu-toggle-mobile>
+<span></span><span></span><span></span>
+</div>
+</div>
+<div class=menu id=menu-mobile><a class=menu-item href=/posts/ title><i class="fa fa-list fa-fw"></i>所有文章</a><a class=menu-item href=/tags/ title><i class="fa fa-tags fa-fw"></i>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/links/ title><i class="fa fa-link fa-fw"></i></a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
+</a></div>
+</div>
+</header>
+<div class="search-dropdown desktop">
+<div id=search-dropdown-desktop></div>
+</div>
+<div class="search-dropdown mobile">
+<div id=search-dropdown-mobile></div>
+</div>
+<main class=main>
+<div class=container><div class=toc id=toc-auto>
+<h2 class=toc-title>目录</h2>
+<div class="toc-content always-active" id=toc-content-auto></div>
+</div><article class="page single"><h1 class="single-title animated flipInX">Nginx实现ip查询服务</h1><div class=post-meta>
+<div class=post-meta-line><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span></div>
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-06-03>2021-06-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 800 字&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+</div><div class="details toc" id=toc-static kept>
+<div class="details-summary toc-title">
+<span>目录</span>
+<span><i class="details-icon fas fa-angle-right"></i></span>
+</div>
+<div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents>
+<ul>
+<li><a href=#环境>环境</a></li>
+<li><a href=#配置>配置</a></li>
+<li><a href=#使用示例>使用示例</a></li>
+</ul>
+</nav></div>
+</div><div class=content id=content><p>实现内部IP查询服务</p>
+<ul>
+<li>查询当前公网IP</li>
+<li>查询当前公网IP地理信息，支持IPv4/IPv6</li>
+<li>查询指定IP的地理信息，支持IPv4/IPv6</li>
+</ul>
+<h2 id=环境>环境</h2>
+<ul>
+<li>CentOS 7</li>
+<li>Nginx
+<ul>
+<li>lua-nginx-module</li>
+<li><a href=https://github.com/api7/lua-resty-ipmatcher target=_blank rel="noopener noreffer">lua-resty-ipmatcher</a></li>
+<li><a href=https://github.com/shixinke/lua-resty-ip2region target=_blank rel="noopener noreffer">lua-resty-ip2region</a></li>
+<li><a href=https://github.com/anjia0532/lua-resty-maxminddb target=_blank rel="noopener noreffer">lua-resty-maxminddb</a></li>
+</ul>
+</li>
+<li>IP库
+<ul>
+<li><a href=https://github.com/lionsoul2014/ip2region/blob/master/data/ip2region.db target=_blank rel="noopener noreffer">ip2region ipv4库</a></li>
+<li><a href=https://dev.maxmind.com/geoip/geolite2-free-geolocation-data target=_blank rel="noopener noreffer">maxminddb 免费ipv6库</a></li>
+</ul>
+</li>
+</ul>
+<h2 id=配置>配置</h2>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-lua data-lang=lua><span class=n>lua_shared_dict</span> <span class=n>ip_data</span> <span class=mi>10</span><span class=n>m</span><span class=p>;</span>
+
+<span class=n>server</span> <span class=p>{</span>
+    <span class=n>server_name</span> <span class=n>ip.test</span><span class=p>.</span><span class=n>com</span><span class=p>;</span>
+    <span class=n>access_log</span> <span class=n>logs</span><span class=o>/</span><span class=n>ip.access</span><span class=p>.</span><span class=n>log</span> <span class=n>main</span> <span class=n>buffer</span><span class=o>=</span><span class=mi>32</span><span class=n>k</span> <span class=n>flush</span><span class=o>=</span><span class=mi>10</span><span class=n>s</span><span class=p>;</span>
+    <span class=n>error_log</span> <span class=n>logs</span><span class=o>/</span><span class=n>ip.error</span><span class=p>.</span><span class=n>log</span><span class=p>;</span>
+
+    <span class=n>location</span> <span class=o>/</span> <span class=p>{</span>
+        <span class=n>default_type</span> <span class=s1>&#39;text/plain&#39;</span><span class=p>;</span>
+        <span class=n>access_by_lua_block</span> <span class=p>{</span>
+            <span class=kd>local</span> <span class=n>remote_addr</span> <span class=o>=</span> <span class=n>ngx.var</span><span class=p>.</span><span class=n>remote_addr</span>
+            <span class=n>ngx.print</span><span class=p>(</span><span class=n>remote_addr</span><span class=p>)</span>
+        <span class=p>}</span>
+    <span class=p>}</span>
+
+    <span class=n>location</span> <span class=o>=</span> <span class=o>/</span><span class=n>ip</span> <span class=p>{</span>
+        <span class=n>default_type</span> <span class=n>application</span><span class=o>/</span><span class=n>json</span><span class=p>;</span>
+        <span class=n>content_by_lua_block</span> <span class=p>{</span>
+            <span class=kd>local</span> <span class=n>require</span> <span class=o>=</span> <span class=n>require</span>
+            <span class=kd>local</span> <span class=n>ngx</span> <span class=o>=</span> <span class=n>ngx</span>
+            <span class=kd>local</span> <span class=n>cjson</span> <span class=o>=</span> <span class=n>require</span> <span class=s2>&#34;cjson.safe&#34;</span>
+            <span class=kd>local</span> <span class=n>json_encode</span> <span class=o>=</span> <span class=n>cjson.encode</span>
+            <span class=kd>local</span> <span class=n>ip2region</span> <span class=o>=</span> <span class=n>require</span> <span class=s2>&#34;resty.ip2region&#34;</span>
+            <span class=kd>local</span> <span class=n>ipmatcher</span> <span class=o>=</span> <span class=n>require</span> <span class=s2>&#34;resty.ipmatcher&#34;</span>
+            <span class=kd>local</span> <span class=n>geo</span> <span class=o>=</span> <span class=n>require</span> <span class=s2>&#34;resty.maxminddb&#34;</span>
+            <span class=kd>local</span> <span class=n>location</span> <span class=o>=</span> <span class=n>ip2region.new</span><span class=p>({</span>
+                <span class=n>file</span> <span class=o>=</span> <span class=s2>&#34;/data/nginx/lua/ip/ip2region.db&#34;</span><span class=p>,</span>
+                <span class=n>dict</span> <span class=o>=</span> <span class=s2>&#34;ip_data&#34;</span><span class=p>,</span>
+                <span class=n>mode</span> <span class=o>=</span> <span class=s2>&#34;memory&#34;</span> <span class=c1>-- maybe memory,binary or btree</span>
+            <span class=p>})</span>
+            <span class=kr>if</span> <span class=ow>not</span> <span class=n>geo.initted</span><span class=p>()</span> <span class=kr>then</span>
+                <span class=n>geo.init</span><span class=p>(</span><span class=s2>&#34;/data/nginx/lua/ip/GeoLite2-City.mmdb&#34;</span><span class=p>)</span>
+            <span class=kr>end</span>
+
+            <span class=kd>local</span> <span class=n>remote_addr</span> <span class=o>=</span> <span class=n>ngx.var</span><span class=p>.</span><span class=n>arg_ip</span> <span class=ow>or</span> <span class=n>ngx.var</span><span class=p>.</span><span class=n>remote_addr</span>
+
+            <span class=kd>local</span> <span class=n>ip_detail</span> <span class=o>=</span> <span class=p>{</span>
+                <span class=n>ip</span><span class=o>=</span><span class=n>remote_addr</span><span class=p>,</span>
+                <span class=n>country</span><span class=o>=</span><span class=mi>0</span><span class=p>,</span>
+                <span class=n>province</span><span class=o>=</span><span class=mi>0</span><span class=p>,</span>
+                <span class=n>city</span><span class=o>=</span><span class=mi>0</span><span class=p>,</span>
+                <span class=n>isp</span><span class=o>=</span><span class=mi>0</span><span class=p>,</span>
+            <span class=p>}</span>
+            <span class=kd>local</span> <span class=n>is_ipv4</span> <span class=o>=</span> <span class=n>ipmatcher.parse_ipv4</span><span class=p>(</span><span class=n>remote_addr</span><span class=p>)</span>
+            <span class=kr>if</span> <span class=n>is_ipv4</span> <span class=kr>then</span>
+                <span class=kd>local</span> <span class=n>data</span><span class=p>,</span> <span class=n>err</span> <span class=o>=</span> <span class=n>location</span><span class=p>:</span><span class=n>search</span><span class=p>(</span><span class=n>remote_addr</span><span class=p>)</span>
+                <span class=kr>if</span> <span class=n>data</span> <span class=kr>then</span>
+                    <span class=n>ip_detail</span><span class=p>[</span><span class=s2>&#34;country&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=n>data</span><span class=p>[</span><span class=s2>&#34;country&#34;</span><span class=p>]</span>
+                    <span class=n>ip_detail</span><span class=p>[</span><span class=s2>&#34;province&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=n>data</span><span class=p>[</span><span class=s2>&#34;province&#34;</span><span class=p>]</span>
+                    <span class=n>ip_detail</span><span class=p>[</span><span class=s2>&#34;city&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=n>data</span><span class=p>[</span><span class=s2>&#34;city&#34;</span><span class=p>]</span>
+                    <span class=n>ip_detail</span><span class=p>[</span><span class=s2>&#34;isp&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=n>data</span><span class=p>[</span><span class=s2>&#34;isp&#34;</span><span class=p>]</span>
+                    <span class=n>ngx.say</span><span class=p>(</span><span class=n>json_encode</span><span class=p>(</span><span class=n>ip_detail</span><span class=p>))</span>
+                <span class=kr>else</span>
+                    <span class=n>ngx.say</span><span class=p>(</span><span class=n>err</span><span class=p>)</span>
+                <span class=kr>end</span>
+            <span class=kr>else</span>
+                <span class=kd>local</span> <span class=n>is_ipv6</span> <span class=o>=</span> <span class=n>ipmatcher.parse_ipv6</span><span class=p>(</span><span class=n>remote_addr</span><span class=p>)</span>
+                <span class=kr>if</span> <span class=n>is_ipv6</span> <span class=kr>then</span>
+                    <span class=kd>local</span> <span class=n>data</span><span class=p>,</span> <span class=n>err</span> <span class=o>=</span> <span class=n>geo.lookup</span><span class=p>(</span><span class=n>remote_addr</span><span class=p>)</span>
+                    <span class=kr>if</span> <span class=n>data</span> <span class=kr>then</span>
+                        <span class=n>ip_detail</span><span class=p>[</span><span class=s2>&#34;country&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=n>data</span><span class=p>[</span><span class=s2>&#34;country&#34;</span><span class=p>][</span><span class=s2>&#34;names&#34;</span><span class=p>][</span><span class=s2>&#34;zh-CN&#34;</span><span class=p>]</span>
+                        <span class=n>ip_detail</span><span class=p>[</span><span class=s2>&#34;continent&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=n>data</span><span class=p>[</span><span class=s2>&#34;continent&#34;</span><span class=p>][</span><span class=s2>&#34;names&#34;</span><span class=p>][</span><span class=s2>&#34;zh-CN&#34;</span><span class=p>]</span>
+                        <span class=kr>if</span> <span class=n>data</span><span class=p>[</span><span class=s2>&#34;subdivisions&#34;</span><span class=p>]</span> <span class=kr>then</span>
+                            <span class=kd>local</span> <span class=n>subdivisions</span> <span class=o>=</span> <span class=n>data</span><span class=p>[</span><span class=s2>&#34;subdivisions&#34;</span><span class=p>][</span><span class=mi>1</span><span class=p>][</span><span class=s2>&#34;names&#34;</span><span class=p>]</span>
+                            <span class=kd>local</span> <span class=n>province_cn</span> <span class=o>=</span> <span class=n>subdivisions</span><span class=p>[</span><span class=s2>&#34;zh-CN&#34;</span><span class=p>]</span>
+                            <span class=kr>if</span> <span class=n>province_cn</span> <span class=kr>then</span>
+                                <span class=n>ip_detail</span><span class=p>[</span><span class=s2>&#34;province&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=n>province_cn</span>
+                            <span class=kr>else</span>
+                                <span class=n>ip_detail</span><span class=p>[</span><span class=s2>&#34;province&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=n>subdivisions</span><span class=p>[</span><span class=s2>&#34;en&#34;</span><span class=p>]</span>
+                            <span class=kr>end</span>
+                        <span class=kr>end</span>
+
+                        <span class=kr>if</span> <span class=n>data</span><span class=p>[</span><span class=s2>&#34;city&#34;</span><span class=p>]</span> <span class=kr>then</span>
+                            <span class=kd>local</span> <span class=n>city</span> <span class=o>=</span> <span class=n>data</span><span class=p>[</span><span class=s2>&#34;city&#34;</span><span class=p>][</span><span class=s2>&#34;names&#34;</span><span class=p>]</span>
+                            <span class=kd>local</span> <span class=n>city_cn</span> <span class=o>=</span> <span class=n>city</span><span class=p>[</span><span class=s2>&#34;zh-CN&#34;</span><span class=p>]</span>
+                            <span class=kr>if</span> <span class=n>city_cn</span> <span class=kr>then</span>
+                                <span class=n>ip_detail</span><span class=p>[</span><span class=s2>&#34;city&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=n>city_cn</span>
+                            <span class=kr>else</span>
+                                <span class=n>ip_detail</span><span class=p>[</span><span class=s2>&#34;city&#34;</span><span class=p>]</span> <span class=o>=</span> <span class=n>city</span><span class=p>[</span><span class=s2>&#34;en&#34;</span><span class=p>]</span>
+                            <span class=kr>end</span>
+                        <span class=kr>end</span>
+                        <span class=n>ngx.say</span><span class=p>(</span><span class=n>json_encode</span><span class=p>(</span><span class=n>ip_detail</span><span class=p>))</span>
+                    <span class=kr>end</span>
+                <span class=kr>end</span>
+            <span class=kr>end</span>
+        <span class=p>}</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></div><h2 id=使用示例>使用示例</h2>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh>$ curl ip.test.com
+180.167.11.11
+
+$ curl ip.test.com/ip
+<span class=o>{</span><span class=s2>&#34;ip&#34;</span>:<span class=s2>&#34;180.167.11.11&#34;</span>,<span class=s2>&#34;country&#34;</span>:<span class=s2>&#34;中国&#34;</span>,<span class=s2>&#34;province&#34;</span>:<span class=s2>&#34;上海&#34;</span>,<span class=s2>&#34;city&#34;</span>:<span class=s2>&#34;上海&#34;</span>,<span class=s2>&#34;isp&#34;</span>:<span class=s2>&#34;电信&#34;</span><span class=o>}</span>
+
+$ curl <span class=s1>&#39;ip.test.com/ip?ip=1.1.1.1&#39;</span>
+<span class=o>{</span><span class=s2>&#34;isp&#34;</span>:<span class=s2>&#34;CloudFlare&#34;</span>,<span class=s2>&#34;ip&#34;</span>:<span class=s2>&#34;1.1.1.1&#34;</span>,<span class=s2>&#34;country&#34;</span>:<span class=s2>&#34;澳大利亚&#34;</span>,<span class=s2>&#34;province&#34;</span>:<span class=s2>&#34;0&#34;</span>,<span class=s2>&#34;city&#34;</span>:<span class=s2>&#34;0&#34;</span><span class=o>}</span>
+
+$ curl <span class=s1>&#39;ipip.test.com/ip?ip=240b:4000:f10::e3&#39;</span>
+<span class=o>{</span><span class=s2>&#34;ip&#34;</span>:<span class=s2>&#34;240b:4000:f10::e3&#34;</span>,<span class=s2>&#34;country&#34;</span>:<span class=s2>&#34;新加坡&#34;</span>,<span class=s2>&#34;province&#34;</span>:0,<span class=s2>&#34;city&#34;</span>:0,<span class=s2>&#34;isp&#34;</span>:0,<span class=s2>&#34;continent&#34;</span>:<span class=s2>&#34;亚洲&#34;</span><span class=o>}</span>
+</code></pre></div></div><div class=post-footer id=post-footer>
+<div class=post-info>
+<div class=post-info-line>
+<div class=post-info-mod>
+<span>更新于 2021-06-03</span>
+</div>
+<div class=post-info-license></div>
+</div>
+<div class=post-info-line>
+<div class=post-info-md></div>
+<div class=post-info-share>
+<span><a href=javascript:void(0); title="分享到 Twitter" data-sharer=twitter data-url=https://ops.m114.org/post/nginx-ipip-service/ data-title=Nginx实现ip查询服务 data-hashtags=OpenResty,Nginx><i class="fab fa-twitter fa-fw"></i></a><a href=javascript:void(0); title="分享到 Facebook" data-sharer=facebook data-url=https://ops.m114.org/post/nginx-ipip-service/ data-hashtag=OpenResty><i class="fab fa-facebook-square fa-fw"></i></a><a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://ops.m114.org/post/nginx-ipip-service/ data-title=Nginx实现ip查询服务><i class="fab fa-weibo fa-fw"></i></a></span>
+</div>
+</div>
+</div>
+<div class=post-info-more>
+<section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/openresty/>OpenResty</a>,&nbsp;<a href=/tags/nginx/>Nginx</a></section>
+<section>
+<span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span>
+</section>
+</div>
+<div class=post-nav><a href=/post/gitea-webhook/ class=prev rel=prev title="Gogs/Gitea webhook支持"><i class="fas fa-angle-left fa-fw"></i>Gogs/Gitea webhook支持</a>
+<a href=/post/dynamic-http-proxy/ class=next rel=next title="使用动态 DNS 来完成 HTTP 请求">使用动态 DNS 来完成 HTTP 请求<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id=comments><div id=utterances></div><noscript>
+Please enable JavaScript to view the comments powered by <a href=https://utteranc.es/>Utterances</a>.
+</noscript></div></article></div>
+</main><footer class=footer>
+<div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.88.1">Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+</div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2014 - 2021</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://ops.m114.org target=_blank>CloudSky</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div>
+</div>
+</footer></div>
+<div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部>
+<i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论>
+<i class="fas fa-comment fa-fw"></i>
+</a>
+</div><script type=text/javascript src=/lib/smooth-scroll/smooth-scroll.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:10},comment:{utterances:{darkTheme:"github-dark",issueTerm:"pathname",label:"",lightTheme:"github-light",repo:"vinsonzou/vinsonzou.github.com"}}}</script><script type=text/javascript src=/js/theme.min.js></script></body>
+</html>
