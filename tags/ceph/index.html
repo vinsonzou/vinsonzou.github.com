@@ -1,126 +1,72 @@
-<!doctype html><html lang=en>
+<!doctype html><html lang=zh-cn>
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=description content>
-<meta name=generator content="Hugo 0.88.1">
-<title>ceph &#183; ops</title>
-<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css><!--[if lte IE 8]><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css><![endif]--><!--[if gt IE 8]><!-->
-<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css><!--<![endif]--><!--[if lte IE 8]><link rel=stylesheet href=https://ops.m114.org/css/side-menu-old-ie.css><![endif]--><!--[if gt IE 8]><!-->
-<link rel=stylesheet href=https://ops.m114.org/css/side-menu.css><!--<![endif]-->
-<link rel=stylesheet href=https://ops.m114.org/css/blackburn.css>
-<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css>
-<link rel=preconnect href=https://fonts.gstatic.com>
-<link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel=stylesheet type=text/css>
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<link rel=alternate type=application/rss+xml title=ops href=https://ops.m114.org/tags/ceph/index.xml>
-<link rel=stylesheet href=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css>
-<script async src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js></script>
-<script>hljs.initHighlightingOnLoad()</script>
-<link rel="shortcut icon" href=https://ops.m114.org/img/favicon.ico type=image/x-icon>
-</head>
-<body>
-<div id=layout>
-<a href=#menu id=menuLink class=menu-link>
-<span></span>
+<meta name=robots content="noodp">
+<meta http-equiv=x-ua-compatible content="IE=edge, chrome=1">
+<title>ceph - 标签 - cloudSky's 小站</title><meta name=Description content="Linux运维"><meta property="og:title" content="ceph">
+<meta property="og:description" content="Linux运维">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ops.m114.org/tags/ceph/">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="ceph">
+<meta name=twitter:description content="Linux运维">
+<meta name=application-name content="cloudSky's 小站">
+<meta name=apple-mobile-web-app-title content="cloudSky's 小站"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://ops.m114.org/tags/ceph/><link rel=alternate href=/tags/ceph/index.xml type=application/rss+xml title="cloudSky's 小站">
+<link rel=feed href=/tags/ceph/index.xml type=application/rss+xml title="cloudSky's 小站"><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css></head>
+<body header-desktop header-mobile><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script>
+<div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="cloudSky's 小站">cloudSky's 小站</a>
+</div>
+<div class=menu>
+<div class=menu-inner><a class=menu-item href=/posts/><i class="fa fa-list fa-fw"></i> 所有文章 </a><a class=menu-item href=/tags/><i class="fa fa-tags fa-fw"></i> 标签 </a><a class=menu-item href=/categories/> 分类 </a><a class=menu-item href=/links/><i class="fa fa-link fa-fw"></i> </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
 </a>
-<div id=menu>
-<a class="pure-menu-heading brand" href=https://ops.m114.org/>Ops</a>
-<div class=pure-menu>
-<ul class=pure-menu-list>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://ops.m114.org/about/><i class="fa fa-user fa-fw"></i>About</a>
-</li>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://ops.m114.org/post/><i class="fa fa-list fa-fw"></i>Posts</a>
-</li>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://ops.m114.org/tags/><i class="fa fa-tags fa-fw"></i>Tags</a>
-</li>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://ops.m114.org/><i class="fa fa-home fa-fw"></i>Home</a>
-</li>
-</ul>
-</div>
-<div class="pure-menu social">
-<ul class=pure-menu-list>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://ops.m114.org/tags/ceph/index.xml><i class="fas fa-rss fa-fw"></i>RSS</a>
-</li>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://github.com/vinsonzou rel=me target=_blank><i class="fab fa-github-square fa-fw"></i>GitHub</a>
-</li>
-</ul>
-</div>
-<div>
-<div class=small-print>
-<small>&copy; 2014-2021. All rights reserved.</small>
-</div>
-<div class=small-print>
-<small>Built with&nbsp;<a href=https://gohugo.io/ target=_blank>Hugo</a></small>
-<small>Theme&nbsp;<a href=https://github.com/yoshiharuyamashita/blackburn target=_blank>Blackburn</a></small>
 </div>
 </div>
 </div>
-<div id=main>
-<div class=header>
-<h1>ceph</h1>
+</header><header class=mobile id=header-mobile>
+<div class=header-container>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="cloudSky's 小站">cloudSky's 小站</a>
 </div>
-<div class=content>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/ceph-jewel-osd-activate-bug/>ceph集群jewel版本部署osd激活权限报错</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2016/07/29, 00:29</time>
+<div class=menu-toggle id=menu-toggle-mobile>
+<span></span><span></span><span></span>
 </div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/ceph>ceph</a>
 </div>
+<div class=menu id=menu-mobile><a class=menu-item href=/posts/ title><i class="fa fa-list fa-fw"></i>所有文章</a><a class=menu-item href=/tags/ title><i class="fa fa-tags fa-fw"></i>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/links/ title><i class="fa fa-link fa-fw"></i></a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
+</a></div>
 </div>
 </header>
-<p>
-环境
-ceph version 10.2.2 (45107e21c568dd033c2f0a3107dec8f0b0e58374)ceph-deploy 1.5.34
-ceph集群jewel版本部署过程中执行osd激活操作如下
-ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2 报错内容如下
-[2016-07-29 00:05:19,106][ceph_deploy.conf][DEBUG ] found configuration file at: /root/.cephdeploy.conf [2016-07-29 00:05:19,107][ceph_deploy.cli][INFO ] Invoked (1.5.34): /bin/ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2 [2016-07-29 00:05:19,107][ceph_deploy.cli][INFO ] ceph-deploy options: [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] username : None [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] verbose : False [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] overwrite_conf : False [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] subcommand : activate [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] quiet : False [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO ] cd_conf : &lt;ceph_deploy.conf.cephdeploy.Conf instance at 0x26dcb90> [2016-07-29 00:05:19,109][ceph_deploy.
-</p>
-<footer>
-<a href=https://ops.m114.org/post/ceph-jewel-osd-activate-bug/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-</footer>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/deploy-ceph-using-china-mirror/>使用国内源部署Ceph</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2016/07/28, 13:17</time>
+<div class="search-dropdown desktop">
+<div id=search-dropdown-desktop></div>
 </div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/ceph>ceph</a>
+<div class="search-dropdown mobile">
+<div id=search-dropdown-mobile></div>
 </div>
+<main class=main>
+<div class=container><div class="page archive"><h2 class="single-title animated pulse faster"><i class="fas fa-tag fa-fw"></i>&nbsp;ceph</h2><h3 class=group-title>2016</h3><article class=archive-item>
+<a href=/ceph-jewel-osd-activate-bug/ class=archive-item-link>ceph集群jewel版本部署osd激活权限报错</a>
+<span class=archive-item-date>07-29</span>
+</article><article class=archive-item>
+<a href=/deploy-ceph-using-china-mirror/ class=archive-item-link>使用国内源部署Ceph</a>
+<span class=archive-item-date>07-28</span>
+</article></div></div>
+</main><footer class=footer>
+<div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.88.1">Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+</div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2014 - 2021</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://ops.m114.org target=_blank>CloudSky</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div>
 </div>
-</header>
-<p>
-由于网络方面的原因，Ceph的部署经常受到干扰，通常为了加速部署，基本上大家都是将Ceph的源同步到本地进行安装。根据Ceph中国社区的统计，当前已经有国内的网站定期将Ceph安装源同步，极大的方便了我们的测试。本文就是介绍如何使用国内源，加速ceph-deploy部署Ceph集群。
-关于国内源 根据Ceph中国社区的统计，国内已经有四家网站开始同步Ceph源，分别是：
-网易镜像源http://mirrors.163.com/ceph 阿里镜像源http://mirrors.aliyun.com/ceph 中科大镜像源http://mirrors.ustc.edu.cn/ceph 宝德镜像源http://mirrors.plcloud.com/ceph 安装Ceph(Jewel版) 由于Jewel版本中已经不提供el6的镜像源，所以只能使用CentOS 7以上版本进行安装。我们并不需要在repos里增加相应的源，只需要设置环境变量，即可让ceph-deploy使用国内源，具体过程如下：
-export CEPH_DEPLOY_REPO_URL=http://mirrors.aliyun.com/ceph/rpm-jewel/el7 export CEPH_DEPLOY_GPG_URL=http://mirrors.aliyun.com/ceph/keys/release.asc 之后的过程就没任何区别了
-# Create monitor node ceph-deploy new node1 node2 node3 # Software Installation ceph-deploy install deploy node1 node2 node3 # Gather keys ceph-deploy mon create-initial # Ceph deploy osd create disk ceph-deploy osd create node1:sdb:/dev/sdc ceph-deploy osd create node2:sdb:/dev/sdc ceph-deploy osd create node3:sdb:/dev/sdc # Make 3 copies by default echo "osd pool default size = 3" | tee -a $HOME/ceph.
-</p>
-<footer>
-<a href=https://ops.m114.org/post/deploy-ceph-using-china-mirror/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-</footer>
-</article>
-</div>
-</div>
-</div>
-<script src=https://ops.m114.org/js/ui.js></script>
-<script src=https://ops.m114.org/js/menus.js></script>
-</body>
+</footer></div>
+<div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部>
+<i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论>
+<i class="fas fa-comment fa-fw"></i>
+</a>
+</div><script type=text/javascript src=/lib/smooth-scroll/smooth-scroll.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:10}}</script><script type=text/javascript src=/js/theme.min.js></script></body>
 </html>

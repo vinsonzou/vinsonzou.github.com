@@ -1,321 +1,136 @@
-<!doctype html><html lang=en>
+<!doctype html><html lang=zh-cn>
 <head>
+<meta name=generator content="Hugo 0.88.1">
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=description content>
-<meta name=generator content="Hugo 0.88.1">
-<title>ops</title>
-<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css><!--[if lte IE 8]><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css><![endif]--><!--[if gt IE 8]><!-->
-<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css><!--<![endif]--><!--[if lte IE 8]><link rel=stylesheet href=https://ops.m114.org/css/side-menu-old-ie.css><![endif]--><!--[if gt IE 8]><!-->
-<link rel=stylesheet href=https://ops.m114.org/css/side-menu.css><!--<![endif]-->
-<link rel=stylesheet href=https://ops.m114.org/css/blackburn.css>
-<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css>
-<link rel=preconnect href=https://fonts.gstatic.com>
-<link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel=stylesheet type=text/css>
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<link rel=alternate type=application/rss+xml title=ops href=https://ops.m114.org/index.xml>
-<link rel=stylesheet href=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css>
-<script async src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js></script>
-<script>hljs.initHighlightingOnLoad()</script>
-<link rel="shortcut icon" href=https://ops.m114.org/img/favicon.ico type=image/x-icon>
-</head>
-<body>
-<div id=layout>
-<a href=#menu id=menuLink class=menu-link>
-<span></span>
+<meta name=robots content="noodp">
+<meta http-equiv=x-ua-compatible content="IE=edge, chrome=1">
+<title>cloudSky's 小站</title><meta name=Description content="Linux运维"><meta property="og:title" content="cloudSky's 小站">
+<meta property="og:description" content="Linux运维">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ops.m114.org/">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="cloudSky's 小站">
+<meta name=twitter:description content="Linux运维">
+<meta name=application-name content="cloudSky's 小站">
+<meta name=apple-mobile-web-app-title content="cloudSky's 小站"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://ops.m114.org/><link rel=alternate href=/index.xml type=application/rss+xml title="cloudSky's 小站">
+<link rel=feed href=/index.xml type=application/rss+xml title="cloudSky's 小站"><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"WebSite","url":"https:\/\/ops.m114.org\/","inLanguage":"zh-CN","author":{"@type":"Person","name":"CloudSky"},"description":"Linux运维","name":"cloudSky's 小站"}</script></head>
+<body header-desktop header-mobile><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script>
+<div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="cloudSky's 小站">cloudSky's 小站</a>
+</div>
+<div class=menu>
+<div class=menu-inner><a class=menu-item href=/posts/><i class="fa fa-list fa-fw"></i> 所有文章 </a><a class=menu-item href=/tags/><i class="fa fa-tags fa-fw"></i> 标签 </a><a class=menu-item href=/categories/> 分类 </a><a class=menu-item href=/links/><i class="fa fa-link fa-fw"></i> </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
 </a>
-<div id=menu>
-<a class="pure-menu-heading brand" href=https://ops.m114.org/>Ops</a>
-<div class=pure-menu>
-<ul class=pure-menu-list>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://ops.m114.org/about/><i class="fa fa-user fa-fw"></i>About</a>
-</li>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://ops.m114.org/post/><i class="fa fa-list fa-fw"></i>Posts</a>
-</li>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://ops.m114.org/tags/><i class="fa fa-tags fa-fw"></i>Tags</a>
-</li>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://ops.m114.org/><i class="fa fa-home fa-fw"></i>Home</a>
-</li>
-</ul>
-</div>
-<div class="pure-menu social">
-<ul class=pure-menu-list>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://ops.m114.org/index.xml><i class="fas fa-rss fa-fw"></i>RSS</a>
-</li>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://github.com/vinsonzou rel=me target=_blank><i class="fab fa-github-square fa-fw"></i>GitHub</a>
-</li>
-</ul>
-</div>
-<div>
-<div class=small-print>
-<small>&copy; 2014-2021. All rights reserved.</small>
-</div>
-<div class=small-print>
-<small>Built with&nbsp;<a href=https://gohugo.io/ target=_blank>Hugo</a></small>
-<small>Theme&nbsp;<a href=https://github.com/yoshiharuyamashita/blackburn target=_blank>Blackburn</a></small>
 </div>
 </div>
 </div>
-<div id=main>
-<div class=header>
-<h1>ops</h1>
-<h2>records of learning.</h2>
+</header><header class=mobile id=header-mobile>
+<div class=header-container>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="cloudSky's 小站">cloudSky's 小站</a>
 </div>
-<div class=content>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/deploy-to-ghpages-with-github-action/>Hugo使用Github Action自动部署到Github Pages</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2021/10/14, 16:35</time>
+<div class=menu-toggle id=menu-toggle-mobile>
+<span></span><span></span><span></span>
 </div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/Hugo>Hugo</a>
 </div>
+<div class=menu id=menu-mobile><a class=menu-item href=/posts/ title><i class="fa fa-list fa-fw"></i>所有文章</a><a class=menu-item href=/tags/ title><i class="fa fa-tags fa-fw"></i>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/links/ title><i class="fa fa-link fa-fw"></i></a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
+</a></div>
 </div>
 </header>
-<p>
-目的 hugo手动部署到github pages流程:
-使用hugo生成静态网页 将静态网页push到建好的github pages repo中，一般是&lt;username>/&lt;username>.github.io 本文的目的就是使用github action自动部署github pages。
-流程及原理 本地新建文章，push到Github仓库的master分支。master分支存放博客文章的源码。 push 操作自动触发预先配置的Actions。 GitHub Action自动执行yml文件中的"action"，构建打包，推送至gh-pages repo。 详细步骤 1、首先点击github头像在下拉栏里进入Settings - Developer Settings - Personal access tokens 选择Generate new token
-2、填入名字，并勾选repo和workflow选项，如下图 3、在源码repo配置中添加Secret 4、在源码repo里添加如下配置
-.github/workflows/gh-pages.yml name: github pages # 名字自取 on: push: branches: - master # 这里的意思是当 master 分支发生push的时候，运行下面的jobs jobs: build-deploy: # 任务名自取 runs-on: ubuntu-latest # 在什么环境运行任务 steps: - uses: actions/checkout@v2 # 引用actions/checkout这个action，与所在的github仓库同名 - name: Setup Hugo # 步骤名自取 uses: peaceiris/actions-hugo@v2 # hugo官方提供的action，用于在任务环境中获取hugo with: hugo-version: 'latest' # 获取最新版本的hugo - name: Build run: hugo --minify # 使用hugo构建静态网页 - name: Deploy uses: peaceiris/actions-gh-pages@v3 # 一个自动发布github pages的action with: # github_token: ${{ secrets.
-</p>
-<footer>
-<a href=https://ops.m114.org/post/deploy-to-ghpages-with-github-action/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-</footer>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/openresty-privileged-agent/>使用OpenResty reload ipsec服务</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2021/10/08, 11:13</time>
+<div class="search-dropdown desktop">
+<div id=search-dropdown-desktop></div>
 </div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/OpenResty>OpenResty</a>
+<div class="search-dropdown mobile">
+<div id=search-dropdown-mobile></div>
 </div>
+<main class=main>
+<div class=container><div class="page home" posts><div class=home-profile><h1 class=home-title>cloudSky's 小站</h1><h2 class=home-subtitle><div id=id-1 class=typeit></div></h2><div class=links><a href=https://github.com/vinsonzou title=GitHub target=_blank rel="noopener noreffer me"><i class="fab fa-github-alt fa-fw"></i></a><a href=/index.xml title=RSS target=_blank rel="noopener noreffer me"><i class="fas fa-rss fa-fw"></i></a></div></div>
+<article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/deploy-to-ghpages-with-github-action/>Hugo使用Github Action自动部署到Github Pages</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2021-10-14>2021-10-14</time></span></div><div class=content>目的 hugo手动部署到github pages流程: 使用hugo生成静态网页 将静态网页push到建好的github pages repo中，一般是&lt;</div><div class=post-footer>
+<a href=/deploy-to-ghpages-with-github-action/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/hugo/>Hugo</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/openresty-privileged-agent/>使用OpenResty reload ipsec服务</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2021-10-08>2021-10-08</time></span></div><div class=content>背景介绍 Debian 11 OpenResty 1.19.9.1 默认情况下，Nginx/OpenResty会启动一个root权限运行的master进程，之后再用指定的普通用户权限启动对应的</div><div class=post-footer>
+<a href=/openresty-privileged-agent/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/openresty/>OpenResty</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/openresty-mtls/>使用OpenResty mTLS认证</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2021-09-29>2021-09-29</time></span></div><div class=content>环境 CentOS 7 OpenResty 1.19.9.1 cosocket-mtls patch ngx_lua-0.10.20_01-cosocket-mtls.patch lua-resty-core-0.1.22_01-cosocket-mtls.patch lua-resty-http 为了支持mTLS功能，折腾的够呛，OpenResty官方又没支持，基于OpenResty的APISIX和Kong都有补</div><div class=post-footer>
+<a href=/openresty-mtls/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/openresty/>OpenResty</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/cfssl/>CFSSL使用</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2021-09-28>2021-09-28</time></span></div><div class=content>简介 在工作中，我们经常会遇到各种证书问题，如k8s,etcd等服务时，我们往往都要使用证书，本文将使用CFSSL工具快速简单的配置证书。这里</div><div class=post-footer>
+<a href=/cfssl/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/%E5%AE%89%E5%85%A8/>安全</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/openresty-anticc/>使用OpenResty实现简易CC防护</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2021-09-11>2021-09-11</time></span></div><div class=content>环境 CentOS 7 OpenResty 1.19.9.1 lua-resty-ipmatcher lua-var-nginx-module 功能 支持IP白名单 支持IP黑名单 计数key为：ip + &ldquo;.&rdquo; + md5(host + request_uri + useragent)，可自定义 60秒内请求超过60次就封禁3</div><div class=post-footer>
+<a href=/openresty-anticc/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/openresty/>OpenResty</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/use-ssl_reject_handshake/>防止SNI信息泄露</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2021-07-04>2021-07-04</time></span></div><div class=content>有了 ssl_reject_handshake (Nginx ≥ 1.19.4)这个参数，再也不需要strict-sni.patch了。 本质需求就是为了当机器人或者奇怪的人类通过HTTPS访问你的</div><div class=post-footer>
+<a href=/use-ssl_reject_handshake/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/nginx/>Nginx</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/use-s-maxage-for-cdn/>巧用 cache-control: s-maxage 优化CDN和浏览器缓存同步</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2021-06-14>2021-06-14</time></span></div><div class=content>在实际使用中会发现，通常源站资源发生变化后，我们会尝试刷新CDN。但是由于用户浏览器依旧保留旧资源，造成访问不一致的问题。解决思路如下: 在源</div><div class=post-footer>
+<a href=/use-s-maxage-for-cdn/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/cdn/>cdn</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/nginx-authorized-download/>使用Nginx实现授权下载</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2021-06-11>2021-06-11</time></span></div><div class=content>使用Nginx实现授权下载有两种方式，一种是nginx自带 --with-http_secure_link_module，另外一种是lua自定</div><div class=post-footer>
+<a href=/nginx-authorized-download/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/openresty/>OpenResty</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/nginx-wechat-ops/>lua实现微信机器人</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2021-06-11>2021-06-11</time></span></div><div class=content>使用企业微信调整值班人员信息，示例为联系人tag调整，可以自定义任何想实现功能。 环境 CentOS 7 Nginx lua-nginx-module lua-resty-http lua实现微信加密库 xml2lua ≤ v1.4-5 依赖服务 企业微信 配置</div><div class=post-footer>
+<a href=/nginx-wechat-ops/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/openresty/>OpenResty</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/mysql-plugin-audit/>MySQL插件之审计</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2021-06-08>2021-06-08</time></span></div><div class=content>目录 等保需求 背景 插件安装 插件配置 等保需求 审计功能：记录时间、来源IP、用户、行为、数据库、SQL。 背景 Oracle 的 MySQL 社区版不带审计插件（Audit P</div><div class=post-footer>
+<a href=/mysql-plugin-audit/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/mysql/>MySQL</a>,&nbsp;<a href=/tags/%E7%AD%89%E4%BF%9D/>等保</a></div></div>
+</article><ul class=pagination><li class="page-item active">
+<span class=page-link>
+<a href=/>1</a>
+</span>
+</li><li class=page-item>
+<span class=page-link>
+<a href=/page/2/>2</a>
+</span>
+</li><li class=page-item>
+<span class=page-link>
+<a href=/page/3/>3</a>
+</span>
+</li><li class=page-item>
+<span class=page-link aria-hidden=true>&mldr;</span>
+</li><li class=page-item>
+<span class=page-link>
+<a href=/page/6/>6</a>
+</span>
+</li></ul></div></div>
+</main><footer class=footer>
+<div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.88.1">Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+</div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2014 - 2021</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://ops.m114.org target=_blank>CloudSky</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div>
 </div>
-</header>
-<p>
-背景介绍 Debian 11 OpenResty 1.19.9.1 默认情况下，Nginx/OpenResty会启动一个root权限运行的master进程，之后再用指定的普通用户权限启动对应的worker，因要root权限才能操作ipsec服务，为了解决普通worker的提权问题，OpenResty提供了一个privileged agent来对这些提权操作进行处理，本文就是利用privileged agent来实现ipsec服务的重启操作。
-基本思路 在OpenResty的 init_by_lua_block 阶段启动privileged agent，之后在 init_worker_by_lua_block 阶段针对privileged agent设置其具体需要执行的操作，最终在 content_by_lua_block 中通过改变共享内存的 lua_shared_dict 字段的内容触发对应的reload操作。
-对应配置 root@debian:~# cat /etc/openresty/nginx.conf ... user app; #普通用户启动worker ... http { ... lua_shared_dict reload_status 1m; #共享内存dict init_by_lua_block { local process = require "ngx.process" -- enables privileged agent process local ok, err = process.enable_privileged_agent() if not ok then ngx.log(ngx.ERR, "enables privileged agent failed error:", err) end -- output process type ngx.
-</p>
-<footer>
-<a href=https://ops.m114.org/post/openresty-privileged-agent/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-</footer>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/openresty-mtls/>使用OpenResty mTLS认证</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2021/09/29, 13:08</time>
-</div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/OpenResty>OpenResty</a>
-</div>
-</div>
-</header>
-<p>
-环境 CentOS 7 OpenResty 1.19.9.1 cosocket-mtls patch ngx_lua-0.10.20_01-cosocket-mtls.patch lua-resty-core-0.1.22_01-cosocket-mtls.patch lua-resty-http 为了支持mTLS功能，折腾的够呛，OpenResty官方又没支持，基于OpenResty的APISIX和Kong都有补丁，但两家公司的补丁又有点细微的差别。APISIX的定制OpenResty版本目前仅支持到1.19.3，而Kong的定制OpenResty跟官方版本是同步的。此处的方案就是用Kong的patch和APISIX的lua-resty-http(我稍微改了一丢丢兼容Kong的patch)。
-功能 OpenResty作为客户端调用外部HTTP接口, 使用mTLS认证 Server配置 对应nginx配置
-server { listen 443 ssl; server_name ssl.test.com; ssl_certificate ssl/mtls_server.crt; #server公钥 ssl_certificate_key ssl/mtls_server.key; #server私钥 ssl_client_certificate ssl/mtls_ca.crt; #根级证书公钥，用于验证各个二级client ssl_verify_client on; } 请求验证 curl命令行验证 curl --resolve ssl.test.com:443:127.0.0.1 --cacert ssl/mtls_ca.crt --cert ssl/mtls_client.crt --key mtls_client.key https://ssl.test.com lua-resty-http验证 location /t { resolver local=on ipv6=off; resolver_timeout 5s; lua_ssl_verify_depth 1; lua_ssl_trusted_certificate /data/nginx/mtls/ca.
-</p>
-<footer>
-<a href=https://ops.m114.org/post/openresty-mtls/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-</footer>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/cfssl/>CFSSL使用</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2021/09/28, 09:08</time>
-</div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/%E5%AE%89%E5%85%A8>安全</a>
-</div>
-</div>
-</header>
-<p>
-简介 1. cfssl安装 2. cfssl常用命令 3. 创建CA证书 3.1 CA证书配置 3.2 CA CSR请求 3.3 生成CA证书和私钥 3.4 其他 4. 签发Server证书 5. 签发Client证书 6. 签发peer证书 7. 校验证书 简介 在工作中，我们经常会遇到各种证书问题，如k8s,etcd等服务时，我们往往都要使用证书，本文将使用CFSSL工具快速简单的配置证书。这里将生成三种证书包含客户端证书、服务端证书、双向证书。
-client certificate: 用于服务端认证客户端，例如etcdctl、etcd proxy、fleetctl、docker客户端 server certificate: 服务端使用，客户端以此验证服务端身份，例如docker服务端、kube-apiserver peer certificate: 双向证书，用于etcd集群成员间通信 1. cfssl安装 项目地址: https://github.com/cloudflare/cfssl
-wget https://github.com/cloudflare/cfssl/releases/download/v1.6.1/cfssl_1.6.1_linux_amd64 -O /usr/local/bin/cfssl wget https://github.com/cloudflare/cfssl/releases/download/v1.6.1/cfssljson_1.6.1_linux_amd64 -O /usr/local/bin/cfssljson chmod +x /usr/local/bin/{cfssl,cfssljson} 2. cfssl常用命令 # 初始化CA cfssl gencert -initca ca-csr.json | cfssljson -bare ca # 查看cert(证书信息) cfssl certinfo -cert ca.
-</p>
-<footer>
-<a href=https://ops.m114.org/post/cfssl/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-</footer>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/openresty-anticc/>使用OpenResty实现简易CC防护</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2021/09/11, 11:08</time>
-</div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/OpenResty>OpenResty</a>
-</div>
-</div>
-</header>
-<p>
-环境 CentOS 7 OpenResty 1.19.9.1 lua-resty-ipmatcher lua-var-nginx-module 功能 支持IP白名单 支持IP黑名单 计数key为：ip + &ldquo;.&rdquo; + md5(host + request_uri + useragent)，可自定义 60秒内请求超过60次就封禁3600秒 配置 对应nginx配置
-lua_shared_dict cc_counter 100m; server { listen 80; server_name demo.test.com; location / { access_by_lua_file lua/anticc.lua; } } anticc.lua
-</p>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/use-ssl_reject_handshake/>防止SNI信息泄露</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2021/07/04, 10:08</time>
-</div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/Nginx>Nginx</a>
-</div>
-</div>
-</header>
-<p>
-有了 ssl_reject_handshake (Nginx ≥ 1.19.4)这个参数，再也不需要strict-sni.patch了。
-本质需求就是为了当机器人或者奇怪的人类通过HTTPS访问你的IP时不暴露证书，也就不会暴露域名。
-官方文档给了个例子如下，在以下配置中，除example.com以外，其他域名的SSL握手将被拒绝。（返回UNRECOGNIZED NAME，Chrome提示ERR_SSL_UNRECOGNIZED_NAME_ALERT）
-server { listen 443 ssl default_server; ssl_reject_handshake on; } server { listen 443 ssl; server_name example.com; ssl_certificate example.com.crt; ssl_certificate_key example.com.key; } 注意事项
-nginx无法启用tls1.3的握手失败解决办法，openssl 1.1.1h bug，详细见传送门。 升级至openssl ≥ 1.1.1j 修复此问题
-</p>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/use-s-maxage-for-cdn/>巧用 cache-control: s-maxage 优化CDN和浏览器缓存同步</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2021/06/14, 11:18</time>
-</div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/cdn>cdn</a>
-</div>
-</div>
-</header>
-<p>
-在实际使用中会发现，通常源站资源发生变化后，我们会尝试刷新CDN。但是由于用户浏览器依旧保留旧资源，造成访问不一致的问题。解决思路如下:
-在源站添加如下header:
-cache-control: max-age=0,s-maxage=604800
-解释说明
-CDN 通常会遵循这个头，如果仅仅设置cache-control: max-age=0，固然每次浏览器会向 CDN 请求验证资源新鲜度，但是也会造成 CDN 每次都回源验证，会引起缓存击穿的问题。而静态资源通常更新并不频繁，我们可能会期望浏览器仅仅找 CDN 验证新鲜度就够了，CDN 不需要回源。对于这种场景，在cache-control头中添加s-maxage参数就够了。这个参数 CDN 通常会处理，优先级比max-age高。这样就实现了我们的需求。
-Ps: 最理想的方案仍然是cache busting。此方案仅适用于实在无法做到的静态资源。对于一些不需要太重视新鲜度问题的资源，仅仅max-age参数就够了，这样可能尽可能在浏览器段缓存资源，减少 CDN 的请求流量。
-CDN厂商 s-maxage 支持情况
-阿里云CDN【支持】 腾讯云CDN【不支持】 华为云CDN【不支持】 Akamai CDN【支持】 Google cloud CDN【支持】 AWS cloudfront CDN【支持】 Cache-Control 示例说明 Cache-Control: public max-age=3600 //本地缓存和 CDN 缓存均缓存 1 小时； Cache-Control: private immutable //不能缓存在 CDN，只能缓存在本地。并且一旦被缓存了，则不能被更新； Cache-Control: no-cache //不能缓存。如果一定要缓存的话，确保对其进行了二次验证； Cache-Control: public max-age=3600 s-maxage=7200 //本地缓存 1 小时，CDN 上缓存 2 小时； Cache-Control: public max-age=3600 proxy-revalidate //本地和 CDN 均缓存 1 小时。但是如果 CDN 收到请求，则尽管已经缓存了 1 小时，还是要检查源中文档是否已经被改变。 参考 https://blog.
-</p>
-<footer>
-<a href=https://ops.m114.org/post/use-s-maxage-for-cdn/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-</footer>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/nginx-authorized-download/>使用Nginx实现授权下载</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2021/06/11, 11:18</time>
-</div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/OpenResty>OpenResty</a>
-</div>
-</div>
-</header>
-<p>
-使用Nginx实现授权下载有两种方式，一种是nginx自带 --with-http_secure_link_module，另外一种是lua自定义实现。
-方法一 1.1 安装
-编译时添加此参数 --with-http_secure_link_module
-1.2 配置
-server { listen 80; server_name download.test.com; root /data/wwwroot; access_log logs/download.access.log main; location / { secure_link $arg_st,$arg_e; secure_link_md5 FIJaVSEV23$uri$arg_e; if ($secure_link = "") { return 403; } if ($secure_link = "0") { return 410; } } } 1.3 使用
-# shell脚本示例如下 secret="FIJaVSEV23" # 见前面secure_link_md5配置 uri="/待下载文件路径" datetime=$(date -d'1day' +'%Y-%m-%d %H:%M:%S') etime=$(date +%s -d"${datetime}") token=$(echo -n "${secret}${uri}${etime}" | openssl md5 -binary | openssl base64 | tr +/ -_ | tr -d =) # 下载链接 dlurl="dowload.
-</p>
-<footer>
-<a href=https://ops.m114.org/post/nginx-authorized-download/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-</footer>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/nginx-wechat-ops/>lua实现微信机器人</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2021/06/11, 10:08</time>
-</div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/OpenResty>OpenResty</a>
-</div>
-</div>
-</header>
-<p>
-使用企业微信调整值班人员信息，示例为联系人tag调整，可以自定义任何想实现功能。
-环境 CentOS 7 Nginx lua-nginx-module lua-resty-http lua实现微信加密库 xml2lua ≤ v1.4-5 依赖服务 企业微信 配置 对应nginx配置
-server { listen 443 ssl http2; ssl_certificate test.crt; ssl_certificate_key test.key; ssl_protocols TLSv1 TLSv1.1 TLSv1.2; ssl_prefer_server_ciphers on; ssl_ciphers EECDH+CHACHA20:EECDH+CHACHA20-draft:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5; ssl_session_timeout 1d; ssl_session_cache shared:SSL:20m; add_header Strict-Transport-Security max-age=31536000; server_name wx-ops.test.com; access_log logs/wechat-ops.access.log main; error_log logs/wechat-ops.info; location /api/ { resolver local=on ipv6=off; resolver_timeout 2s; lua_ssl_verify_depth 1; lua_ssl_trusted_certificate /etc/pki/tls/certs/ca-bundle.crt; content_by_lua_file lua/wechat-ops.lua; } } wechat_ops.
-</p>
-<footer>
-<a href=https://ops.m114.org/post/nginx-wechat-ops/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-</footer>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/MySQL-plugin-Audit/>MySQL插件之审计</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2021/06/08, 14:10</time>
-</div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/MySQL>MySQL</a>&nbsp;/
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/%E7%AD%89%E4%BF%9D>等保</a>
-</div>
-</div>
-</header>
-<p>
-目录 等保需求 背景 插件安装 插件配置 等保需求 审计功能：记录时间、来源IP、用户、行为、数据库、SQL。 背景 Oracle 的 MySQL 社区版不带审计插件（Audit Plugin），要想使用审计功能，你可以用企业版，不过这需要银子。业界还有一些 GPL 协议的审计插件，这里我们选择 MariaDB 的审计插件。
-系统版本: CentOS 7.4 MySQL版本: 5.7.23 社区版 MariaDB审计插件版本: 1.4.7 备注:
-MariaDB审计插件一直在更新，不同版本的审计插件功能也不同，每个版本的功能见：https://mariadb.com/kb/en/mariadb-audit-plugin-options-and-system-variables/#server_audit_events 我们在给MySQL数据库安装审计插件时，需要从MariaDB里面拷贝审计插件。MariaDB版本与审计插件版本关系如下：https://mariadb.com/kb/en/mariadb-audit-plugin-versions/ 插件安装 MariaDB 的 10.1 版本对应与 Oracle 的 MySQL 5.7，我们到它的官网上下载 Linux 的通用版本。
-找到我们需要的审计插件：
-./mariadb-10.1.48-linux-x86_64/lib/plugin/server_audit.so 把这个 so 结尾的文件拷贝到 MySQL 的插件目录，例如：/usr/local/mysql/lib/plugin/
--- 配置文件增加以下配置 [mysqld] plugin_load_add = server_audit server_audit = FORCE_PLUS_PERMANENT # 防止审计插件被卸载 server_audit_logging = on server_audit_events = CONNECT,TABLE,QUERY_DDL,QUERY_DCL,QUERY_DML_NO_SELECT server_audit_file_rotate_size = 268435456 server_audit_file_rotations = 64 -- 插件动态安装启用 mysql> install plugin server_audit SONAME 'server_audit.
-</p>
-<footer>
-<a href=https://ops.m114.org/post/MySQL-plugin-Audit/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-</footer>
-</article>
-<nav class=pagination role=pagination>
-<i class="fa fa-chevron-left"></i>
-<span>&nbsp;1 / 6&nbsp;</span>
-<a href=https://ops.m114.org/page/2/><i class="fa fa-chevron-right"></i></a>
-</nav>
-</div>
-</div>
-</div>
-<script src=https://ops.m114.org/js/ui.js></script>
-<script src=https://ops.m114.org/js/menus.js></script>
-</body>
+</footer></div>
+<div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部>
+<i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论>
+<i class="fas fa-comment fa-fw"></i>
+</a>
+</div><script type=text/javascript src=/lib/smooth-scroll/smooth-scroll.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/typeit/typeit.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:10},data:{"id-1":"日常运维记录"},typeit:{cursorChar:null,cursorSpeed:null,data:{"id-1":["id-1"]},duration:null,speed:null}}</script><script type=text/javascript src=/js/theme.min.js></script></body>
 </html>

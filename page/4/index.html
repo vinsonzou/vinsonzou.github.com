@@ -1,313 +1,144 @@
-<!doctype html><html lang=en>
+<!doctype html><html lang=zh-cn>
 <head>
+<meta name=generator content="Hugo 0.88.1">
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=description content>
-<meta name=generator content="Hugo 0.88.1">
-<title>ops</title>
-<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css><!--[if lte IE 8]><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css><![endif]--><!--[if gt IE 8]><!-->
-<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css><!--<![endif]--><!--[if lte IE 8]><link rel=stylesheet href=https://ops.m114.org/css/side-menu-old-ie.css><![endif]--><!--[if gt IE 8]><!-->
-<link rel=stylesheet href=https://ops.m114.org/css/side-menu.css><!--<![endif]-->
-<link rel=stylesheet href=https://ops.m114.org/css/blackburn.css>
-<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css>
-<link rel=preconnect href=https://fonts.gstatic.com>
-<link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel=stylesheet type=text/css>
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<link rel=alternate type=application/rss+xml title=ops href=https://ops.m114.org/index.xml>
-<link rel=stylesheet href=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css>
-<script async src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js></script>
-<script>hljs.initHighlightingOnLoad()</script>
-<link rel="shortcut icon" href=https://ops.m114.org/img/favicon.ico type=image/x-icon>
-</head>
-<body>
-<div id=layout>
-<a href=#menu id=menuLink class=menu-link>
-<span></span>
+<meta name=robots content="noodp">
+<meta http-equiv=x-ua-compatible content="IE=edge, chrome=1">
+<title>cloudSky's 小站</title><meta name=Description content="Linux运维"><meta property="og:title" content="cloudSky's 小站">
+<meta property="og:description" content="Linux运维">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ops.m114.org/">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="cloudSky's 小站">
+<meta name=twitter:description content="Linux运维">
+<meta name=application-name content="cloudSky's 小站">
+<meta name=apple-mobile-web-app-title content="cloudSky's 小站"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://ops.m114.org/><link rel=alternate href=/index.xml type=application/rss+xml title="cloudSky's 小站">
+<link rel=feed href=/index.xml type=application/rss+xml title="cloudSky's 小站"><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"WebSite","url":"https:\/\/ops.m114.org\/","inLanguage":"zh-CN","author":{"@type":"Person","name":"CloudSky"},"description":"Linux运维","name":"cloudSky's 小站"}</script></head>
+<body header-desktop header-mobile><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script>
+<div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="cloudSky's 小站">cloudSky's 小站</a>
+</div>
+<div class=menu>
+<div class=menu-inner><a class=menu-item href=/posts/><i class="fa fa-list fa-fw"></i> 所有文章 </a><a class=menu-item href=/tags/><i class="fa fa-tags fa-fw"></i> 标签 </a><a class=menu-item href=/categories/> 分类 </a><a class=menu-item href=/links/><i class="fa fa-link fa-fw"></i> </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
 </a>
-<div id=menu>
-<a class="pure-menu-heading brand" href=https://ops.m114.org/>Ops</a>
-<div class=pure-menu>
-<ul class=pure-menu-list>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://ops.m114.org/about/><i class="fa fa-user fa-fw"></i>About</a>
-</li>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://ops.m114.org/post/><i class="fa fa-list fa-fw"></i>Posts</a>
-</li>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://ops.m114.org/tags/><i class="fa fa-tags fa-fw"></i>Tags</a>
-</li>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://ops.m114.org/><i class="fa fa-home fa-fw"></i>Home</a>
-</li>
-</ul>
-</div>
-<div class="pure-menu social">
-<ul class=pure-menu-list>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://ops.m114.org/index.xml><i class="fas fa-rss fa-fw"></i>RSS</a>
-</li>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://github.com/vinsonzou rel=me target=_blank><i class="fab fa-github-square fa-fw"></i>GitHub</a>
-</li>
-</ul>
-</div>
-<div>
-<div class=small-print>
-<small>&copy; 2014-2021. All rights reserved.</small>
-</div>
-<div class=small-print>
-<small>Built with&nbsp;<a href=https://gohugo.io/ target=_blank>Hugo</a></small>
-<small>Theme&nbsp;<a href=https://github.com/yoshiharuyamashita/blackburn target=_blank>Blackburn</a></small>
 </div>
 </div>
 </div>
-<div id=main>
-<div class=header>
-<h1>ops</h1>
-<h2>records of learning.</h2>
+</header><header class=mobile id=header-mobile>
+<div class=header-container>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="cloudSky's 小站">cloudSky's 小站</a>
 </div>
-<div class=content>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/go-build-small-exec/>go如何编译出更小的执行文件?</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2017/08/23, 23:38</time>
+<div class=menu-toggle id=menu-toggle-mobile>
+<span></span><span></span><span></span>
 </div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/golang>golang</a>
 </div>
+<div class=menu id=menu-mobile><a class=menu-item href=/posts/ title><i class="fa fa-list fa-fw"></i>所有文章</a><a class=menu-item href=/tags/ title><i class="fa fa-tags fa-fw"></i>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/links/ title><i class="fa fa-link fa-fw"></i></a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
+</a></div>
 </div>
 </header>
-<p>
-前言 本地默认编译出的文件总与官方提供的二进制文件大很多，Google之后得知通过编译参数控制还能编译出更小的可执行文件。
-加-ldflags参数 在程序编译的时候可以加上-ldflags "-s -w" 参数来优化编译程序, 其实通过去除部分连接和调试等信息来使得编译之后的执行程序更小,具体参数如下:
--a 强制编译所有依赖包 -s 去掉符号表信息, panic时候的stack trace就没有任何文件名/行号信息了 -w 去掉DWARF调试信息，得到的程序就不能用gdb调试了 测试代码如下
-package main import "fmt" func main() { fmt.Println("Hello, 世界") } 编译方式及文件大小对比结果如下
-编译参数 大小 go build(默认) 1.6M go build -ldflags -s 1.6M go build -ldflags &ldquo;-s -w&rdquo; 1.1M go build -ldflags -w 1.1M 测试环境: go 1.
-</p>
-<footer>
-<a href=https://ops.m114.org/post/go-build-small-exec/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-</footer>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/golang-command-line-flags/>Golang之command line flag笔记</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2017/08/16, 23:28</time>
+<div class="search-dropdown desktop">
+<div id=search-dropdown-desktop></div>
 </div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/golang>golang</a>
+<div class="search-dropdown mobile">
+<div id=search-dropdown-mobile></div>
 </div>
-</div>
-</header>
-<p>
-示例代码，仅供参考
-package main import ( "fmt" "flag" ) func main() { // golang的flag包的一些基本使用方法 // 待使用的变量 var id int var name string var male bool // 是否已经解析 fmt.Println("parsed? = ", flag.Parsed()) // 设置flag参数 (变量指针，参数名，默认值，帮助信息) // 也可以用以下带返回值的方法代替，不过他们返回的是指针，比较麻烦点 // Int(name string, value int, usage string) *int // String(name string, value string, usage string) *string // Bool(name string, value bool, usage string) *bool flag.IntVar(&id, "id", 123, "help msg for id") flag.
-</p>
-<footer>
-<a href=https://ops.m114.org/post/golang-command-line-flags/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-</footer>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/analysing-java-core-dump/>analysing java core dump</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2017/07/23, 16:32</time>
-</div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/%E8%BD%AC%E8%BD%BD>转载</a>
-</div>
-</div>
-</header>
-<p>
-In this post, I will show you how you can debug a Java core file to see what caused your JVM to crash. I will be using a core file I generated in my previous post: Generating a Java Core Dump.
-There are different ways you can diagnose a JVM crash, listed below:
-The hs_err_pid log file
-When a fatal error occurs in the JVM, it produces an error log file called hs_err_pidXXXX.
-</p>
-<footer>
-<a href=https://ops.m114.org/post/analysing-java-core-dump/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-</footer>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/error-500-oops-priv_sock_get_cmd-solved/>Error: 500 OOPS: priv_sock_get_cmd [SOLVED]</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2017/07/23, 16:21</time>
-</div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/vsftpd>vsftpd</a>
-</div>
-</div>
-</header>
-<p>
-Troubleshooting seccomp filter sanboxing with vsftpd 3.0.x
+<main class=main>
+<div class=container><div class="page home" posts><div class=home-profile><h1 class=home-title>cloudSky's 小站</h1><h2 class=home-subtitle><div id=id-1 class=typeit></div></h2><div class=links><a href=https://github.com/vinsonzou title=GitHub target=_blank rel="noopener noreffer me"><i class="fab fa-github-alt fa-fw"></i></a><a href=/index.xml title=RSS target=_blank rel="noopener noreffer me"><i class="fas fa-rss fa-fw"></i></a></div></div>
+<article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/go-build-small-exec/>go如何编译出更小的执行文件?</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2017-08-23>2017-08-23</time></span></div><div class=content>前言 本地默认编译出的文件总与官方提供的二进制文件大很多，Google之后得知通过编译参数控制还能编译出更小的可执行文件。 加-ldflags参</div><div class=post-footer>
+<a href=/go-build-small-exec/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/golang/>golang</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/golang-command-line-flags/>Golang之command line flag笔记</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2017-08-16>2017-08-16</time></span></div><div class=content>示例代码，仅供参考 package main import ( "fmt" "flag" ) func main() { // golang的flag包的一些基本使用方法 // 待使用的变量 var id int var name string var male bool // 是否已经解析 fmt.Println("parsed? = ", flag.Parsed()) // 设</div><div class=post-footer>
+<a href=/golang-command-line-flags/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/golang/>golang</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/analysing-java-core-dump/>analysing java core dump</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2017-07-23>2017-07-23</time></span></div><div class=content>In this post, I will show you how you can debug a Java core file to see what caused your JVM to crash. I will be using a core file I generated in my previous post: Generating a Java Core Dump. There are different ways you can diagnose a JVM crash, listed below: The hs_err_pid log file When a fatal error occurs in the JVM, it produces an error log</div><div class=post-footer>
+<a href=/analysing-java-core-dump/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/%E8%BD%AC%E8%BD%BD/>转载</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/error-500-oops-priv_sock_get_cmd-solved/>Error: 500 OOPS: priv_sock_get_cmd [SOLVED]</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2017-07-23>2017-07-23</time></span></div><div class=content>Troubleshooting seccomp filter sanboxing with vsftpd 3.0.x
 The following error may occur on ftp clients with vsftpd 3.0.x:
 500 OOPS: priv_sock_get_cmd This is caused by seccomp filter sanboxing, which is enabled by default on amd64. To workaround this issue, disable seccomp filter sanboxing:
-echo 'seccomp_sandbox=NO' >> vsftpd.conf service vsftpd restart For further information, refer to Red Hat bug #845980.
-</p>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/python-version-cmp/>Python版本号比较</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2017/07/23, 16:13</time>
+echo 'seccomp_sandbox=NO' >> vsftpd.conf service vsftpd restart For further information, refer to Red Hat bug #845980.</div><div class=post-footer>
+<a href=/error-500-oops-priv_sock_get_cmd-solved/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/vsftpd/>vsftpd</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/python-version-cmp/>Python版本号比较</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2017-07-23>2017-07-23</time></span></div><div class=content>第一种比较方法(StrictVersion) StrictVersion是由.将一串带有预发布标签的数字分隔为两个或三个部分的格式，预发布标签</div><div class=post-footer>
+<a href=/python-version-cmp/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/python/>Python</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/sync-waitgroup/>golang sync.WaitGroup解决goroutine同步</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2017-07-03>2017-07-03</time></span></div><div class=content>**go提供了sync包和channel来解决协程同步和通讯。**新手对channel通道操作起来更容易产生死锁，如果时缓冲的channel</div><div class=post-footer>
+<a href=/sync-waitgroup/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/golang/>golang</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/fix-tomcat-upgrade-error/>Tomcat 7.0.76 Invalid character found in the request target</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2017-03-27>2017-03-27</time></span></div><div class=content>故障现象 升级tomcat至7.0.76后，GET请求的参数中含有中文时tomcat返回400错误，tomcat错误日志如下 java.lang.IllegalArgumentException: Invalid character found in the request target. The</div><div class=post-footer>
+<a href=/fix-tomcat-upgrade-error/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/tomcat/>tomcat</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/solve-too-many-connections/>不重启解决Too Many Connections</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2017-01-07>2017-01-07</time></span></div><div class=content>当发生Too many connections时，即使是DBA也无法登录到数据库，一般的做法是修改配置文件的max_connections参数，然后重</div><div class=post-footer>
+<a href=/solve-too-many-connections/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/mysql/>MySQL</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/use-regular-expressions-in-openresty/>在 OpenResty 中使用正则表达式</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2016-10-30>2016-10-30</time></span></div><div class=content>在 OpenResty 中使用正则表达式，社区中推荐的做法是使用ngx.re api。比如匹配一个字符串是否为 http(s) 的链接，可以这么写： local function is_http_url(s) return ngx.re.find(s, [[^https?://[\w-_?.:/+=&#%]+$]]) end 压测一下: local t =</div><div class=post-footer>
+<a href=/use-regular-expressions-in-openresty/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/%E8%BD%AC%E8%BD%BD/>转载</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/python-count-duplicate-values-of-list/>[python]统计列表中重复项的出现次数</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2016-10-30>2016-10-30</time></span></div><div class=content>列表项由数字、字符串组成，统计重复项 >>> from collections import defaultdict >>> d = defaultdict(int) >>> for x in [1, 2, 3, 1, 2, 3, 1]: ... d[x] += 1 ... >>> dict(d) {1: 3, 2: 2, 3: 2} >>> >>> c = defaultdict(int) >>> for y in ['a', 'b', 'a', 'c', 'c']: ... c[y] += 1 ...</div><div class=post-footer>
+<a href=/python-count-duplicate-values-of-list/>阅读全文</a></div>
+</article><ul class=pagination><li class=page-item>
+<span class=page-link>
+<a href=/>1</a>
+</span>
+</li><li class=page-item>
+<span class=page-link>
+<a href=/page/2/>2</a>
+</span>
+</li><li class=page-item>
+<span class=page-link>
+<a href=/page/3/>3</a>
+</span>
+</li><li class="page-item active">
+<span class=page-link>
+<a href=/page/4/>4</a>
+</span>
+</li><li class=page-item>
+<span class=page-link>
+<a href=/page/5/>5</a>
+</span>
+</li><li class=page-item>
+<span class=page-link>
+<a href=/page/6/>6</a>
+</span>
+</li></ul></div></div>
+</main><footer class=footer>
+<div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.88.1">Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+</div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2014 - 2021</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://ops.m114.org target=_blank>CloudSky</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div>
 </div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/Python>Python</a>
-</div>
-</div>
-</header>
-<p>
-第一种比较方法(StrictVersion) StrictVersion是由.将一串带有预发布标签的数字分隔为两个或三个部分的格式，预发布标签的字母只能是a或者b加数字版本号，而且只能在最末尾。预发布a版本低于b版本，并且预发布版本永远小于正式发布版本。
-合法格式:
-0.4 0.4.0 (相同版本) 0.4.1 0.5a1 (预发布版本a1，小于0.5，即0.5版本更新) 0.5b3 0.5 0.9.6 1.0 1.0.4a3 1.0.4b1 1.0.4 非法格式:
-1 没有.分隔，需要分隔为2-3部分 2.7.2.2 被分隔成了4个部分 1.3.a4 预发布版本号应该在数字后面 1.3pl1 预发布版本号字母标签只能是a或者b 1.3B1 预发布版本号字母标签只能是a或者b 1.3c 预发布版本号字母标签后必须加数字版本号 版本比较
-In [1]: from distutils.version import StrictVersion In [2]: StrictVersion('1.2a3') &lt; StrictVersion('1.2b1') Out[2]: True In [3]: StrictVersion('1.2b1') &lt; StrictVersion('1.2') Out[3]: True In [4]: StrictVersion('1.2') &lt; StrictVersion('1.2.1') Out[4]: True In [5]: StrictVersion('1.2') == StrictVersion('1.2.0') Out[5]: True In [6]: StrictVersion('1.2.11') &lt; StrictVersion('1.11') Out[6]: True 第二种比较方法(LooseVersion) LooseVersion格式要求和StrictVersion不同，或者说它并没有任何规定的格式。由一系列数字,相隔时间或字母的字符串组成，并没有一个严格的格式。在进行比较的时候按照数字大小，字符串按字典顺序比较。
-</p>
-<footer>
-<a href=https://ops.m114.org/post/python-version-cmp/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-</footer>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/sync-WaitGroup/>golang sync.WaitGroup解决goroutine同步</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2017/07/03, 16:27</time>
-</div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/golang>golang</a>
-</div>
-</div>
-</header>
-<p>
-**go提供了sync包和channel来解决协程同步和通讯。**新手对channel通道操作起来更容易产生死锁，如果时缓冲的channel还要考虑channel放入和取出数据的速率问题。
-从字面就可以理解，sync.WaitGroup是等待一组协程结束。它实现了一个类似任务队列的结构，你可以向队列中加入任务，任务完成后就把任务从队列中移除，如果队列中的任务没有全部完成，队列就会触发阻塞以阻止程序继续运行。
-sync.WaitGroup只有3个方法，Add()，Done()，Wait()。 其中Done()是Add(-1)的别名。简单的来说，使用Add()添加计数，Done()减掉一个计数，计数不为0, 阻塞Wait()的运行。
-简单示例如下：
-package main import ( "fmt" "sync" ) var waitgroup sync.WaitGroup func test(shownum int) { fmt.Println(shownum) waitgroup.Done() //任务完成，将任务队列中的任务数量-1，其实.Done就是.Add(-1) } func main() { for i := 0; i &lt; 10; i++ { waitgroup.Add(1) //每创建一个goroutine，就把任务队列中任务的数量+1 go test(i) } waitgroup.Wait() //.Wait()这里会发生阻塞，直到队列中所有的任务结束就会解除阻塞 fmt.Println("done!") } Ps: 此文为学习记录，如有错误还请多指教。
-</p>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/fix-tomcat-upgrade-error/>Tomcat 7.0.76 Invalid character found in the request target</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2017/03/27, 13:08</time>
-</div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/tomcat>tomcat</a>
-</div>
-</div>
-</header>
-<p>
-故障现象
-升级tomcat至7.0.76后，GET请求的参数中含有中文时tomcat返回400错误，tomcat错误日志如下
-java.lang.IllegalArgumentException: Invalid character found in the request target. The valid characters are defined in RFC 7230 and RFC 3986 at org.apache.coyote.http11.InternalNioInputBuffer.parseRequestLine(InternalNioInputBuffer.java:317) at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1000) at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:637) at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1756) at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.run(NioEndpoint.java:1715) at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886) at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908) at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) at java.lang.Thread.run(Thread.java:662) 原因
-查询Changelog得知，tomcat 7.0.73版本添加了Add additional checks for valid characters to the HTTP request line parsing so invalid request lines are rejected sooner导致。
-解决方法
-请求前自行转义 更换tomcat为较低版本(不过tomcat的这次更改是依据RFC7230 and RFC 3986,在往后的版本,不会移除该特性)
-</p>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/solve-too-many-connections/>不重启解决Too Many Connections</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2017/01/07, 19:57</time>
-</div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/MySQL>MySQL</a>
-</div>
-</div>
-</header>
-<p>
-当发生Too many connections时，即使是DBA也无法登录到数据库，一般的做法是修改配置文件的max_connections参数，然后重启数据库，这样业务就有几秒钟的中断，对于线上不能中断的数据库就只能采用另外一种极客的方法了，用gdb直接修改mysqld内存中max_connections的值，具体做法如下：
-gdb -p $(cat /data/mysql/mysql-server.pid) -ex "set max_connections=3000" -batch 改进方法如下
-通常有两个参数控制控制最大连接数：
-max_connections：该实例允许最大的连接数 max_user_connections：该实例允许每个用户的最大连接数 每个人要根据自己业务量，设置合适的值，不要盲目设置过大，但也不可设置过小，因为MySQL在连接数上升的情况下性能下降非常厉害，如果需要大量连接，这时可以引入thread_pool，所以我们需要保持一个原则：系统创建的用户（给应用使用用户）数 * max_user_connections &lt; max_connections。
-</p>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/use-regular-expressions-in-OpenResty/>在 OpenResty 中使用正则表达式</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2016/10/30, 10:48</time>
-</div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/%E8%BD%AC%E8%BD%BD>转载</a>
-</div>
-</div>
-</header>
-<p>
-在 OpenResty 中使用正则表达式，社区中推荐的做法是使用ngx.re api。比如匹配一个字符串是否为 http(s) 的链接，可以这么写：
-local function is_http_url(s) return ngx.re.find(s, [[^https?://[\w-_?.:/+=&#%]+$]]) end 压测一下:
-local t = os.clock() for _ = 1, max do is_http_url("http://blog.stackoverflow.com/2016/10/Stack-Overflow-92-Podcast-The-Guerilla-Guide-to-Interviewing/?cb=1") end print("Time cost: ", os.clock() - t, " s") 结果：Time cost: 2.663408 s
-另一种做法是使用 lua 的正则语法：
-local function is_http_url(s) return s:find("^https?://[%w-_%.%?:/%+=&#%%]+$") end 结果：Time cost: 0.652221 s
-呃，怎么前者耗时是后者的四倍？lua 内置的小小状态机实现，居然打败了大名鼎鼎的 PCRE 库！说好的社区推荐呢！
-仔细一瞧，前者的确漏了点东西。ngx.re默认不会缓存正则表达式编译后的结果。一般在其它编程平台上，我们都会先把字符串编译成正则表达式，再用到正则函数中。比如在 Python 里使用 re.compile。所以赶紧补上：
-return ngx.re.find(s, [[^https?://[\w-_?.:/+=&#%]+$]], "o") 好，这次性能有了明显提升：Time cost: 0.646518 s
-不错不错，虽然还是跟 lua 的实现不分上下，考虑到 lua 本身的正则支持非常弱（比如连 (foo|bar) 这种形式都不行），而且语法离经叛道，改用 ngx.
-</p>
-<footer>
-<a href=https://ops.m114.org/post/use-regular-expressions-in-OpenResty/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-</footer>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/python-count-duplicate-values-of-list/>[python]统计列表中重复项的出现次数</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2016/10/30, 10:27</time>
-</div>
-</div>
-</header>
-<p>
-列表项由数字、字符串组成，统计重复项
->>> from collections import defaultdict >>> d = defaultdict(int) >>> for x in [1, 2, 3, 1, 2, 3, 1]: ... d[x] += 1 ... >>> dict(d) {1: 3, 2: 2, 3: 2} >>> >>> c = defaultdict(int) >>> for y in ['a', 'b', 'a', 'c', 'c']: ... c[y] += 1 ... >>> dict(c) {'a': 2, 'c': 2, 'b': 1} 列表项由字典组成，统计某一键值的重复数
->>> e = defaultdict(int) >>> for x in [{'a': 1, 'b': 1}, {'a': 2, 'b':1}, {'a': 1, 'c': 3}]: .
-</p>
-<footer>
-<a href=https://ops.m114.org/post/python-count-duplicate-values-of-list/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-</footer>
-</article>
-<nav class=pagination role=pagination>
-<a href=https://ops.m114.org/page/3/><i class="fa fa-chevron-left"></i></a>
-<span>&nbsp;4 / 6&nbsp;</span>
-<a href=https://ops.m114.org/page/5/><i class="fa fa-chevron-right"></i></a>
-</nav>
-</div>
-</div>
-</div>
-<script src=https://ops.m114.org/js/ui.js></script>
-<script src=https://ops.m114.org/js/menus.js></script>
-</body>
+</footer></div>
+<div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部>
+<i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论>
+<i class="fas fa-comment fa-fw"></i>
+</a>
+</div><script type=text/javascript src=/lib/smooth-scroll/smooth-scroll.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/typeit/typeit.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:10},data:{"id-1":"日常运维记录"},typeit:{cursorChar:null,cursorSpeed:null,data:{"id-1":["id-1"]},duration:null,speed:null}}</script><script type=text/javascript src=/js/theme.min.js></script></body>
 </html>

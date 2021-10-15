@@ -1,98 +1,69 @@
-<!doctype html><html lang=en>
+<!doctype html><html lang=zh-cn>
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=description content>
-<meta name=generator content="Hugo 0.88.1">
-<title>webauthn &#183; ops</title>
-<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css><!--[if lte IE 8]><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css><![endif]--><!--[if gt IE 8]><!-->
-<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css><!--<![endif]--><!--[if lte IE 8]><link rel=stylesheet href=https://ops.m114.org/css/side-menu-old-ie.css><![endif]--><!--[if gt IE 8]><!-->
-<link rel=stylesheet href=https://ops.m114.org/css/side-menu.css><!--<![endif]-->
-<link rel=stylesheet href=https://ops.m114.org/css/blackburn.css>
-<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css>
-<link rel=preconnect href=https://fonts.gstatic.com>
-<link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel=stylesheet type=text/css>
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<link rel=alternate type=application/rss+xml title=ops href=https://ops.m114.org/tags/webauthn/index.xml>
-<link rel=stylesheet href=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css>
-<script async src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js></script>
-<script>hljs.initHighlightingOnLoad()</script>
-<link rel="shortcut icon" href=https://ops.m114.org/img/favicon.ico type=image/x-icon>
-</head>
-<body>
-<div id=layout>
-<a href=#menu id=menuLink class=menu-link>
-<span></span>
+<meta name=robots content="noodp">
+<meta http-equiv=x-ua-compatible content="IE=edge, chrome=1">
+<title>webauthn - 标签 - cloudSky's 小站</title><meta name=Description content="Linux运维"><meta property="og:title" content="webauthn">
+<meta property="og:description" content="Linux运维">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ops.m114.org/tags/webauthn/">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="webauthn">
+<meta name=twitter:description content="Linux运维">
+<meta name=application-name content="cloudSky's 小站">
+<meta name=apple-mobile-web-app-title content="cloudSky's 小站"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://ops.m114.org/tags/webauthn/><link rel=alternate href=/tags/webauthn/index.xml type=application/rss+xml title="cloudSky's 小站">
+<link rel=feed href=/tags/webauthn/index.xml type=application/rss+xml title="cloudSky's 小站"><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css></head>
+<body header-desktop header-mobile><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script>
+<div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="cloudSky's 小站">cloudSky's 小站</a>
+</div>
+<div class=menu>
+<div class=menu-inner><a class=menu-item href=/posts/><i class="fa fa-list fa-fw"></i> 所有文章 </a><a class=menu-item href=/tags/><i class="fa fa-tags fa-fw"></i> 标签 </a><a class=menu-item href=/categories/> 分类 </a><a class=menu-item href=/links/><i class="fa fa-link fa-fw"></i> </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
 </a>
-<div id=menu>
-<a class="pure-menu-heading brand" href=https://ops.m114.org/>Ops</a>
-<div class=pure-menu>
-<ul class=pure-menu-list>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://ops.m114.org/about/><i class="fa fa-user fa-fw"></i>About</a>
-</li>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://ops.m114.org/post/><i class="fa fa-list fa-fw"></i>Posts</a>
-</li>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://ops.m114.org/tags/><i class="fa fa-tags fa-fw"></i>Tags</a>
-</li>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://ops.m114.org/><i class="fa fa-home fa-fw"></i>Home</a>
-</li>
-</ul>
-</div>
-<div class="pure-menu social">
-<ul class=pure-menu-list>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://ops.m114.org/tags/webauthn/index.xml><i class="fas fa-rss fa-fw"></i>RSS</a>
-</li>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://github.com/vinsonzou rel=me target=_blank><i class="fab fa-github-square fa-fw"></i>GitHub</a>
-</li>
-</ul>
-</div>
-<div>
-<div class=small-print>
-<small>&copy; 2014-2021. All rights reserved.</small>
-</div>
-<div class=small-print>
-<small>Built with&nbsp;<a href=https://gohugo.io/ target=_blank>Hugo</a></small>
-<small>Theme&nbsp;<a href=https://github.com/yoshiharuyamashita/blackburn target=_blank>Blackburn</a></small>
 </div>
 </div>
 </div>
-<div id=main>
-<div class=header>
-<h1>webauthn</h1>
+</header><header class=mobile id=header-mobile>
+<div class=header-container>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="cloudSky's 小站">cloudSky's 小站</a>
 </div>
-<div class=content>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/github-supports-webauthn-for-security-keys/>GitHub supports WebAuthn</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2019/08/23, 15:05</time>
+<div class=menu-toggle id=menu-toggle-mobile>
+<span></span><span></span><span></span>
 </div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/webauthn>webauthn</a>
 </div>
+<div class=menu id=menu-mobile><a class=menu-item href=/posts/ title><i class="fa fa-list fa-fw"></i>所有文章</a><a class=menu-item href=/tags/ title><i class="fa fa-tags fa-fw"></i>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/links/ title><i class="fa fa-link fa-fw"></i></a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
+</a></div>
 </div>
 </header>
-<p>
-为了提高 GitHub 帐户的安全性，GitHub平台2019-08-21通过支持 Web 身份验证（WebAuthn）标准宣布了易于使用的身份验证选项。通过 WebAuthn，开发者们现在可以使用物理安全密钥在 GitHub 上进行双因素身份验证。如果你没有物理安全密钥，也可以将笔记本电脑或手机用作安全密钥。
-以下是 GitHub 上支持的物理安全密钥的组合：
-Windows，macOS，Linux 和 Android：基于 Firefox 和 Chrome 的浏览器 Windows：Edge macOS：Safari，目前在技术预览版中，但即将推出 iOS：Brave 浏览器以及使用新的 YubiKey 5Ci 你还可以使用以下浏览器和生物识别选项：
-Windows 上的 Microsoft Edge，使用 Windows Hello（带面部识别，指纹识别器或 PIN） 在 macOS 的 Chrome 上使用 Touch ID 在 Android 的 Chrome 上使用指纹识别器 由于平台支持尚未普及，GitHub 目前支持安全密钥作为补充的第二个因素，将来，GitHub 会将安全密钥作为主要的第二因素。
-来源：https://github.blog/2019-08-21-github-supports-webauthn-for-security-keys/
-</p>
-</article>
+<div class="search-dropdown desktop">
+<div id=search-dropdown-desktop></div>
 </div>
+<div class="search-dropdown mobile">
+<div id=search-dropdown-mobile></div>
 </div>
+<main class=main>
+<div class=container><div class="page archive"><h2 class="single-title animated pulse faster"><i class="fas fa-tag fa-fw"></i>&nbsp;webauthn</h2><h3 class=group-title>2019</h3><article class=archive-item>
+<a href=/github-supports-webauthn-for-security-keys/ class=archive-item-link>GitHub supports WebAuthn</a>
+<span class=archive-item-date>08-23</span>
+</article></div></div>
+</main><footer class=footer>
+<div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.88.1">Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+</div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2014 - 2021</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://ops.m114.org target=_blank>CloudSky</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div>
 </div>
-<script src=https://ops.m114.org/js/ui.js></script>
-<script src=https://ops.m114.org/js/menus.js></script>
-</body>
+</footer></div>
+<div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部>
+<i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论>
+<i class="fas fa-comment fa-fw"></i>
+</a>
+</div><script type=text/javascript src=/lib/smooth-scroll/smooth-scroll.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:10}}</script><script type=text/javascript src=/js/theme.min.js></script></body>
 </html>

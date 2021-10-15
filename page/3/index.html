@@ -1,306 +1,141 @@
-<!doctype html><html lang=en>
+<!doctype html><html lang=zh-cn>
 <head>
+<meta name=generator content="Hugo 0.88.1">
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=description content>
-<meta name=generator content="Hugo 0.88.1">
-<title>ops</title>
-<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css><!--[if lte IE 8]><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-old-ie-min.css><![endif]--><!--[if gt IE 8]><!-->
-<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css><!--<![endif]--><!--[if lte IE 8]><link rel=stylesheet href=https://ops.m114.org/css/side-menu-old-ie.css><![endif]--><!--[if gt IE 8]><!-->
-<link rel=stylesheet href=https://ops.m114.org/css/side-menu.css><!--<![endif]-->
-<link rel=stylesheet href=https://ops.m114.org/css/blackburn.css>
-<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css>
-<link rel=preconnect href=https://fonts.gstatic.com>
-<link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel=stylesheet type=text/css>
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<link rel=alternate type=application/rss+xml title=ops href=https://ops.m114.org/index.xml>
-<link rel=stylesheet href=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css>
-<script async src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js></script>
-<script>hljs.initHighlightingOnLoad()</script>
-<link rel="shortcut icon" href=https://ops.m114.org/img/favicon.ico type=image/x-icon>
-</head>
-<body>
-<div id=layout>
-<a href=#menu id=menuLink class=menu-link>
-<span></span>
+<meta name=robots content="noodp">
+<meta http-equiv=x-ua-compatible content="IE=edge, chrome=1">
+<title>cloudSky's 小站</title><meta name=Description content="Linux运维"><meta property="og:title" content="cloudSky's 小站">
+<meta property="og:description" content="Linux运维">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ops.m114.org/">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="cloudSky's 小站">
+<meta name=twitter:description content="Linux运维">
+<meta name=application-name content="cloudSky's 小站">
+<meta name=apple-mobile-web-app-title content="cloudSky's 小站"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://ops.m114.org/><link rel=alternate href=/index.xml type=application/rss+xml title="cloudSky's 小站">
+<link rel=feed href=/index.xml type=application/rss+xml title="cloudSky's 小站"><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"WebSite","url":"https:\/\/ops.m114.org\/","inLanguage":"zh-CN","author":{"@type":"Person","name":"CloudSky"},"description":"Linux运维","name":"cloudSky's 小站"}</script></head>
+<body header-desktop header-mobile><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script>
+<div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="cloudSky's 小站">cloudSky's 小站</a>
+</div>
+<div class=menu>
+<div class=menu-inner><a class=menu-item href=/posts/><i class="fa fa-list fa-fw"></i> 所有文章 </a><a class=menu-item href=/tags/><i class="fa fa-tags fa-fw"></i> 标签 </a><a class=menu-item href=/categories/> 分类 </a><a class=menu-item href=/links/><i class="fa fa-link fa-fw"></i> </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
 </a>
-<div id=menu>
-<a class="pure-menu-heading brand" href=https://ops.m114.org/>Ops</a>
-<div class=pure-menu>
-<ul class=pure-menu-list>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://ops.m114.org/about/><i class="fa fa-user fa-fw"></i>About</a>
-</li>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://ops.m114.org/post/><i class="fa fa-list fa-fw"></i>Posts</a>
-</li>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://ops.m114.org/tags/><i class="fa fa-tags fa-fw"></i>Tags</a>
-</li>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://ops.m114.org/><i class="fa fa-home fa-fw"></i>Home</a>
-</li>
-</ul>
-</div>
-<div class="pure-menu social">
-<ul class=pure-menu-list>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://ops.m114.org/index.xml><i class="fas fa-rss fa-fw"></i>RSS</a>
-</li>
-<li class=pure-menu-item>
-<a class=pure-menu-link href=https://github.com/vinsonzou rel=me target=_blank><i class="fab fa-github-square fa-fw"></i>GitHub</a>
-</li>
-</ul>
-</div>
-<div>
-<div class=small-print>
-<small>&copy; 2014-2021. All rights reserved.</small>
-</div>
-<div class=small-print>
-<small>Built with&nbsp;<a href=https://gohugo.io/ target=_blank>Hugo</a></small>
-<small>Theme&nbsp;<a href=https://github.com/yoshiharuyamashita/blackburn target=_blank>Blackburn</a></small>
 </div>
 </div>
 </div>
-<div id=main>
-<div class=header>
-<h1>ops</h1>
-<h2>records of learning.</h2>
+</header><header class=mobile id=header-mobile>
+<div class=header-container>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="cloudSky's 小站">cloudSky's 小站</a>
 </div>
-<div class=content>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/openresty-case/>本人OpenResty实践集合</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2021/06/01, 10:08</time>
+<div class=menu-toggle id=menu-toggle-mobile>
+<span></span><span></span><span></span>
 </div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/OpenResty>OpenResty</a>&nbsp;/
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/Nginx>Nginx</a>
 </div>
+<div class=menu id=menu-mobile><a class=menu-item href=/posts/ title><i class="fa fa-list fa-fw"></i>所有文章</a><a class=menu-item href=/tags/ title><i class="fa fa-tags fa-fw"></i>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/links/ title><i class="fa fa-link fa-fw"></i></a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
+</a></div>
 </div>
 </header>
-<p>
-优化 支持Brotli Upstream主动健康检查 动态证书 OCSP缓存 ssl分布式session mTLS支持 命令行执行 Nginx支持WebP gogs/gitea webhook 灰度发布 基于IP（动态IP） 自定义变量 微信机器人 安全相关 授权下载 简易CC防护 Gitea通过飞书SSO认证 安全token 防止SNI信息泄露 API服务 IP查询服务 MQ解耦，对接阿里云RocketMQ 对接Kafka 对接Pulsar 缓存服务 主动缓存 SDK缓存 特权进程实践 ipsec操作 代理相关 http代理 SNI代理
-</p>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/golang-aes-crypt/>golang encrypt/decrypt by MacOS keychain</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2021/05/18, 10:08</time>
+<div class="search-dropdown desktop">
+<div id=search-dropdown-desktop></div>
 </div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/golang>golang</a>
+<div class="search-dropdown mobile">
+<div id=search-dropdown-mobile></div>
 </div>
+<main class=main>
+<div class=container><div class="page home" posts><div class=home-profile><h1 class=home-title>cloudSky's 小站</h1><h2 class=home-subtitle><div id=id-1 class=typeit></div></h2><div class=links><a href=https://github.com/vinsonzou title=GitHub target=_blank rel="noopener noreffer me"><i class="fab fa-github-alt fa-fw"></i></a><a href=/index.xml title=RSS target=_blank rel="noopener noreffer me"><i class="fas fa-rss fa-fw"></i></a></div></div>
+<article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/openresty-case/>本人OpenResty实践集合</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2021-06-01>2021-06-01</time></span></div><div class=content>优化 支持Brotli Upstream主动健康检查 动态证书 OCSP缓存 ssl分布式session mTLS支持 命令行执行 Nginx支持WebP gogs/gitea</div><div class=post-footer>
+<a href=/openresty-case/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/openresty/>OpenResty</a>,&nbsp;<a href=/tags/nginx/>Nginx</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/golang-aes-crypt/>golang encrypt/decrypt by MacOS keychain</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2021-05-18>2021-05-18</time></span></div><div class=content>功能如下: AES加密/解密 AES秘钥从MacOS keychain读取 支持Data At Rest Encryption (DARE)，加密文件内存占用小于100K，参考 sio</div><div class=post-footer>
+<a href=/golang-aes-crypt/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/golang/>golang</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/tcp-proxy-get-source-ip-by-proxy_protocol/>4层TCP转发后获得真实IP之proxy_protocol</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2021-04-19>2021-04-19</time></span></div><div class=content>需求 后端TCP Server在经过TCP代理(nginx stream模块)后，程序不做任何调整获得用户真实IP。 了解到cloudflare的s</div><div class=post-footer>
+<a href=/tcp-proxy-get-source-ip-by-proxy_protocol/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/golang/>golang</a>,&nbsp;<a href=/tags/proxy_protocol/>proxy_protocol</a>,&nbsp;<a href=/tags/cloudflare/>cloudflare</a>,&nbsp;<a href=/tags/go-mmproxy/>go-mmproxy</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/centos8-build-mysql5.7.30/>CentOS8编译安装MySQL 5.7.30</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2020-06-18>2020-06-18</time></span></div><div class=content>环境 OS: CentOS 8.2 MySQL: 5.7.30 报错信息 1. 编译报错 CMake Error at plugin/group_replication/libmysqlgcs/rpcgen.cmake:100 (MESSAGE): Could not find rpcgen Call Stack (most recent call first): plugin/group_replication/libmysqlgcs/CMakeLists.txt:38 (INCLUDE) 解决方法 yum --enablerepo=PowerTools install rpcgen 2. systemctl start mysqld.service报错无法启动问题 报错信息</div><div class=post-footer>
+<a href=/centos8-build-mysql5.7.30/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/mysql/>MySQL</a>,&nbsp;<a href=/tags/centos8/>centos8</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/centos8-install-on-centos7-kvm/>CentOS7上如何支持安装CentOS8 VM</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2020-06-12>2020-06-12</time></span></div><div class=content>环境 宿主机：CentOS 7.5 VM: CentOS 8.1 查看支持os osinfo-query os 当前环境默认不支持CentOS8/RHEL8，需做如下操作: # osinfo-db 需更新至osinfo-db-</div><div class=post-footer>
+<a href=/centos8-install-on-centos7-kvm/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/libvirt/>libvirt</a>,&nbsp;<a href=/tags/kvm/>kvm</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/github-supports-webauthn-for-security-keys/>GitHub supports WebAuthn</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2019-08-23>2019-08-23</time></span></div><div class=content>为了提高 GitHub 帐户的安全性，GitHub平台2019-08-21通过支持 Web 身份验证（WebAuthn）标准宣布了易于使用的身份验证选项。通过 We</div><div class=post-footer>
+<a href=/github-supports-webauthn-for-security-keys/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/webauthn/>webauthn</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/python-while-1-vs-for-whiletrue/>Python的while 1跟while True到底有什么区别?</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2019-01-23>2019-01-23</time></span></div><div class=content>定义两个方法,分别使用while循环 def t1(): while 1: pass def t2(): while True: pass 单从功能上说,两种无任何区别,那么,来看看字节码上的区别: For Python 2.x import dis #载入反编译模块</div><div class=post-footer>
+<a href=/python-while-1-vs-for-whiletrue/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/python/>Python</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/libvirt-4.5-virmoduleloadfile53/>libvirt 4.5 virModuleLoadFile:53</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2019-01-15>2019-01-15</time></span></div><div class=content>CentOS 7.5.1804的libvirt从3.9升级至4.5时，无法启动，报错如下： error : virModuleLoadFile:53 : internal error: Failed to load module &lsquo;/usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so&rsquo;: /usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so: undefined symbol: rbd_diff_iterate2 详细报错如下: [root@localhost ~]# libvirtd -v 2019-01-15 08:56:53.433+0000: 34181: info :</div><div class=post-footer>
+<a href=/libvirt-4.5-virmoduleloadfile53/>阅读全文</a></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/python-mysql-pooleddb/>Python数据库连接池实例--PooledDB</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2018-10-16>2018-10-16</time></span></div><div class=content>不用连接池的MySQL连接方法 import MySQLdb conn= MySQLdb.connect(host='127.0.0.1',user='root',passwd='password',db='DB_test',port=3306) cur=conn.cursor() SQL="select * from table_test" cur.execute(SQL) r=cur.fetchall() cur.close() conn.close() 用连接池后的连接方法 import MySQLdb from DBUtils.PooledDB import PooledDB pool = PooledDB(MySQLdb,5,host='127.0.0.1',user='root',passwd='password',db='DB_test',port=3306) #5为连接池里的最少连接数 conn = pool.connection() #以后每次需要</div><div class=post-footer>
+<a href=/python-mysql-pooleddb/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/python/>Python</a>,&nbsp;<a href=/tags/mysql/>MySQL</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/request-https-server-in-custom-ip-with-curl/>使用curl请求https时指定IP</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2018-06-06>2018-06-06</time></span></div><div class=content>一般使用curl请求自定义IP地址并且指定HOST的话可以这样。 curl -H 'Host: ops.m114.org' http://127.0.0.1 但是如果你需要请求的地址是HTTPS就不行了 $ curl -H 'Host: ops.m114.org' https://127.0.0.1/ curl: (51) Unable to communicate</div><div class=post-footer>
+<a href=/request-https-server-in-custom-ip-with-curl/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/curl/>curl</a></div></div>
+</article><ul class=pagination><li class=page-item>
+<span class=page-link>
+<a href=/>1</a>
+</span>
+</li><li class=page-item>
+<span class=page-link>
+<a href=/page/2/>2</a>
+</span>
+</li><li class="page-item active">
+<span class=page-link>
+<a href=/page/3/>3</a>
+</span>
+</li><li class=page-item>
+<span class=page-link>
+<a href=/page/4/>4</a>
+</span>
+</li><li class=page-item>
+<span class=page-link>
+<a href=/page/5/>5</a>
+</span>
+</li><li class=page-item>
+<span class=page-link>
+<a href=/page/6/>6</a>
+</span>
+</li></ul></div></div>
+</main><footer class=footer>
+<div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.88.1">Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+</div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2014 - 2021</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://ops.m114.org target=_blank>CloudSky</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div>
 </div>
-</header>
-<p>
-功能如下:
-AES加密/解密 AES秘钥从MacOS keychain读取 支持Data At Rest Encryption (DARE)，加密文件内存占用小于100K，参考 sio
-</p>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/tcp-proxy-get-source-ip-by-proxy_protocol/>4层TCP转发后获得真实IP之proxy_protocol</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2021/04/19, 17:01</time>
-</div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/golang>golang</a>&nbsp;/
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/proxy_protocol>proxy_protocol</a>&nbsp;/
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/cloudflare>cloudflare</a>&nbsp;/
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/go-mmproxy>go-mmproxy</a>
-</div>
-</div>
-</header>
-<p>
-需求 后端TCP Server在经过TCP代理(nginx stream模块)后，程序不做任何调整获得用户真实IP。 了解到cloudflare的spectrum产品与我们这个需求一致，刚好有细节和源码分享，参考如下:
-https://blog.cloudflare.com/mmproxy-creative-way-of-preserving-client-ips-in-spectrum/ https://github.com/cloudflare/mmproxy 有公司参考cloudflare的mmproxy，用golang实现了性能更优的版本。
-https://github.com/path-network/go-mmproxy 部署 拓扑与cloudflare spectrum产品一样，示意图如下：
-go > 1.11 as root or with CAP_NET_RAW capability to be able to set IP_TRANSPARENT socket opt. go get github.com/path-network/go-mmproxy sudo setcap cap_net_raw=+ep $(readlink -f $(which go-mmproxy)) 测试 启动 # go-mmproxy监听端口为25577，TCP后端端口为25578 ip rule add from 127.0.0.1/8 iif lo table 123 ip route add local 0.0.0.0/0 dev lo table 123 go-mmproxy -l 0.
-</p>
-<footer>
-<a href=https://ops.m114.org/post/tcp-proxy-get-source-ip-by-proxy_protocol/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-</footer>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/centos8-build-mysql5.7.30/>CentOS8编译安装MySQL 5.7.30</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2020/06/18, 13:41</time>
-</div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/MySQL>MySQL</a>&nbsp;/
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/centos8>centos8</a>
-</div>
-</div>
-</header>
-<p>
-环境 OS: CentOS 8.2 MySQL: 5.7.30 报错信息 1. 编译报错 CMake Error at plugin/group_replication/libmysqlgcs/rpcgen.cmake:100 (MESSAGE): Could not find rpcgen Call Stack (most recent call first): plugin/group_replication/libmysqlgcs/CMakeLists.txt:38 (INCLUDE) 解决方法
-yum --enablerepo=PowerTools install rpcgen 2. systemctl start mysqld.service报错无法启动问题 报错信息如下
-[ERROR] Can't start server: can't check PID filepath: No such file or directory /usr/lib/systemd/system/mysqld.service 默认配置如下
-# Copyright (c) 2015, 2016, Oracle and/or its affiliates. All rights reserved. # # This program is free software; you can redistribute it and/or modify # it under the terms of the GNU General Public License, version 2.
-</p>
-<footer>
-<a href=https://ops.m114.org/post/centos8-build-mysql5.7.30/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-</footer>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/centos8-install-on-centos7-kvm/>CentOS7上如何支持安装CentOS8 VM</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2020/06/12, 13:12</time>
-</div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/libvirt>libvirt</a>&nbsp;/
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/kvm>kvm</a>
-</div>
-</div>
-</header>
-<p>
-环境 宿主机：CentOS 7.5 VM: CentOS 8.1 查看支持os osinfo-query os
-当前环境默认不支持CentOS8/RHEL8，需做如下操作:
-# osinfo-db 需更新至osinfo-db-20190805-2 yum install osinfo-db-tools osinfo-db 报错处理 ERROR &lsquo;virConnect&rsquo; object has no attribute &lsquo;baselineHypervisorCPU&rsquo;
-将 libvirt-python-3.9.0-1 升级至 libvirt-python-4.5.0-1 即可解决
-参考链接: https://github.com/virt-manager/virt-manager/issues/57
-</p>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/github-supports-webauthn-for-security-keys/>GitHub supports WebAuthn</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2019/08/23, 15:05</time>
-</div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/webauthn>webauthn</a>
-</div>
-</div>
-</header>
-<p>
-为了提高 GitHub 帐户的安全性，GitHub平台2019-08-21通过支持 Web 身份验证（WebAuthn）标准宣布了易于使用的身份验证选项。通过 WebAuthn，开发者们现在可以使用物理安全密钥在 GitHub 上进行双因素身份验证。如果你没有物理安全密钥，也可以将笔记本电脑或手机用作安全密钥。
-以下是 GitHub 上支持的物理安全密钥的组合：
-Windows，macOS，Linux 和 Android：基于 Firefox 和 Chrome 的浏览器 Windows：Edge macOS：Safari，目前在技术预览版中，但即将推出 iOS：Brave 浏览器以及使用新的 YubiKey 5Ci 你还可以使用以下浏览器和生物识别选项：
-Windows 上的 Microsoft Edge，使用 Windows Hello（带面部识别，指纹识别器或 PIN） 在 macOS 的 Chrome 上使用 Touch ID 在 Android 的 Chrome 上使用指纹识别器 由于平台支持尚未普及，GitHub 目前支持安全密钥作为补充的第二个因素，将来，GitHub 会将安全密钥作为主要的第二因素。
-来源：https://github.blog/2019-08-21-github-supports-webauthn-for-security-keys/
-</p>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/python-while-1-vs-for-whiletrue/>Python的while 1跟while True到底有什么区别?</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2019/01/23, 17:46</time>
-</div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/Python>Python</a>
-</div>
-</div>
-</header>
-<p>
-定义两个方法,分别使用while循环
-def t1(): while 1: pass def t2(): while True: pass 单从功能上说,两种无任何区别,那么,来看看字节码上的区别:
-For Python 2.x
-import dis #载入反编译模块,Python内置的 dis.dis(t1) #对应的是while 1,下面是输出 2 0 SETUP_LOOP 3 (to 6) 3 >> 3 JUMP_ABSOLUTE 3 >> 6 LOAD_CONST 0 (None) 9 RETURN_VALUE dis.dis(t2) #对应的是while True,下面是输出 2 0 SETUP_LOOP 10 (to 13) >> 3 LOAD_GLOBAL 0 (True) 6 POP_JUMP_IF_FALSE 12 3 9 JUMP_ABSOLUTE 3 >> 12 POP_BLOCK >> 13 LOAD_CONST 0 (None) 16 RETURN_VALUE 很明显, while 1的字节码只有while True的一半.
-</p>
-<footer>
-<a href=https://ops.m114.org/post/python-while-1-vs-for-whiletrue/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-</footer>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/libvirt-4.5-virModuleLoadFile53/>libvirt 4.5 virModuleLoadFile:53</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2019/01/15, 17:27</time>
-</div>
-</div>
-</header>
-<p>
-CentOS 7.5.1804的libvirt从3.9升级至4.5时，无法启动，报错如下：
-error : virModuleLoadFile:53 : internal error: Failed to load module &lsquo;/usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so&rsquo;: /usr/lib64/libvirt/storage-backend/libvirt_storage_backend_rbd.so: undefined symbol: rbd_diff_iterate2
-详细报错如下:
-[root@localhost ~]# libvirtd -v 2019-01-15 08:56:53.433+0000: 34181: info : libvirt version: 4.5.0, package: 10.el7_6.3 (CentOS BuildSystem &lt;http://bugs.centos.org>, 2018-11-28-20:51:39, x86-01.bsys.centos.org) 2019-01-15 08:56:53.433+0000: 34181: info : hostname: localhost.localdomain 2019-01-15 08:56:53.433+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5da690 classname=virAccessManager 2019-01-15 08:56:53.434+0000: 34181: info : virObjectNew:248 : OBJECT_NEW: obj=0x56166f5cbfe0 classname=virAccessManager 2019-01-15 08:56:53.434+0000: 34181: info : virObjectRef:382 : OBJECT_REF: obj=0x56166f5da690 2019-01-15 08:56:53.
-</p>
-<footer>
-<a href=https://ops.m114.org/post/libvirt-4.5-virModuleLoadFile53/>Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-</footer>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/python-mysql-PooledDB/>Python数据库连接池实例--PooledDB</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2018/10/16, 16:27</time>
-</div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/Python>Python</a>&nbsp;/
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/MySQL>MySQL</a>
-</div>
-</div>
-</header>
-<p>
-不用连接池的MySQL连接方法
-import MySQLdb conn= MySQLdb.connect(host='127.0.0.1',user='root',passwd='password',db='DB_test',port=3306) cur=conn.cursor() SQL="select * from table_test" cur.execute(SQL) r=cur.fetchall() cur.close() conn.close() 用连接池后的连接方法
-import MySQLdb from DBUtils.PooledDB import PooledDB pool = PooledDB(MySQLdb,5,host='127.0.0.1',user='root',passwd='password',db='DB_test',port=3306) #5为连接池里的最少连接数 conn = pool.connection() #以后每次需要数据库连接就是用connection()函数获取连接就好了 cur=conn.cursor() SQL="select * from table_test" cur.execute(SQL) r=cur.fetchall() cur.close() conn.close() PooledDB的参数
-mincached: 最少的空闲连接数，如果空闲连接数小于这个数，pool会创建一个新的连接 maxcached: 最大的空闲连接数，如果空闲连接数大于这个数，pool会关闭空闲连接 maxconnections: 最大的连接数， blocking: 当连接数达到最大的连接数时，在请求连接的时候，如果这个值是True，请求连接的程序会一直等待，直到当前连接数小于最大连接数，如果这个值是False，会报错， maxshared: 当连接数达到这个数，新请求的连接会分享已经分配出去的连接 连接池对性能的提升表现在
-在程序创建连接的时候，可以从一个空闲的连接中获取，不需要重新初始化连接，提升获取连接的速度 关闭连接的时候，把连接放回连接池，而不是真正的关闭，所以可以减少频繁地打开和关闭连接 避免mysql连接数耗尽 DBUtils下载地址：https://pypi.python.org/pypi/DBUtils/
-</p>
-</article>
-<article>
-<header>
-<h2><a href=https://ops.m114.org/post/request-https-server-in-custom-ip-with-curl/>使用curl请求https时指定IP</a></h2>
-<div class=post-meta>
-<div>
-<i class="fa fa-calendar fa-fw"></i>
-<time>2018/06/06, 10:00</time>
-</div>
-<div>
-<i class="fa fa-tags fa-fw"></i>
-<a class=post-taxonomy-tag href=https://ops.m114.org/tags/curl>curl</a>
-</div>
-</div>
-</header>
-<p>
-一般使用curl请求自定义IP地址并且指定HOST的话可以这样。
-curl -H 'Host: ops.m114.org' http://127.0.0.1 但是如果你需要请求的地址是HTTPS就不行了
-$ curl -H 'Host: ops.m114.org' https://127.0.0.1/ curl: (51) Unable to communicate securely with peer: requested domain name does not match the server's certificate. 因为IP绝大多数情况下无法通过域名证书验证，还好curl中有--resolv参数可以让我们方便的指定域名的解析
-# --resolv参数形式 --resolv host:port:address # 示例 curl --resolv ops.m114.org:443:127.0.0.1 https://ops.m114.org Ps:
-小编经常使用的CentOS6的自带curl就不支持此参数，幸运的是CentOS7已经支持。
-</p>
-</article>
-<nav class=pagination role=pagination>
-<a href=https://ops.m114.org/page/2/><i class="fa fa-chevron-left"></i></a>
-<span>&nbsp;3 / 6&nbsp;</span>
-<a href=https://ops.m114.org/page/4/><i class="fa fa-chevron-right"></i></a>
-</nav>
-</div>
-</div>
-</div>
-<script src=https://ops.m114.org/js/ui.js></script>
-<script src=https://ops.m114.org/js/menus.js></script>
-</body>
+</footer></div>
+<div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部>
+<i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论>
+<i class="fas fa-comment fa-fw"></i>
+</a>
+</div><script type=text/javascript src=/lib/smooth-scroll/smooth-scroll.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/typeit/typeit.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:10},data:{"id-1":"日常运维记录"},typeit:{cursorChar:null,cursorSpeed:null,data:{"id-1":["id-1"]},duration:null,speed:null}}</script><script type=text/javascript src=/js/theme.min.js></script></body>
 </html>
