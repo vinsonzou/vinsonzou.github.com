@@ -54,6 +54,10 @@
 <main class=main>
 <div class=container><div class="page home" posts><div class=home-profile><h1 class=home-title>cloudSky's 小站</h1><h2 class=home-subtitle><div id=id-1 class=typeit></div></h2><div class=links><a href=https://github.com/vinsonzou title=GitHub target=_blank rel="noopener noreffer me"><i class="fab fa-github-alt fa-fw"></i></a><a href=/index.xml title=RSS target=_blank rel="noopener noreffer me"><i class="fas fa-rss fa-fw"></i></a></div></div>
 <article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/post/python-count-duplicate-values-of-list/>[python]统计列表中重复项的出现次数</a>
+</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2016-10-30>2016-10-30</time></span></div><div class=content>列表项由数字、字符串组成，统计重复项 >>> from collections import defaultdict >>> d = defaultdict(int) >>> for x in [1, 2, 3, 1, 2, 3, 1]: ... d[x] += 1 ... >>> dict(d) {1: 3, 2: 2, 3: 2} >>> >>> c = defaultdict(int) >>> for y in ['a', 'b', 'a', 'c', 'c']: ... c[y] += 1 ...</div><div class=post-footer>
+<a href=/post/python-count-duplicate-values-of-list/>阅读全文</a></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
 <a href=/post/ceph-key-concepts-backup/>Ceph核心概念备忘录</a>
 </h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2016-08-26>2016-08-26</time></span></div><div class=content>scrub ceph-osd会定义启动scrub线程，扫描部分对象（哪些对象？），和其他副本比较，发现是否一致。如果发现不一致，ceph会抛出这个异常</div><div class=post-footer>
 <a href=/post/ceph-key-concepts-backup/>阅读全文</a></div>
@@ -95,11 +99,6 @@ InnoDB: Unable to lock ./ibdata1, error: 11 InnoDB: Check that you do not alread
 <a href=/post/linux-performance-tools/>运维工具汇总之 性能调优，性能监控，性能测试</a>
 </h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2016-07-03>2016-07-03</time></span></div><div class=content>性能调优 性能监控 性能测试</div><div class=post-footer>
 <a href=/post/linux-performance-tools/>阅读全文</a></div>
-</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
-<a href=/post/git-common-command/>Git常用命令备忘</a>
-</h1><div class=post-meta><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-publish>发布于 <time datetime=2016-06-16>2016-06-16</time></span></div><div class=content>配置 Git的设置文件为.gitconfig，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。 # 显示当前的Git配置 $ git config --list</div><div class=post-footer>
-<a href=/post/git-common-command/>阅读全文</a><div class=post-tags>
-<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/git/>git</a></div></div>
 </article><ul class=pagination><li class=page-item>
 <span class=page-link>
 <a href=/>1</a>
