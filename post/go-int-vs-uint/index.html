@@ -9,14 +9,14 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://ops.m114.org/post/go-int-vs-uint/"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2021-10-20T16:47:09+08:00">
-<meta property="article:modified_time" content="2021-10-20T16:47:09+08:00">
+<meta property="article:modified_time" content="2021-11-01T10:10:00+08:00">
 <meta name=twitter:card content="summary">
 <meta name=twitter:title content="Golang中uint、int, int8, int16, int32, int64区别">
 <meta name=twitter:description content="Golang各种数值占据的大小 int 类型大小为 8 字节 int8 类型大小为 1 字节 int16 类型大小为 2 字节 int32 类型大小为 4 字节 int64 类型大小为 8 字节 go语言中的int的">
 <meta name=application-name content="cloudSky's 小站">
 <meta name=apple-mobile-web-app-title content="cloudSky's 小站"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
 <link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
-<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://ops.m114.org/post/go-int-vs-uint/><link rel=prev href=https://ops.m114.org/post/deploy-to-ghpages-with-github-action/><link rel=next href=https://ops.m114.org/post/aliyun-linux-3-build-wireguard-module/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Golang中uint、int, int8, int16, int32, int64区别","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/ops.m114.org\/post\/go-int-vs-uint\/"},"genre":"posts","keywords":"golang","wordcount":234,"url":"https:\/\/ops.m114.org\/post\/go-int-vs-uint\/","datePublished":"2021-10-20T16:47:09+08:00","dateModified":"2021-10-20T16:47:09+08:00","publisher":{"@type":"Organization","name":"CloudSky"},"author":{"@type":"Person","name":"CloudSky"},"description":""}</script></head>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://ops.m114.org/post/go-int-vs-uint/><link rel=prev href=https://ops.m114.org/post/deploy-to-ghpages-with-github-action/><link rel=next href=https://ops.m114.org/post/aliyun-linux-3-build-wireguard-module/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=/lib/fontawesome-free/all.min.css><link rel=stylesheet href=/lib/animate/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Golang中uint、int, int8, int16, int32, int64区别","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/ops.m114.org\/post\/go-int-vs-uint\/"},"genre":"posts","keywords":"golang","wordcount":390,"url":"https:\/\/ops.m114.org\/post\/go-int-vs-uint\/","datePublished":"2021-10-20T16:47:09+08:00","dateModified":"2021-11-01T10:10:00+08:00","publisher":{"@type":"Organization","name":"CloudSky"},"author":{"@type":"Person","name":"CloudSky"},"description":""}</script></head>
 <body header-desktop header-mobile><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'auto'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'auto'==='dark')&&document.body.setAttribute('theme','dark')</script>
 <div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
 <div class=header-wrapper>
@@ -57,7 +57,7 @@
 <div class="toc-content always-active" id=toc-content-auto></div>
 </div><article class="page single"><h1 class="single-title animated flipInX">Golang中uint、int, int8, int16, int32, int64区别</h1><div class=post-meta>
 <div class=post-meta-line><span class=post-author><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw"></i>CloudSky</a></span>&nbsp;<span class=post-category>收录于 <a href=/categories/golang/><i class="far fa-folder fa-fw"></i>golang</a></span></div>
-<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-10-20>2021-10-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 234 字&nbsp;
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-10-20>2021-10-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 390 字&nbsp;
 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
 </div><div class="details toc" id=toc-static kept>
 <div class="details-summary toc-title">
@@ -86,11 +86,57 @@ uint64: 0 ~ 18446744073709551615
 </code></pre><blockquote>
 <p>由于Go语言中各int类型的取值范围不同，各int类型间进行数据转换时，会存在数据截断的问题，在使用过程中要引起注意。</p>
 </blockquote>
+<p>拓展:</p>
+<p><strong>字符串和各种int类型之间的相互转换方式</strong></p>
+<ul>
+<li>
+<p>string转成int</p>
+<ul>
+<li>int, err := strconv.Atoi(string)</li>
+</ul>
+</li>
+<li>
+<p>string转成int64</p>
+<ul>
+<li>int64, err := strconv.ParseInt(string, 10, 64)</li>
+</ul>
+</li>
+<li>
+<p>string转成uint64</p>
+<ul>
+<li>uint64, err := strconv.ParseUInt(string, 10, 64)</li>
+</ul>
+</li>
+<li>
+<p>int转成string</p>
+<ul>
+<li>string := strconv.Itoa(int)</li>
+</ul>
+</li>
+<li>
+<p>int64转成string</p>
+<ul>
+<li>string := strconv.FormatInt(int64, 10)</li>
+</ul>
+</li>
+<li>
+<p>uint64转成string(10进制)</p>
+<ul>
+<li>string := strconv.FormatUint(uint64, 10)</li>
+</ul>
+</li>
+<li>
+<p>uint64转成string(16进制)</p>
+<ul>
+<li>string := strconv.FormatUint(uint64, 16)</li>
+</ul>
+</li>
+</ul>
 </div><div class=post-footer id=post-footer>
 <div class=post-info>
 <div class=post-info-line>
 <div class=post-info-mod>
-<span>更新于 2021-10-20</span>
+<span>更新于 2021-11-01</span>
 </div>
 <div class=post-info-license></div>
 </div>
