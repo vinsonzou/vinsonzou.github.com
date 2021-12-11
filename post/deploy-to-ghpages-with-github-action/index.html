@@ -8,7 +8,7 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://ops.m114.org/post/deploy-to-ghpages-with-github-action/"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2021-10-14T16:35:08+08:00">
-<meta property="article:modified_time" content="2021-10-14T16:35:08+08:00">
+<meta property="article:modified_time" content="2021-12-09T20:18:13+08:00">
 <meta name=twitter:card content="summary">
 <meta name=twitter:title content="Hugo使用Github Action自动部署到Github Pages">
 <meta name=twitter:description content="目的 hugo手动部署到github pages流程: 使用hugo生成静态网页 将静态网页push到建好的github pages repo中，一般是<">
@@ -18,7 +18,7 @@
 <link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
 <link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=canonical href=https://ops.m114.org/post/deploy-to-ghpages-with-github-action/><link rel=prev href=https://ops.m114.org/post/openresty-privileged-agent/><link rel=next href=https://ops.m114.org/post/go-int-vs-uint/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=/lib/fontawesome-free/all.min.css>
 <noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=/lib/animate/animate.min.css>
-<noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Hugo使用Github Action自动部署到Github Pages","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/ops.m114.org\/post\/deploy-to-ghpages-with-github-action\/"},"genre":"posts","keywords":"Hugo","wordcount":1039,"url":"https:\/\/ops.m114.org\/post\/deploy-to-ghpages-with-github-action\/","datePublished":"2021-10-14T16:35:08+08:00","dateModified":"2021-10-14T16:35:08+08:00","publisher":{"@type":"Organization","name":"CloudSky"},"author":{"@type":"Person","name":"CloudSky"},"description":""}</script></head>
+<noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Hugo使用Github Action自动部署到Github Pages","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/ops.m114.org\/post\/deploy-to-ghpages-with-github-action\/"},"genre":"posts","keywords":"Hugo","wordcount":1098,"url":"https:\/\/ops.m114.org\/post\/deploy-to-ghpages-with-github-action\/","datePublished":"2021-10-14T16:35:08+08:00","dateModified":"2021-12-09T20:18:13+08:00","publisher":{"@type":"Organization","name":"CloudSky"},"author":{"@type":"Person","name":"CloudSky"},"description":""}</script></head>
 <body header-desktop header-mobile><script type=text/javascript>function setTheme(a){document.body.setAttribute('theme',a)}function saveTheme(a){window.localStorage&&localStorage.setItem('theme',a)}function getMeta(b){const a=document.getElementsByTagName('meta');for(let c=0;c<a.length;c++)if(a[c].getAttribute('name')===b)return a[c];return''}if(window.localStorage&&localStorage.getItem('theme')){let a=localStorage.getItem('theme');a==='light'||a==='dark'||a==='black'?setTheme(a):window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light')}else'auto'==='light'||'auto'==='dark'||'auto'==='black'?(setTheme('auto'),saveTheme('auto')):(saveTheme('auto'),window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light'));let metaColors={light:'#f8f8f8',dark:'#252627',black:'#000000'};getMeta('theme-color').content=metaColors[document.body.getAttribute('theme')]</script>
 <div id=back-to-top></div>
 <div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
@@ -61,7 +61,7 @@
 <div class=post-meta-line>
 <span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author>CloudSky</a>
 </span></div>
-<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-10-14>2021-10-14</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=2021-10-14>2021-10-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1039 字&nbsp;
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-10-14>2021-10-14</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=2021-12-09>2021-12-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1098 字&nbsp;
 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
 </div><div class="details toc" id=toc-static kept>
 <div class="details-summary toc-title">
@@ -73,6 +73,7 @@
 <li><a href=#目的>目的</a></li>
 <li><a href=#流程及原理>流程及原理</a></li>
 <li><a href=#详细步骤>详细步骤</a></li>
+<li><a href=#更新记录>更新记录</a></li>
 </ul>
 </nav></div>
 </div><div class=content id=content><h2 id=目的>目的</h2>
@@ -112,6 +113,9 @@
 </span><span class=w>
 </span><span class=w>    </span><span class=nt>steps</span><span class=p>:</span><span class=w>
 </span><span class=w>      </span>- <span class=nt>uses</span><span class=p>:</span><span class=w> </span><span class=l>actions/checkout@v2	# 引用actions/checkout这个action，与所在的github仓库同名</span><span class=w>
+</span><span class=w>        </span><span class=nt>with</span><span class=p>:</span><span class=w>
+</span><span class=w>          </span><span class=nt>submodules</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span><span class=w>          </span><span class=nt>fetch-depth</span><span class=p>:</span><span class=w> </span><span class=m>0</span><span class=w>
 </span><span class=w>
 </span><span class=w>      </span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Setup Hugo	# 步骤名自取</span><span class=w>
 </span><span class=w>        </span><span class=nt>uses</span><span class=p>:</span><span class=w> </span><span class=l>peaceiris/actions-hugo@v2	# hugo官方提供的action，用于在任务环境中获取hugo</span><span class=w>
@@ -131,12 +135,16 @@
 </span><span class=w>          </span><span class=nt>publish_dir</span><span class=p>:</span><span class=w> </span><span class=l>./public	# 注意这里指的是要发布哪个文件夹的内容，而不是指发布到目的仓库的什么位置，因为hugo默认生成静态网页到public文件夹，所以这里发布public文件夹里的内容</span><span class=w>
 </span><span class=w>          </span><span class=nt>publish_branch</span><span class=p>:</span><span class=w> </span><span class=l>master</span><span class=w> </span><span class=c># 发布到哪个branch</span><span class=w>
 </span><span class=w>          </span><span class=nt>commit_message</span><span class=p>:</span><span class=w> </span><span class=l>${{ github.event.head_commit.message }}</span><span class=w>
-</span></code></pre></div></div>
+</span></code></pre></div><h2 id=更新记录>更新记录</h2>
+<ul>
+<li>2021-12-09: checkout支持submodules</li>
+</ul>
+</div>
 <div class=post-footer id=post-footer>
 <div class=post-info>
 <div class=post-info-line>
 <div class=post-info-mod>
-<span>更新于 2021-10-14</span>
+<span>更新于 2021-12-09</span>
 </div>
 <div class=post-info-license></div>
 </div>
@@ -160,7 +168,7 @@
 Please enable JavaScript to view the comments powered by <a href=https://utteranc.es/>Utterances</a>.
 </noscript></div></article></div>
 </main><footer class=footer>
-<div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.89.4">Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/HEIGE-PCloud/DoIt target=_blank rel="noopener noreffer" title="DoIt 0.2.13"><i class="far fa-edit fa-fw"></i> DoIt</a>
+<div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.90.1">Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/HEIGE-PCloud/DoIt target=_blank rel="noopener noreffer" title="DoIt 0.2.13"><i class="far fa-edit fa-fw"></i> DoIt</a>
 </div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2014 - 2021</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://ops.m114.org target=_blank rel="noopener noreferrer">CloudSky</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div>
 </div></footer></div>
 <div id=fixed-buttons><a href=#back-to-top id=back-to-top-button class=fixed-button title=回到顶部>
