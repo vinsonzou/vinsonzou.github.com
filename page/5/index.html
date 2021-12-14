@@ -56,6 +56,13 @@
 <main class=main>
 <div class=container><div class="page home" posts><div class=home-profile><h1 class=home-title>cloudSky's 小站</h1><h2 class=home-subtitle><div id=id-1 class=typeit></div></h2><div class=links><a href=https://github.com/vinsonzou title=GitHub target=_blank rel="noopener noreffer me"><i class="fab fa-github-alt fa-fw"></i></a><a href=/index.xml title=RSS target=_blank rel="noopener noreffer me"><i class="fas fa-rss fa-fw"></i></a></div></div>
 <article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/post/fix-tomcat-upgrade-error/>Tomcat 7.0.76 Invalid character found in the request target</a>
+</h1><div class=post-meta>
+<span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author>CloudSky</a>
+</span>&nbsp;<span class=post-publish>发布于 <time datetime=2017-03-27>2017-03-27</time></span></div><div class=content>故障现象 升级tomcat至7.0.76后，GET请求的参数中含有中文时tomcat返回400错误，tomcat错误日志如下 java.lang.IllegalArgumentException: Invalid character found in the request target. The</div><div class=post-footer>
+<a href=/post/fix-tomcat-upgrade-error/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/tomcat/>tomcat</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
 <a href=/post/solve-too-many-connections/>不重启解决Too Many Connections</a>
 </h1><div class=post-meta>
 <span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author>CloudSky</a>
@@ -114,13 +121,6 @@ InnoDB: Unable to lock ./ibdata1, error: 11 InnoDB: Check that you do not alread
 <span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author>CloudSky</a>
 </span>&nbsp;<span class=post-publish>发布于 <time datetime=2016-07-29>2016-07-29</time></span></div><div class=content>环境 ceph version 10.2.2 (45107e21c568dd033c2f0a3107dec8f0b0e58374)ceph-deploy 1.5.34 ceph集群jewel版本部署过程中执行osd激活操作如下 ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2 报错内容如下 [2016-07-29 00:05:19,106][ceph_deploy.conf][DEBUG ] found configuration file at: /root/.cephdeploy.conf [2016-07-29 00:05:19,107][ceph_deploy.cli][INFO ] Invoked (1.5.34): /bin/ceph-deploy osd activate ceph13:/dev/sdb1:/dev/sda2 [2016-07-29 00:05:19,107][ceph_deploy.cli][INFO ] ceph-deploy options: [2016-07-29 00:05:19,108][ceph_deploy.cli][INFO</div><div class=post-footer>
 <a href=/post/ceph-jewel-osd-activate-bug/>阅读全文</a><div class=post-tags>
-<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/ceph/>ceph</a></div></div>
-</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
-<a href=/post/deploy-ceph-using-china-mirror/>使用国内源部署Ceph</a>
-</h1><div class=post-meta>
-<span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author>CloudSky</a>
-</span>&nbsp;<span class=post-publish>发布于 <time datetime=2016-07-28>2016-07-28</time></span></div><div class=content>由于网络方面的原因，Ceph的部署经常受到干扰，通常为了加速部署，基本上大家都是将Ceph的源同步到本地进行安装。根据Ceph中国社区的统计</div><div class=post-footer>
-<a href=/post/deploy-ceph-using-china-mirror/>阅读全文</a><div class=post-tags>
 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/ceph/>ceph</a></div></div>
 </article><ul class=pagination><li class=page-item>
 <span class=page-link>
