@@ -70,23 +70,23 @@
 </div>
 <div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents></nav></div>
 </div><div class=content id=content><p>在linux中有一个tail命令，<code>tail -f</code> 可以实时的监控文件新增加的内容，如果用代码实现这个逻辑，可以使用这个包</p>
-<pre tabindex=0><code>go get github.com/hpcloud/tail
-</code></pre><p>示例代码</p>
-<pre tabindex=0><code>package main
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>go get github.com/hpcloud/tail
+</code></pre></div><p>示例代码</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>main</span>
 
-import (
-    &quot;fmt&quot;
+<span class=kn>import</span> <span class=p>(</span>
+    <span class=s>&#34;fmt&#34;</span>
 
-    &quot;github.com/hpcloud/tail&quot;
-)
+    <span class=s>&#34;github.com/hpcloud/tail&#34;</span>
+<span class=p>)</span>
 
-func main() {
-    t, _ := tail.TailFile(&quot;/tmp/log.txt&quot;, tail.Config{Follow: true})
-    for line := range t.Lines {
-        fmt.Println(line.Text)
-    }
-}
-</code></pre></div>
+<span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+    <span class=nx>t</span><span class=p>,</span> <span class=nx>_</span> <span class=o>:=</span> <span class=nx>tail</span><span class=p>.</span><span class=nf>TailFile</span><span class=p>(</span><span class=s>&#34;/tmp/log.txt&#34;</span><span class=p>,</span> <span class=nx>tail</span><span class=p>.</span><span class=nx>Config</span><span class=p>{</span><span class=nx>Follow</span><span class=p>:</span> <span class=kc>true</span><span class=p>})</span>
+    <span class=k>for</span> <span class=nx>line</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>t</span><span class=p>.</span><span class=nx>Lines</span> <span class=p>{</span>
+        <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>line</span><span class=p>.</span><span class=nx>Text</span><span class=p>)</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></div></div>
 <div class=post-footer id=post-footer>
 <div class=post-info>
 <div class=post-info-line>
