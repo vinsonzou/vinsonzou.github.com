@@ -1,6 +1,6 @@
 <!doctype html><html lang=zh-cn>
 <head>
-<meta name=generator content="Hugo 0.90.1">
+<meta name=generator content="Hugo 0.91.2">
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=robots content="noodp">
@@ -56,6 +56,13 @@
 <main class=main>
 <div class=container><div class="page home" posts><div class=home-profile><h1 class=home-title>cloudSky's 小站</h1><h2 class=home-subtitle><div id=id-1 class=typeit></div></h2><div class=links><a href=https://github.com/vinsonzou title=GitHub target=_blank rel="noopener noreffer me"><i class="fab fa-github-alt fa-fw"></i></a><a href=/index.xml title=RSS target=_blank rel="noopener noreffer me"><i class="fas fa-rss fa-fw"></i></a></div></div>
 <article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/post/zabbix-alerts-use-telegram/>Zabbix使用Telegram发送报警</a>
+</h1><div class=post-meta>
+<span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author>CloudSky</a>
+</span>&nbsp;<span class=post-publish>发布于 <time datetime=2015-04-25>2015-04-25</time></span></div><div class=content>环境 CentOS 6.X x86_64 编译Telegram yum -y install lua-devel openssl-devel libconfig-devel readline-devel libevent-devel git clone --recursive https://github.com/vysheng/tg.git cd tg ./configure make mkdir /usr/local/tg cp tg-server.pub /usr/local/tg cp bin/telegram-cli /usr/local/tg zabbix报警脚本/usr/local/tg/telegra</div><div class=post-footer>
+<a href=/post/zabbix-alerts-use-telegram/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/zabbix/>zabbix</a>,&nbsp;<a href=/tags/telegram/>Telegram</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
 <a href=/post/monitor-ssl-certificate-expiry/>Monitor SSL certificate expiry</a>
 </h1><div class=post-meta>
 <span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author>CloudSky</a>
@@ -89,8 +96,8 @@
 </span>
 </li></ul></div></div>
 </main><footer class=footer>
-<div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.90.1">Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/HEIGE-PCloud/DoIt target=_blank rel="noopener noreffer" title="DoIt 0.2.13"><i class="far fa-edit fa-fw"></i> DoIt</a>
-</div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2014 - 2021</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://ops.m114.org target=_blank rel="noopener noreferrer">CloudSky</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div>
+<div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.91.2">Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/HEIGE-PCloud/DoIt target=_blank rel="noopener noreffer" title="DoIt 0.2.13"><i class="far fa-edit fa-fw"></i> DoIt</a>
+</div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2014 - 2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://ops.m114.org target=_blank rel="noopener noreferrer">CloudSky</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div>
 </div></footer></div>
 <div id=fixed-buttons><a href=#back-to-top id=back-to-top-button class=fixed-button title=回到顶部>
 <i class="fas fa-arrow-up fa-fw"></i>

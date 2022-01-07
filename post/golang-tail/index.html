@@ -3,22 +3,22 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=robots content="noodp">
-<title class=pjax-title>运维工具汇总之 性能调优，性能监控，性能测试 - cloudSky's 小站</title><meta name=Description content="Linux运维"><meta property="og:title" content="运维工具汇总之 性能调优，性能监控，性能测试">
-<meta property="og:description" content="性能调优 性能监控 性能测试">
+<title class=pjax-title>[Go]实时监控日志文件的包tail - cloudSky's 小站</title><meta name=Description content="Linux运维"><meta property="og:title" content="[Go]实时监控日志文件的包tail">
+<meta property="og:description" content="在linux中有一个tail命令，tail -f 可以实时的监控文件新增加的内容，如果用代码实现这个逻辑，可以使用这个包 go get github.com/hpcloud/tail 示例代码 package main import ( &#34;fmt&#34; &#34;github.com/hpcloud/tail&#34;">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://ops.m114.org/post/linux-performance-tools/"><meta property="article:section" content="posts">
-<meta property="article:published_time" content="2016-07-03T13:39:01+08:00">
-<meta property="article:modified_time" content="2016-07-03T13:39:01+08:00">
+<meta property="og:url" content="https://ops.m114.org/post/golang-tail/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2022-01-07T09:48:03+08:00">
+<meta property="article:modified_time" content="2022-01-07T09:48:03+08:00">
 <meta name=twitter:card content="summary">
-<meta name=twitter:title content="运维工具汇总之 性能调优，性能监控，性能测试">
-<meta name=twitter:description content="性能调优 性能监控 性能测试">
+<meta name=twitter:title content="[Go]实时监控日志文件的包tail">
+<meta name=twitter:description content="在linux中有一个tail命令，tail -f 可以实时的监控文件新增加的内容，如果用代码实现这个逻辑，可以使用这个包 go get github.com/hpcloud/tail 示例代码 package main import ( &#34;fmt&#34; &#34;github.com/hpcloud/tail&#34;">
 <meta name=application-name content="cloudSky's 小站">
 <meta name=apple-mobile-web-app-title content="cloudSky's 小站">
 <meta name=theme-color content="#f8f8f8"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
 <link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
-<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=canonical href=https://ops.m114.org/post/linux-performance-tools/><link rel=prev href=https://ops.m114.org/post/git-common-command/><link rel=next href=https://ops.m114.org/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=/lib/fontawesome-free/all.min.css>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=canonical href=https://ops.m114.org/post/golang-tail/><link rel=prev href=https://ops.m114.org/post/fix-windows-cmd-hang/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=/lib/fontawesome-free/all.min.css>
 <noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=/lib/animate/animate.min.css>
-<noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"运维工具汇总之 性能调优，性能监控，性能测试","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/ops.m114.org\/post\/linux-performance-tools\/"},"genre":"posts","wordcount":12,"url":"https:\/\/ops.m114.org\/post\/linux-performance-tools\/","datePublished":"2016-07-03T13:39:01+08:00","dateModified":"2016-07-03T13:39:01+08:00","publisher":{"@type":"Organization","name":"CloudSky"},"author":{"@type":"Person","name":"CloudSky"},"description":""}</script></head>
+<noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"[Go]实时监控日志文件的包tail","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/ops.m114.org\/post\/golang-tail\/"},"genre":"posts","keywords":"golang","wordcount":89,"url":"https:\/\/ops.m114.org\/post\/golang-tail\/","datePublished":"2022-01-07T09:48:03+08:00","dateModified":"2022-01-07T09:48:03+08:00","publisher":{"@type":"Organization","name":"CloudSky"},"author":{"@type":"Person","name":"CloudSky"},"description":""}</script></head>
 <body header-desktop header-mobile><script type=text/javascript>function setTheme(a){document.body.setAttribute('theme',a)}function saveTheme(a){window.localStorage&&localStorage.setItem('theme',a)}function getMeta(b){const a=document.getElementsByTagName('meta');for(let c=0;c<a.length;c++)if(a[c].getAttribute('name')===b)return a[c];return''}if(window.localStorage&&localStorage.getItem('theme')){let a=localStorage.getItem('theme');a==='light'||a==='dark'||a==='black'?setTheme(a):window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light')}else'auto'==='light'||'auto'==='dark'||'auto'==='black'?(setTheme('auto'),saveTheme('auto')):(saveTheme('auto'),window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light'));let metaColors={light:'#f8f8f8',dark:'#252627',black:'#000000'};getMeta('theme-color').content=metaColors[document.body.getAttribute('theme')]</script>
 <div id=back-to-top></div>
 <div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
@@ -57,54 +57,58 @@
 <div class=container><div class=toc id=toc-auto>
 <h2 class=toc-title>目录</h2>
 <div class="toc-content always-active" id=toc-content-auto></div>
-</div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle","normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC","true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">运维工具汇总之 性能调优，性能监控，性能测试</h1><div class=post-meta>
+</div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle","normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC","true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[Go]实时监控日志文件的包tail</h1><div class=post-meta>
 <div class=post-meta-line>
 <span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author>CloudSky</a>
-</span></div>
-<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2016-07-03>2016-07-03</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=2016-07-03>2016-07-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 12 字&nbsp;
+</span>&nbsp;<span class=post-category>收录于 </span>&nbsp;<span class=post-category>类别 <a href=/categories/golang/><i class="far fa-folder fa-fw"></i>golang</a></span></div>
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2022-01-07>2022-01-07</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=2022-01-07>2022-01-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 89 字&nbsp;
 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
 </div><div class="details toc" id=toc-static kept>
 <div class="details-summary toc-title">
 <span>目录</span>
 <span><i class="details-icon fas fa-angle-right"></i></span>
 </div>
-<div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents>
-<ul>
-<li><a href=#性能调优>性能调优</a></li>
-<li><a href=#性能监控>性能监控</a></li>
-<li><a href=#性能测试>性能测试</a></li>
-</ul>
-</nav></div>
-</div><div class=content id=content><h2 id=性能调优>性能调优</h2>
-<p><img class=lazyload data-src=/img/linux_tuning_tools.png data-srcset="/img/linux_tuning_tools.png, /img/linux_tuning_tools.png 1.5x, /img/linux_tuning_tools.png 2x" data-sizes=auto alt=/img/linux_tuning_tools.png title=/img/linux_tuning_tools.png></p>
-<h2 id=性能监控>性能监控</h2>
-<p><img class=lazyload data-src=/img/linux_observability_tools.png data-srcset="/img/linux_observability_tools.png, /img/linux_observability_tools.png 1.5x, /img/linux_observability_tools.png 2x" data-sizes=auto alt=/img/linux_observability_tools.png title=/img/linux_observability_tools.png></p>
-<h2 id=性能测试>性能测试</h2>
-<p><img class=lazyload data-src=/img/linux_benchmarking_tools.png data-srcset="/img/linux_benchmarking_tools.png, /img/linux_benchmarking_tools.png 1.5x, /img/linux_benchmarking_tools.png 2x" data-sizes=auto alt=/img/linux_benchmarking_tools.png title=/img/linux_benchmarking_tools.png></p>
-</div>
+<div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents></nav></div>
+</div><div class=content id=content><p>在linux中有一个tail命令，<code>tail -f</code> 可以实时的监控文件新增加的内容，如果用代码实现这个逻辑，可以使用这个包</p>
+<pre tabindex=0><code>go get github.com/hpcloud/tail
+</code></pre><p>示例代码</p>
+<pre tabindex=0><code>package main
+
+import (
+    &quot;fmt&quot;
+
+    &quot;github.com/hpcloud/tail&quot;
+)
+
+func main() {
+    t, _ := tail.TailFile(&quot;/tmp/log.txt&quot;, tail.Config{Follow: true})
+    for line := range t.Lines {
+        fmt.Println(line.Text)
+    }
+}
+</code></pre></div>
 <div class=post-footer id=post-footer>
 <div class=post-info>
 <div class=post-info-line>
 <div class=post-info-mod>
-<span>更新于 2016-07-03</span>
+<span>更新于 2022-01-07</span>
 </div>
 <div class=post-info-license></div>
 </div>
 <div class=post-info-line>
 <div class=post-info-md></div>
 <div class=post-info-share>
-<span><a href=# onclick=return!1 title="分享到 Twitter" data-sharer=twitter data-url=https://ops.m114.org/post/linux-performance-tools/ data-title="运维工具汇总之 性能调优，性能监控，性能测试"><i class="fab fa-twitter fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Facebook" data-sharer=facebook data-url=https://ops.m114.org/post/linux-performance-tools/><i class="fab fa-facebook-square fa-fw"></i></a><a href=# onclick=return!1 title="分享到 微博" data-sharer=weibo data-url=https://ops.m114.org/post/linux-performance-tools/ data-title="运维工具汇总之 性能调优，性能监控，性能测试"><i class="fab fa-weibo fa-fw"></i></a></span>
+<span><a href=# onclick=return!1 title="分享到 Twitter" data-sharer=twitter data-url=https://ops.m114.org/post/golang-tail/ data-title=[Go]实时监控日志文件的包tail data-hashtags=golang><i class="fab fa-twitter fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Facebook" data-sharer=facebook data-url=https://ops.m114.org/post/golang-tail/ data-hashtag=golang><i class="fab fa-facebook-square fa-fw"></i></a><a href=# onclick=return!1 title="分享到 微博" data-sharer=weibo data-url=https://ops.m114.org/post/golang-tail/ data-title=[Go]实时监控日志文件的包tail><i class="fab fa-weibo fa-fw"></i></a></span>
 </div>
 </div>
 </div>
 <div class=post-info-more>
-<section class=post-tags></section>
+<section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/golang/>golang</a></section>
 <section>
 <span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span>
 </section>
 </div>
-<div class=post-nav><a href=/post/git-common-command/ class=prev rel=prev title=Git常用命令备忘><i class="fas fa-angle-left fa-fw"></i>Git常用命令备忘</a>
-<a href=/post/fix-dell-idrac-7-error-rac0218-the-maximum-number-of-user-sessions-is-reached/ class=next rel=next title=R420服务器idrac连接用户数超限制>R420服务器idrac连接用户数超限制<i class="fas fa-angle-right fa-fw"></i></a></div>
+<div class=post-nav><a href=/post/fix-windows-cmd-hang/ class=prev rel=prev title=Windows下cmd运行go，出现假死现象，已解决><i class="fas fa-angle-left fa-fw"></i>Windows下cmd运行go，出现假死现象，已解决</a></div>
 </div>
 <div id=comments><div id=utterances></div><noscript>
 Please enable JavaScript to view the comments powered by <a href=https://utteranc.es/>Utterances</a>.
