@@ -56,6 +56,23 @@
 <main class=main>
 <div class=container><div class="page home" posts><div class=home-profile><h1 class=home-title>cloudSky's 小站</h1><h2 class=home-subtitle><div id=id-1 class=typeit></div></h2><div class=links><a href=https://github.com/vinsonzou title=GitHub target=_blank rel="noopener noreffer me"><i class="fab fa-github-alt fa-fw"></i></a><a href=/index.xml title=RSS target=_blank rel="noopener noreffer me"><i class="fas fa-rss fa-fw"></i></a></div></div>
 <article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/post/analysing-java-core-dump/>analysing java core dump</a>
+</h1><div class=post-meta>
+<span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author>CloudSky</a>
+</span>&nbsp;<span class=post-publish>发布于 <time datetime=2017-07-23>2017-07-23</time></span></div><div class=content>In this post, I will show you how you can debug a Java core file to see what caused your JVM to crash. I will be using a core file I generated in my previous post: Generating a Java Core Dump. There are different ways you can diagnose a JVM crash, listed below: The hs_err_pid log file When a fatal error occurs in the JVM, it produces an error log</div><div class=post-footer>
+<a href=/post/analysing-java-core-dump/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/%E8%BD%AC%E8%BD%BD/>转载</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/post/error-500-oops-priv_sock_get_cmd-solved/>Error: 500 OOPS: priv_sock_get_cmd [SOLVED]</a>
+</h1><div class=post-meta>
+<span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author>CloudSky</a>
+</span>&nbsp;<span class=post-publish>发布于 <time datetime=2017-07-23>2017-07-23</time></span></div><div class=content>Troubleshooting seccomp filter sanboxing with vsftpd 3.0.x
+The following error may occur on ftp clients with vsftpd 3.0.x:
+500 OOPS: priv_sock_get_cmd This is caused by seccomp filter sanboxing, which is enabled by default on amd64. To workaround this issue, disable seccomp filter sanboxing:
+echo 'seccomp_sandbox=NO' >> vsftpd.conf service vsftpd restart For further information, refer to Red Hat bug #845980.</div><div class=post-footer>
+<a href=/post/error-500-oops-priv_sock_get_cmd-solved/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/vsftpd/>vsftpd</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
 <a href=/post/python-version-cmp/>Python版本号比较</a>
 </h1><div class=post-meta>
 <span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author>CloudSky</a>
@@ -108,19 +125,6 @@
 <span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author>CloudSky</a>
 </span>&nbsp;<span class=post-publish>发布于 <time datetime=2016-08-17>2016-08-17</time></span></div><div class=content>OSD扩容后出现如下错误 HEALTH_ERR 2 pgs inconsistent; 320 scrub errors [root@ceph01 ~]# ceph health detail HEALTH_ERR 2 pgs inconsistent; 320 scrub errors pg 10.9 is active+clean+inconsistent, acting [6,0,9] pg 10.10 is active+clean+scrubbing+deep+inconsistent, acting [2,6,4] 320 scrub errors 修复处于不一致状态的pgs [root@ceph01 ~]# ceph pg repair 10.9 instructing pg 10.9 on osd.6</div><div class=post-footer>
 <a href=/post/ceph-pgs-inconsistent/>阅读全文</a></div>
-</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
-<a href=/post/right-steps-delete-ceph-osd/>删除osd的正确方式</a>
-</h1><div class=post-meta>
-<span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author>CloudSky</a>
-</span>&nbsp;<span class=post-publish>发布于 <time datetime=2016-08-06>2016-08-06</time></span></div><div class=content>按照官网的步骤走的话，在 标记osd为out 和 从crushmap删除osd 这两步都会触发数据再平衡，如下方式只触发了一次迁移，建议使用。 调整o</div><div class=post-footer>
-<a href=/post/right-steps-delete-ceph-osd/>阅读全文</a></div>
-</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
-<a href=/post/centos7-systemd-vs-centos6-daemon/>Centos 7.x systemd对比Centos 6.x daemon</a>
-</h1><div class=post-meta>
-<span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author>CloudSky</a>
-</span>&nbsp;<span class=post-publish>发布于 <time datetime=2016-08-06>2016-08-06</time></span></div><div class=content>从CentOS 7.x开始，CentOS开始使用systemd服务来代替daemon，原来管理系统启动和管理系统服务的相关命令全部由syste</div><div class=post-footer>
-<a href=/post/centos7-systemd-vs-centos6-daemon/>阅读全文</a><div class=post-tags>
-<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/systemd/>systemd</a></div></div>
 </article><ul class=pagination><li class=page-item>
 <span class=page-link>
 <a href=/>1</a>

@@ -1,0 +1,172 @@
+<!doctype html><html lang=zh-cn>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=robots content="noodp">
+<title class=pjax-title>[Go] 怎么正确实现枚举？答案藏着官方的源码里 - cloudSky's 小站</title><meta name=Description content="Linux运维"><meta property="og:title" content="[Go] 怎么正确实现枚举？答案藏着官方的源码里">
+<meta property="og:description" content="后来这两年主要在用Go做项目，我发现相似的问题 Go 里也存在，但是 Go 并没有提供枚举类型，那怎么做到进行状态值的正确限制呢？如果还是用 int 型的常量肯">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ops.m114.org/post/go-enum-demo/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2022-01-18T10:34:03+08:00">
+<meta property="article:modified_time" content="2022-01-18T10:34:03+08:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="[Go] 怎么正确实现枚举？答案藏着官方的源码里">
+<meta name=twitter:description content="后来这两年主要在用Go做项目，我发现相似的问题 Go 里也存在，但是 Go 并没有提供枚举类型，那怎么做到进行状态值的正确限制呢？如果还是用 int 型的常量肯">
+<meta name=application-name content="cloudSky's 小站">
+<meta name=apple-mobile-web-app-title content="cloudSky's 小站">
+<meta name=theme-color content="#f8f8f8"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=canonical href=https://ops.m114.org/post/go-enum-demo/><link rel=prev href=https://ops.m114.org/post/nginx-download-file-rename/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=/lib/fontawesome-free/all.min.css>
+<noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=/lib/animate/animate.min.css>
+<noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"[Go] 怎么正确实现枚举？答案藏着官方的源码里","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/ops.m114.org\/post\/go-enum-demo\/"},"genre":"posts","keywords":"golang","wordcount":655,"url":"https:\/\/ops.m114.org\/post\/go-enum-demo\/","datePublished":"2022-01-18T10:34:03+08:00","dateModified":"2022-01-18T10:34:03+08:00","publisher":{"@type":"Organization","name":"CloudSky"},"author":{"@type":"Person","name":"CloudSky"},"description":""}</script></head>
+<body header-desktop header-mobile><script type=text/javascript>function setTheme(a){document.body.setAttribute('theme',a)}function saveTheme(a){window.localStorage&&localStorage.setItem('theme',a)}function getMeta(b){const a=document.getElementsByTagName('meta');for(let c=0;c<a.length;c++)if(a[c].getAttribute('name')===b)return a[c];return''}if(window.localStorage&&localStorage.getItem('theme')){let a=localStorage.getItem('theme');a==='light'||a==='dark'||a==='black'?setTheme(a):window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light')}else'auto'==='light'||'auto'==='dark'||'auto'==='black'?(setTheme('auto'),saveTheme('auto')):(saveTheme('auto'),window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light'));let metaColors={light:'#f8f8f8',dark:'#252627',black:'#000000'};getMeta('theme-color').content=metaColors[document.body.getAttribute('theme')]</script>
+<div id=back-to-top></div>
+<div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="cloudSky's 小站">cloudSky's 小站</a>
+</div>
+<div class=menu>
+<div class=menu-inner><a class=menu-item href=/posts/><i class="fa fa-list fa-fw"></i> 所有文章 </a><a class=menu-item href=/tags/><i class="fa fa-tags fa-fw"></i> 标签 </a><a class=menu-item href=/categories/> 分类 </a><a class=menu-item href=/links/><i class="fa fa-link fa-fw"></i> </a><span class="menu-item delimiter"></span><a href=# onclick=return!1 class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
+</a></div>
+</div>
+</div>
+</header><header class=mobile id=header-mobile>
+<div class=header-container>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="cloudSky's 小站">cloudSky's 小站</a>
+</div>
+<div class=menu-toggle id=menu-toggle-mobile>
+<span></span><span></span><span></span>
+</div>
+</div>
+<div class=menu id=menu-mobile><a class=menu-item href=/posts/ title><i class="fa fa-list fa-fw"></i>所有文章</a><a class=menu-item href=/tags/ title><i class="fa fa-tags fa-fw"></i>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/links/ title><i class="fa fa-link fa-fw"></i></a><a href=# onclick=return!1 class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
+</a></div>
+</div>
+</header>
+<div class="search-dropdown desktop">
+<div id=search-dropdown-desktop></div>
+</div>
+<div class="search-dropdown mobile">
+<div id=search-dropdown-mobile></div>
+</div>
+<main class=main>
+<div class=container><div class=toc id=toc-auto>
+<h2 class=toc-title>目录</h2>
+<div class="toc-content always-active" id=toc-content-auto></div>
+</div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle","normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC","true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[Go] 怎么正确实现枚举？答案藏着官方的源码里</h1><div class=post-meta>
+<div class=post-meta-line>
+<span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author>CloudSky</a>
+</span>&nbsp;<span class=post-category>收录于 </span>&nbsp;<span class=post-category>类别 <a href=/categories/golang/><i class="far fa-folder fa-fw"></i>golang</a></span></div>
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2022-01-18>2022-01-18</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=2022-01-18>2022-01-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 655 字&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+</div><div class="details toc" id=toc-static kept>
+<div class="details-summary toc-title">
+<span>目录</span>
+<span><i class="details-icon fas fa-angle-right"></i></span>
+</div>
+<div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents></nav></div>
+</div><div class=content id=content><p>后来这两年主要在用Go做项目，我发现相似的问题 Go 里也存在，但是 Go 并没有提供枚举类型，那怎么做到进行状态值的正确限制呢？如果还是用 int 型的常量肯定不行。比如：</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>const</span> <span class=p>(</span>
+    <span class=nx>Draft</span> <span class=kt>int</span> <span class=p>=</span> <span class=mi>1</span>
+    <span class=nx>Published</span> <span class=p>=</span> <span class=mi>2</span>
+    <span class=nx>Deleted</span>   <span class=p>=</span> <span class=mi>3</span>
+<span class=p>)</span>
+
+<span class=kd>const</span> <span class=p>(</span>
+    <span class=nx>Summer</span> <span class=kt>int</span> <span class=p>=</span> <span class=mi>1</span>
+    <span class=nx>Autumn</span>     <span class=p>=</span> <span class=mi>2</span>
+    <span class=nx>Winter</span>     <span class=p>=</span> <span class=mi>3</span>
+    <span class=nx>Spring</span>     <span class=p>=</span> <span class=mi>4</span>
+<span class=p>)</span>
+
+<span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+    <span class=c1>// 输出 true, 不会有任何编译错误
+</span><span class=c1></span>    <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>Autumn</span> <span class=o>==</span> <span class=nx>Draft</span><span class=p>)</span>
+<span class=p>}</span>
+</code></pre></div><p>比如上面定义了两组 int 类型的常量，一类代表文章状态，一类代表季节的四季。这种方式拿文章状态与季节进行比较不会有任何编译上的错误。</p>
+<p>答案在 Go 内置库或者一些咱们都知道的开源库的代码里就能找到。比如看看 google.golang.org/grpc/codes 里的gRPC 的错误码是怎么定义的，我们马上就能明白该怎么正确的实现枚举。</p>
+<p>下面不多卖关子直接上答案了，不想去源码里看的，就看我这里写的也行，都是这么做的。</p>
+<p>我们可以用 int 作为基础类型创建一个别名类型，Go 里边是支持这个的</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>type</span> <span class=nx>Season</span> <span class=kt>int</span>
+
+<span class=kd>const</span> <span class=p>(</span>
+ <span class=nx>Summer</span> <span class=nx>Season</span> <span class=p>=</span> <span class=mi>1</span>
+ <span class=nx>Autumn</span>        <span class=p>=</span> <span class=mi>2</span>
+ <span class=nx>Winter</span>        <span class=p>=</span> <span class=mi>3</span>
+ <span class=nx>Spring</span>        <span class=p>=</span> <span class=mi>4</span>
+<span class=p>)</span>
+</code></pre></div><p>当然定义连续的常量值的时候 Go 里边经常使用 iota，所以上面的定义还能进一步简化。</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kd>type</span> <span class=nx>Season</span> <span class=kt>int</span>
+
+<span class=kd>const</span> <span class=p>(</span>
+ <span class=nx>Summer</span> <span class=nx>Season</span> <span class=p>=</span> <span class=kc>iota</span> <span class=o>+</span> <span class=mi>1</span>
+ <span class=nx>Autumn</span>
+ <span class=nx>Winter</span>
+ <span class=nx>Spring</span>
+<span class=p>)</span>
+
+<span class=kd>type</span> <span class=nx>ArticleState</span> <span class=kt>int</span>
+
+<span class=kd>const</span> <span class=p>(</span>
+  <span class=nx>Draft</span> <span class=nx>ArticleState</span> <span class=p>=</span> <span class=kc>iota</span> <span class=o>+</span> <span class=mi>1</span>
+  <span class=nx>Published</span>
+  <span class=nx>Deleted</span>
+<span class=p>)</span>
+
+<span class=kd>func</span> <span class=nf>checkArticleState</span><span class=p>(</span><span class=nx>ArticleState</span> <span class=nx>state</span><span class=p>)</span> <span class=p>{</span>
+ <span class=c1>// ...
+</span><span class=c1></span><span class=p>}</span>
+
+ <span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
+   <span class=c1>// 两个操作数类型不匹配，编译错误
+</span><span class=c1></span>   <span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>Autumn</span> <span class=o>==</span> <span class=nx>Draft</span><span class=p>)</span>
+   <span class=c1>// 参数类型不匹配，编译错误
+</span><span class=c1></span>   <span class=nf>checkArticleState</span><span class=p>(</span><span class=mi>100</span><span class=p>)</span>
+ <span class=p>}</span>
+</code></pre></div><p>虽然这些状态值的底层的类型都是 int 值，但是现在不论是进行两个不相干类型的枚举值比较，还是用整型值作为参数调用 checkArticleState 方法检查文章状态，都会造成编译错误，因为现在我们使用状态值的地方都有了类型限制。</p>
+<p>这就是为什么针对错误码、状态机这种涉及有限数量状态值的场景下不能用整型常量而是要用枚举的原因。虽然 Go 语言里没有像 Java 一样单独提供一个 enum 表示枚举的类型，但是我们仍然能通过创建类型别名来实现枚举。</p>
+<p>原文: <a href=https://mp.weixin.qq.com/s/CB1TBcxMf2XSvTqsslM_-A target=_blank rel="noopener noreffer">https://mp.weixin.qq.com/s/CB1TBcxMf2XSvTqsslM_-A</a></p>
+</div>
+<div class=post-footer id=post-footer>
+<div class=post-info>
+<div class=post-info-line>
+<div class=post-info-mod>
+<span>更新于 2022-01-18</span>
+</div>
+<div class=post-info-license></div>
+</div>
+<div class=post-info-line>
+<div class=post-info-md></div>
+<div class=post-info-share>
+<span><a href=# onclick=return!1 title="分享到 Twitter" data-sharer=twitter data-url=https://ops.m114.org/post/go-enum-demo/ data-title="[Go] 怎么正确实现枚举？答案藏着官方的源码里" data-hashtags=golang><i class="fab fa-twitter fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Facebook" data-sharer=facebook data-url=https://ops.m114.org/post/go-enum-demo/ data-hashtag=golang><i class="fab fa-facebook-square fa-fw"></i></a><a href=# onclick=return!1 title="分享到 微博" data-sharer=weibo data-url=https://ops.m114.org/post/go-enum-demo/ data-title="[Go] 怎么正确实现枚举？答案藏着官方的源码里"><i class="fab fa-weibo fa-fw"></i></a></span>
+</div>
+</div>
+</div>
+<div class=post-info-more>
+<section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/golang/>golang</a></section>
+<section>
+<span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span>
+</section>
+</div>
+<div class=post-nav><a href=/post/nginx-download-file-rename/ class=prev rel=prev title="nginx 下载文件重命名"><i class="fas fa-angle-left fa-fw"></i>nginx 下载文件重命名</a></div>
+</div>
+<div id=comments><div id=utterances></div><noscript>
+Please enable JavaScript to view the comments powered by <a href=https://utteranc.es/>Utterances</a>.
+</noscript></div></article></div>
+</main><footer class=footer>
+<div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.92.0">Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/HEIGE-PCloud/DoIt target=_blank rel="noopener noreffer" title="DoIt 0.2.13"><i class="far fa-edit fa-fw"></i> DoIt</a>
+</div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2014 - 2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://ops.m114.org target=_blank rel="noopener noreferrer">CloudSky</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div>
+</div></footer></div>
+<div id=fixed-buttons><a href=#back-to-top id=back-to-top-button class=fixed-button title=回到顶部>
+<i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论>
+<i class="fas fa-comment fa-fw"></i>
+</a>
+</div><div class=assets><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/topbar/topbar.min.js></script><script type=text/javascript src=/lib/pjax/pjax.min.js></script><script type=text/javascript src=/js/theme.min.js></script></div>
+<div class=pjax-assets><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:10},comment:{utterances:{darkTheme:"github-dark",issueTerm:"pathname",label:"",lightTheme:"github-light",repo:"vinsonzou/vinsonzou.github.com"}},sharerjs:!0}</script></div>
+</body>
+</html>

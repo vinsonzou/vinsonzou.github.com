@@ -56,6 +56,20 @@
 <main class=main>
 <div class=container><div class="page home" posts><div class=home-profile><h1 class=home-title>cloudSky's 小站</h1><h2 class=home-subtitle><div id=id-1 class=typeit></div></h2><div class=links><a href=https://github.com/vinsonzou title=GitHub target=_blank rel="noopener noreffer me"><i class="fab fa-github-alt fa-fw"></i></a><a href=/index.xml title=RSS target=_blank rel="noopener noreffer me"><i class="fas fa-rss fa-fw"></i></a></div></div>
 <article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/post/tcp-proxy-get-source-ip-by-proxy_protocol/>4层TCP转发后获得真实IP之proxy_protocol</a>
+</h1><div class=post-meta>
+<span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author>CloudSky</a>
+</span>&nbsp;<span class=post-publish>发布于 <time datetime=2021-04-19>2021-04-19</time></span>&nbsp;<span class=post-category>收录于 </span>&nbsp;<span class=post-category>类别 <a href=/categories/golang/><i class="far fa-folder fa-fw"></i>golang</a></span></div><div class=content>需求 后端TCP Server在经过TCP代理(nginx stream模块)后，程序不做任何调整获得用户真实IP。 了解到cloudflare的s</div><div class=post-footer>
+<a href=/post/tcp-proxy-get-source-ip-by-proxy_protocol/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/golang/>golang</a>,&nbsp;<a href=/tags/proxy_protocol/>proxy_protocol</a>,&nbsp;<a href=/tags/cloudflare/>cloudflare</a>,&nbsp;<a href=/tags/go-mmproxy/>go-mmproxy</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/post/centos8-build-mysql5.7.30/>CentOS8编译安装MySQL 5.7.30</a>
+</h1><div class=post-meta>
+<span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author>CloudSky</a>
+</span>&nbsp;<span class=post-publish>发布于 <time datetime=2020-06-18>2020-06-18</time></span></div><div class=content>环境 OS: CentOS 8.2 MySQL: 5.7.30 报错信息 1. 编译报错 CMake Error at plugin/group_replication/libmysqlgcs/rpcgen.cmake:100 (MESSAGE): Could not find rpcgen Call Stack (most recent call first): plugin/group_replication/libmysqlgcs/CMakeLists.txt:38 (INCLUDE) 解决方法 yum --enablerepo=PowerTools install rpcgen 2. systemctl start mysqld.service报错无法启动问题 报错信息</div><div class=post-footer>
+<a href=/post/centos8-build-mysql5.7.30/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/mysql/>MySQL</a>,&nbsp;<a href=/tags/centos8/>centos8</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
 <a href=/post/centos8-install-on-centos7-kvm/>CentOS7上如何支持安装CentOS8 VM</a>
 </h1><div class=post-meta>
 <span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author>CloudSky</a>
@@ -110,23 +124,6 @@
 </span>&nbsp;<span class=post-publish>发布于 <time datetime=2017-08-16>2017-08-16</time></span></div><div class=content>示例代码，仅供参考 package main import ( "fmt" "flag" ) func main() { // golang的flag包的一些基本使用方法 // 待使用的变量 var id int var name string var male bool // 是否已经解析 fmt.Println("parsed? = ", flag.Parsed()) // 设</div><div class=post-footer>
 <a href=/post/golang-command-line-flags/>阅读全文</a><div class=post-tags>
 <i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/golang/>golang</a></div></div>
-</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
-<a href=/post/analysing-java-core-dump/>analysing java core dump</a>
-</h1><div class=post-meta>
-<span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author>CloudSky</a>
-</span>&nbsp;<span class=post-publish>发布于 <time datetime=2017-07-23>2017-07-23</time></span></div><div class=content>In this post, I will show you how you can debug a Java core file to see what caused your JVM to crash. I will be using a core file I generated in my previous post: Generating a Java Core Dump. There are different ways you can diagnose a JVM crash, listed below: The hs_err_pid log file When a fatal error occurs in the JVM, it produces an error log</div><div class=post-footer>
-<a href=/post/analysing-java-core-dump/>阅读全文</a><div class=post-tags>
-<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/%E8%BD%AC%E8%BD%BD/>转载</a></div></div>
-</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
-<a href=/post/error-500-oops-priv_sock_get_cmd-solved/>Error: 500 OOPS: priv_sock_get_cmd [SOLVED]</a>
-</h1><div class=post-meta>
-<span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author>CloudSky</a>
-</span>&nbsp;<span class=post-publish>发布于 <time datetime=2017-07-23>2017-07-23</time></span></div><div class=content>Troubleshooting seccomp filter sanboxing with vsftpd 3.0.x
-The following error may occur on ftp clients with vsftpd 3.0.x:
-500 OOPS: priv_sock_get_cmd This is caused by seccomp filter sanboxing, which is enabled by default on amd64. To workaround this issue, disable seccomp filter sanboxing:
-echo 'seccomp_sandbox=NO' >> vsftpd.conf service vsftpd restart For further information, refer to Red Hat bug #845980.</div><div class=post-footer>
-<a href=/post/error-500-oops-priv_sock_get_cmd-solved/>阅读全文</a><div class=post-tags>
-<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/vsftpd/>vsftpd</a></div></div>
 </article><ul class=pagination><li class=page-item>
 <span class=page-link>
 <a href=/>1</a>
