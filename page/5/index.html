@@ -56,6 +56,13 @@
 <main class=main>
 <div class=container><div class="page home" posts><div class=home-profile><h1 class=home-title>cloudSky's 小站</h1><h2 class=home-subtitle><div id=id-1 class=typeit></div></h2><div class=links><a href=https://github.com/vinsonzou title=GitHub target=_blank rel="noopener noreffer me"><i class="fab fa-github-alt fa-fw"></i></a><a href=/index.xml title=RSS target=_blank rel="noopener noreffer me"><i class="fas fa-rss fa-fw"></i></a></div></div>
 <article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
+<a href=/post/golang-command-line-flags/>Golang之command line flag笔记</a>
+</h1><div class=post-meta>
+<span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author>CloudSky</a>
+</span>&nbsp;<span class=post-publish>发布于 <time datetime=2017-08-16>2017-08-16</time></span></div><div class=content>示例代码，仅供参考 package main import ( "fmt" "flag" ) func main() { // golang的flag包的一些基本使用方法 // 待使用的变量 var id int var name string var male bool // 是否已经解析 fmt.Println("parsed? = ", flag.Parsed()) // 设</div><div class=post-footer>
+<a href=/post/golang-command-line-flags/>阅读全文</a><div class=post-tags>
+<i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/golang/>golang</a></div></div>
+</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
 <a href=/post/analysing-java-core-dump/>analysing java core dump</a>
 </h1><div class=post-meta>
 <span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author>CloudSky</a>
@@ -119,12 +126,6 @@ echo 'seccomp_sandbox=NO' >> vsftpd.conf service vsftpd restart For further info
 <span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author>CloudSky</a>
 </span>&nbsp;<span class=post-publish>发布于 <time datetime=2016-08-26>2016-08-26</time></span></div><div class=content>scrub ceph-osd会定义启动scrub线程，扫描部分对象（哪些对象？），和其他副本比较，发现是否一致。如果发现不一致，ceph会抛出这个异常</div><div class=post-footer>
 <a href=/post/ceph-key-concepts-backup/>阅读全文</a></div>
-</article><article class="single summary" itemscope itemtype=http://schema.org/Article><h1 class=single-title itemprop="name headline">
-<a href=/post/ceph-pgs-inconsistent/>ceph pgs inconsistent</a>
-</h1><div class=post-meta>
-<span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author>CloudSky</a>
-</span>&nbsp;<span class=post-publish>发布于 <time datetime=2016-08-17>2016-08-17</time></span></div><div class=content>OSD扩容后出现如下错误 HEALTH_ERR 2 pgs inconsistent; 320 scrub errors [root@ceph01 ~]# ceph health detail HEALTH_ERR 2 pgs inconsistent; 320 scrub errors pg 10.9 is active+clean+inconsistent, acting [6,0,9] pg 10.10 is active+clean+scrubbing+deep+inconsistent, acting [2,6,4] 320 scrub errors 修复处于不一致状态的pgs [root@ceph01 ~]# ceph pg repair 10.9 instructing pg 10.9 on osd.6</div><div class=post-footer>
-<a href=/post/ceph-pgs-inconsistent/>阅读全文</a></div>
 </article><ul class=pagination><li class=page-item>
 <span class=page-link>
 <a href=/>1</a>
