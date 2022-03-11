@@ -1,332 +1,59 @@
-<!doctype html><html lang=zh-cn>
-<head>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=robots content="noodp">
-<title class=pjax-title>Centos 7.x systemd对比Centos 6.x daemon - cloudSky's 小站</title><meta name=Description content="Linux运维"><meta property="og:title" content="Centos 7.x systemd对比Centos 6.x daemon">
-<meta property="og:description" content="从CentOS 7.x开始，CentOS开始使用systemd服务来代替daemon，原来管理系统启动和管理系统服务的相关命令全部由syste">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://ops.m114.org/post/centos7-systemd-vs-centos6-daemon/"><meta property="article:section" content="posts">
-<meta property="article:published_time" content="2016-08-06T13:54:53+08:00">
-<meta property="article:modified_time" content="2016-08-06T13:54:53+08:00">
-<meta name=twitter:card content="summary">
-<meta name=twitter:title content="Centos 7.x systemd对比Centos 6.x daemon">
-<meta name=twitter:description content="从CentOS 7.x开始，CentOS开始使用systemd服务来代替daemon，原来管理系统启动和管理系统服务的相关命令全部由syste">
-<meta name=application-name content="cloudSky's 小站">
-<meta name=apple-mobile-web-app-title content="cloudSky's 小站">
-<meta name=theme-color content="#f8f8f8"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
-<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
-<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=canonical href=https://ops.m114.org/post/centos7-systemd-vs-centos6-daemon/><link rel=prev href=https://ops.m114.org/post/mysql-unable-to-lock-ibdata1-error-11-fix/><link rel=next href=https://ops.m114.org/post/right-steps-delete-ceph-osd/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=/lib/fontawesome-free/all.min.css>
-<noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=/lib/animate/animate.min.css>
-<noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Centos 7.x systemd对比Centos 6.x daemon","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/ops.m114.org\/post\/centos7-systemd-vs-centos6-daemon\/"},"genre":"posts","keywords":"systemd","wordcount":1348,"url":"https:\/\/ops.m114.org\/post\/centos7-systemd-vs-centos6-daemon\/","datePublished":"2016-08-06T13:54:53+08:00","dateModified":"2016-08-06T13:54:53+08:00","publisher":{"@type":"Organization","name":"CloudSky"},"author":{"@type":"Person","name":"CloudSky"},"description":""}</script></head>
-<body header-desktop header-mobile><script type=text/javascript>function setTheme(a){document.body.setAttribute('theme',a)}function saveTheme(a){window.localStorage&&localStorage.setItem('theme',a)}function getMeta(b){const a=document.getElementsByTagName('meta');for(let c=0;c<a.length;c++)if(a[c].getAttribute('name')===b)return a[c];return''}if(window.localStorage&&localStorage.getItem('theme')){let a=localStorage.getItem('theme');a==='light'||a==='dark'||a==='black'?setTheme(a):window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light')}else'auto'==='light'||'auto'==='dark'||'auto'==='black'?(setTheme('auto'),saveTheme('auto')):(saveTheme('auto'),window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light'));let metaColors={light:'#f8f8f8',dark:'#252627',black:'#000000'};getMeta('theme-color').content=metaColors[document.body.getAttribute('theme')]</script>
-<div id=back-to-top></div>
-<div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
-<div class=header-wrapper>
-<div class=header-title>
-<a href=/ title="cloudSky's 小站">cloudSky's 小站</a>
-</div>
-<div class=menu>
-<div class=menu-inner><a class=menu-item href=/posts/><i class="fa fa-list fa-fw"></i> 所有文章 </a><a class=menu-item href=/tags/><i class="fa fa-tags fa-fw"></i> 标签 </a><a class=menu-item href=/categories/> 分类 </a><a class=menu-item href=/links/><i class="fa fa-link fa-fw"></i> </a><span class="menu-item delimiter"></span><a href=# onclick=return!1 class="menu-item theme-switch" title=切换主题>
-<i class="fas fa-adjust fa-fw"></i>
-</a></div>
-</div>
-</div>
-</header><header class=mobile id=header-mobile>
-<div class=header-container>
-<div class=header-wrapper>
-<div class=header-title>
-<a href=/ title="cloudSky's 小站">cloudSky's 小站</a>
-</div>
-<div class=menu-toggle id=menu-toggle-mobile>
-<span></span><span></span><span></span>
-</div>
-</div>
-<div class=menu id=menu-mobile><a class=menu-item href=/posts/ title><i class="fa fa-list fa-fw"></i>所有文章</a><a class=menu-item href=/tags/ title><i class="fa fa-tags fa-fw"></i>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/links/ title><i class="fa fa-link fa-fw"></i></a><a href=# onclick=return!1 class="menu-item theme-switch" title=切换主题>
-<i class="fas fa-adjust fa-fw"></i>
-</a></div>
-</div>
-</header>
-<div class="search-dropdown desktop">
-<div id=search-dropdown-desktop></div>
-</div>
-<div class="search-dropdown mobile">
-<div id=search-dropdown-mobile></div>
-</div>
-<main class=main>
-<div class=container><div class=toc id=toc-auto>
-<h2 class=toc-title>目录</h2>
-<div class="toc-content always-active" id=toc-content-auto></div>
-</div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle","normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC","true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Centos 7.x systemd对比Centos 6.x daemon</h1><div class=post-meta>
-<div class=post-meta-line>
-<span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author>CloudSky</a>
-</span></div>
-<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2016-08-06>2016-08-06</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=2016-08-06>2016-08-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1348 字&nbsp;
-<i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
-</div><div class="details toc" id=toc-static kept>
-<div class="details-summary toc-title">
-<span>目录</span>
-<span><i class="details-icon fas fa-angle-right"></i></span>
-</div>
-<div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents>
-<ul>
-<li><a href=#21设置开机启动不启动>2.1、设置开机启动/不启动</a></li>
-<li><a href=#22查看系统上所有的服务>2.2、查看系统上所有的服务</a></li>
-</ul>
-<ul>
-<li><a href=#51运行级别对应表>5.1、运行级别对应表</a></li>
-<li><a href=#52设置运行级别>5.2、设置运行级别</a></li>
-</ul>
-</nav></div>
-</div><div class=content id=content><p>从CentOS 7.x开始，CentOS开始使用systemd服务来代替daemon，原来管理系统启动和管理系统服务的相关命令全部由systemctl命令来代替。</p>
-<h1 id=1原来的-service-命令与-systemctl-命令对比>1、原来的 service 命令与 systemctl 命令对比</h1>
-<table>
-<thead>
-<tr>
-<th style=text-align:center>daemon命令</th>
-<th style=text-align:center>systemctl命令</th>
-<th style=text-align:center>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style=text-align:center>service [服务] start</td>
-<td style=text-align:center>systemctl start [unit type]</td>
-<td style=text-align:center>启动服务</td>
-</tr>
-<tr>
-<td style=text-align:center>service [服务] stop</td>
-<td style=text-align:center>systemctl stop [unit type]</td>
-<td style=text-align:center>停止服务</td>
-</tr>
-<tr>
-<td style=text-align:center>service [服务] restart</td>
-<td style=text-align:center>systemctl restart [unit type]</td>
-<td style=text-align:center>重启服务</td>
-</tr>
-</tbody>
-</table>
-<p>此外还有二个systemctl参数没有与service命令参数对应</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh>status: 参数来查看服务运行情况
-reload: 重新加载服务，加载更新后的配置文件（并不是所有服务都支持这个参数，比如network.service）
-</code></pre></div><p>应用举例:</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=c1>#启动网络服务</span>
-systemctl start network.service
-<span class=c1>#停止网络服务</span>
-systemctl stop network.service
-<span class=c1>#重启网络服务</span>
-systemctl restart network.service
-<span class=c1>#查看网络服务状态</span>
-systemctl status network.serivce
-</code></pre></div><h1 id=2原来的chkconfig-命令与-systemctl-命令对比>2、原来的chkconfig 命令与 systemctl 命令对比</h1>
-<h2 id=21设置开机启动不启动>2.1、设置开机启动/不启动</h2>
-<table>
-<thead>
-<tr>
-<th style=text-align:center>daemon命令</th>
-<th style=text-align:center>systemctl命令</th>
-<th style=text-align:center>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style=text-align:center>chkconfig [服务] on</td>
-<td style=text-align:center>systemctl enable [unit type]</td>
-<td style=text-align:center>设置服务开机启动</td>
-</tr>
-<tr>
-<td style=text-align:center>chkconfig [服务] off</td>
-<td style=text-align:center>systemctl disable [unit type]</td>
-<td style=text-align:center>设备服务禁止开机启动</td>
-</tr>
-</tbody>
-</table>
-<p>应用举例：</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=c1>#停止cup电源管理服务</span>
-systemctl stop cups.service
-<span class=c1>#禁止cups服务开机启动</span>
-systemctl disable cups.service
-<span class=c1>#查看cups服务状态</span>
-systemctl status cups.service
-<span class=c1>#重新设置cups服务开机启动</span>
-systemctl <span class=nb>enable</span> cups.service
-</code></pre></div><h2 id=22查看系统上所有的服务>2.2、查看系统上所有的服务</h2>
-<p>命令格式：</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh>systemctl <span class=o>[</span>command<span class=o>]</span> <span class=o>[</span>--type<span class=o>=</span>TYPE<span class=o>]</span> <span class=o>[</span>--all<span class=o>]</span>
-</code></pre></div><p>参数详解：</p>
-<p>command</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh>list-units: 依据unit列出所有启动的unit。加上 --all 才会列出没启动的unit<span class=p>;</span>
-list-unit-files: 依据 /usr/lib/systemd/system/ 内的启动文件，列出启动文件列表
-</code></pre></div><p><code>--type=TYPE</code></p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh>为unit type, 主要有service, socket, target, timer
-</code></pre></div><p>应用举例：</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh>systemctl                  <span class=c1>#列出所有的系统服务</span>
-systemctl list-units       <span class=c1>#列出所有启动unit</span>
-systemctl list-unit-files  <span class=c1>#列出所有启动文件</span>
-systemctl list-units --type<span class=o>=</span>service --all  <span class=c1>#列出所有service类型的unit</span>
-systemctl list-units --type<span class=o>=</span>socket --all   <span class=c1>#列出所有socket类型的unit</span>
-systemctl list-units --type<span class=o>=</span>timer --all    <span class=c1>#列出所有timer类型的unit</span>
-systemctl list-units --type<span class=o>=</span>target --all   <span class=c1>#列出所有target</span>
-</code></pre></div><h1 id=3systemctl特殊的用法>3、systemctl特殊的用法</h1>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=c1>#查看网络服务是否启动</span>
-systemctl is-active network.service
-<span class=c1>#检查网络服务是否设置为开机启动</span>
-systemctl is-enable network.service
-<span class=c1>#停止cups服务</span>
-systemctl stop cups.service
-<span class=c1>#注销cups服务</span>
-systemctl mask cups.service
-<span class=c1>#查看cups服务状态</span>
-systemctl status cups.service
-<span class=c1>#取消注销cups服务</span>
-systemctl unmask cups.service
-</code></pre></div><h1 id=4init-命令与systemctl命令对比>4、init 命令与systemctl命令对比</h1>
-<table>
-<thead>
-<tr>
-<th style=text-align:center>init命令</th>
-<th style=text-align:center>systemctl 命令</th>
-<th style=text-align:center>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style=text-align:center>init 0</td>
-<td style=text-align:center>systemctl poweroff</td>
-<td style=text-align:center>系统关机</td>
-</tr>
-<tr>
-<td style=text-align:center>init 6</td>
-<td style=text-align:center>systemctl reboot</td>
-<td style=text-align:center>重新启动</td>
-</tr>
-</tbody>
-</table>
-<p>与开关机相关的其他命令：</p>
-<table>
-<thead>
-<tr>
-<th style=text-align:center>systemctl命令</th>
-<th style=text-align:center>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style=text-align:center>systemctl suspend</td>
-<td style=text-align:center>进入睡眠模式</td>
-</tr>
-<tr>
-<td style=text-align:center>systemctl hibernate</td>
-<td style=text-align:center>进入休眠模式</td>
-</tr>
-<tr>
-<td style=text-align:center>systemctl rescue</td>
-<td style=text-align:center>强制进入救援模式</td>
-</tr>
-<tr>
-<td style=text-align:center>systemctl emergency</td>
-<td style=text-align:center>强制进入紧急救援模式</td>
-</tr>
-</tbody>
-</table>
-<h1 id=5设置系统运行级别>5、设置系统运行级别</h1>
-<h2 id=51运行级别对应表>5.1、运行级别对应表</h2>
-<table>
-<thead>
-<tr>
-<th style=text-align:center>init级别</th>
-<th style=text-align:center>systemctl target</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style=text-align:center>0</td>
-<td style=text-align:center>shutdown.target</td>
-</tr>
-<tr>
-<td style=text-align:center>1</td>
-<td style=text-align:center>emergency.target</td>
-</tr>
-<tr>
-<td style=text-align:center>2</td>
-<td style=text-align:center>rescure.target</td>
-</tr>
-<tr>
-<td style=text-align:center>3</td>
-<td style=text-align:center>multi-user.target</td>
-</tr>
-<tr>
-<td style=text-align:center>4</td>
-<td style=text-align:center>无</td>
-</tr>
-<tr>
-<td style=text-align:center>5</td>
-<td style=text-align:center>graphical.target</td>
-</tr>
-<tr>
-<td style=text-align:center>6</td>
-<td style=text-align:center>无</td>
-</tr>
-<tr>
-<td style=text-align:center>此外还有一个getty.target用来设置tty的数量。</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h2 id=52设置运行级别>5.2、设置运行级别</h2>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh>systemctl get-default  <span class=c1>#获得当前的运行级别</span>
-systemctl set-default multi-user.target  <span class=c1>#设置默认的运行级别为mulit-user</span>
-systemctl isolate multi-user.target      <span class=c1>#在不重启的情况下，切换到运行级别mulit-user下</span>
-systemctl isolate graphical.target       <span class=c1>#在不重启的情况下，切换到图形界面下</span>
-</code></pre></div><h1 id=6关闭网络服务>6、关闭网络服务</h1>
-<p>在使用systemctl关闭网络服务时有一些特殊，需要同时关闭unit.servce和unit.socket</p>
-<p>使用systemctl查看开启的sshd服务</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=o>[</span>root@localhost system<span class=o>]</span><span class=c1># systemctl list-units --all | grep sshd</span>
-sshd-keygen.service loaded inactive dead        OpenSSH Server Key Generation
-sshd.service        loaded active   running     OpenSSH server daemon
-sshd.socket         loaded inactive dead        OpenSSH Server Socket
-</code></pre></div><p>可以看到系统同时开启了sshd.service和sshd.socket , 如果只闭关了sshd.service那么sshd.socket还在监听网络，在网络上有要求连接sshd时就会启动sshd.service。因此如果要完全关闭sshd服务，需要同时停用sshd.service和sshd.socket。</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh>systemctl stop sshd.service
-systemctl stop sshd.socket
-systemctl disable sshd.service sshd.socket
-</code></pre></div></div>
-<div class=post-footer id=post-footer>
-<div class=post-info>
-<div class=post-info-line>
-<div class=post-info-mod>
-<span>更新于 2016-08-06</span>
-</div>
-<div class=post-info-license></div>
-</div>
-<div class=post-info-line>
-<div class=post-info-md></div>
-<div class=post-info-share>
-<span><a href=# onclick=return!1 title="分享到 Twitter" data-sharer=twitter data-url=https://ops.m114.org/post/centos7-systemd-vs-centos6-daemon/ data-title="Centos 7.x systemd对比Centos 6.x daemon" data-hashtags=systemd><i class="fab fa-twitter fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Facebook" data-sharer=facebook data-url=https://ops.m114.org/post/centos7-systemd-vs-centos6-daemon/ data-hashtag=systemd><i class="fab fa-facebook-square fa-fw"></i></a><a href=# onclick=return!1 title="分享到 微博" data-sharer=weibo data-url=https://ops.m114.org/post/centos7-systemd-vs-centos6-daemon/ data-title="Centos 7.x systemd对比Centos 6.x daemon"><i class="fab fa-weibo fa-fw"></i></a></span>
-</div>
-</div>
-</div>
-<div class=post-info-more>
-<section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/systemd/>systemd</a></section>
-<section>
-<span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span>
-</section>
-</div>
-<div class=post-nav><a href=/post/mysql-unable-to-lock-ibdata1-error-11-fix/ class=prev rel=prev title="MySQL Unable to lock ibdata1 error 11 fix"><i class="fas fa-angle-left fa-fw"></i>MySQL Unable to lock ibdata1 error 11 fix</a>
-<a href=/post/right-steps-delete-ceph-osd/ class=next rel=next title=删除osd的正确方式>删除osd的正确方式<i class="fas fa-angle-right fa-fw"></i></a></div>
-</div>
-<div id=comments><div id=utterances></div><noscript>
-Please enable JavaScript to view the comments powered by <a href=https://utteranc.es/>Utterances</a>.
-</noscript></div></article></div>
-</main><footer class=footer>
-<div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.92.2">Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/HEIGE-PCloud/DoIt target=_blank rel="noopener noreffer" title="DoIt 0.2.13"><i class="far fa-edit fa-fw"></i> DoIt</a>
-</div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2014 - 2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://ops.m114.org target=_blank rel="noopener noreferrer">CloudSky</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div>
-</div></footer></div>
-<div id=fixed-buttons><a href=#back-to-top id=back-to-top-button class=fixed-button title=回到顶部>
-<i class="fas fa-arrow-up fa-fw"></i>
-</a><a href=# id=view-comments class=fixed-button title=查看评论>
-<i class="fas fa-comment fa-fw"></i>
-</a>
-</div><div class=assets><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/topbar/topbar.min.js></script><script type=text/javascript src=/lib/pjax/pjax.min.js></script><script type=text/javascript src=/js/theme.min.js></script></div>
-<div class=pjax-assets><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:10},comment:{utterances:{darkTheme:"github-dark",issueTerm:"pathname",label:"",lightTheme:"github-light",repo:"vinsonzou/vinsonzou.github.com"}},sharerjs:!0}</script></div>
-</body>
-</html>
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title class=pjax-title>Centos 7.x systemd对比Centos 6.x daemon - cloudSky's 小站</title><meta name=Description content="Linux运维"><meta property="og:title" content="Centos 7.x systemd对比Centos 6.x daemon"><meta property="og:description" content="从CentOS 7.x开始，CentOS开始使用systemd服务来代替daemon，原来管理系统启动和管理系统服务的相关命令全部由syste"><meta property="og:type" content="article"><meta property="og:url" content="https://ops.m114.org/post/centos7-systemd-vs-centos6-daemon/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2016-08-06T13:54:53+08:00"><meta property="article:modified_time" content="2016-08-06T13:54:53+08:00"><meta name=twitter:card content="summary"><meta name=twitter:title content="Centos 7.x systemd对比Centos 6.x daemon"><meta name=twitter:description content="从CentOS 7.x开始，CentOS开始使用systemd服务来代替daemon，原来管理系统启动和管理系统服务的相关命令全部由syste"><meta name=application-name content="cloudSky's 小站"><meta name=apple-mobile-web-app-title content="cloudSky's 小站"><meta name=theme-color content="#f8f8f8"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=canonical href=https://ops.m114.org/post/centos7-systemd-vs-centos6-daemon/><link rel=prev href=https://ops.m114.org/post/mysql-unable-to-lock-ibdata1-error-11-fix/><link rel=next href=https://ops.m114.org/post/right-steps-delete-ceph-osd/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload='this.onload=null,this.rel="stylesheet"' href=/lib/fontawesome-free/all.min.css><noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload as=style onload='this.onload=null,this.rel="stylesheet"' href=/lib/animate/animate.min.css><noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Centos 7.x systemd对比Centos 6.x daemon","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/ops.m114.org\/post\/centos7-systemd-vs-centos6-daemon\/"},"genre":"posts","keywords":"systemd","wordcount":1348,"url":"https:\/\/ops.m114.org\/post\/centos7-systemd-vs-centos6-daemon\/","datePublished":"2016-08-06T13:54:53+08:00","dateModified":"2016-08-06T13:54:53+08:00","publisher":{"@type":"Organization","name":"CloudSky"},"author":{"@type":"Person","name":"CloudSky"},"description":""}</script></head><body header-desktop header-mobile><script type=text/javascript>function setTheme(e){document.body.setAttribute("theme",e)}function saveTheme(e){window.localStorage&&localStorage.setItem("theme",e)}function getMeta(t){const e=document.getElementsByTagName("meta");for(let n=0;n<e.length;n++)if(e[n].getAttribute("name")===t)return e[n];return''}if(window.localStorage&&localStorage.getItem("theme")){let e=localStorage.getItem("theme");e==="light"||e==="dark"||e==="black"?setTheme(e):window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?setTheme("dark"):setTheme("light")}else"auto"==="light"||"auto"==="dark"||"auto"==="black"?(setTheme("auto"),saveTheme("auto")):(saveTheme("auto"),window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?setTheme("dark"):setTheme("light"));let metaColors={light:"#f8f8f8",dark:"#252627",black:"#000000"};getMeta("theme-color").content=metaColors[document.body.getAttribute("theme")]</script><div id=back-to-top></div><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="cloudSky's 小站">cloudSky's 小站</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/><i class="fa fa-list fa-fw"></i> 所有文章 </a><a class=menu-item href=/tags/><i class="fa fa-tags fa-fw"></i> 标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/links/><i class="fa fa-link fa-fw"></i> </a><span class="menu-item delimiter"></span><a href=# onclick=return!1 class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="cloudSky's 小站">cloudSky's 小站</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><a class=menu-item href=/posts/ title><i class="fa fa-list fa-fw"></i>所有文章</a><a class=menu-item href=/tags/ title><i class="fa fa-tags fa-fw"></i>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/links/ title><i class="fa fa-link fa-fw"></i></a><a href=# onclick=return!1 class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>目录</h2><div class="toc-content always-active" id=toc-content-auto></div></div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle","normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC","true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Centos 7.x systemd对比Centos 6.x daemon</h1><div class=post-meta><div class=post-meta-line><span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://ops.m114.org title=Author target=_blank rel="noopener noreffer author" class=author>CloudSky</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2016-08-06>2016-08-06</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=2016-08-06>2016-08-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1348 字&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div></div><div class="details toc" id=toc-static kept><div class="details-summary toc-title"><span>目录</span>
+<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#21设置开机启动不启动>2.1、设置开机启动/不启动</a></li><li><a href=#22查看系统上所有的服务>2.2、查看系统上所有的服务</a></li></ul><ul><li><a href=#51运行级别对应表>5.1、运行级别对应表</a></li><li><a href=#52设置运行级别>5.2、设置运行级别</a></li></ul></nav></div></div><div class=content id=content><p>从CentOS 7.x开始，CentOS开始使用systemd服务来代替daemon，原来管理系统启动和管理系统服务的相关命令全部由systemctl命令来代替。</p><h1 id=1原来的-service-命令与-systemctl-命令对比>1、原来的 service 命令与 systemctl 命令对比</h1><table><thead><tr><th style=text-align:center>daemon命令</th><th style=text-align:center>systemctl命令</th><th style=text-align:center>说明</th></tr></thead><tbody><tr><td style=text-align:center>service [服务] start</td><td style=text-align:center>systemctl start [unit type]</td><td style=text-align:center>启动服务</td></tr><tr><td style=text-align:center>service [服务] stop</td><td style=text-align:center>systemctl stop [unit type]</td><td style=text-align:center>停止服务</td></tr><tr><td style=text-align:center>service [服务] restart</td><td style=text-align:center>systemctl restart [unit type]</td><td style=text-align:center>重启服务</td></tr></tbody></table><p>此外还有二个systemctl参数没有与service命令参数对应</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>status: 参数来查看服务运行情况
+</span></span><span class=line><span class=cl>reload: 重新加载服务，加载更新后的配置文件（并不是所有服务都支持这个参数，比如network.service）
+</span></span></code></pre></div><p>应用举例:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl><span class=c1>#启动网络服务</span>
+</span></span><span class=line><span class=cl>systemctl start network.service
+</span></span><span class=line><span class=cl><span class=c1>#停止网络服务</span>
+</span></span><span class=line><span class=cl>systemctl stop network.service
+</span></span><span class=line><span class=cl><span class=c1>#重启网络服务</span>
+</span></span><span class=line><span class=cl>systemctl restart network.service
+</span></span><span class=line><span class=cl><span class=c1>#查看网络服务状态</span>
+</span></span><span class=line><span class=cl>systemctl status network.serivce
+</span></span></code></pre></div><h1 id=2原来的chkconfig-命令与-systemctl-命令对比>2、原来的chkconfig 命令与 systemctl 命令对比</h1><h2 id=21设置开机启动不启动>2.1、设置开机启动/不启动</h2><table><thead><tr><th style=text-align:center>daemon命令</th><th style=text-align:center>systemctl命令</th><th style=text-align:center>说明</th></tr></thead><tbody><tr><td style=text-align:center>chkconfig [服务] on</td><td style=text-align:center>systemctl enable [unit type]</td><td style=text-align:center>设置服务开机启动</td></tr><tr><td style=text-align:center>chkconfig [服务] off</td><td style=text-align:center>systemctl disable [unit type]</td><td style=text-align:center>设备服务禁止开机启动</td></tr></tbody></table><p>应用举例：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl><span class=c1>#停止cup电源管理服务</span>
+</span></span><span class=line><span class=cl>systemctl stop cups.service
+</span></span><span class=line><span class=cl><span class=c1>#禁止cups服务开机启动</span>
+</span></span><span class=line><span class=cl>systemctl disable cups.service
+</span></span><span class=line><span class=cl><span class=c1>#查看cups服务状态</span>
+</span></span><span class=line><span class=cl>systemctl status cups.service
+</span></span><span class=line><span class=cl><span class=c1>#重新设置cups服务开机启动</span>
+</span></span><span class=line><span class=cl>systemctl <span class=nb>enable</span> cups.service
+</span></span></code></pre></div><h2 id=22查看系统上所有的服务>2.2、查看系统上所有的服务</h2><p>命令格式：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>systemctl <span class=o>[</span>command<span class=o>]</span> <span class=o>[</span>--type<span class=o>=</span>TYPE<span class=o>]</span> <span class=o>[</span>--all<span class=o>]</span>
+</span></span></code></pre></div><p>参数详解：</p><p>command</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>list-units: 依据unit列出所有启动的unit。加上 --all 才会列出没启动的unit<span class=p>;</span>
+</span></span><span class=line><span class=cl>list-unit-files: 依据 /usr/lib/systemd/system/ 内的启动文件，列出启动文件列表
+</span></span></code></pre></div><p><code>--type=TYPE</code></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>为unit type, 主要有service, socket, target, timer
+</span></span></code></pre></div><p>应用举例：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>systemctl                  <span class=c1>#列出所有的系统服务</span>
+</span></span><span class=line><span class=cl>systemctl list-units       <span class=c1>#列出所有启动unit</span>
+</span></span><span class=line><span class=cl>systemctl list-unit-files  <span class=c1>#列出所有启动文件</span>
+</span></span><span class=line><span class=cl>systemctl list-units --type<span class=o>=</span>service --all  <span class=c1>#列出所有service类型的unit</span>
+</span></span><span class=line><span class=cl>systemctl list-units --type<span class=o>=</span>socket --all   <span class=c1>#列出所有socket类型的unit</span>
+</span></span><span class=line><span class=cl>systemctl list-units --type<span class=o>=</span>timer --all    <span class=c1>#列出所有timer类型的unit</span>
+</span></span><span class=line><span class=cl>systemctl list-units --type<span class=o>=</span>target --all   <span class=c1>#列出所有target</span>
+</span></span></code></pre></div><h1 id=3systemctl特殊的用法>3、systemctl特殊的用法</h1><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl><span class=c1>#查看网络服务是否启动</span>
+</span></span><span class=line><span class=cl>systemctl is-active network.service
+</span></span><span class=line><span class=cl><span class=c1>#检查网络服务是否设置为开机启动</span>
+</span></span><span class=line><span class=cl>systemctl is-enable network.service
+</span></span><span class=line><span class=cl><span class=c1>#停止cups服务</span>
+</span></span><span class=line><span class=cl>systemctl stop cups.service
+</span></span><span class=line><span class=cl><span class=c1>#注销cups服务</span>
+</span></span><span class=line><span class=cl>systemctl mask cups.service
+</span></span><span class=line><span class=cl><span class=c1>#查看cups服务状态</span>
+</span></span><span class=line><span class=cl>systemctl status cups.service
+</span></span><span class=line><span class=cl><span class=c1>#取消注销cups服务</span>
+</span></span><span class=line><span class=cl>systemctl unmask cups.service
+</span></span></code></pre></div><h1 id=4init-命令与systemctl命令对比>4、init 命令与systemctl命令对比</h1><table><thead><tr><th style=text-align:center>init命令</th><th style=text-align:center>systemctl 命令</th><th style=text-align:center>说明</th></tr></thead><tbody><tr><td style=text-align:center>init 0</td><td style=text-align:center>systemctl poweroff</td><td style=text-align:center>系统关机</td></tr><tr><td style=text-align:center>init 6</td><td style=text-align:center>systemctl reboot</td><td style=text-align:center>重新启动</td></tr></tbody></table><p>与开关机相关的其他命令：</p><table><thead><tr><th style=text-align:center>systemctl命令</th><th style=text-align:center>说明</th></tr></thead><tbody><tr><td style=text-align:center>systemctl suspend</td><td style=text-align:center>进入睡眠模式</td></tr><tr><td style=text-align:center>systemctl hibernate</td><td style=text-align:center>进入休眠模式</td></tr><tr><td style=text-align:center>systemctl rescue</td><td style=text-align:center>强制进入救援模式</td></tr><tr><td style=text-align:center>systemctl emergency</td><td style=text-align:center>强制进入紧急救援模式</td></tr></tbody></table><h1 id=5设置系统运行级别>5、设置系统运行级别</h1><h2 id=51运行级别对应表>5.1、运行级别对应表</h2><table><thead><tr><th style=text-align:center>init级别</th><th style=text-align:center>systemctl target</th></tr></thead><tbody><tr><td style=text-align:center>0</td><td style=text-align:center>shutdown.target</td></tr><tr><td style=text-align:center>1</td><td style=text-align:center>emergency.target</td></tr><tr><td style=text-align:center>2</td><td style=text-align:center>rescure.target</td></tr><tr><td style=text-align:center>3</td><td style=text-align:center>multi-user.target</td></tr><tr><td style=text-align:center>4</td><td style=text-align:center>无</td></tr><tr><td style=text-align:center>5</td><td style=text-align:center>graphical.target</td></tr><tr><td style=text-align:center>6</td><td style=text-align:center>无</td></tr><tr><td style=text-align:center>此外还有一个getty.target用来设置tty的数量。</td><td></td></tr></tbody></table><h2 id=52设置运行级别>5.2、设置运行级别</h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>systemctl get-default  <span class=c1>#获得当前的运行级别</span>
+</span></span><span class=line><span class=cl>systemctl set-default multi-user.target  <span class=c1>#设置默认的运行级别为mulit-user</span>
+</span></span><span class=line><span class=cl>systemctl isolate multi-user.target      <span class=c1>#在不重启的情况下，切换到运行级别mulit-user下</span>
+</span></span><span class=line><span class=cl>systemctl isolate graphical.target       <span class=c1>#在不重启的情况下，切换到图形界面下</span>
+</span></span></code></pre></div><h1 id=6关闭网络服务>6、关闭网络服务</h1><p>在使用systemctl关闭网络服务时有一些特殊，需要同时关闭unit.servce和unit.socket</p><p>使用systemctl查看开启的sshd服务</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl><span class=o>[</span>root@localhost system<span class=o>]</span><span class=c1># systemctl list-units --all | grep sshd</span>
+</span></span><span class=line><span class=cl>sshd-keygen.service loaded inactive dead        OpenSSH Server Key Generation
+</span></span><span class=line><span class=cl>sshd.service        loaded active   running     OpenSSH server daemon
+</span></span><span class=line><span class=cl>sshd.socket         loaded inactive dead        OpenSSH Server Socket
+</span></span></code></pre></div><p>可以看到系统同时开启了sshd.service和sshd.socket , 如果只闭关了sshd.service那么sshd.socket还在监听网络，在网络上有要求连接sshd时就会启动sshd.service。因此如果要完全关闭sshd服务，需要同时停用sshd.service和sshd.socket。</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=line><span class=cl>systemctl stop sshd.service
+</span></span><span class=line><span class=cl>systemctl stop sshd.socket
+</span></span><span class=line><span class=cl>systemctl disable sshd.service sshd.socket
+</span></span></code></pre></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>更新于 2016-08-06</span></div><div class=post-info-license></div></div><div class=post-info-line><div class=post-info-md></div><div class=post-info-share><span><a href=# onclick=return!1 title="分享到 Twitter" data-sharer=twitter data-url=https://ops.m114.org/post/centos7-systemd-vs-centos6-daemon/ data-title="Centos 7.x systemd对比Centos 6.x daemon" data-hashtags=systemd><i class="fab fa-twitter fa-fw"></i></a><a href=# onclick=return!1 title="分享到 Facebook" data-sharer=facebook data-url=https://ops.m114.org/post/centos7-systemd-vs-centos6-daemon/ data-hashtag=systemd><i class="fab fa-facebook-square fa-fw"></i></a><a href=# onclick=return!1 title="分享到 微博" data-sharer=weibo data-url=https://ops.m114.org/post/centos7-systemd-vs-centos6-daemon/ data-title="Centos 7.x systemd对比Centos 6.x daemon"><i class="fab fa-weibo fa-fw"></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/systemd/>systemd</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/post/mysql-unable-to-lock-ibdata1-error-11-fix/ class=prev rel=prev title="MySQL Unable to lock ibdata1 error 11 fix"><i class="fas fa-angle-left fa-fw"></i>MySQL Unable to lock ibdata1 error 11 fix</a>
+<a href=/post/right-steps-delete-ceph-osd/ class=next rel=next title=删除osd的正确方式>删除osd的正确方式<i class="fas fa-angle-right fa-fw"></i></a></div></div><div id=comments><div id=utterances></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://utteranc.es/>Utterances</a>.</noscript></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.94.0">Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/HEIGE-PCloud/DoIt target=_blank rel="noopener noreffer" title="DoIt 0.2.13"><i class="far fa-edit fa-fw"></i> DoIt</a></div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2014 - 2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://ops.m114.org target=_blank rel="noopener noreferrer">CloudSky</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=#back-to-top id=back-to-top-button class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw"></i></a></div><div class=assets><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/topbar/topbar.min.js></script><script type=text/javascript src=/lib/pjax/pjax.min.js></script><script type=text/javascript src=/js/theme.min.js></script></div><div class=pjax-assets><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:10},comment:{utterances:{darkTheme:"github-dark",issueTerm:"pathname",label:"",lightTheme:"github-light",repo:"vinsonzou/vinsonzou.github.com"}},sharerjs:!0}</script></div></body></html>
